@@ -24,6 +24,7 @@ const ForgotPasswordPage = ({ history, openMenu, setOpenMenu }) => {
     digit3: "",
     digit4: "",
   };
+
   const validationSchema = Yup.object({
     mobile: Yup.string()
       .required("لطفا این فیلد را پر کنید")
@@ -33,7 +34,7 @@ const ForgotPasswordPage = ({ history, openMenu, setOpenMenu }) => {
       .min(8, "رمز عبور کوتاه است . باید حداقل 8 کارکتر باشد"),
     confirmPassword: Yup.string()
       .required("لطفا این فیلد را پر کنید")
-      .oneOf([Yup.ref("password")], "با رمز عبور تطابق ندارد."),
+      .oneOf([Yup.ref("newPassword")], "با رمز عبور تطابق ندارد."),
   });
 
   const Formik = useFormik({
@@ -41,6 +42,7 @@ const ForgotPasswordPage = ({ history, openMenu, setOpenMenu }) => {
     validationSchema,
     validateOnMount: true,
   });
+   
   const [loadingButton, setloadingButton] = useState(false);
 
   const [ForForgotPassword] = useSendEmailForForgotPasswordMutation();
@@ -68,7 +70,7 @@ const ForgotPasswordPage = ({ history, openMenu, setOpenMenu }) => {
   };
 
   const [swichBetweenFormAndVerify, setSwichBetweenFormAndVerify] =
-    useState(true);
+    useState(false);
   const [swichBetweenCreateAndVerify, setSwichBetweenCreateAndVerify] =
     useState(false);
   return (

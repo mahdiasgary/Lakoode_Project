@@ -23,7 +23,7 @@ const LogInPage = ({ history, openMenu, setOpenMenu }) => {
     useState(false);
   const [loadingButton, setLoadingButton] = useState(false);
   const initialValues = {
-    email: "",
+    mobile: "",
     password: "",
   };
 

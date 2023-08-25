@@ -124,7 +124,7 @@ const VillaList = ({ history }) => {
                     </div>
                   </div>
                 </th>
-                <th className="w-[20%]">تقویم</th>
+                {/* <th className="w-[20%]">تقویم</th> */}
            
                 <th className="w-[20%]">
                   <div className="flex  justify-center">

@@ -3,7 +3,7 @@ import { FaBath, FaBed } from "react-icons/fa";
 import { GoHomeFill } from "react-icons/go";
 import { BsFillPeopleFill } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
-// import Calandre from "../Calandre";
+import Calandre2 from "./Calandre2";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -43,163 +43,168 @@ import {
   PiToiletDuotone,
 } from "react-icons/pi";
 import { Link } from "react-router-dom";
+// import Calandre2 from "./Calandre2";
+// import CalandreDetalis2 from "./CalandreDetalis2";
 
 export const data1 = {
-    id: 1,
-    reservation: [
-      ["1", ,],
-      ["2", ,],
-      ["3", ,],
-      ["4", ,],
-      ["5", 15, 25, 23, 19, 20, 30],
-      ["6", 2, 9],
-      ["7", 2, 9],
-      ["8", ,],
-      ["9", ,],
-      ["10"],
-      ["11"],
-      ["12"],
+  id: 1,
+  reservation: [
+    ["1", ,],
+    ["2", ,],
+    ["3", ,],
+    ["4", ,],
+    ["5", 15, 25, 23, 19, 20, 30],
+    ["6", 2, 9],
+    ["7", 2, 9],
+    ["8", ,],
+    ["9", ,],
+    ["10"],
+    ["11"],
+    ["12"],
+  ],
+  price: 4000000,
+  discountPr: 10,
+  discount: [
+    ["1", , ,],
+    ["2", , ,],
+    ["3", , ,],
+    ["4", , ,],
+    ["5", 29, 29, 30],
+    ["6", , , 30, 31],
+    ["7", , , 30],
+    ["8", , ,],
+    ["9", , ,],
+    ["10", , ,],
+    ["11", , ,],
+    ["12", , ,],
+  ],
+  incPrice: 3700000,
+  specialIncPrice: [
+    ["1", 1, 17, 8000000],
+    ["2", , ,],
+    ["3", , ,],
+    ["4", , ,],
+    ["5", , , 4800000],
+    ["6", , , 4000000],
+    ["7", , , 5000000],
+    ["8", , ,],
+    ["9", , ,],
+    ["10", , ,],
+    ["11", , ,],
+    ["12", , ,],
+  ],
+  villa: {
+    name: "ویلا لاکوده ",
+    about:
+      "ویلا در شهر چالوس واقع شده است. اقامتگاه در محیطی آرام شهرکی و غیر بومی واقع است. شهرک دارای نگهبان است. ویلا دربست است. بافت محله ویلا ساحلی و مسیر دسترسی به اقامتگاه آسفالت می باشد. وضعیت آنتن دهی همراه اول، ایرانسل و رایتل عالی می باشد. فاصله با پمپ بنزین 20 دقیقه ، سوپر مارکت 5 دقیقه پیاده و نانوایی 5 دقیقه با ماشین است. اقامتگاه قبل از ورود مهمان بطور کامل نظافت خواهد شد.",
+    options: [
+      { name: "بیلیارد", icon: <RiBilliardsFill /> },
+      { name: "استخر", icon: <LiaSwimmingPoolSolid /> },
+      { name: "شاه نشین", icon: <GiThroneKing /> },
+
+      // { name: "wifi", icon: <FaWifi /> },
+      { name: "رو به دریا", icon: <PiSunHorizonBold /> },
+
+      { name: "z", icon: <FaWifi /> },
     ],
-    price: 4000000,
-    discountPr: 10,
-    discount: [
-      ["1", , ,],
-      ["2", , ,],
-      ["3", , ,],
-      ["4", , ,],
-      ["5", 29, 29, 30],
-      ["6", , , 30, 31],
-      ["7", , , 30],
-      ["8", , ,],
-      ["9", , ,],
-      ["10", , ,],
-      ["11", , ,],
-      ["12", , ,],
-    ],
-    incPrice: 3700000,
-    specialIncPrice: [
-      ["1", 1, 17, 8000000],
-      ["2", , ,],
-      ["3", , ,],
-      ["4", , ,],
-      ["5", , , 4800000],
-      ["6", , , 4000000],
-      ["7", , , 5000000],
-      ["8", , ,],
-      ["9", , ,],
-      ["10", , ,],
-      ["11", , ,],
-      ["12", , ,],
-    ],
-    villa: {
-      name: "ویلا لاکوده ",
-      about:
-        "ویلا در شهر چالوس واقع شده است. اقامتگاه در محیطی آرام شهرکی و غیر بومی واقع است. شهرک دارای نگهبان است. ویلا دربست است. بافت محله ویلا ساحلی و مسیر دسترسی به اقامتگاه آسفالت می باشد. وضعیت آنتن دهی همراه اول، ایرانسل و رایتل عالی می باشد. فاصله با پمپ بنزین 20 دقیقه ، سوپر مارکت 5 دقیقه پیاده و نانوایی 5 دقیقه با ماشین است. اقامتگاه قبل از ورود مهمان بطور کامل نظافت خواهد شد.",
-      options: [
-        { name: "بیلیارد", icon: <RiBilliardsFill /> },
-        { name: "استخر", icon: <LiaSwimmingPoolSolid /> },
-        { name: "شاه نشین", icon: <GiThroneKing /> },
-  
-        // { name: "wifi", icon: <FaWifi /> },
-        { name: "رو به دریا", icon: <PiSunHorizonBold /> },
-  
-        { name: "z", icon: <FaWifi /> },
-      ],
-      ditails: {
-        tagh: "",
-        dar: "دربست",
-        mt: "450",
-        valency: "10",
-        sleep: {
-          room: 5,
-          twoBed: 5,
-          oneBed: "فاقد",
-        },
-        wc: {
-          hamam: "6",
-          irani: "1",
-          farangi: "5",
-        },
+    ditails: {
+      tagh: "",
+      dar: "دربست",
+      mt: "450",
+      valency: "10",
+      sleep: {
+        room: 5,
+        twoBed: 5,
+        oneBed: "فاقد",
       },
-      mainImg: "https://s6.uupload.ir/files/4-1_zhb.png",
-      secindImg0: [
-        "https://s6.uupload.ir/files/77_lly.jpg",
-        "https://s6.uupload.ir/files/4-0_32wi.png",
-        "https://s6.uupload.ir/files/4-1_98vi.png",
-        "https://s6.uupload.ir/files/4-1-1_9ssv.png",
-        "https://s6.uupload.ir/files/4-2_c6vf.png",
-        "https://s6.uupload.ir/files/4-3_66th.png",
-        "https://s6.uupload.ir/files/4-4_845s.png",
-        "https://s6.uupload.ir/files/4-5_71pv.png",
-        "https://s6.uupload.ir/files/4-6_jeqp.png",
-        "https://s6.uupload.ir/files/4-7_hd6f.png",
-        "https://s6.uupload.ir/files/4-8_0i5y.png",
-        "https://s6.uupload.ir/files/4-9_cp6q.png",
-        "https://s6.uupload.ir/files/4-10_ktjw.png",
-        "https://s6.uupload.ir/files/4-11_1v7q.png",
-        "https://s6.uupload.ir/files/4-0_dcm3.png",
-        "https://s6.uupload.ir/files/4-13_8dsa.png",
-        "https://s6.uupload.ir/files/4-12_c4dw.png",
-      ],
-      optionsRefa: [
-        { name: "منظره به حیاط", icon: <BiHomeCircle /> },
-        { name: "میز ناهار خوری", icon: <MdOutlineTableBar /> },
-        { name: "تلویزیون", icon: <FaDesktop /> },
-        { name: "منظره به دریا", icon: <PiSunHorizonBold /> },
-  
-        { name: "گاز", icon: <MdOutlineGasMeter /> },
-        { name: "برق", icon: <MdOutlinePower /> },
-        { name: "آب", icon: <GiTap /> },
-  
-        { name: "مبلمان", icon: <LuSofa /> },
-        { name: "جاروبرقی", icon: <GiVacuumCleaner /> },
-        { name: "کمد/داور", icon: <PiHardDrives /> },
-      ],
-      optionsWC: [
-        { name: "حمام", icon: <MdOutlineBathtub /> },
-        { name: "سرویس ایرانی", icon: <PiToiletPaperDuotone /> },
-  
-        { name: " سرویس فرنگی", icon: <PiToiletDuotone /> },
-      ],
-      optionsREfa2: [
-        { name: "پارکینگ", icon: <RiParkingBoxLine /> },
-        { name: "سم پاشی دوره ای", icon: <PiBugBeetleDuotone /> },
-      ],
-      optionsSecurity: [
-        { name: " نگهبان", icon: <GiSecurityGate /> },
-        { name: " دوربین مدار بسته", icon: <GiCctvCamera /> },
-      ],
-      optionsColl: [
-        { name: "کولر گازی", icon: <GiComputerFan /> },
-        { name: "رادیاتور", icon: <FaDumpsterFire /> },
-        { name: "پنکه سقفی", icon: <PiFanBold /> },
-        { name: "بخاری", icon: <LiaDumpsterFireSolid /> },
-        ,
-      ],
-      optionsTaf: [
-        { name: "بیلیارد", icon: <RiBilliardsFill /> },
-        { name: "استخر", icon: <LiaSwimmingPoolSolid /> },
-        // { name: "wifi", icon: <FaWifi /> },
-        // { name: "فوتبال دستی", icon: <BiFootball /> },
-        { name: "شاه نشین", icon: <GiThroneKing /> },
-  
-        // { name: "ایر هاکی", icon: <GiHockey /> },
-      ],
-      optioanKitch: [
-        { name: "آشپزخانه", icon: <MdOutlineSoupKitchen /> },
-        { name: "لوازم سرو غذا", icon: <GiForkKnifeSpoon /> },
-        { name: "ماشین لباس شویی", icon: <MdOutlineLocalLaundryService /> },
-        { name: "یخچال", icon: <MdOutlineKitchen /> },
-      ],
+      wc: {
+        hamam: "6",
+        irani: "1",
+        farangi: "5",
+      },
     },
-  };
-  
+    mainImg: "https://s6.uupload.ir/files/4-1_zhb.png",
+    secindImg0: [
+      "https://s6.uupload.ir/files/77_lly.jpg",
+      "https://s6.uupload.ir/files/4-0_32wi.png",
+      "https://s6.uupload.ir/files/4-1_98vi.png",
+      "https://s6.uupload.ir/files/4-1-1_9ssv.png",
+      "https://s6.uupload.ir/files/4-2_c6vf.png",
+      "https://s6.uupload.ir/files/4-3_66th.png",
+      "https://s6.uupload.ir/files/4-4_845s.png",
+      "https://s6.uupload.ir/files/4-5_71pv.png",
+      "https://s6.uupload.ir/files/4-6_jeqp.png",
+      "https://s6.uupload.ir/files/4-7_hd6f.png",
+      "https://s6.uupload.ir/files/4-8_0i5y.png",
+      "https://s6.uupload.ir/files/4-9_cp6q.png",
+      "https://s6.uupload.ir/files/4-10_ktjw.png",
+      "https://s6.uupload.ir/files/4-11_1v7q.png",
+      "https://s6.uupload.ir/files/4-0_dcm3.png",
+      "https://s6.uupload.ir/files/4-13_8dsa.png",
+      "https://s6.uupload.ir/files/4-12_c4dw.png",
+    ],
+    optionsRefa: [
+      { name: "منظره به حیاط", icon: <BiHomeCircle /> },
+      { name: "میز ناهار خوری", icon: <MdOutlineTableBar /> },
+      { name: "تلویزیون", icon: <FaDesktop /> },
+      { name: "منظره به دریا", icon: <PiSunHorizonBold /> },
+
+      { name: "گاز", icon: <MdOutlineGasMeter /> },
+      { name: "برق", icon: <MdOutlinePower /> },
+      { name: "آب", icon: <GiTap /> },
+
+      { name: "مبلمان", icon: <LuSofa /> },
+      { name: "جاروبرقی", icon: <GiVacuumCleaner /> },
+      { name: "کمد/داور", icon: <PiHardDrives /> },
+    ],
+    optionsWC: [
+      { name: "حمام", icon: <MdOutlineBathtub /> },
+      { name: "سرویس ایرانی", icon: <PiToiletPaperDuotone /> },
+
+      { name: " سرویس فرنگی", icon: <PiToiletDuotone /> },
+    ],
+    optionsREfa2: [
+      { name: "پارکینگ", icon: <RiParkingBoxLine /> },
+      { name: "سم پاشی دوره ای", icon: <PiBugBeetleDuotone /> },
+    ],
+    optionsSecurity: [
+      { name: " نگهبان", icon: <GiSecurityGate /> },
+      { name: " دوربین مدار بسته", icon: <GiCctvCamera /> },
+    ],
+    optionsColl: [
+      { name: "کولر گازی", icon: <GiComputerFan /> },
+      { name: "رادیاتور", icon: <FaDumpsterFire /> },
+      { name: "پنکه سقفی", icon: <PiFanBold /> },
+      { name: "بخاری", icon: <LiaDumpsterFireSolid /> },
+      ,
+    ],
+    optionsTaf: [
+      { name: "بیلیارد", icon: <RiBilliardsFill /> },
+      { name: "استخر", icon: <LiaSwimmingPoolSolid /> },
+      // { name: "wifi", icon: <FaWifi /> },
+      // { name: "فوتبال دستی", icon: <BiFootball /> },
+      { name: "شاه نشین", icon: <GiThroneKing /> },
+
+      // { name: "ایر هاکی", icon: <GiHockey /> },
+    ],
+    optioanKitch: [
+      { name: "آشپزخانه", icon: <MdOutlineSoupKitchen /> },
+      { name: "لوازم سرو غذا", icon: <GiForkKnifeSpoon /> },
+      { name: "ماشین لباس شویی", icon: <MdOutlineLocalLaundryService /> },
+      { name: "یخچال", icon: <MdOutlineKitchen /> },
+    ],
+  },
+};
+
 const VillaPagee = ({ id }) => {
+  let seletedDays = [];
+
+  const [rangeDays, setRangeDays] = useState({ f: "", s: "", y: "", m: "" });
   const villas = [data1];
   const index = villas.findIndex((v) => v.id == id);
   const [img, setImg] = useState([
     false,
-    '',
+    "",
     [...data1.villa.secindImg0, data1.villa.mainImg],
   ]);
   return (
@@ -297,8 +302,7 @@ const VillaPagee = ({ id }) => {
                 <div className="flex mt-3 mr-2">
                   <p className="font-bold flex text-[23px] faNumber ">
                     {(
-                      (data1.price *
-                        (100 - data1.discountPr)) /
+                      (data1.price * (100 - data1.discountPr)) /
                       100
                     ).toLocaleString()}
                   </p>
@@ -580,9 +584,7 @@ const VillaPagee = ({ id }) => {
               >
                 <SwiperSlide>
                   <div
-                    onClick={() =>
-                      setImg([true, data1.villa.mainImg, img[2]])
-                    }
+                    onClick={() => setImg([true, data1.villa.mainImg, img[2]])}
                     className=" h-[270px] cursor-pointer flex justify-center md:h-[350px] x:h-[50vh] max-w-[700px] x:max-w-[58vw] flex dark:bg-transparent  bg-black bg-opacity-70 text-textDark rounded-3xl "
                   >
                     <img
@@ -596,9 +598,7 @@ const VillaPagee = ({ id }) => {
                 {data1.villa.secindImg0.map((item) => (
                   <SwiperSlide key={item}>
                     <div
-                      onClick={() =>
-                        setImg([true, item, img[2]])
-                      }
+                      onClick={() => setImg([true, item, img[2]])}
                       className=" h-[270px] cursor-pointer flex justify-center md:h-[350px] x:h-[50vh] max-w-[700px] x:max-w-[58vw] flex dark:bg-transparent  bg-black bg-opacity-70 text-textDark rounded-3xl "
                     >
                       <img src={item} alt="" className="rounded-3xl" />
@@ -609,7 +609,7 @@ const VillaPagee = ({ id }) => {
             </div>
             <div className="flex justify-center  gap-3 xl:gap-5 mt-3 xl:mt-5  lg:w-[48vw] ">
               <img
-                 onClick={() =>
+                onClick={() =>
                   setImg([true, data1.villa.secindImg0[0], img[2]])
                 }
                 src={data1.villa.secindImg0[0]}
@@ -618,9 +618,9 @@ const VillaPagee = ({ id }) => {
               />
 
               <img
-               onClick={() =>
-                setImg([true, data1.villa.secindImg0[1], img[2]])
-              }
+                onClick={() =>
+                  setImg([true, data1.villa.secindImg0[1], img[2]])
+                }
                 src={data1.villa.secindImg0[1]}
                 alt=""
                 className="rounded-3xl w-[42vw] cursor-pointer h-[150px] lg:h-[182px] sm:h-[160px] md:h-[170px]  md:w-[35vw] lg:w-[21vw] xl:w-[24vw]"
@@ -645,7 +645,6 @@ const VillaPagee = ({ id }) => {
                   <div>
                     <a href="https://goo.gl/maps/NiHHqYqPnb6WKmu8A">
                       <img
-                    
                         src={"/google.png"}
                         alt="مسیر یابی لاکوده با گوگل مپ"
                         className="w-[75px]  pt-3 "
@@ -656,7 +655,6 @@ const VillaPagee = ({ id }) => {
                   <div>
                     <a href="https://balad.ir/#18.98/36.6854501/51.4188642">
                       <img
-                    
                         src={"/balad.png"}
                         alt="مسیر یابی لاکوده با بلد"
                         className="w-[43px] mt-5 rounded-lg"
@@ -672,12 +670,64 @@ const VillaPagee = ({ id }) => {
         </div>
 
         <div className="flex justify-center mb-20">
-          {/* <Calandre villa={data1} /> */}
+          <div className="w-[350px] h-[390px] border rounded-3xl p-5 bg-white dark:bg-border dark:bg-opacity-60">
+            <div>شروع قیمت از 7,000,000 /هرشب</div>
+
+            <div className="border rounded-xl">
+              <div className="flex  p-5 justify-between">
+                <div className="w-[134px] border-l">
+                  <div>تاریخ ورود</div> <div>19مهر</div>
+                </div>
+                <div>
+                  <div>تاریخ خروج</div> <div>22مهر</div>
+                </div>
+              </div>
+
+              <div className="flex justify-between p-5">
+                <div className="flex">
+                  <div className="self-center">ic</div>
+                  <div className="flex flex-col">
+                    <div>تعداد مسافران</div>
+                    <div>8نفر</div>
+                  </div>
+                </div>
+
+                <div className="flex">
+<div>
+  +
+</div>
+<p>1</p>
+<div>
+  -
+</div>
+                </div>
+              </div>
+            </div>
+            <div>
+            <div className="cursor-pointer mt-5 h-10 flex text-sm border border-btn self-center  rounded-xl  text-white">
+              <input dir="ltr" placeholder="کد تخفیف" type="text" className="rounded-r-xl w-full dark:bg-transparent px-5" />
+              <div className="px-3 bg-btn py-2  hover:bg-blue-800 rounded-l-xl">
+                ثبت
+              </div>
+            </div>
+            </div>
+            <div>
+
+
+
+
+            </div>
+            <div className="mt-5 bg-btn text-white rounded-2xl text-center py-5 cursor-pointer ">رزرو و انتقال به درگاه بانکی</div>
+          </div>
+          <Calandre2
+            seletedDays={seletedDays}
+            setRangeDays={setRangeDays}
+            rangeDays={rangeDays}
+          />
         </div>
       </div>
       {/* <Footer /> */}
     </div>
-    
   );
 };
 

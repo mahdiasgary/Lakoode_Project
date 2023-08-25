@@ -48,25 +48,25 @@ const SingupForm = ({
                 )}
               </div>
             </div>
-            {/* <div className="flex justify-center md:justify-start">
+            <div className="flex justify-center md:justify-start">
               <div>
                 <input
-                  {...Formik.getFieldProps("email")}
-                  type="email"
+                  {...Formik.getFieldProps("nationalCode")}
+                  type="nationalCode"
                   disabled={loadingButton && true}
-                  placeholder="نام و نام خانوادگی خود را وارد کنید"
+                  placeholder="کد ملی خود را وارد کنید"
                   className={` ${
                     loadingButton && "cursor-not-allowed"
                   } flex  px-5 flex-col outline-none focus:ring-2 duration-150 focus:ring-btn justify-center text-textLight dark:text-textDark bg-white dark:bg-[#323645] shadow-md  my-1 rounded-2xl mt-5  h-[58px]  w-[90vw] md:w-[440px]  `}
                 />
-                {Formik.errors.email && Formik.touched.email && (
+                {Formik.errors.nationalCode && Formik.touched.nationalCode && (
                   <div className="text-red-600 text-sm font-bold mx-4 ">
-                    {Formik.errors.email}
+                    {Formik.errors.nationalCode}
                   </div>
                 )}
               </div>
-            </div> */}
-            <div className="flex justify-center md:justify-start">
+            </div>
+             <div className="flex justify-center md:justify-start">
               <div>
                 <input
                   {...Formik.getFieldProps("mobile")}
@@ -84,6 +84,25 @@ const SingupForm = ({
                 )}
               </div>
             </div>
+            <div className="flex justify-center md:justify-start">
+              <div>
+                <input
+                  {...Formik.getFieldProps("email")}
+                  type="email"
+                  disabled={loadingButton && true}
+                  placeholder="ایمیل خود را وارد کنید (الزامی نیست)"
+                  className={` ${
+                    loadingButton && "cursor-not-allowed"
+                  } flex  px-5 flex-col outline-none focus:ring-2 duration-150 focus:ring-btn justify-center text-textLight dark:text-textDark bg-white dark:bg-[#323645] shadow-md  my-1 rounded-2xl mt-5  h-[58px]  w-[90vw] md:w-[440px]  `}
+                />
+                {Formik.errors.email && Formik.touched.email && (
+                  <div className="text-red-600 text-sm font-bold mx-4 ">
+                    {Formik.errors.email}
+                  </div>
+                )}
+              </div>
+            </div>
+           
             <div className="flex justify-center md:justify-start">
               <div>
                 <div

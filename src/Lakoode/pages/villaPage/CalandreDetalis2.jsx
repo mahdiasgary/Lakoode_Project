@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { FiChevronsUp } from "react-icons/fi";
-const CalandreDetalis = ({
+const CalandreDetalis2 = ({
   year,
   rd,
   mounth,
@@ -122,7 +122,7 @@ const CalandreDetalis = ({
     }
   }
 
-  console.log(hoveredDay);
+  console.log(seletedDays);
   const oneHand = (d) => {
     setferst(d);
     setRangeDays({ f: d, s: "", y: year, m: mounth[0] });
@@ -197,14 +197,15 @@ const CalandreDetalis = ({
                   }`}
                 >
                   <div
+                  
                     onMouseEnter={() => sethoverDay(d)}
                     onClick={() =>
-                      rangeDays.f === "" && rangeDays.s === ""
+                      rangeDays.f === "" && rangeDays.s === "" && ((d >= nowDay && thitM) || !thitM) && rd.find((rd) => d !== rd) 
                         ? oneHand(d)
-                        : rangeDays.f !== "" && rangeDays.s === ""
+                        : rangeDays.f !== "" && rangeDays.s === "" && ((d >= nowDay && thitM) || !thitM)  && rd.find((rd) => d !== rd) 
                         ? twoHand(d)
-                        : rangeDays.f !== "" && rangeDays.s !== ""
-                        ? treeHand(d)
+                        : rangeDays.f !== "" && rangeDays.s !== "" && ((d >= nowDay && thitM) || !thitM) && rd.find((rd) => d !== rd) 
+                        ? treeHand(d) 
                         : ""
                     }
                     className={`${d === "" && "hidden"} ${
@@ -328,4 +329,4 @@ const CalandreDetalis = ({
   );
 };
 
-export default CalandreDetalis;
+export default CalandreDetalis2;

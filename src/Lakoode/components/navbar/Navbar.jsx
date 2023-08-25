@@ -59,12 +59,12 @@ const Navbar = ({ isSearch, setIsSearch, openMenu, setOpenMenu,from }) => {
               <span>
                 <FaUser className="inline self-center mr-2" />
               </span>
-              <p>PROFILE</p>
+              <p>پروفایل</p>
             </button>
           </Link>
         ) : (
           <Link to={"/login"}>
-            <button className={`${styles.loginBtn}`}>LOG IN</button>
+            <button className={` ${styles.loginBtn} `}>ورود</button>
           </Link>
         )}
 </div>

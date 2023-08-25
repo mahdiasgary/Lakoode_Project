@@ -20,7 +20,7 @@ const Explore = ({ openMenu, setOpenMenu }) => {
         width={2000}
         />
       </div>
-      <Navbar from={"ex"} openMenu={openMenu} setOpenMenu={setOpenMenu}  />
+      <Navbar className='sticky top-0' from={"ex"} openMenu={openMenu} setOpenMenu={setOpenMenu}  />
         {/* <div className="mt-8 lg:w-full  mx-5  flex xs:flex-row flex-col xs:justify-between "> */}
           <HeroSection
               priceRange={priceRange}

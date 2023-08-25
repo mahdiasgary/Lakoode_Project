@@ -56,7 +56,6 @@ const VerifyEmail = ({
       secondNumber: Formik.values.digit2.toString(),
       thirdNumber: Formik.values.digit3.toString(),
       furthNumber: Formik.values.digit4.toString(),
-      // fifthNumber: Formik.values.digit5.toString(),
       mobile: userEmail,
     })
       .unwrap()

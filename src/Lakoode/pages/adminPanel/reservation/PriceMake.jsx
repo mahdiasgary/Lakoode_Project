@@ -86,7 +86,7 @@ const PriceMake = () => {
             {reservDays.map((d) => (
               <span className="mx-1 px-2 w-10">{d.date}-</span>
             ))}{" "}
-            تیر 1402
+            {rangeDays?.m} {rangeDays.y}
           </p>
         </div>
         <div className="flex mt-8 lg:justify-between lg:flex-row flex-col justify-start">

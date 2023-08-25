@@ -101,7 +101,7 @@ const Users = ({ history }) => {
 
                 <th className="px-3 py-2  w-[10%]  ">
                   {/* <ToolTip tooltip={"gggg"}>PROFILE</ToolTip> */}
-                  PROFILE
+                  پروفایل
                 </th>
                 <th className=" py-2 w-[20%] ">
                   <div
@@ -110,7 +110,7 @@ const Users = ({ history }) => {
                     }}
                     className="flex justify-center cursor-pointer "
                   >
-                    <div className="">NAME</div>
+                    <div className="">نام</div>
                     <div
                       className={`self-center  cursor-pointer ${
                         sort[0] === "username" ? "text-white" : "text-[#6d7077]"
@@ -120,18 +120,19 @@ const Users = ({ history }) => {
                     </div>
                   </div>
                 </th>
-                <th className="w-[20%]">EMAIL</th>
+                <th className="w-[20%]">کدملی</th>
                 <th className="w-[10%]">
                   <div className="flex justify-center">
-                    <div className="">ROLE</div>
+                    <div className="">نقش</div>
                     <div className="self-center  cursor-pointer  ">
                       <BsArrowDown />
                     </div>
                   </div>
                 </th>
+                
                 <th className="w-[10%]">
                   <div className="flex justify-center">
-                    <div className="">STATUS</div>
+                    <div className="">شب</div>
                     <div className="self-center  cursor-pointer">
                       <BsArrowDown />
                     </div>
@@ -139,25 +140,34 @@ const Users = ({ history }) => {
                 </th>
                 <th className="w-[20%]">
                   <div className="flex justify-center">
-                    <div className="">DTAE</div>
+                    <div className="">موبایل</div>
                     <div className="self-center  cursor-pointer ">
                       <BsArrowDown />
                     </div>
                   </div>
                 </th>
-                <th className="w-[10%]">ACTION</th>
+                <th className="w-[20%]">
+                  <div className="flex justify-center">
+                    <div className="">تاریخ</div>
+                    <div className="self-center  cursor-pointer ">
+                      <BsArrowDown />
+                    </div>
+                  </div>
+                </th>
+                <th className="w-[10%]">عملیات</th>
               </tr>
             </thead>
 
             <tbody className="px-5 rounded-3xl">
-              {data &&
-                [...data]
-                  .filter((item) => item.username?.includes(search))
-                  .sort(sortBy(sort))
-                  .map((user) => (
+              {
+              // data &&
+                // [...data]
+                //   .filter((item) => item.username?.includes(search))
+                //   .sort(sortBy(sort))
+                  [1,2,3].map((user) => (
                     <UsersItem
                       user={user}
-                      key={user.id}
+                      key={user}
                       removeUserHandler={removeUserHandler}
                       // forceUpdate={forceUpdate}
                     />

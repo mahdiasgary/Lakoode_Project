@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { FiChevronsUp } from "react-icons/fi";
-const CalandreDetalis = ({
+const VillaClanderItem = ({
   year,
   rd,
   mounth,
@@ -52,27 +52,10 @@ const CalandreDetalis = ({
   }
   const sip = [];
 
-  for (let i = specialIncPrice[1]; i <= specialIncPrice[2]; i++) {
-    sip.push(i);
-  }
-  const dec = [];
-  for (let i = discount[1]; i <= discount[2]; i++) {
-    dec.push(i);
-  }
 
   let seletedDays = [];
 
-  if (rangeDays.f !== "" && rangeDays.s !== "" && rangeDays.f > rangeDays.s) {
-    for (let i = rangeDays.s; i <= rangeDays.f; i++) {
-      seletedDays.push(i);
-    }
-  }
-  if (rangeDays.f !== "" && rangeDays.s !== "" && rangeDays.f < rangeDays.s) {
-    for (let i = rangeDays.f; i <= rangeDays.s; i++) {
-      seletedDays.push(i);
-    }
-  }
-
+  
   let qwe = [
     parseInt(nowDay),
     nowweekk === "شنبه"
@@ -106,49 +89,8 @@ const CalandreDetalis = ({
     p.find((d) => d === qwe[0])
   );
   const weekDiff = qwe[1] - parseInt(dayStructure[indexOfDayinStructure][0]);
-  const [hoverDay, sethoverDay] = useState();
-  const [first, setferst] = useState("");
-  let hoveredDay = [];
-  if (first !== "" && hoverDay !== "") {
-    if (first > hoverDay) {
-      for (let i = hoverDay; i < first; i++) {
-        hoveredDay.push(i);
-      }
-    }
-    if (first < hoverDay) {
-      for (let i = first + 1; i <= hoverDay; i++) {
-        hoveredDay.push(i);
-      }
-    }
-  }
-
-  console.log(hoveredDay);
-  const oneHand = (d) => {
-    setferst(d);
-    setRangeDays({ f: d, s: "", y: year, m: mounth[0] });
-  };
-  const twoHand = (d) => {
-    setferst("");
-    if (rangeDays.f === d) {
-      setRangeDays({
-        f:'',
-        s: '',
-        y: year,
-        m: mounth[0],
-      });
-    } else {
-      setRangeDays({
-        f: rangeDays.f,
-        s: d,
-        y: year,
-        m: mounth[0],
-      });
-    }
-  };
-  const treeHand = (d) => {
-    setferst(d);
-    setRangeDays({ f: d, s: "", y: year, m: mounth[0] });
-  };
+  
+  
   return (
     <div
       className={`relative ${
@@ -178,7 +120,7 @@ const CalandreDetalis = ({
             </th>
           ))}
         </thead>
-        <tbody onMouseLeave={() => setferst("")} className="faNumber">
+        <tbody  className="faNumber">
           {tr.map((t) => (
             <tr key={t[0]}>
               {days.slice(t[0], t[1]).map((d) => (
@@ -197,16 +139,7 @@ const CalandreDetalis = ({
                   }`}
                 >
                   <div
-                    onMouseEnter={() => sethoverDay(d)}
-                    onClick={() =>
-                      rangeDays.f === "" && rangeDays.s === ""
-                        ? oneHand(d)
-                        : rangeDays.f !== "" && rangeDays.s === ""
-                        ? twoHand(d)
-                        : rangeDays.f !== "" && rangeDays.s !== ""
-                        ? treeHand(d)
-                        : ""
-                    }
+                    
                     className={`${d === "" && "hidden"} ${
                       (d === mounth[4] ||
                         (d === 31 && mounth[2] === "اسفند")) &&
@@ -217,16 +150,9 @@ const CalandreDetalis = ({
                         : d !== ""
                         ? "border dark:border-0  cursor-pointer"
                         : ""
-                    } ${
-                      seletedDays.find((day) => day === d) ||
-                      rangeDays.f === d ||
-                      rangeDays.s === d
-                        ? "bg-btn text-white bg-opacity-90"
-                        : "dark:bg-textPDark dark:bg-opacity-30 hover:dark:bg-gray-600 hover:bg-gray-200 "
-                    } ${
-                      hoveredDay.find((day) => day === d) &&
-                      "dark:bg-gray-400 bg-gray-200"
-                    }  rounded-2xl h-[70px] lg:h-[75px] flex flex-col justify-center duration-200 `}
+                    }
+                 
+                       rounded-2xl h-[70px] lg:h-[75px] flex flex-col justify-center duration-200 `}
                   >
                     <div
                       className={`text-[18px] ${
@@ -236,15 +162,13 @@ const CalandreDetalis = ({
                     >
                       {d}
                     </div>
+
+
+
                     {rd.find((rd) => d === rd) &&
                     ((d >= nowDay && thitM) || !thitM) ? (
                       <div
-                        className={`text-sm text-gray-500 ${
-                          (seletedDays.find((day) => day === d) ||
-                            rangeDays.f === d ||
-                            rangeDays.s === d) &&
-                          "text-white"
-                        } `}
+                        className={`text-sm text-gray-500  `}
                       >
                         رزرو شده
                       </div>
@@ -263,48 +187,11 @@ const CalandreDetalis = ({
                         ).toLocaleString()}{" "}
                         <FiChevronsUp className="self-center" />
                       </div>
-                    ) : dec.find((dec) => d === dec) &&
-                      ((d >= nowDay && thitM) || !thitM) ? (
-                      <div
-                        className={`text-[12px] flex font-semibold  justify-center text-green-500 ${
-                          (seletedDays.find((day) => day === d) ||
-                            rangeDays.f === d ||
-                            rangeDays.s === d) &&
-                          "text-white"
-                        } `}
-                      >
-                        {parseInt(
-                          ((price * (100 - discount[3])) / 100)
-                            .toString()
-                            .slice(0, -3)
-                        ).toLocaleString()}{" "}
-                        <FiChevronsUp className="self-center rotate-180" />
-                      </div>
-                    ) : incP.find((incP) => d === incP) &&
-                      ((d >= nowDay && thitM) || !thitM) ? (
-                      <div
-                        className={`text-[12px] flex font-semibold justify-center text-red-500 ${
-                          (seletedDays.find((day) => day === d) ||
-                            rangeDays.f === d ||
-                            rangeDays.s === d) &&
-                          "text-white"
-                        } `}
-                      >
-                        {parseInt(
-                          incPrice.toString().slice(0, -3)
-                        ).toLocaleString()}{" "}
-                        <FiChevronsUp className="self-center" />
-                      </div>
-                    ) : rd.find((rd) => d !== rd) &&
+                    ) :rd.find((rd) => d !== rd) &&
                       d !== "" &&
                       ((d >= nowDay && thitM) || !thitM) ? (
                       <div
-                        className={`text-[12px] flex font-semibold ${
-                          (seletedDays.find((day) => day === d) ||
-                            rangeDays.f === d ||
-                            rangeDays.s === d) &&
-                          "text-white"
-                        } justify-center text-blue-500`}
+                        className={`text-[12px] flex font-semibold justify-center text-blue-500`}
                       >
                         {parseInt(
                           ((price * (100 - discountPr)) / 100)
@@ -328,4 +215,6 @@ const CalandreDetalis = ({
   );
 };
 
-export default CalandreDetalis;
+export default VillaClanderItem;
+
+

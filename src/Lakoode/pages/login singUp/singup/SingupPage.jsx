@@ -12,19 +12,20 @@ import Navbar from "../../../components/navbar/Navbar";
 const SingupPage = ({ setOpenMenu,from ,openMenu}) => {
   const [useRegisterUser] = useRegisterUserMutation();
   const [swichBetweenFormAndVerify, setSwichBetweenFormAndVerify] =
-    useState(true);
+    useState(false);
   const [loadingButton, setLoadingButton] = useState(false);
   const [userEmail, setUserEmail] = useState("");
 
   const initialValues = {
   name:'',
-    // email: "",
+  mobile: "",
+    email: "",
+    nationalCode:'',
     password: "",
-    mobile: "",
     confirmPassword: "",
   };
   const validationSchema = Yup.object({
-    // email: Yup.string().email("user@example.com").required("لطفا این فیلد را پر کنید"),
+    email: Yup.string().email("user@example.com").required("لطفا این فیلد را پر کنید"),
     password: Yup.string()
       .required("لطفا این فیلد را پر کنید")
       .min(8, "رمز عبور کوتاه است . باید حداقل 8 کارکتر باشد"),
@@ -35,6 +36,9 @@ const SingupPage = ({ setOpenMenu,from ,openMenu}) => {
       .required("لطفا این فیلد را پر کنید ")
       .min(11,  "شماره موبایل باید 11رقمی باشد"),
     name: Yup.string().required("لطفا این فیلد را پر کنید"),
+    nationalCode: Yup.string()
+    .required("لطفا این فیلد را پر کنید ")
+    .min(10,  "کد ملی باید 10رقمی باشد"),
   });
 
   const Formik = useFormik({
@@ -42,15 +46,17 @@ const SingupPage = ({ setOpenMenu,from ,openMenu}) => {
     validationSchema,
     validateOnMount: true,
   });
+
   const userRegister = () => {
     setLoadingButton(true);
     setUserEmail(Formik.values.email);
     useRegisterUser({
       username: Formik.values.name,
       email: Formik.values.email,
+      mobile: Formik.values.mobile,
+      nationalCode :Formik.values.nationalCode,
       password: Formik.values.password,
       confirmPassword: Formik.values.confirmPassword,
-      mobile: Formik.values.mobile,
     })
       .unwrap()
       .then((res) => {

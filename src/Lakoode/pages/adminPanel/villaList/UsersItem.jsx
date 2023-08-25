@@ -58,11 +58,11 @@ const UsersItem = ({ user, removeUserHandler, history }) => {
           {user.name}
         </div>
       </td>
-      <td>
+      {/* <td>
         <div className="flex px-2 group-hover:dark:bg-[#24272e] group-hover:bg-[#6d7077] duration-300 self-center h-[64px] flex-col justify-center text-center my-1">
           click{" "}
         </div>
-      </td>
+      </td> */}
 
       <td>
         <div className="flex px-2 group-hover:dark:bg-[#24272e] rounded-l-xl group-hover:bg-[#6d7077] duration-300 self-center h-[64px] flex-col justify-center text-center my-1">

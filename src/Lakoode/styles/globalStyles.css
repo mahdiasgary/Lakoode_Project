@@ -11,7 +11,9 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
   /* font-family: "Eudoxus Sans"; */
-  font-family: 'Vazirmatn';
+  /* font-family: 'Vazirmatn'; */
+  font-family: Vazirmatn FD;
+
 }
 
 

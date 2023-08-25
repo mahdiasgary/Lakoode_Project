@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { BsChevronLeft } from "react-icons/bs";
-import CalandreDetalis from "./CalandreDetalis";
+import CalandreDetalis2 from "./CalandreDetalis2";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { data1 } from "../../explore/mainTile/MainTilt";
-const Calandre = ({setRangeDays , rangeDays,seletedDays}) => {
+import { data1 } from "./VillaPage";
+const Calandre2 = ({setRangeDays , rangeDays,seletedDays}) => {
   const villa = data1
   const optionsD = {
     day: "numeric",
@@ -105,7 +105,7 @@ const ert=' k'
           {mounth.slice(nowMnum-1, 12).map((mah) => (
             <SwiperSlide key={mah[0] - 1} className=" ">
               <div className="  lg:w-[70vw] px-5    flex justify-center dark:bg-transparent   rounded-3xl ">
-                <CalandreDetalis
+                <CalandreDetalis2
                   rd={rd[mah[0] - 1]}
                   mounth={mounth[mah[0] - 1]}
                   specialIncPrice={villa.specialIncPrice[mah[0] - 1]}
@@ -145,5 +145,5 @@ const ert=' k'
   );
 };
 
-export default Calandre;
+export default Calandre2;
 

@@ -11,6 +11,7 @@ import VillaList from "./villaList/VillaList";
 import VillaInfo from "./villaList/VillaInfo";
 import AddMovies from "./movie/addMovie/AddMovies";
 import PriceMake from "./reservation/PriceMake";
+import VillaClander from "./villaClander/VillaClander";
 const AdminPage = ({ history }) => {
   const [mode, setMode] = useState("dark");
   const [openMenu, setOpenMenu] = useState(false);
@@ -43,14 +44,14 @@ const AdminPage = ({ history }) => {
         </div>
 
         <div className="flex flex-col w-full">
-          {/* <AdminNavBar
+          <AdminNavBar
             isSearch={isSearchItemsShow}
             setIsSearch={setIsSearchItemsShow}
             setMode={setMode}
             mode={mode}
             openMenu={openMenu}
             setOpenMenu={setOpenMenu}
-          />{" "} */}
+          />{" "}
           <div>
             {/* <Route
               path={"/admin/reservation"}
@@ -62,22 +63,21 @@ const AdminPage = ({ history }) => {
               exact
               component={() => <AddMovies />}
             />
-            
 
             <Route
               path={"/admin/villaslist"}
               exact
               component={() => <VillaList />}
             />
-             <Route
+            <Route
               path={"/admin/pricedetermination"}
               exact
               component={() => <PriceMake />}
             />
-             <Route
+            <Route
               path={"/admin/calendar"}
               exact
-              component={() => <VillaList />}
+              component={() => <VillaClander />}
             />
             {/* <Route path={"/admin/villainfo/:id"} exact component={() => <VillaInfo />} /> */}
             {/* <Route path={"/admin/villaslist/villainfo"}  component={() => <VillaInfo />} /> */}
