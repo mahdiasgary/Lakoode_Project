@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useGetLoginStatusQuery } from "../redux/services/movieDatabase";
+import Cookies from "js-cookie";
+import { use } from "i18next";
 
 const StateContext = createContext();
 
@@ -13,6 +15,7 @@ export const ContextProvider = ({ children }) => {
   const [selectedSideBarItem, setSelectedSideBarItem] = useState("dashboard");
   const [iconRotate, setIconRotate] = useState(["", false]);
   const [windowSize, setWindowSize] = useState(window.innerWidth);
+  const [isLogin,setisLogin]=useState(false)
   const {data}=useGetLoginStatusQuery(
     {},
     { refetchOnMountOrArgChange: true }
@@ -27,6 +30,8 @@ export const ContextProvider = ({ children }) => {
 
   //   return () => window.removeEventListener("resize", handleResize);
   // }, []);
+
+
   useEffect(() => {
     const screenMode = localStorage.getItem("DarkMode");
     setIsDarkMode();
@@ -52,11 +57,15 @@ export const ContextProvider = ({ children }) => {
   const setMode = (prob) => {
     setIsDarkMode(prob);
   };
-let loginStatus=data
+  const [loginStatus,setloginStatus]=useState()
+  useEffect(()=>{
+    setloginStatus(Cookies.get('user'))
+  },[isLogin])
   return (
     <StateContext.Provider
       value={{
         loginStatus,
+        isLogin,setisLogin,
         windowSize,
         selectedSideBarItem,
         setSelectedSideBarItem,

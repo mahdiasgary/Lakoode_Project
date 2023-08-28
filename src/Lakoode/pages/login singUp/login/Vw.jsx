@@ -2,11 +2,11 @@ import { useFormik } from "formik";
 import React, { useRef, useState } from "react";
 import { HiArrowNarrowLeft } from "react-icons/hi";
 import { withRouter } from "react-router-dom";
-import { useActiveAccountMutation } from "../../../redux/services/movieDatabase";
+import { useSMSPASSMutation } from "../../../redux/services/movieDatabase";
 import { toast } from "react-toastify";
 
 
-const VerifyEmail = ({
+const Vw = ({
   setSwichBetweenFormAndVerify,
   userEmail,
   history,
@@ -14,7 +14,7 @@ const VerifyEmail = ({
   from,
   setSwichBetweenCreateAndVerify,
 }) => {
-  const [activeAccountMutation] = useActiveAccountMutation();
+  const [sMSPASSMutation] = useSMSPASSMutation();
   const [loadingButton, setLoadingButton] = useState(false);
   const itemsRef = useRef([]);
 
@@ -55,8 +55,7 @@ const VerifyEmail = ({
   const verifyEmailHandler = () => {
     setLoadingButton(true);
 
-  
-    activeAccountMutation({
+    sMSPASSMutation({
       // firstNumber: Formik.values.digit1.toString(),
       // secondNumber: Formik.values.digit2.toString(),
       // thirdNumber: Formik.values.digit3.toString(),
@@ -67,30 +66,24 @@ const VerifyEmail = ({
       .unwrap()
       .then((res) => {
         setLoadingButton(false)
-        console.log(res)
+
         if (!res.isSuccessFull) {
           setCorrectCode(-1);
           toast.error(res.message, {
             autoClose: 2100,
-            position: "top-right",
+            position: "top-left",
           });
         }
+
         if (res.isSuccessFull) {
           setCorrectCode(1);
-
+          setSwichBetweenCreateAndVerify(true)
           toast.success(res.message, {
             autoClose: 2100,
-            position: "top-right",
+            position: "top-left",
           });
-          if (from === "forgotPasswordForm") {
-            setTimeout(() => setSwichBetweenCreateAndVerify(true), 800);
-          }
-          if (from === "login") {
-            setTimeout(() => history.push("/"), 800);
-          }
-          if (from === "singUp") {
-            setTimeout(() => history.push("/"), 800);
-          }
+          setTimeout(() => setSwichBetweenCreateAndVerify(true), 800);
+         
         }
       });
   };
@@ -258,4 +251,4 @@ const VerifyEmail = ({
   );
 };
 
-export default withRouter(VerifyEmail);
+export default withRouter(Vw);

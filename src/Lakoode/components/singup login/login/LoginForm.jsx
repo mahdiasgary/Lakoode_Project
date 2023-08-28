@@ -112,9 +112,9 @@ const LoginForm = ({ Formik, loginUserHandler, loadingButton }) => {
             ) : (
               <input
                 type="submit"
-                disabled={
-                  Formik.errors.email || Formik.errors.password ? true : false
-                }
+                // disabled={
+                //   Formik.errors.email || Formik.errors.password ? true : false
+                // }
                 onClick={loginUserHandler}
                 className={`${
                   Formik.errors.email || Formik.errors.password

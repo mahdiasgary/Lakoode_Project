@@ -30,7 +30,7 @@ const SingupForm = ({
           {/* <div className="flex justify-center w-full"> */}
 
           <form>
-            <div className="flex justify-center md:justify-start">
+            {/* <div className="flex justify-center md:justify-start">
               <div>
                 <input
                   {...Formik.getFieldProps("name")}
@@ -47,7 +47,43 @@ const SingupForm = ({
                   </div>
                 )}
               </div>
+            </div> */}
+
+<div className="flex flex-col  md:flex-row md:max-w-[450px] md:gap-2">
+            <div>
+              <input
+                {...Formik.getFieldProps("firstName")}
+                type="text"
+                disabled={loadingButton && true}
+                placeholder="نام خود را وارد کنید"
+                className={` ${
+                  loadingButton && "cursor-not-allowed"
+                } flex  px-5 flex-col outline-none focus:ring-2 duration-150 focus:ring-btn justify-center text-textLight dark:text-textDark bg-white dark:bg-[#323645] shadow-md  my-1 rounded-2xl mt-5  h-[58px] w-[90vw] md:w-[212px]  `}
+              />
+              {Formik.errors.firstName && Formik.touched.firstName && (
+                <div className="text-red-600 text-sm font-bold mx-4 ">
+                  {Formik.errors.firstName}
+                </div>
+              )}
             </div>
+            <div>
+              <input
+                {...Formik.getFieldProps("lastName")}
+                type="text"
+                disabled={loadingButton && true}
+                placeholder="نام خانوادگی خود را وارد کنید"
+                className={` ${
+                  loadingButton && "cursor-not-allowed"
+                } flex  px-5 flex-col outline-none focus:ring-2 duration-150 focus:ring-btn justify-center text-textLight dark:text-textDark bg-white dark:bg-[#323645] shadow-md  my-1 rounded-2xl mt-5  h-[58px] w-[90vw] md:w-[220px]  `}
+              />
+              {Formik.errors.lastName && Formik.touched.lastName && (
+                <div className="text-red-600 text-sm font-bold mx-4 ">
+                  {Formik.errors.lastName}
+                </div>
+              )}
+            </div>
+          </div>
+
             <div className="flex justify-center md:justify-start">
               <div>
                 <input
@@ -90,7 +126,7 @@ const SingupForm = ({
                   {...Formik.getFieldProps("email")}
                   type="email"
                   disabled={loadingButton && true}
-                  placeholder="ایمیل خود را وارد کنید (الزامی نیست)"
+                  placeholder="ایمیل خود را وارد کنید ( اختیای است)"
                   className={` ${
                     loadingButton && "cursor-not-allowed"
                   } flex  px-5 flex-col outline-none focus:ring-2 duration-150 focus:ring-btn justify-center text-textLight dark:text-textDark bg-white dark:bg-[#323645] shadow-md  my-1 rounded-2xl mt-5  h-[58px]  w-[90vw] md:w-[440px]  `}
@@ -216,10 +252,10 @@ const SingupForm = ({
                 <input
                   onClick={userRegister}
                   disabled={
-                    Object.keys(Formik.errors).length !== 0 ? true : false
+                    Object.keys(Formik.errors).length !== 1 ? true : false
                   }
                   className={`${
-                    Object.keys(Formik.errors).length !== 0
+                    Object.keys(Formik.errors).length !== 1
                       ? "bg-gray-500 cursor-not-allowed opacity-80 "
                       : "hover:bg-blue-800 bg-btn cursor-pointer"
                   }  outline-none text-white px-5  duration-300 justify-center  font-bold text-lg shadow-md  my-1 rounded-2xl mt-5  h-[50px] w-[90vw] md:w-[440px] `}

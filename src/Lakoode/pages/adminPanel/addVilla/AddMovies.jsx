@@ -13,7 +13,7 @@ import {
   useGetLanguageListInAdminPanelQuery,
   useGetArtisitListInAdminPanelQuery,
 } from "../../../../redux/services/movieDatabase";
-import AdminFromBodyInfo from "../../../../common/AdminFromBodyInfo";
+import AdminFromBodyInfo from "../../../common/AdminFromBodyInfo";
 import AdminFormDoneIcon from "../../../../common/AdminFormDoneIcon";
 import { toast } from "react-toastify";
 import { withRouter } from "react-router-dom";
@@ -40,13 +40,16 @@ const AddMovies = ({ history }) => {
     { refetchOnMountOrArgChange: true }
   );
   const initialValues = {
-    title: "",
-    imdb: "",
-    year: "",
-    time: "",
-    summary: "",
-    ReleasedDate:'',
-    CreatedDate:''
+name:'',
+metraj:'',
+valency:'',
+bathroom:'',
+iraniantoilet:'',
+tiolet:'',
+room:'',
+onebed:'',
+twobed:'',
+summary:'',
   }; 
   const [addNewMovie] = useAddMovieInAdminPanelMutation();
   const [selectedGenres, setSelectedGenres] = useState([]);

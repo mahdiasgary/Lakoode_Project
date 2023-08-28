@@ -35,18 +35,32 @@ const AddMovies = ({ history }) => {
     {},
     { refetchOnMountOrArgChange: true }
   );
-  const artistQuery = useGetArtisitListInAdminPanelQuery(
-    {},
-    { refetchOnMountOrArgChange: true }
-  );
+  // const artistQuery = useGetArtisitListInAdminPanelQuery(
+  //   {},
+  //   { refetchOnMountOrArgChange: true }
+  // );
+
+  let artistQuery =[{}]
   const initialValues = {
     title: "",
     imdb: "",
     year: "",
     time: "",
-    summary: "",
     ReleasedDate: "",
     CreatedDate: "",
+
+    name:'',
+    metraj:'',
+    valency:'',
+    bathroom:'',
+    iraniantoilet:'',
+    tiolet:'',
+    room:'',
+    onebed:'',
+    twobed:'',
+    summary:'',
+
+
   };
   const [addNewMovie] = useAddMovieInAdminPanelMutation();
   const [selectedGenres, setSelectedGenres] = useState([]);
@@ -72,31 +86,55 @@ const AddMovies = ({ history }) => {
     initialValues,
     validationSchema,
     validateOnMount: true,
+
+
+
   });
-  const artistHandleChange = (selectedOption) => {
+  const kechQUHand = (selectedOption) => {
     selectedOption = selectedOption?.map((item) => {
       return item.id;
     });
     setSelectedArtist(selectedOption);
   };
-  const genreHandleChange = (selectedOption) => {
+  const refaKHHand = (selectedOption) => {
     selectedOption = selectedOption?.map((item) => {
       return item.id;
     });
     setSelectedGenres(selectedOption);
   };
-  const languageHandleChange = (selectedOption) => {
+  const refaEMHand = (selectedOption) => {
     selectedOption = selectedOption?.map((item) => {
       return item.id;
     });
     setSelectedLanguages(selectedOption);
   };
-  const countryHandleChange = (selectedOption) => {
+  const bathHand = (selectedOption) => {
     selectedOption = selectedOption?.map((item) => {
       return item.id;
     });
     setSelectedCountries(selectedOption);
   };
+
+  const tafREfHand = (selectedOption) => {
+    selectedOption = selectedOption?.map((item) => {
+      return item.id;
+    });
+    setSelectedCountries(selectedOption);
+  };
+  const scurityHand = (selectedOption) => {
+    selectedOption = selectedOption?.map((item) => {
+      return item.id;
+    });
+    setSelectedCountries(selectedOption);
+  };
+  const sarmaHand = (selectedOption) => {
+    selectedOption = selectedOption?.map((item) => {
+      return item.id;
+    });
+    setSelectedCountries(selectedOption);
+  };
+
+
   function tranformDate(strDate) {
     let result = "";
     if (strDate) {
@@ -130,7 +168,6 @@ const AddMovies = ({ history }) => {
     for (let i = 0; i < selectedLanguages.length; i++) {
       formData.append("SelectedLanguagesIds", selectedLanguages[i]);
     }
-    console.log(formData.get("SelectedLanguagesIds"));
     addNewMovie(formData)
       .unwrap()
       .then((r) => {
@@ -142,6 +179,56 @@ const AddMovies = ({ history }) => {
       })
       .then((error) => {});
   };
+  const kechQU=[
+    {title:'آشپزخانه' , id:1},
+    {title:'لوازم سرو غذا' , id:2},
+    {title:'ماشین لباسشویی' , id:3},
+    {title:'یخچال' , id:4},
+  ]
+
+const refaEM=[
+  {title:'منظره به حیاط' , id:5},
+  {title:'میز ناهارخوری' , id:6},
+  {title:'تلویزیون' , id:7},
+  {title:'منظره به دریا' , id:8},
+  {title:'گاز' , id:9},
+  {title:'برق' , id:10},
+  {title:'آب' , id:11},
+  {title:'مبلمان' , id:12},
+  {title:'جاروبرقی' , id:13},
+  {title:'کمد/دراور' , id:14},
+]
+const sarmaGarma=[
+  {title:'کولر گازی' , id:15},
+  {title:'رادیاتور' , id:16},
+  {title:'پنکه سقفی' , id:17},
+  {title:'بخاری' , id:18},
+]
+const refaKH=[
+  {title:'پارکینگ' , id:19},
+  {title:'سم پاشی دوره ای' , id:20},
+  {title:'wifi' , id:23},
+
+
+]
+const scuriti=[
+  {title:'دوربین مدار بسته' , id:21},
+  {title:'نگهبان' , id:22},
+]
+
+const tafREf=[
+  {title:'بیلیارد' , id:24},
+  {title:'استخر' , id:25},
+  {title:'شاه نشین' , id:26},
+
+]
+const bath =[
+  {title:'حمام' , id:1},
+  {title:'سرویس ایرانی' , id:27},
+  {title:'سرویس فرنگی' , id:28},
+
+]
+
   return (
     <div className=" my-10  mx-6 sm:mx-10 md:mx-28">
       <button onClick={SubmiHandler}>55555</button>
@@ -160,18 +247,25 @@ const AddMovies = ({ history }) => {
                 <div className="min-w-[200px] mt-4 md:mt-8 mx-3 ">
                   <AdminAddItemList
                     dataQuery={{
-                      artistQuery,
-                      genreQuery,
-                      languageQuery,
-                      countryQuery,
+                      bath,
+                      kechQU,
+                      refaEM,
+                      refaKH,
+                      tafREf,
+                      scuriti,
+                      sarmaGarma,
+
                     }}
                     Formik={Formik}
                     itemList={adminAddMovieListItems}
                     selectHandler={{
-                      languageHandleChange,
-                      genreHandleChange,
-                      countryHandleChange,
-                      artistHandleChange,
+                      refaEMHand,
+                      refaKHHand,
+                      bathHand,
+                      kechQUHand,
+                      tafREfHand,
+                      sarmaHand,
+                      scurityHand
                     }}
                   />
                 </div>

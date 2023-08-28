@@ -13,10 +13,11 @@ import * as Yup from "yup";
 import VerifyEmail from "../../../components/singup login/verify email/VerifyEmail";
 import { useStateContext } from "../../../contextProvider/ContextProvider";
 import Navbar from "../../../components/navbar/Navbar";
+import Cookies from "js-cookie";
 const LogInPage = ({ history, openMenu, setOpenMenu }) => {
   const [LoginUser] = useLoginUserMutation();
-  const { loginStatus } = useStateContext();
-  if (loginStatus?.isSuccessFull) history.push("/profile");
+  const { loginStatus,isLogin ,setisLogin} = useStateContext();
+  if (loginStatus) history.push("/user");
 
   const [userEmail, setUserEmail] = useState("");
   const [swichBetweenFormAndVerify, setSwichBetweenFormAndVerify] =
@@ -41,7 +42,7 @@ const LogInPage = ({ history, openMenu, setOpenMenu }) => {
   const loginUserHandler = () => {
     setLoadingButton(true);
     LoginUser({
-      input: Formik.values.mobile,
+      mobile: Formik.values.mobile,
       password: Formik.values.password,
     })
       .unwrap()
@@ -49,33 +50,35 @@ const LogInPage = ({ history, openMenu, setOpenMenu }) => {
         console.log(res);
         setLoadingButton(false);
 
-        if (!res.isSuccessFull && res.status === "NotFound") {
+        if (!res.isSuccessFull && res.status === "UserNotExist") {
           setLoadingButton(false);
           toast.error(res.message, {
             autoClose: 2100,
-            position: "top-right",
+            position: "top-left",
           });
         }
-        if (res.isSuccessFull && res.status === "Success") {
+        if (res.isSuccessFull && res.status === "SuccessLogin") {
+          setisLogin(!isLogin)
+          Cookies.set('user',[true,Formik.values.mobile])
           history.push("/");
-          toast.success(res.data + res.message, {
+          toast.success( res.message, {
             autoClose: 2100,
-            position: "top-right",
+            position: "top-left",
           });
         }
         if (!res.isSuccessFull && res.status === "UserAccountIsNotActive") {
           toast.info(res.message, {
             autoClose: 2100,
-            position: "top-right",
+            position: "top-left",
           });
           setUserEmail(res.data);
           setSwichBetweenFormAndVerify(true);
         }
-        if (!res.isSuccessFull && res.status === "UserORPasswrodIsWrong") {
+        if (!res.isSuccessFull && res.status === "FaildLogin") {
           setLoadingButton(false);
-          toast.error(res.message, {
+          toast.error("موبایل یا رمز عبور اشتباه است", {
             autoClose: 2100,
-            position: "top-right",
+            position: "top-left",
           });
         }
       });

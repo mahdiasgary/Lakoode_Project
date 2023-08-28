@@ -8,6 +8,7 @@ import { movieCoreApi } from "./Lakoode/redux/services/movieDatabase";
 import "nprogress/nprogress.css";
 
 // import reportWebVitals from './reportWebVitals';
+console.log(document);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

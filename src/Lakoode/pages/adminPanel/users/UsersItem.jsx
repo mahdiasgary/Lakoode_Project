@@ -43,82 +43,44 @@ const UsersItem = ({ user, removeUserHandler, history }) => {
   };
   return (
     <tr className=" py-10 rounded-xl cursor-pointer hover:text-screenLight dark:text-[#d1d1d3] group border-b dark:border-0  ">
+     
+   
       <td>
-        <div className="flex px-2 group-hover:dark:bg-[#24272e] rounded-r-xl group-hover:bg-[#6d7077] duration-300 self-center h-[64px] flex-col justify-center text-center my-1">
-          <span className="self-center font-semibold text-btn group-hover:text-white text-sm ">
-            {/* {user.id} */}1
-          </span>
+        <div className="flex px-2 group-hover:dark:bg-[#24272e] group-hover:bg-[#6d7077] duration-300 self-center h-[64px] flex-col justify-center text-center my-1">
+          {user.name}
         </div>
       </td>
       <td>
         <div className="flex px-2 group-hover:dark:bg-[#24272e] group-hover:bg-[#6d7077] duration-300 self-center h-[64px] flex-col justify-center text-center my-1">
-          <img
-            src={"https://localhost:7175/images/" + user.profileImage}
-            alt="ff"
-            className="w-[40px] h-[40px] self-center rounded-[50%] "
-          />
+          {user.lastName}
         </div>
       </td>
       <td>
         <div className="flex px-2 group-hover:dark:bg-[#24272e] group-hover:bg-[#6d7077] duration-300 self-center h-[64px] flex-col justify-center text-center my-1">
-          {/* {user.username} */}
-          علی عباسی
-        </div>
-      </td>
-      <td>
-        <div className="flex px-2 group-hover:dark:bg-[#24272e] group-hover:bg-[#6d7077] duration-300 self-center h-[64px] flex-col justify-center text-center my-1">
-          {/* {user.email} */}
-          005796088
+          {user.nationalCode}
+          
         </div>
       </td>
 
       <td>
-        {user.isAdmin ? (
-          <div className="flex text-btn text-sm font-semibold px-2 group-hover:dark:bg-[#24272e] group-hover:bg-[#6d7077] duration-300 self-center h-[64px] flex-col justify-center text-center my-1">
-            ادمین
-          </div>
-        ) : (
-          <div className="flex px-2 text-sm font-semibold group-hover:dark:bg-[#24272e] group-hover:bg-[#6d7077] duration-300 self-center h-[64px] flex-col justify-center text-center my-1">
-            کاربر
-          </div>
-        )}
-      </td>
-      <td>
-        <div className="flex px-2 group-hover:dark:bg-[#24272e] group-hover:bg-[#6d7077] duration-300 self-center h-[64px] flex-col justify-center text-center my-1">
-          {/* {user.isActive ? (
-            <div className="bg-[#213242] px-2 text-sm text-btn rounded-md py-[2px]">
-              Active
-            </div>
-          ) : (
-            <div className="bg-[#2d2f3b] px-2 text-sm text-[#5e626e] rounded-md py-[2px]">
-              Inactive
-            </div>
-          )} */}
-          8
+        <div className="flex px-2 min-w-[200px] group-hover:dark:bg-[#24272e] text-sm group-hover:bg-[#6d7077] duration-300 self-center h-[64px] flex-col justify-center text-center my-1">
+          {/* {user.createdDate.split("+")[0]} */}
+          {user.mobile}
         </div>
       </td>
       <td>
         <div className="flex px-2 min-w-[200px] group-hover:dark:bg-[#24272e] text-sm group-hover:bg-[#6d7077] duration-300 self-center h-[64px] flex-col justify-center text-center my-1">
-          {/* {user.createdDate.split("+")[0]} */}09201413045
-        </div>
-      </td>
-      <td>
-        <div className="flex px-2 min-w-[200px] group-hover:dark:bg-[#24272e] text-sm group-hover:bg-[#6d7077] duration-300 self-center h-[64px] flex-col justify-center text-center my-1">
-          {/* {user.createdDate.split("+")[0]} */}1402/3/7
+          {/* {user.createdDate.split("+")[0]} */}
+          {new Date(user.createdDate).toLocaleDateString('fa')}
         </div>
       </td>
       <td>
         <div className="flex px-2 group-hover:dark:bg-[#24272e] rounded-l-xl group-hover:bg-[#6d7077] duration-300 self-center h-[64px] flex-col justify-center text-center my-1">
           <div className="flex gap-2 text-[19px] py-[2px]">
-            {/* <span className="cursor-pointer text-sm bg-btn self-center py-2 px-3 rounded-xl hover:bg-blue-800 text-white">
-              تخفیف{" "}
-            </span> */}
-            <div className="cursor-pointer flex text-sm border border-btn self-center py-2 px-3 rounded-xl  text-white">
-              <input dir="ltr" type="text" className="rounded-r-xl dark:bg-transparent px-5" />
-              <div className="px-3 bg-btn py-2 mx-1 hover:bg-blue-800 rounded-l-xl">
-                send
-              </div>
-            </div>
+           
+           <div className="text-sm font-semibold text-btn">
+            جزئیات
+           </div>
             <span className="cursor-pointer">
               <AiOutlineEdit />
             </span>

@@ -21,13 +21,13 @@ import SingupPage from "./pages/login singUp/singup/SingupPage";
 import nprogress from "nprogress";
 import ForgotPasswordPage from "./pages/login singUp/login/ForgotPasswordPage";
 import Routs from "./Routs";
+import Cookies from "js-cookie";
 const App = () => {
   const { setIsDarkMode, IsDarkMode } = useStateContext();
   const [isSearchItemsShow, setIsSearchItemsShow] = useState(false);
   const [mode, setMode] = useState("dark");
   const [openMenu, setOpenMenu] = useState(false);
   let location = window.location;
-  console.log(location.pathname);
   useEffect(() => {
     nprogress.start();
     nprogress.done();
@@ -36,7 +36,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <ToastContainer theme="dark" />
-     <Routs/>
+      <Routs />
     </BrowserRouter>
   );
 };

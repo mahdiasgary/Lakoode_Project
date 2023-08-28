@@ -53,8 +53,8 @@ const Navbar = ({ isSearch, setIsSearch, openMenu, setOpenMenu,from }) => {
         </div>
 <div className={`${from==='login' && 'hidden' } mt-4`}>
 
-        {loginStatus?.isSuccessFull ? (
-          <Link to={"/profile"}>
+        {loginStatus ? (
+          <Link to={"/user"}>
             <button className={`${styles.profileLg_Btn}  `}>
               <span>
                 <FaUser className="inline self-center mr-2" />

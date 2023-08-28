@@ -12,6 +12,8 @@ import {
 import { toast } from "react-toastify";
 import * as Yup from "yup";
 import Navbar from "../../../components/navbar/Navbar";
+import axios from "axios";
+import Vw from "./Vw";
 
 const ForgotPasswordPage = ({ history, openMenu, setOpenMenu }) => {
   const initialValues = {
@@ -42,30 +44,38 @@ const ForgotPasswordPage = ({ history, openMenu, setOpenMenu }) => {
     validationSchema,
     validateOnMount: true,
   });
-   
+
   const [loadingButton, setloadingButton] = useState(false);
 
   const [ForForgotPassword] = useSendEmailForForgotPasswordMutation();
+
   const sendEmailForForgotPasswordHandler = () => {
-    ForForgotPassword({
-      mobile: Formik.values.mobile,
-    })
-      .unwrap()
+    axios
+      .get("https://localhost:7103/api/Account/ActiveAccount", {
+        params: { mobile: Formik.values.mobile },
+      })
       .then((res) => {
         setloadingButton(false);
-        if (res.isSuccessFull && res.status === "EmailSend") {
+        console.log(res.data);
+        if (res.data.isSuccessFull ) {
           setSwichBetweenFormAndVerify(true);
-          toast.info(res.message, {
+          toast.info(res.data.message, {
             autoClose: 2100,
-            position: "top-right",
+            position: "top-left",
           });
         }
-        if (!res.isSuccessFull && res.status === "UserNotfound") {
-          toast.error(res.message, {
+        if (!res.data.isSuccessFull && res.data.status === "UserNotfound") {
+          setloadingButton(false);
+
+          toast.error(res.data.message, {
             autoClose: 2100,
-            position: "top-right",
+            position: "top-left",
           });
         }
+      })
+      .catch((res) => {
+        console.log(res);
+        setloadingButton(false);
       });
   };
 
@@ -82,7 +92,7 @@ const ForgotPasswordPage = ({ history, openMenu, setOpenMenu }) => {
           swichBetweenCreateAndVerify ? (
             <CreatePasswordFrom Formik={Formik} email={Formik.values.mobile} />
           ) : (
-            <VerifyEmail
+            <Vw
               userEmail={Formik.values.mobile}
               setSwichBetweenFormAndVerify={setSwichBetweenFormAndVerify}
               setSwichBetweenCreateAndVerify={setSwichBetweenCreateAndVerify}

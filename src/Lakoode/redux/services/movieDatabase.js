@@ -4,14 +4,14 @@ export const movieCoreApi = createApi({
   reducerPath: "movieCoreApi",
   credentials: "include",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://localhost:7175/",
+    baseUrl: "https://localhost:7103/",
   }),
   endpoints: (builder) => ({
     getArtisitListInAdminPanel: builder.query({
       query: () => "Admin/Artist/Index",
     }),
     getUsersListInAdminPanel: builder.query({
-      query: () => "Admin/User/Index",
+      query: () => "api/User/GetUserList",
     }),
     getGenreListInAdminPanel: builder.query({
       query: () => "Admin/Genre/Index",
@@ -35,27 +35,20 @@ export const movieCoreApi = createApi({
         method: "POST",
         body: payload,
         headers: {
-          'Content-Type': 'multipart/form-data'
-      }
+          "Content-Type": "multipart/form-data",
+        },
       }),
       invalidatesTags: ["Post"],
     }),
-    addCareer: builder.mutation({
-      query: (payload) => ({
-        url: "Admin/Career/Add",
-        method: "POST",
-        body: payload,
-      }),
-      invalidatesTags: ["Post"],
-    }),
+
     AddArtistInAdminPanel: builder.mutation({
       query: (payload) => ({
         url: "Admin/Artist/Add",
         method: "POST",
         body: payload,
         headers: {
-          'Content-Type': 'multipart/form-data'
-      }
+          "Content-Type": "multipart/form-data",
+        },
       }),
       invalidatesTags: ["Post"],
     }),
@@ -76,25 +69,9 @@ export const movieCoreApi = createApi({
       invalidatesTags: ["Post"],
     }),
 
-    addCountry: builder.mutation({
-      query: (payload) => ({
-        url: "Admin/Country/Add",
-        method: "POST",
-        body: payload,
-      }),
-      invalidatesTags: ["Post"],
-    }),
-    addLanguage: builder.mutation({
-      query: (payload) => ({
-        url: "Admin/Language/Add",
-        method: "POST",
-        body: payload,
-      }),
-      invalidatesTags: ["Post"],
-    }),
     registerUser: builder.mutation({
       query: (payload) => ({
-        url: "Account/RegisterUser",
+        url: "api/Account/Register",
         method: "POST",
         body: payload,
       }),
@@ -102,7 +79,7 @@ export const movieCoreApi = createApi({
     }),
     loginUser: builder.mutation({
       query: (payload) => ({
-        url: "Account/LoginUser",
+        url: "api/Account/Login",
         credentials: "include",
 
         method: "POST",
@@ -130,7 +107,7 @@ export const movieCoreApi = createApi({
     // }),
     SubmitOtpForForgotPassword: builder.mutation({
       query: (payload) => ({
-        url: "Account/SubmitForgotPassword",
+        url: "api/Account/SubmitPassword",
         method: "POST",
         body: payload,
       }),
@@ -139,7 +116,7 @@ export const movieCoreApi = createApi({
 
     activeAccount: builder.mutation({
       query: (payload) => ({
-        url: "Account/ActiveAccount",
+        url: "/api/Account/ActiveAccount",
         method: "POST",
         body: payload,
         credentials: "include",
@@ -154,13 +131,21 @@ export const movieCoreApi = createApi({
       }),
       invalidatesTags: ["Post"],
     }),
+    sMSPASS: builder.mutation({
+      query: (payload) => ({
+        url: "api/Account/ForgotPassword",
+        method: "POST",
+        body: payload,
+      }),
+      invalidatesTags: ["Post"],
+    }),
     // sendEmailForForgotPassword: builder.mutation({
     //   query: (email) => ({
     //     url: `Account/ForgotPassword?email=${encodeURIComponent(email)}`,
     //     credentials: "include",
     //     method: "GET",
     //   }),
-    //   invalidatesTags: ["Get"],
+    //   invalidatesTags: ["Get"],useSMSPASSMutation
     // }),
     // sendEmailForForgotPassword: builder.mutation({
     //   query: (email) => ({
@@ -170,11 +155,11 @@ export const movieCoreApi = createApi({
     //   }),
     //   invalidatesTags: ["Get"],
     // }),
-    
   }),
 });
 
 export const {
+  useSMSPASSMutation,
   useSubmitOtpForForgotPasswordMutation,
   useSendEmailForForgotPasswordMutation,
   useGetLoginStatusQuery,

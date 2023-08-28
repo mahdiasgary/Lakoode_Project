@@ -11,22 +11,35 @@ const CreatePasswordFrom = ({ Formik, email, history }) => {
   const [showPassword, setShowPassword] = useState("");
   const [submitOtpForForgotPasswordMutation] =
     useSubmitOtpForForgotPasswordMutation();
+    console.log({
+      email,
+      password: Formik.values.newPassword,
+      confirmPassword: Formik.values.confirmPassword,
+    })
   const submitOtpForForgotPasswordHandler = () => {
     setLoadingButton(true);
     submitOtpForForgotPasswordMutation({
-      email,
+      mobile:email,
       password: Formik.values.newPassword,
       confirmPassword: Formik.values.confirmPassword,
     })
       .unwrap()
       .then((res) => {
+        console.log(res)
+
         setLoadingButton(false);
         if (res.isSuccessFull) {
           toast.success(res.message, {
             autoClose: 2100,
-            position: "top-right",
+            position: "top-left",
           });
-          history.push("/");
+          history.push("/login");
+        }
+        if (!res.isSuccessFull) {
+          toast.success(res.message, {
+            autoClose: 2100,
+            position: "top-left",
+          });
         }
       });
   };

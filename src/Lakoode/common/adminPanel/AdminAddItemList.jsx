@@ -13,16 +13,43 @@ const AdminAddItemList = ({ itemList, Formik, dataQuery, selectHandler }) => {
           className="flex  flex-col sm:flex-row justify-center  sm:gap-6 "
         >
           {items.map((item, index) =>
-            item === "Language" ||
-            item === "Artist" ||
-            item === "Genre" ||
-            item === "Country" ||
-            item === "Career" ? (
+            item === "آشپزخانه" ||
+            item === "امکانات رفاهی" ||
+            item === "امکانات تفریحی" ||
+            item === "سرمایشی گرمایشی" ||
+            item === "خدمات رفاهی" ||
+            item === "موارد ایمنی" ? (
               <MultipleSelect
                 key={index}
-                options={dataQuery[item.toLowerCase() + "Query"].data}
+                options={
+                  item === "آشپزخانه"
+                    ? dataQuery.kechQU
+                    : item === "امکانات رفاهی"
+                    ? dataQuery.refaEM
+                    : item === "امکانات تفریحی"
+                    ? dataQuery.tafREf
+                    : item === "سرمایشی گرمایشی"
+                    ? dataQuery.sarmaGarma
+                    : item === "خدمات رفاهی"
+                    ? dataQuery.refaKH
+                    : item === "موارد ایمنی"
+                    ? dataQuery.scuriti
+                    : []
+                }
                 handleChange={
-                  selectHandler[item.toLowerCase() + "HandleChange"]
+                  item === "آشپزخانه"
+                    ? selectHandler.kechQUHand
+                    : item === "امکانات رفاهی"
+                    ? selectHandler.refaEMHand
+                    : item === "امکانات تفریحی"
+                    ? selectHandler.tafREfHand
+                    : item === "سرمایشی گرمایشی"
+                    ? selectHandler.sarmaHand
+                    : item === "خدمات رفاهی"
+                    ? selectHandler.refaKHHand
+                    : item === "موارد ایمنی"
+                    ? selectHandler.scurityHand
+                    : []
                 }
                 lable={item}
               />
