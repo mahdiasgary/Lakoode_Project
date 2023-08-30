@@ -12,6 +12,8 @@ import VillaInfo from "./villaList/VillaInfo";
 import AddMovies from "./movie/addMovie/AddMovies";
 import PriceMake from "./reservation/PriceMake";
 import VillaClander from "./villaClander/VillaClander";
+import User from "./users/User";
+import EditeVilla from "./villaList/EditeVilla";
 const AdminPage = ({ history }) => {
   const [mode, setMode] = useState("dark");
   const [openMenu, setOpenMenu] = useState(false);
@@ -64,6 +66,7 @@ const AdminPage = ({ history }) => {
               component={() => <AddMovies />}
             />
 
+            <Route path={"/admin/user"} exact component={() => <User />} />
             <Route
               path={"/admin/villaslist"}
               exact
@@ -74,6 +77,11 @@ const AdminPage = ({ history }) => {
               exact
               component={() => <PriceMake />}
             />
+             <Route
+              path={"/admin/editvilla"}
+              exact
+              component={() => <EditeVilla />}
+            />
             <Route
               path={"/admin/calendar"}
               exact
@@ -81,6 +89,7 @@ const AdminPage = ({ history }) => {
             />
             {/* <Route path={"/admin/villainfo/:id"} exact component={() => <VillaInfo />} /> */}
             {/* <Route path={"/admin/villaslist/villainfo"}  component={() => <VillaInfo />} /> */}
+
             <Route path={"/admin/users"} exact component={() => <Users />} />
             <Route path={"/admin"} exact component={() => <Dashboard />} />
           </div>

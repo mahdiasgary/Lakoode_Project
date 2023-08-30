@@ -18,7 +18,8 @@ const AdminAddItemList = ({ itemList, Formik, dataQuery, selectHandler }) => {
             item === "امکانات تفریحی" ||
             item === "سرمایشی گرمایشی" ||
             item === "خدمات رفاهی" ||
-            item === "موارد ایمنی" ? (
+            item === "موارد ایمنی" ||
+            item === "سرویس بهداشتی" ? (
               <MultipleSelect
                 key={index}
                 options={
@@ -34,6 +35,8 @@ const AdminAddItemList = ({ itemList, Formik, dataQuery, selectHandler }) => {
                     ? dataQuery.refaKH
                     : item === "موارد ایمنی"
                     ? dataQuery.scuriti
+                    : item === "سرویس بهداشتی"
+                    ? dataQuery.bath
                     : []
                 }
                 handleChange={
@@ -49,6 +52,8 @@ const AdminAddItemList = ({ itemList, Formik, dataQuery, selectHandler }) => {
                     ? selectHandler.refaKHHand
                     : item === "موارد ایمنی"
                     ? selectHandler.scurityHand
+                    : item === "سرویس بهداشتی" ?
+                    selectHandler.bathHand
                     : []
                 }
                 lable={item}

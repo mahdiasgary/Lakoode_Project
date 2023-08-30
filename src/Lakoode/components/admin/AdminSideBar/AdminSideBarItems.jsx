@@ -6,17 +6,17 @@ import { FaChevronDown } from "react-icons/fa";
 
 const AdminSideBarItems = ({ history, item, menu }) => {
   const [state, setState] = useState(false);
-  useEffect(()=>{
-    const screenWidht=window.innerWidth
-  
-    if(screenWidht<1024)return setState(true)
-  },[])
+  useEffect(() => {
+    const screenWidht = window.innerWidth;
+
+    if (screenWidht < 1024) return setState(true);
+  }, []);
   const { selectedSideBarItem, setSelectedSideBarItem, rtl } =
     useStateContext();
   const pathname = history.location.pathname;
   useEffect(() => {
     setSubSelected(pathname.split("/")[2]);
-    setSelectedSideBarItem(pathname.split("/")[2])
+    setSelectedSideBarItem(pathname.split("/")[2]);
   }, [pathname]);
 
   const [subSelected, setSubSelected] = useState();
@@ -27,7 +27,7 @@ const AdminSideBarItems = ({ history, item, menu }) => {
         {item[1] ? (
           <div>
             <li
-              onMouseEnter={() => setHovered(item[0].title.toLowerCase())}
+              onMouseEnter={() => setHovered(item[0].title)}
               onMouseLeave={() => setHovered()}
               onClick={(e) => {
                 e.preventDefault();
@@ -36,12 +36,8 @@ const AdminSideBarItems = ({ history, item, menu }) => {
               className={`
           ${!menu && "pl-2 mx-0"}
           ${styles.adminSideBarItem} 
-          
-          ${
-            selectedSideBarItem === item[0].title.toLowerCase() &&
-            "border-l-[3px] "
-          }
-          ${rtl ? "ml-1" : "mr-1"}
+          rounded-l         
+          ${selectedSideBarItem === item[0].title && "border-r-[3px] "}
           
           `}
             >
@@ -50,20 +46,16 @@ const AdminSideBarItems = ({ history, item, menu }) => {
                   <span
                     className={`
       ${
-        (hovered === item[0].title.toLowerCase() ||
-          selectedSideBarItem === item[0].title.toLowerCase()) &&
+        (hovered === item[0].title || selectedSideBarItem === item[0].title) &&
         "text-btn  "
       }
-        self-center px-2 ${
-          rtl ? "ml-2 lg:ml-1" : "mr-2 lg:mr-1"
-        } mr-2 text-[24px] lg:text-[19px] lg:text-btn `}
+        self-center px-2 mr-2 text-[24px] lg:text-[19px] lg:text-btn `}
                   >
                     {item[0].icon}
                   </span>
                   <p
-                    className={`origin-left lg:text-btn ${
-                      selectedSideBarItem === item[0].title.toLowerCase() &&
-                      "text-btn"
+                    className={`origin-left  ${
+                      selectedSideBarItem === item[0].title && "text-btn"
                     } `}
                   >
                     {item[0].titleFa}
@@ -92,7 +84,7 @@ const AdminSideBarItems = ({ history, item, menu }) => {
                     }
                    ${
                      subSelected === subItem.main &&
-                     "border-l-[3px] dark:lg:bg-[#29263b] lg:bg-zinc-300  mr-1 rounded-r-lg duration-100 text-btn"
+                     "border-r-[3px] dark:lg:bg-[#29263b] lg:bg-zinc-300  mr-1 rounded-l-lg duration-100 text-btn"
                    } `}
                   >
                     <div className="self-center mx-2 ">
@@ -110,20 +102,20 @@ const AdminSideBarItems = ({ history, item, menu }) => {
           <div>
             <Link to={`/${`admin/${item[0].title}`}`}>
               <li
-                onMouseEnter={() => setHovered(item[0].title.toLowerCase())}
+                onMouseEnter={() => setHovered(item[0].title)}
                 onMouseLeave={() => setHovered()}
                 onClick={() => {
-                  setSelectedSideBarItem(item[0].title.toLowerCase());
+                  setSelectedSideBarItem(item[0].title);
                 }}
                 className={`
           ${!menu && "pl-2 mx-0"}
           ${styles.adminSideBarItem} 
           
           ${
-            selectedSideBarItem === item[0].title.toLowerCase() &&
-            "border-l-[3px] dark:lg:bg-[#29263b] lg:bg-zinc-300"
+            selectedSideBarItem === item[0].title &&
+            "border-r-[3px] dark:lg:bg-[#29263b] lg:bg-zinc-300"
           }
-          ${rtl ? "ml-1" : "mr-1"} lg:text-btn
+          ${rtl ? "ml-1" : "mr-1"} 
           
           `}
               >

@@ -66,10 +66,31 @@ const Users = ({ history }) => {
         else value1 < value2;
       };
   };
-  // console.log(data)
+
+const [mobileTaKH,setmobileTaKH]=useState('')
   return (
-    <div className=" w-full">
-      <div className="flex justify-center mt-20 mb-2">
+    <div className=" w-full min-h-screen">
+
+<div className="flex justify-center mt-20 mb-2">
+        <div className="flex   min-w-[85vw] max-w-[85vw] md:min-w-[70vw] md:max-w-[70vw]">
+          <div>
+            <input
+              value={mobileTaKH}
+              onChange={(e) => setmobileTaKH(e.target.value)}
+              type="text"
+              placeholder='شماره موبایل'
+              className="h-[45px] w-[220px] rounded-r-2xl px-2 dark:bg-transparent border-2 dark:border-border outline-none "
+            />
+          </div>
+          <div className=" bg-btn px-4 text-white flex hover:bg-blue-800 cursor-pointer   rounded-l-2xl font-bold ">
+             <p className="self-center ">
+             ارسال کد تخفیف
+             </p>
+             </div>
+        </div>
+      </div>
+
+      <div className="flex justify-center mt-10 mb-2">
         <div className="flex justify-between  min-w-[85vw] max-w-[85vw] md:min-w-[70vw] md:max-w-[70vw]">
           <div className="text-[23px] font-bold ">لیست کاربران</div>
           <div>
@@ -132,7 +153,7 @@ const Users = ({ history }) => {
             <tbody className="px-5 rounded-3xl">
               {data &&
                 [...data]
-                  .filter((item) => item.mobile?.includes(search))
+                  .filter((item) => item?.nationalCode?.includes(search))
                   .sort((date1, date2) =>!sort[1] ? new Date(date1.createdDate) - new Date(date2.createdDate) :( new Date(date2.createdDate) - new Date(date1.createdDate)))
                   .map((user) => (
                     <UsersItem
@@ -140,11 +161,12 @@ const Users = ({ history }) => {
                       key={user.mobile}
                       removeUserHandler={removeUserHandler}
                       // forceUpdate={forceUpdate}
+                      setmobile={setmobileTaKH}
                     />
                   ))}
             </tbody>
           </table>
-          {/* {(isFetching || isLoading || error) && <LoadingAdminListItem />} */}
+          {!data && <LoadingAdminListItem />}
         </div>
       </div>
       <ReactTooltip

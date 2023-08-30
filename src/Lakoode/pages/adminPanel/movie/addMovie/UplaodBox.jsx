@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AddFileItem from "./AddFileItem";
-const UplaodBox = () => {
+const UplaodBox = ({imgs,setImgs}) => {
   const [qualities, set] = useState([
     "تصویر اصلی",
     "تصویر فرعی",
@@ -18,7 +18,7 @@ const UplaodBox = () => {
       <p className="pt-3">آپلود تصاویر</p>
       <div className="my-3">
         {qualities.map((quality, index) => (
-          <AddFileItem key={index} quality={quality} />
+          <AddFileItem key={index} quality={quality} setImgs={setImgs}  imgs={imgs} />
         ))}
       </div>
       <div>

@@ -28,6 +28,9 @@ export const movieCoreApi = createApi({
     getMovieListInAdminPanel: builder.query({
       query: () => "Admin/Movie/Index",
     }),
+    getvillalist: builder.query({
+      query: () => "api/Villa/GetAll"
+    }),
 
     addMovieInAdminPanel: builder.mutation({
       query: (payload) => ({
@@ -139,6 +142,29 @@ export const movieCoreApi = createApi({
       }),
       invalidatesTags: ["Post"],
     }),
+    addvilla: builder.mutation({
+      query: (payload) => ({
+        url: "api/Villa/Create",
+        method: "POST",
+        body: payload,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }),
+      invalidatesTags: ["Post"],
+    }),
+    removeVilla: builder.mutation({
+      query: (payload) => ({
+        url: "api/Villa/Disable",
+        method: "POST",
+        body: payload,
+      }),
+      invalidatesTags: ["Post"],
+    }),
+
+
+    
+    
     // sendEmailForForgotPassword: builder.mutation({
     //   query: (email) => ({
     //     url: `Account/ForgotPassword?email=${encodeURIComponent(email)}`,
@@ -159,6 +185,9 @@ export const movieCoreApi = createApi({
 });
 
 export const {
+  useRemoveVillaMutation,
+  useGetvillalistQuery,
+  useAddvillaMutation,
   useSMSPASSMutation,
   useSubmitOtpForForgotPasswordMutation,
   useSendEmailForForgotPasswordMutation,

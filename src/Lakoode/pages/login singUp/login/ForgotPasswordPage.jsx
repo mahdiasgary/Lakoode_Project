@@ -114,18 +114,18 @@ const ForgotPasswordPage = ({ history, openMenu, setOpenMenu }) => {
 
         {/* log in image background */}
         {localStorage.getItem("DarkMode") === "dark" ? (
-          <img
-            className="opacity-60  h-screen  hidden  md:flex fixed right-0 top-0 z-[0] "
-            src={a}
-            alt=""
-          />
-        ) : (
-          <img
-            className="opacity-60  h-screen dark:hidden hidden  md:flex fixed right-0 top-0 z-[0] "
-            src={b}
-            alt="q"
-          />
-        )}
+        <img
+          className="opacity-60 transform -scale-x-100  h-screen hidden  md:flex   fixed left-0 top-0 z-[0] "
+          src={a}
+          alt=""
+        />
+      ) : (
+        <img
+          className="opacity- h-screen dark:hidden hidden  md:flex fixed left-0 top-0 z-[0] "
+          src={b}
+          alt="q"
+        />
+      )}
       </div>
     </div>
   );

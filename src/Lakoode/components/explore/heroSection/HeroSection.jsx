@@ -7,6 +7,7 @@ import { RiBilliardsFill } from "react-icons/ri";
 import { TiLocation } from "react-icons/ti";
 import Slider from "react-slider";
 import { PiSunHorizonBold } from "react-icons/pi";
+import Navbar from "../../navbar/Navbar";
 
 const HeroSection = ({
   setPriceRoom,
@@ -51,9 +52,10 @@ const HeroSection = ({
       <div className="lg:flex lg:justify-center lg:mt-10  ">
         <div className="relative bg-hero bg-no-repeat bg-cover text-white">
           <div className="relative z-[5] pt-3 flex justify-center py-4 lg:hidden ">
-            <img src="/sss.png" alt="img" height={90} width={110} />
+          <Navbar className='sticky top-0' from={"ww"} />
           </div>
           <div className=" 3xl:bg-[#4a6dff] shadow-xl bg-[#0f0f0f] absolute lg:rounded-[50px]  inset-0 w-full h-full">
+           
             <img
               src="https://s8.uupload.ir/files/88_6zw5.jpg"
               alt="d"
@@ -67,7 +69,7 @@ const HeroSection = ({
             <img
               alt="lakoode"
               src={"https://s6.uupload.ir/files/test2_j1lu.png"}
-              className="opacity-70 transform lg:rounded-[50px]  lg:hidden  w-full h-full"
+              className="opacity-50 transform lg:rounded-[50px]  lg:hidden  w-full h-full"
             />
           </div>
           <div className="relative  containe flex flex-co  items-cente justify-cente pt-0 pb-36 sm:py- lg:py-24 xl:py-36 xl:px- w-[85vw] 2xl:py-56">

@@ -46,11 +46,8 @@ const AdminSideBar = ({ openMenu, setOpenMenu, mode, setMode }) => {
         <img
           src={mode === "dark" ? logoImage : logoImageDark}
           alt="logoImage"
-          className="w-[25px] h-[31.6px]  sm:w-[30px] sm:h-[38px] mx-1"
+          className=" h-[31.6px]  sm:h-[38px] mx-1"
         />
-        <p className="self-center text-[18px] sm:text-[21px]">
-          MOVIE <span className="text-btn">MAN</span>{" "}
-        </p>
       </div>
       <div>
         <AdminSideBarList

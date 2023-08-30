@@ -31,8 +31,7 @@ const SingupPage = ({ setOpenMenu, from, openMenu }) => {
   };
   const validationSchema = Yup.object({
     email: Yup.string()
-      .email("user@example.com")
-      .required("لطفا این فیلد را پر کنید"),
+      .email("user@example.com"),
     password: Yup.string()
       .required("لطفا این فیلد را پر کنید")
       .min(8, "رمز عبور کوتاه است . باید حداقل 8 کارکتر باشد"),
@@ -120,13 +119,13 @@ const SingupPage = ({ setOpenMenu, from, openMenu }) => {
       {/* log in image background */}
       {localStorage.getItem("DarkMode") === "dark" ? (
         <img
-          className="opacity-60  h-screen hidden  md:flex   fixed right-0 top-0 z-[0] "
+          className="opacity-60 transform -scale-x-100  h-screen hidden  md:flex   fixed left-0 top-0 z-[0] "
           src={a}
           alt=""
         />
       ) : (
         <img
-          className="opacity-60  h-screen dark:hidden hidden  md:flex fixed right-0 top-0 z-[0] "
+          className="opacity- h-screen dark:hidden hidden  md:flex fixed left-0 top-0 z-[0] "
           src={b}
           alt="q"
         />

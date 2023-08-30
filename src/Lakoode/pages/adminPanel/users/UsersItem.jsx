@@ -4,7 +4,7 @@ import { AiOutlineEdit } from "react-icons/ai";
 import { useRemoveUserMutation } from "../../../redux/services/movieDatabase";
 import { Link, withRouter } from "react-router-dom";
 import Swal from "sweetalert2";
-const UsersItem = ({ user, removeUserHandler, history }) => {
+const UsersItem = ({ user, removeUserHandler,setmobile, history }) => {
   const [removeUser] = useRemoveUserMutation();
   const [isActive, setIsActive] = useState(false);
 
@@ -42,7 +42,7 @@ const UsersItem = ({ user, removeUserHandler, history }) => {
     // });
   };
   return (
-    <tr className=" py-10 rounded-xl cursor-pointer hover:text-screenLight dark:text-[#d1d1d3] group border-b dark:border-0  ">
+    <tr className=" py-10 rounded-xl  hover:text-screenLight dark:text-[#d1d1d3] group border-b dark:border-0  ">
      
    
       <td>
@@ -63,7 +63,9 @@ const UsersItem = ({ user, removeUserHandler, history }) => {
       </td>
 
       <td>
-        <div className="flex px-2 min-w-[200px] group-hover:dark:bg-[#24272e] text-sm group-hover:bg-[#6d7077] duration-300 self-center h-[64px] flex-col justify-center text-center my-1">
+        <div 
+        onClick={()=>{setmobile(user.mobile)}}
+        className="flex cursor-pointer px-2 min-w-[200px] group-hover:dark:bg-[#24272e] text-sm group-hover:bg-[#6d7077] duration-300 self-center h-[64px] flex-col justify-center text-center my-1">
           {/* {user.createdDate.split("+")[0]} */}
           {user.mobile}
         </div>
@@ -77,10 +79,12 @@ const UsersItem = ({ user, removeUserHandler, history }) => {
       <td>
         <div className="flex px-2 group-hover:dark:bg-[#24272e] rounded-l-xl group-hover:bg-[#6d7077] duration-300 self-center h-[64px] flex-col justify-center text-center my-1">
           <div className="flex gap-2 text-[19px] py-[2px]">
-           
-           <div className="text-sm font-semibold text-btn">
+           <Link to={`user?${user.mobile}`} >
+           <div className="text-sm font-semibold cursor-pointer group-hover:text-white text-btn">
+            
             جزئیات
            </div>
+           </Link>
             <span className="cursor-pointer">
               <AiOutlineEdit />
             </span>

@@ -16,7 +16,7 @@ import Navbar from "../../../components/navbar/Navbar";
 import Cookies from "js-cookie";
 const LogInPage = ({ history, openMenu, setOpenMenu }) => {
   const [LoginUser] = useLoginUserMutation();
-  const { loginStatus,isLogin ,setisLogin} = useStateContext();
+  const { loginStatus, isLogin, setisLogin } = useStateContext();
   if (loginStatus) history.push("/user");
 
   const [userEmail, setUserEmail] = useState("");
@@ -58,10 +58,10 @@ const LogInPage = ({ history, openMenu, setOpenMenu }) => {
           });
         }
         if (res.isSuccessFull && res.status === "SuccessLogin") {
-          setisLogin(!isLogin)
-          Cookies.set('user',[true,Formik.values.mobile])
+          setisLogin(!isLogin);
+          Cookies.set("user", [true, Formik.values.mobile]);
           history.push("/");
-          toast.success( res.message, {
+          toast.success(res.message, {
             autoClose: 2100,
             position: "top-left",
           });
@@ -106,19 +106,19 @@ const LogInPage = ({ history, openMenu, setOpenMenu }) => {
       </div>
 
       {/* log in image background */}
-      {/* {localStorage.getItem("DarkMode") === "dark" ? (
+      {localStorage.getItem("DarkMode") === "dark" ? (
         <img
-          className="opacity-60  h-screen hidden  md:flex   fixed right-0 top-0 z-[0] "
+          className="opacity-60 transform -scale-x-100  h-screen hidden  md:flex   fixed left-0 top-0 z-[0] "
           src={a}
           alt=""
         />
       ) : (
         <img
-          className="opacity-60  h-screen dark:hidden hidden  md:flex fixed right-0 top-0 z-[0] "
+          className="opacity- h-screen dark:hidden hidden  md:flex fixed left-0 top-0 z-[0] "
           src={b}
           alt="q"
         />
-      )} */}
+      )}
     </div>
   );
 };

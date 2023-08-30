@@ -1,10 +1,11 @@
 import React from "react";
-const AddFileItem = ({ quality }) => {
+const AddFileItem = ({ quality,imgs,setImgs }) => {
   return (
     <div>
       {" "}
       <div className=" flex  mx-2 my-1 bg-gray-300 dark:bg-border px-1 rounded-md py-1 justify-between">
         <input
+        onChange={(e)=>setImgs([...imgs, e.target.files[0]])}
           type="file"
           className="text-sm text-grey-500
             file:mr-5 file:py-2 file:px-3 md:file:px-6  self-center

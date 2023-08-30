@@ -63,14 +63,14 @@ export const sidbarItem = [
   [
     { id: 9, titleFa: "ویلا ها " ,title:'villas',icon:<FaTheaterMasks />},
     [
-      { id: 9, titleFa: "افزودن  ویلای جدید",title:'addnewvilla',main:'addnewartist',icon1:<CgAddR/>,icon2:<MdAddBox/> },
-      { id: 9, titleFa: "لیست ویلا ها",main:'artistList',title:'villaslist',icon1:<FaRegListAlt/>,icon2:<FaListAlt/>  },
+      { id: 9, titleFa: "افزودن  ویلای جدید",title:'addnewvilla',main:'addnewvilla',icon1:<CgAddR/>,icon2:<MdAddBox/> },
+      { id: 9, titleFa: "لیست ویلا ها",main:'villaslist',title:'villaslist',icon1:<FaRegListAlt/>,icon2:<FaListAlt/>  },
     ],
   ],
   [{ id: 2, titleFa: "رزرواسیون",title:'reservation',icon:<RiMovie2Line/> },
   [
-    { id: 9, titleFa: "   تعیین قیمت",title:'pricedetermination',main:'addnewartist',icon1:<CgAddR/>,icon2:<MdAddBox/> },
-    { id: 9, titleFa: "  تقویم رزرو ویلا ها",main:'artistList',title:'calendar',icon1:<FaRegListAlt/>,icon2:<FaListAlt/>  },
+    { id: 9, titleFa: "   تعیین قیمت",title:'pricedetermination',main:'pricedetermination',icon1:<CgAddR/>,icon2:<MdAddBox/> },
+    { id: 9, titleFa: "  تقویم رزرو ویلا ها",main:'calendar',title:'calendar',icon1:<FaRegListAlt/>,icon2:<FaListAlt/>  },
   ],
 
 ],
@@ -202,7 +202,7 @@ export const trendingItem = [
 ];
 
 export const adminAddMovieListItems = [
-  ['نام' , 'متراژ'] ,['امکانات رفاهی' , 'آشپزخانه' ], ['امکانات تفریحی' , 'سرمایشی گرمایشی' ],['خدمات رفاهی' , 'موارد ایمنی' ],['ظرفیت' , 'حمام' ,"سرویس ایرانی" ,"سرویس فرنگی"],['اتاق خواب','تخت دو نفره','تخت یک نفره'], ['توضیحات']
+  ['نام' , 'متراژ'] ,['امکانات رفاهی' , 'آشپزخانه' ], ['امکانات تفریحی' , 'سرمایشی گرمایشی' ],['خدمات رفاهی' , 'موارد ایمنی' ],['سرویس بهداشتی','ظرفیت'], [  'حمام' ,"سرویس ایرانی" ,"سرویس فرنگی"],['اتاق خواب','تخت دو نفره','تخت یک نفره'], ['توضیحات']
 ]
 export const adminAddMovieListItemsMulti = [
 'Artist' , 'Genre' ,'Language' ,'Country']

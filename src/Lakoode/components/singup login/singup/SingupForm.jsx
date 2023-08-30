@@ -252,10 +252,10 @@ const SingupForm = ({
                 <input
                   onClick={userRegister}
                   disabled={
-                    Object.keys(Formik.errors).length !== 1 ? true : false
+                    Object.keys(Formik.errors).length !== 0 ? true : false
                   }
                   className={`${
-                    Object.keys(Formik.errors).length !== 1
+                    Object.keys(Formik.errors).length !== 0
                       ? "bg-gray-500 cursor-not-allowed opacity-80 "
                       : "hover:bg-blue-800 bg-btn cursor-pointer"
                   }  outline-none text-white px-5  duration-300 justify-center  font-bold text-lg shadow-md  my-1 rounded-2xl mt-5  h-[50px] w-[90vw] md:w-[440px] `}

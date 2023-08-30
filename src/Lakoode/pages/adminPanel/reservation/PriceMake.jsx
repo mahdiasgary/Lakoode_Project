@@ -33,8 +33,10 @@ const PriceMake = () => {
       sureLable,
     },
   ];
+ 
+ 
   // new Date(`${rangeDays.y}/${rangeDays.m}/${seletedDays[0]}`).toDateString('fa')
-  for (let i = 1; i < seletedDays.length; i++) {
+  for (let i = rangeDays.f<rangeDays.s ? 1 : 0  ;i  < seletedDays.length ; i++) {
     reservDays.push({
       villaID: villa,
       date: seletedDays[i],
@@ -50,7 +52,7 @@ const PriceMake = () => {
   //   for (let i = 0; i < rangeDays?.length; i++) {
   //     ReservHand(i);
   //   }
-  //   console.log(reservDays);
+    console.log(reservDays);
   return (
     <div>
       <div>
@@ -83,10 +85,10 @@ const PriceMake = () => {
         <div>
           <p className="text-lg font-semibold">
             تعیین قیمت در{" "}
-            {reservDays.map((d) => (
-              <span className="mx-1 px-2 w-10">{d.date}-</span>
+            {seletedDays?.map((d) => (
+              <span className="mx-1 px-2 w-10">{d}  |</span>
             ))}{" "}
-            {rangeDays?.m} {rangeDays.y}
+            /{rangeDays?.m} /{rangeDays.y}
           </p>
         </div>
         <div className="flex mt-8 lg:justify-between lg:flex-row flex-col justify-start">
