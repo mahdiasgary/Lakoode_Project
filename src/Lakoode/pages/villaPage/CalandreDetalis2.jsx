@@ -122,7 +122,7 @@ const CalandreDetalis2 = ({
     }
   }
 
-  console.log(seletedDays);
+  // console.log(seletedDays);
   const oneHand = (d) => {
     setferst(d);
     setRangeDays({ f: d, s: "", y: year, m: mounth[0] });

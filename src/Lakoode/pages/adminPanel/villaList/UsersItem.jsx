@@ -39,7 +39,6 @@ const UsersItem = ({ user, removeVillaHandler}) => {
     });
   };
   const history = useHistory();
-
   return (
     <tr
       className={`${
@@ -56,8 +55,7 @@ const UsersItem = ({ user, removeVillaHandler}) => {
       <td>
         <div className="flex px-2 group-hover:dark:bg-[#24272e] group-hover:bg-[#6d7077] duration-300 self-center h-[64px] flex-col justify-center text-center my-1">
           <img
-            // src={"https://localhost:7103/images/" + user.images[0].imageName}
-            src=""
+            src={`https://localhost:7103/Content/images/${user.images[0].imageName}`}
             alt="ff"
             className="w-[40px] h-[40px] self-center rounded-[50%] "
           />

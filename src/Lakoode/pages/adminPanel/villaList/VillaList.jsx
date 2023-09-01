@@ -9,43 +9,14 @@ import {
   useRemoveUserMutation,
 } from "../../../redux/services/movieDatabase";
 import { withRouter } from "react-router-dom";
-import LoadingAdminListItem from "../../../common/LoadingAdminListItem";
-import { data1 } from "../../villaPage/VillaPage";
-import axios from "axios";
-// import ToolTip from "../../../common/ToolTip";
+
 const VillaList = ({ history }) => {
-  const [, updateState] = useState();
-  const [removeUser] = useRemoveUserMutation();
   const [sort, setsort] = useState(["id", false, false]);
-  const [search, setSearch] = useState("");
-  const [searc, setSearc] = useState(false);
-
-  const removeUserHandler = ({ id, username }) => {
-    const forceUpdate = useCallback(() => updateState({}), []);
-
-    removeUser({ id })
-      .unwrap()
-      .then((r) => {
-        Swal.fire({
-          title: "Deleted!",
-          text: `${username} has been deleted.`,
-          icone: "success",
-          confirmButtonColor: "#3085d6",
-        });
-      })
-      .then((error) => {
-        console.log(error);
-      });
-    // forceUpdate()
-    setSearc(!searc);
-    // history.push("/admin/users");
-  };
   const { data, isFetching, isLoading, error } = useGetvillalistQuery(
     {},
     { refetchOnMountOrArgChange: true }
   );
 
- 
   return (
     <div className=" w-full">
       <div className="flex justify-center mt-20 mb-2">
@@ -91,28 +62,20 @@ const VillaList = ({ history }) => {
 
             <tbody className="px-5 rounded-3xl">
               {
-                // list
-                //   .filter((item) => item.name?.includes(search))
-                //   .sort(sortBy(sort))
+              
                 data?.data?.map((user) => (
                   <UsersItem
                     user={user}
                     key={user.id}
-                    removeUserHandler={removeUserHandler}
-                    // forceUpdate={forceUpdate}
                   />
                 ))
               }
             </tbody>
           </table>
-          {/* {(isFetching || isLoading || error) && <LoadingAdminListItem />} */}
+          {/* {(isFetching || isLoading || error) && <LoadingAdminListIte />} */}
         </div>
       </div>
-      <ReactTooltip
-        anchorId="a"
-        place="bottom"
-        content="Hello world! I'm a Tooltip"
-      />
+   
     </div>
   );
 };

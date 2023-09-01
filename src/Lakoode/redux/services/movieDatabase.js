@@ -93,7 +93,7 @@ export const movieCoreApi = createApi({
 
     getLoginStatus: builder.query({
       query: (payload) => ({
-        url: "Account/Login",
+        url: "api/Account/Login",
         credentials: "include",
         method: "GET",
       }),

@@ -1,105 +1,139 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import AvatarCrop from "./AvatarCrop";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import UserGeneral from "../../../components/user profile/UserGeneral";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation, FreeMode } from "swiper";
+import axios from "axios";
 const User = () => {
-  const poi = ["Genral", "Favorite"];
-  let qqq = ["name", "email", "phone"];
-  let www = { name: "ali dkfj", email: "berfee@kwb.cn", phone: "09268557406" };
-  const [query, setQuery] = useState("Genral");
   const [selectedForChange, setSelectedForChange] = useState("r5");
-  const [showCropImg, setShowCropImg] = useState(false);
-  const [avatarCrop, setAvatarCrop] = useState({ preview: null });
-  const [profilePicture, setProfilePicture] = useState(null);
-  let data = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const usermobile = useLocation().search.split("?")[1];
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    axios
+      .get(`https://localhost:7103/api/User/GetUserDetail?mobile=${usermobile}`)
+      .then((r) => setData(r.data.data));
+  }, []);
 
   return (
     <div className="flex flex-col w-full ">
-      {/* {showCropImg && (
-        <div>
-          <div
-            onClick={() => setShowCropImg(false)}
-            className="fixed w-full h-full bg-gray-900 bg-opacity-60 backdrop-blur-sm  "
-          />
-          <div
-            onClick={() => setShowCropImg(false)}
-            className="fixed w-full h-32 -top-20 bg-gray-900 bg-opacity-60 backdrop-blur-sm"
-          />
-        </div>
-      )} */}
-
-      {/* avatarCrop */}
-      {/* {showCropImg && (
-        // <AvatarCrop
-        //   setAvatarCrop={setAvatarCrop}
-        //   setShowCropImg={setShowCropImg}
-        //   avatarCrop={avatarCrop}
-        //   setProfilePicture={setProfilePicture}
-        // />
-      )} */}
-
-      <h1 className="text-2xl font-bold mx-5 mt-8 mb-8">کاربر</h1>
-
-      <div className="md:flex w-full px-5 y7:px-10 xl:px-16">
-        <div className="bg-red-500 ml-20 min-w-[100px] my-10 max-w-[100px] h-[100px] rounded-[25%] ">
-          <img src="" alt="" />
-        </div>
-        <div className="flex flex-wrap gap-3">
-          {["نام", "نام خانوادگی", "کدملی", "موبایل", "ایمیل"].map(
-            (userInfo, index) => (
-              <fieldset
-                key={index}
-                className={`flex flex-col justify-center border-b dark:rounded-none rounded-xl ${
-                  selectedForChange !== userInfo
-                    ? "border-[#787f98] border-opacity-40 "
-                    : "border-btn"
-                } duration-150 shadow-md  my-1 px-1  h-[73px] w-[300px] `}
-              >
-                <legend
-                  className={` px-1 text-sm y9:text-[16px] text-btn  text-[17px]`}
-                >
-                  {userInfo}
-                </legend>
-                <div className="flex justify-between mb-1 ">
-                  <p className="self-center pl-3">{userInfo}</p>
-                </div>
-              </fieldset>
-            )
+      <div className="flex">
+        <h1 className="text-2xl self-center font-bold mx-5 mt-8 mb-8">کاربر</h1>
+        <div className="self-cneter flex flex-col justify-center">
+          {data.isDisabled && (
+            <p className="text-red-500 rounded-xl bg-red-500 bg-opacity-20 px-5 py-2 mx-2 ">
+              غیر فعال
+            </p>
+          )}
+          {data.isAdmin && (
+            <p className="text-blue-500 rounded-xl bg-blue-500 bg-opacity-20 px-5 py-2 mx-2 ">
+              ادمین{" "}
+            </p>
           )}
         </div>
       </div>
 
-      <div className=" w-full px-5 y7:px-10 xl:px-16 sm:hidden">
-        <ul className="flex gap-5 text-sm pb-2 overflow-x-auto scrollbar:!w-1.5 scrollbar:!h-1.5 md:mx-8  xl:mx-28 2xl:mx-36 text-[17px]">
-          {poi.map((item, index) => (
-            <Link
-              to={{ pathname: "/user", search: item.toLocaleLowerCase() }}
-              key={index}
+      <div className="md:flex w-full px-5 y7:px-10 xl:px-16">
+        <div className="flex flex-wrap gap-3">
+          <fieldset
+            className={`flex border-[#787f98] border-opacity-40 flex-col justify-center border-b dark:rounded-none rounded-xl duration-150 shadow-md  my-1 px-1  h-[73px] w-[300px] `}
+          >
+            <legend
+              className={`border-[#787f98] border-opacity-40 px-1 text-sm y9:text-[16px] text-btn  text-[17px]`}
             >
-              <li
-                className={`px-4 py-2   ${
-                  query === item
-                    ? "bg-[length:100%_2px] font-semibold text-btn"
-                    : "bg-[length:0%_2px]"
-                }  origin-right bg-left-bottom bg-gradient-to-r from-btn to-btn  bg-no-repeat hover:bg-[length:100%_2px] transition-all duration-500 ease-out`}
-                onClick={() => setQuery(item)}
-              >
-                {item}
-              </li>
-            </Link>
-          ))}
-        </ul>{" "}
-      </div>
-
-      <div className=" w-full px-5 y7:px-10 xl:px-16 sm:hidden">
-        {/* User Genral information */}
-
-        {/* User Favorite Movies */}
+              نام{" "}
+            </legend>
+            <div className="flex justify-between mb-1 ">
+              <p className="self-center pl-3">{data.name}</p>
+            </div>
+          </fieldset>{" "}
+          <fieldset
+            className={`flex flex-col justify-center border-b dark:rounded-none rounded-xl border-[#787f98] border-opacity-40 duration-150 shadow-md  my-1 px-1  h-[73px] w-[300px] `}
+          >
+            <legend
+              className={` px-1 text-sm y9:text-[16px] text-btn  text-[17px]`}
+            >
+              نام خانوادگی{" "}
+            </legend>
+            <div className="flex justify-between mb-1 ">
+              <p className="self-center pl-3">{data.lastName}</p>
+            </div>
+          </fieldset>{" "}
+          <fieldset
+            className={`flex flex-col justify-center border-b dark:rounded-none rounded-xl border-[#787f98] border-opacity-40 duration-150 shadow-md  my-1 px-1  h-[73px] w-[300px] `}
+          >
+            <legend
+              className={` px-1 text-sm y9:text-[16px] text-btn  text-[17px]`}
+            >
+              موبایل{" "}
+            </legend>
+            <div className="flex justify-between mb-1 ">
+              <p className="self-center pl-3">{data.mobile}</p>
+            </div>
+          </fieldset>
+          <fieldset
+            className={`flex flex-col justify-center border-b dark:rounded-none rounded-xl
+                    border-[#787f98] border-opacity-40 
+                     duration-150 shadow-md  my-1 px-1  h-[73px] w-[300px] `}
+          >
+            <legend
+              className={` px-1 text-sm y9:text-[16px] text-btn  text-[17px]`}
+            >
+              کد ملی{" "}
+            </legend>
+            <div className="flex justify-between mb-1 ">
+              <p className="self-center pl-3">{data.nationalCode}</p>
+            </div>
+          </fieldset>
+          <fieldset
+            className={`flex flex-col justify-center border-b dark:rounded-none rounded-xl
+                    border-[#787f98] border-opacity-40 
+                     duration-150 shadow-md  my-1 px-1  h-[73px] w-[300px] `}
+          >
+            <legend
+              className={` px-1 text-sm y9:text-[16px] text-btn  text-[17px]`}
+            >
+              ایمیل{" "}
+            </legend>
+            <div className="flex justify-between mb-1 ">
+              <p className="self-center pl-3">{data.email}</p>
+            </div>
+          </fieldset>
+          <fieldset
+            className={`flex flex-col justify-center border-b dark:rounded-none rounded-xl
+                    border-[#787f98] border-opacity-40 
+                     duration-150 shadow-md  my-1 px-1  h-[73px] w-[300px] `}
+          >
+            <legend
+              className={` px-1 text-sm y9:text-[16px] text-btn  text-[17px]`}
+            >
+              تاریخ ثبت نام{" "}
+            </legend>
+            <div className="flex justify-between mb-1 ">
+              <p className="self-center pl-3">
+                {" "}
+                {new Date(data.createdDate).toLocaleDateString("fa")}
+              </p>
+            </div>
+          </fieldset>{" "}
+          <fieldset
+            className={`flex flex-col justify-center border-b dark:rounded-none rounded-xl
+                    border-[#787f98] border-opacity-40 
+                     duration-150 shadow-md  my-1 px-1  h-[73px] w-[300px] `}
+          >
+            <legend
+              className={` px-1 text-sm y9:text-[16px] text-btn  text-[17px]`}
+            >
+              رمز عبور{" "}
+            </legend>
+            <div className="flex justify-between mb-1 ">
+              <p className="self-center pl-3">{data.password}</p>
+            </div>
+          </fieldset>
+        </div>
       </div>
 
       <div className="mt-8 md:self-center w-full px-5 y7:px-10 xl:px-16 ">

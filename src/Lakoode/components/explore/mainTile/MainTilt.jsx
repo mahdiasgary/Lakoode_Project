@@ -32,6 +32,7 @@ import {
   PiToiletDuotone,
 } from "react-icons/pi";
 import { Link } from "react-router-dom";
+import { useGetvillalistQuery } from "../../../redux/services/movieDatabase";
 
 export const data1 = {
   id: 1,
@@ -184,6 +185,11 @@ export const data1 = {
 };
 
 const MainTilt = ({ priceRange, selectetOpt, priceRoom }) => {
+  const { data, isFetching, isLoading, error } = useGetvillalistQuery(
+    {},
+    { refetchOnMountOrArgChange: true }
+  );
+  console.log(data?.data)
   const defaultOptions = {
     reverse: false, // reverse the tilt direction
     max: 35, // max tilt rotation (degrees)
@@ -195,7 +201,6 @@ const MainTilt = ({ priceRange, selectetOpt, priceRoom }) => {
     reset: true, // If the tilt effect has to be reset on exit.
     easing: "cubic-bezier(.03,.98,.52,.99)", // Easing on enter/exit.
   };
-  const villas = [data1, data1, data1, ];
 //   const filrered = villas.filter((v) => {
 //     return (
 //       v.price <= priceRange[1] &&
@@ -206,6 +211,11 @@ const MainTilt = ({ priceRange, selectetOpt, priceRoom }) => {
 //       v.villa.options.some((ai) => selectetOpt.includes(ai.name))
 //     );
 //   });
+const tafREf = [
+  { title: "بیلیارد", id: 24 },
+  { title: "استخر", id: 25 },
+  { title: "شاه نشین", id: 26 },
+];
   return (
     <div
       id="about-me"
@@ -227,12 +237,12 @@ const MainTilt = ({ priceRange, selectetOpt, priceRoom }) => {
               id="skills"
               className={`md:mx-16  duration-500  rounded-3xl z-[5] w-[80vw] lg:w-[80vw] max-w-[1040px]   grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 place-items-center`}
             >
-              {villas.length === 0 ? (
+              {data?.data?.length === 0 ? (
                 <div className="text-center w-full"></div>
               ) : (
-                villas.map((villa, index) => (
-                  <Link key={index} to={`/villapage/${villa.id}`}>
-                    <Tilt key={index} options={defaultOptions}>
+                data?.data?.map((villa, index) => (
+                  <Link to={{ pathname: `/villapage/${villa.id}`, state: {id:villa.id} }}>
+                  <Tilt key={index} options={defaultOptions}>
                       <div
                         className={` bg-white dark:backdrop-blur-sm dark:text-white dark:bg-border dark:bg-opacity-50  dark:border-0 dark:border-border border my-4 cursor-pointer w-[80vw] sm:w-[330px] sm:h-[400px] rounded-3xl shadow-2xl  md:m-5 flex flex-col justify-between`}
                       >
@@ -240,7 +250,7 @@ const MainTilt = ({ priceRange, selectetOpt, priceRoom }) => {
                           <div className="relative">
                             <img
                               className="rounded-t-3xl w-full h-[220px]"
-                              src={villa.villa.mainImg}
+                              // src={villa.villa.mainImg}
                               alt="لاکوده"
                             />
                             <div
@@ -254,30 +264,30 @@ const MainTilt = ({ priceRange, selectetOpt, priceRoom }) => {
                           <div>
                             <div className="flex justify-between font-bold mx-4 mt-3">
                               <p className="text-[18px]">
-                                {villa?.villa.name}{" "}
+                                {villa.name}{" "}
                               </p>
                               <p>ID : {villa.id} </p>
                             </div>
                             <ul className="flex mx-2">
-                              {villa?.villa.options.map((opt, index) => (
+                              {JSON.parse(villa.villaFacilities).map((opt, index) => (
                                 <li
                                   key={index}
                                   className={`${
-                                    opt.name === "z" && "hidden"
-                                  } text-blue-500 dark:text-white dark:bg-btn dark:bg-opacity-60 dark:border-0 border-blue-500 flex mx-1 flex-col justify-center border rounded-xl w-[45px]  cursor-pointer h-[45px]  my-1 `}
+                                   ( opt>26 || opt<24 )&& "hidden"
+                                  }  text-blue-500 dark:text-white dark:bg-btn dark:bg-opacity-60 dark:border-0 border-blue-500 flex mx-1 flex-col justify-center border rounded-xl w-[45px]  cursor-pointer h-[45px]  my-1 `}
                                 >
                                   <div className="flex justify-center text-[16px]">
-                                    {opt.icon}
+                                    {tafREf[tafREf.findIndex(v=>v.id===opt)]?.title}
                                   </div>
                                   <p className="text-center text-[10px] font-semibold">
-                                    {opt.name}
+                                  {tafREf[tafREf.findIndex(v=>v.id===opt)]?.title}
                                   </p>
                                 </li>
                               ))}
                             </ul>
                             <p className="faNumber text-sm font-semibold text-gray-400 mx-4 ">
-                              ویلا {villa?.villa.ditails.sleep.room}خواب تا
-                              ظرفیت {villa.villa.ditails.valency} نفر{" "}
+                              ویلا {villa.roomCount[0]}خواب تا
+                              ظرفیت {villa.roomCount[5]} نفر{" "}
                             </p>
                           </div>
                         </div>
@@ -291,16 +301,17 @@ const MainTilt = ({ priceRange, selectetOpt, priceRoom }) => {
                                 villa.discountPr === "" && "hidden"
                               } faNumber w-[50px] text-white text-center pt-1 flex flex-col justify- bg-blue-500 px-2  self-  rounded-xl text- font-semibold`}
                             >
-                              {villa.discountPr}%
+                              {/* {villa.discountPr}% */}
+                              200-
                             </div>
                           </div>
                           <div className="flex ">
                             <div className="flex flex-col   ">
                               <p className="font-bold text-[20px] faNumber ">
-                                {(
+                                {/* {(
                                   (villa.price * (100 - villa.discountPr)) /
                                   100
-                                ).toLocaleString()}
+                                ).toLocaleString()} */}400000
                               </p>
                               <div className="w-full">
                                 <div className="flex justify-between ">
@@ -309,7 +320,7 @@ const MainTilt = ({ priceRange, selectetOpt, priceRoom }) => {
                                       villa.discountPr === "" && "hidden"
                                     } faNumber font-bold text-sm self-center line-through mr-2 text-gray-400`}
                                   >
-                                    {villa.price.toLocaleString()}
+                                    {/* {villa.price.toLocaleString()} */}400000
                                   </p>
                                 </div>
                               </div>

@@ -69,14 +69,14 @@ const SingupPage = ({ setOpenMenu, from, openMenu }) => {
       .unwrap()
       .then((res) => {
         setLoadingButton(false);
-        console.log(res);
-
+        
         if (res.isSuccessFull && res.status === "SuccessRegister") {
           axios
-            .get("https://localhost:7103/api/Account/ActiveAccount", {
-              params: { mobile: Formik.values.mobile },
-            })
-            .then((res) => {
+          .get("https://localhost:7103/api/Account/ActiveAccount", {
+            params: { mobile: Formik.values.mobile },
+          })
+          .then((res) => {
+              console.log(res);
               setSwichBetweenFormAndVerify(true);
               toast.info(res.message, {
                 autoClose: 2100,
@@ -94,7 +94,6 @@ const SingupPage = ({ setOpenMenu, from, openMenu }) => {
         });
       });
   };
-  console.log(Formik.values)
   return (
     <div className="w-full h-[900px] bg-[#f9f9f9] dark:bg-[#282a37] text-white">
       <Navbar from={"login"} openMenu={openMenu} setOpenMenu={setOpenMenu} />

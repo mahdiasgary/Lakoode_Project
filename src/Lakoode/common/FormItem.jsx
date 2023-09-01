@@ -15,7 +15,27 @@ const FormItem = ({ Formik, title, error, touched, styles, type }) => {
           className="fa rounded-sm h-10 outline-none w-full  bg-transparent  text-lg px-2 "
           name="text"
           {...Formik.getFieldProps(
-            'name'
+            title === "نام"
+              ? "name"
+              : title === "متراژ"
+              ? "metraj"
+              : title === "اتاق خواب"
+              ? "room"
+              : title === "ظرفیت"
+              ? "valency"
+              : title === "حمام"
+              ? "bathroom"
+              : title === "سرویس ایرانی"
+              ? "iraniantoilet"
+              : title === "سرویس فرنگی"
+              ? "tiolet"
+              : title === "تخت یک نفره"
+              ? "onebed"
+              : title === "تخت دو نفره"
+              ? "twobed"
+              : title === "توضیحات"
+              ? "summary"
+              : title === " "
           )}
         ></input>
       </fieldset>

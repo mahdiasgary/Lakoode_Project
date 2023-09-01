@@ -43,6 +43,8 @@ import {
   PiToiletDuotone,
 } from "react-icons/pi";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useHistory, withRouter } from "react-router-dom/cjs/react-router-dom.min";
 // import Calandre2 from "./Calandre2";
 // import CalandreDetalis2 from "./CalandreDetalis2";
 
@@ -196,12 +198,24 @@ export const data1 = {
   },
 };
 
-const VillaPagee = ({ id }) => {
-  let seletedDays = [];
+
+const VillaPagee = () => {
+let id = useHistory()?.location.state.id
+console.log(id)
+ let seletedDays = [];
+  axios
+  .get(`https://localhost:7103/api/Villa/Get?Id=${id}`)
+  .then((res) => {
+      console.log(res);
+      // setSwichBetweenFormAndVerify(true);
+      // toast.info(res.message, {
+      //   autoClose: 2100,
+      //   position: "top-left",
+      // });
+    });
 
   const [rangeDays, setRangeDays] = useState({ f: "", s: "", y: "", m: "" });
   const villas = [data1];
-  const index = villas.findIndex((v) => v.id == id);
   const [img, setImg] = useState([
     false,
     "",
@@ -731,4 +745,4 @@ const VillaPagee = ({ id }) => {
   );
 };
 
-export default VillaPagee;
+export default withRouter(VillaPagee);

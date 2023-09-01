@@ -7,7 +7,9 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { data1 } from "./VillaPage";
+import { useHistory } from "react-router-dom";
 const Calandre2 = ({setRangeDays , rangeDays,seletedDays}) => {
+  // console.log(useHistory())
   const villa = data1
   const optionsD = {
     day: "numeric",

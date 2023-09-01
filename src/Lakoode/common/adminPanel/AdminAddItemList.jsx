@@ -52,8 +52,8 @@ const AdminAddItemList = ({ itemList, Formik, dataQuery, selectHandler }) => {
                     ? selectHandler.refaKHHand
                     : item === "موارد ایمنی"
                     ? selectHandler.scurityHand
-                    : item === "سرویس بهداشتی" ?
-                    selectHandler.bathHand
+                    : item === "سرویس بهداشتی"
+                    ? selectHandler.bathHand
                     : []
                 }
                 lable={item}

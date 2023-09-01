@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import UsersItem from "./UsersItem";
@@ -16,77 +16,42 @@ const Users = ({ history }) => {
   // const { data, isFetching, isLoading, error } =
   // useGetUsersListInAdminPanelQuery();
   const [data, setData] = useState([]);
-  axios
-    .get("https://localhost:7103/api/User/GetUserList")
-    .then((r) => setData(r.data.data));
+  const [data2, setData2] = useState([]);
+
   const [removeUser] = useRemoveUserMutation();
   const [sort, setsort] = useState(["createdDate", true, true]);
   const [search, setSearch] = useState("");
   const [searc, setSearc] = useState(false);
 
-  const removeUserHandler = ({ id, username }) => {
-    const forceUpdate = useCallback(() => updateState({}), []);
+  useEffect(()=>{
+    axios
+      .get("https://localhost:7103/api/User/GetUserList")
+      .then((r) => setData(r.data.data));
+    axios
+      .get('https://localhost:7103/api/User/GetDisabledUserList')
+      .then((r) => setData2(r.data.data));
 
-    removeUser({ id })
-      .unwrap()
-      .then((r) => {
-        Swal.fire({
-          title: "Deleted!",
-          text: `${username} has been deleted.`,
-          icone: "success",
-          confirmButtonColor: "#3085d6",
-        });
-      })
-      .then((error) => {
-        console.log(error);
-      });
-    // forceUpdate()
-    setSearc(!searc);
-    // history.push("/admin/users");
-  };
+    },[])
+    console.log(data)
 
-  // sort by value
-  const sortBy = (key) => {
-    // console.log(key);
-    // if (key[0] === "username")
-    //   return function sort(a, b) {
-    //     let title1 = a[key[0]].toLowerCase();
-    //     let title2 = b[key[0]].toLowerCase();
-    //     if (key[2] ? title2 < title1 : title2 > title1) {
-    //       return -1;
-    //     }
-    //   };
-    // else
-    //   return
-    return function sort(a, b) {
-      // console.log(a[key[0]])
-        let value1 = a[key[0]];
-        let value2 = b[key[0]];
-        if (key[1]) return value2 > value1;
-        else value1 < value2;
-      };
-  };
-
-const [mobileTaKH,setmobileTaKH]=useState('')
+ 
+  const [mobileTaKH, setmobileTaKH] = useState("");
   return (
     <div className=" w-full min-h-screen">
-
-<div className="flex justify-center mt-20 mb-2">
+      <div className="flex justify-center mt-20 mb-2">
         <div className="flex   min-w-[85vw] max-w-[85vw] md:min-w-[70vw] md:max-w-[70vw]">
           <div>
             <input
               value={mobileTaKH}
               onChange={(e) => setmobileTaKH(e.target.value)}
               type="text"
-              placeholder='شماره موبایل'
+              placeholder="شماره موبایل"
               className="h-[45px] w-[220px] rounded-r-2xl px-2 dark:bg-transparent border-2 dark:border-border outline-none "
             />
           </div>
           <div className=" bg-btn px-4 text-white flex hover:bg-blue-800 cursor-pointer   rounded-l-2xl font-bold ">
-             <p className="self-center ">
-             ارسال کد تخفیف
-             </p>
-             </div>
+            <p className="self-center ">ارسال کد تخفیف</p>
+          </div>
         </div>
       </div>
 
@@ -130,7 +95,7 @@ const [mobileTaKH,setmobileTaKH]=useState('')
                 <th className="w-[10%]">
                   <div
                     onClick={() => {
-                      setsort(["createdDate", !sort[1],true]);
+                      setsort(["createdDate", !sort[1], true]);
                     }}
                     className="flex justify-center"
                   >
@@ -151,15 +116,20 @@ const [mobileTaKH,setmobileTaKH]=useState('')
             </thead>
 
             <tbody className="px-5 rounded-3xl">
-              {data &&
-                [...data]
+              {(data && data2 )&&
+                [...data.concat(data2)]
                   .filter((item) => item?.nationalCode?.includes(search))
-                  .sort((date1, date2) =>!sort[1] ? new Date(date1.createdDate) - new Date(date2.createdDate) :( new Date(date2.createdDate) - new Date(date1.createdDate)))
+                  .sort((date1, date2) =>
+                    !sort[1]
+                      ? new Date(date1.createdDate) -
+                        new Date(date2.createdDate)
+                      : new Date(date2.createdDate) -
+                        new Date(date1.createdDate)
+                  )
                   .map((user) => (
                     <UsersItem
                       user={user}
                       key={user.mobile}
-                      removeUserHandler={removeUserHandler}
                       // forceUpdate={forceUpdate}
                       setmobile={setmobileTaKH}
                     />
@@ -169,11 +139,6 @@ const [mobileTaKH,setmobileTaKH]=useState('')
           {!data && <LoadingAdminListItem />}
         </div>
       </div>
-      <ReactTooltip
-        anchorId="a"
-        place="bottom"
-        content="Hello world! I'm a Tooltip"
-      />
     </div>
   );
 };

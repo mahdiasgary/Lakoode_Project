@@ -8,45 +8,30 @@ import {
   useGetGenreListInAdminPanelQuery,
 } from "../../../../redux/services/movieDatabase";
 import UplaodBox from "./UplaodBox";
-import {
-  useGetCountryListInAdminPanelQuery,
-  useGetLanguageListInAdminPanelQuery,
-  useGetArtisitListInAdminPanelQuery,
-} from "../../../../redux/services/movieDatabase";
-import AdminFromBodyInfo from "../../../../common/AdminFromBodyInfo";
-import AdminFormDoneIcon from "../../../../common/AdminFormDoneIcon";
+
 import { toast } from "react-toastify";
 import { withRouter } from "react-router-dom";
 import AdminAddItemList from "../../../../common/adminPanel/AdminAddItemList";
 import { adminAddMovieListItems } from "../../../../constans";
 import axios from "axios";
 const AddMovies = ({ history, from, user }) => {
-  const [movieCover, setMovieCover] = useState(null);
-  const [movieBackground, setMovieBackground] = useState(null);
-  const [state, setState] = useState(false);
-  // console.log(movieCover)
-  let artistQuery = [{}];
+  console.log(user)
+  const [imgs, setImgs] = useState([]);
   const initialValues = {
-    title: "rr",
-    imdb: "",
-    year: "",
-    time: "",
-    ReleasedDate: "",
-    CreatedDate: "",
-
-    name: "ggfب",
-    metraj: "20",
-    valency: "",
-    bathroom: "",
-    iraniantoilet: "",
-    tiolet: "",
-    room: "",
-    onebed: "",
-    twobed: "",
-    summary: "",
+    name: from && user ? user.name : "",
+    metraj: from && user ? user.size : "",
+    valency: from && user ? JSON.parse(user.roomCount)[5] : "",
+    bathroom: from && user ? JSON.parse(user.roomCount)[2] : "",
+    iraniantoilet: from && user ? JSON.parse(user.roomCount)[3] : "",
+    tiolet: from && user ? JSON.parse(user.roomCount)[4] : "",
+    room: from && user ? JSON.parse(user.roomCount)[0] : "",
+    onebed: from && user ? JSON.parse(user.roomCount)[1] : "",
+    twobed: from && user ? JSON.parse(user.roomCount)[6] : "",
+    summary: from && user ? user.description : "",
   };
+
   const [addvilla] = useAddvillaMutation();
-  const [selectedrefaKH, setrfaKH] = useState([]);
+  const [selectedrefaKH, setrfaKH] = useState([2]);
   const [selectedrfaEM, setefaEM] = useState([]);
   const [selectedbath, setbarh] = useState([]);
   const [selectedkech, setkech] = useState([]);
@@ -55,8 +40,6 @@ const AddMovies = ({ history, from, user }) => {
   const [selectedtaf, settaf] = useState([]);
 
   const [loadingButton, setLoadingButton] = useState(false);
-  const [imgs, setImgs] = useState([]);
-  console.log(selectedkech);
   const validationSchema = Yup.object({
     title: Yup.string().required("title is requried"),
     imdb: Yup.string()
@@ -75,6 +58,7 @@ const AddMovies = ({ history, from, user }) => {
     validationSchema,
     validateOnMount: true,
   });
+
   const kechQUHand = (selectedOption) => {
     selectedOption = selectedOption?.map((item) => {
       return item.id;
@@ -130,63 +114,102 @@ const AddMovies = ({ history, from, user }) => {
 
   const SubmiHandler = () => {
     setLoadingButton(true);
-    const formData = new FormData();
 
-    formData.append("Name", "h");
-    formData.append("Size", "20");
-    formData.append("Description", "tt");
-    formData.append("RoomCount", [{ room: 5 }, 8]);
-    formData.append("VillaFacilities", selectedkech);
-    // formData.append("Images", imgs);
+
+
+
+
+
+    const formData = new FormData();
+    formData.append("Name", Formik.values.name);
+    formData.append("Size", Formik.values.metraj);
+    formData.append("Description", Formik.values.summary);
+    formData.append(
+      "RoomCount",
+      JSON.stringify([
+        Formik.values.room,
+        Formik.values.onebed,
+        Formik.values.bathroom,
+        Formik.values.iraniantoilet,
+        Formik.values.tiolet,
+        Formik.values.valency,
+        Formik.values.twobed,
+      ])
+    );
+    formData.append(
+      "VillaFacilities",
+      JSON.stringify(
+        selectedkech
+          .concat(selectedbath)
+          .concat(selectedrefaKH)
+          .concat(selectedtaf)
+          .concat(selectedsecurity)
+          .concat(selectedsarma)
+          .concat(selectedrfaEM)
+       ));
     for (let i = 0; i < imgs.length; i++) {
       formData.append("Images", imgs[i]);
     }
-    // for (let i = 0; i < selectedkech.length; i++) {
-    //   formData.append("VillaFacilities", selectedkech[i]);
-    // }
-    axios({
-      method: "post",
-      url: "https://localhost:7103/api/Villa/Create",
-      data: formData,
-      headers: { "Content-Type": "multipart/form-data" },
-    })
-      .then(function (response) {
-        //handle success
-        console.log(response);
+
+    if (user) {
+      axios({
+        method: "put",
+        url: `https://localhost:7103/api/Villa/Edit/${user?.id}`,
+        data: {
+          name: Formik.values.name,
+          description: Formik.values.summary,
+          size: Formik.values.metraj,
+          roomCount: JSON.stringify([
+            Formik.values.room,
+            Formik.values.onebed,
+            Formik.values.bathroom,
+            Formik.values.iraniantoilet,
+            Formik.values.tiolet,
+            Formik.values.valency,
+            Formik.values.twobed,
+          ]),
+          villaFacilities: JSON.stringify(
+            selectedkech
+              .concat(selectedbath)
+              .concat(selectedrefaKH)
+              .concat(selectedtaf)
+              .concat(selectedsecurity)
+              .concat(selectedsarma)
+              .concat(selectedrfaEM)
+          ),
+          isDisabled: false,
+        },
       })
-      .catch(function (response) {
-        //handle error
-        console.log(response);
-      });
-
-    // for (let i = 0; i < selectedbath.length; i++) {
-    //   formData.append("SelectedCountryIds", selectedbath[i]);
-    // }
-    // for (let i = 0; i < selectedGenres.length; i++) {
-    //   formData.append("SelectedGenreIds", selectedGenres[i]);
-    // }
-    // for (let i = 0; i < selectedLanguages.length; i++) {
-    //   formData.append("SelectedLanguagesIds", selectedLanguages[i]);
-    // }
-
-    //   addvilla({
-    //     Name: "fff",
-    //     Description: "u",
-    //     Size: 20,
-    //     RoomCount: 2,
-    //     VillaFacilities: ['rrrr' , 'rrrr' ],
-    //     Images: "d",
-    //   })
-    //     .unwrap()
-    //     .then((r) => {
-    //       console.log(res);
-    //       toast.success(`${Formik.values.name} add to Movies `, {
-    //         autoClose: 1100,
-    //         position: "top-right",
-    //       });
-    //       // setTimeout(() => history.push("movieslist"), 800);
-    //     })
-    //     .then((error) => console.log(error));
+        .then(function (response) {
+          toast.success(`${Formik.values.name} ویرایش شد! `, {
+            autoClose: 1100,
+            position: "top-left",
+          });
+          setTimeout(() => history.push("villaslist"), 800);
+        })
+        .catch(function (response) {
+          //handle error
+          console.log(response);
+        });
+    } else {
+      axios({
+        method: "post",
+        url: "https://localhost:7103/api/Villa/Create",
+        data: formData,
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+        .then(function (response) {
+          toast.success(`${Formik.values.name} به ویلا ها اضافه شد. `, {
+            autoClose: 1100,
+            position: "top-left",
+          });
+          setTimeout(() => history.push("villaslist"), 800);
+        })
+        .catch(function (response) {
+          //handle error
+          console.log(response);
+        });
+    }
   };
   const kechQU = [
     { title: "آشپزخانه", id: 1 },
@@ -233,12 +256,6 @@ const AddMovies = ({ history, from, user }) => {
     { title: "سرویس ایرانی", id: 27 },
     { title: "سرویس فرنگی", id: 28 },
   ];
-  // const servic =[
-  //   {title:'حمام' , id:29},
-  //   {title:'سرویس ایرانی' , id:27},
-  //   {title:'سرویس فرنگی' , id:28},
-
-  // ]
 
   return (
     <div className=" my-10  mx-6 sm:mx-10 md:mx-28">
@@ -249,7 +266,9 @@ const AddMovies = ({ history, from, user }) => {
                 movieCover={movieCover}
                 setMovieCover={setMovieCover}
               /> */}
-      <div className="text-[23px] font-bold mt-10 mb-6 ">{from ? "ویرایش ویلا" : 'افزودن ویلا جدید'}</div>
+      <div className="text-[23px] font-bold mt-10 mb-6 ">
+        {from ? "ویرایش ویلا" : "افزودن ویلا جدید"}
+      </div>
       <section className=" dark:text-screenLight text-sideBarDark  self-center mt-2  ">
         <div className="">
           <form className="">
@@ -284,7 +303,11 @@ const AddMovies = ({ history, from, user }) => {
                 </div>
               </li>
 
-              <li className="mb-10 ml-2 sm:ml-6 flex flex-col w-full">
+              <li
+                className={`${
+                  user && "hidden"
+                } mb-10 ml-2 sm:ml-6 flex flex-col w-full`}
+              >
                 <UplaodBox setImgs={setImgs} imgs={imgs} />
               </li>
             </ol>
@@ -312,7 +335,7 @@ const AddMovies = ({ history, from, user }) => {
               //     : false
               // }
             >
-              ثبت{" "}
+              {user ? "ویرایش" : "ثبت"}
             </button>
           </div>
         </div>
