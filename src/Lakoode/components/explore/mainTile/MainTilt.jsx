@@ -250,7 +250,7 @@ const tafREf = [
                           <div className="relative">
                             <img
                               className="rounded-t-3xl w-full h-[220px]"
-                              // src={villa.villa.mainImg}
+                              src={`https://localhost:7103/api/Villa/GetImage?imageName=${villa.images[0].imageName}`}
                               alt="لاکوده"
                             />
                             <div

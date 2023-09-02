@@ -7,14 +7,16 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { data1 } from "../../explore/mainTile/MainTilt";
-const Calandre = ({setRangeDays , rangeDays,seletedDays}) => {
-  const villa = data1
-  const optionsD = {
-    day: "numeric",
-  };
-  const nowDay = new Date().toLocaleDateString("fa-IR-u-nu-latn", optionsD);
-// console.log(nowDay)
-const ert=' k'
+import ClanderForEveryMounth from "./ClanderForEveryMounth";
+const Calandre = ({
+  setRangeDays,
+  villaa,
+  rangeDays,
+  seletedDays,
+  rangeDaysForUpdate,
+  setRangeDaysForUpdate,state
+}) => {
+
   const mounth = [
     // روز ممنوع -جمعه-ماه-فاصله شنبه تا1 -شماره ماه
     [1, 4, "فروردین", [3, 10, 17, 24, 31], 32],
@@ -31,44 +33,21 @@ const ert=' k'
     [12, 3, "اسفند", [4, 11, 18, 25], 30],
   ];
 
-  const tr = [
-    [0, 7],
-    [7, 14],
-    [14, 21],
-    [21, 28],
-    [28, 34],
-  ];
-
- 
-  const optionsM = {
-    month: "long",
-  };
   const optionsMnum = {
     month: "numeric",
   };
-  const optionsY = {
-    year: "numeric",
-  };
-  const optionsW = {
-    weekday: "long",
-  };
-  const nowMounth = new Date().toLocaleDateString("fa-IR-u-nu-latn", optionsM);
-  const nowYear = new Date().toLocaleDateString("fa-IR-u-nu-latn", optionsY);
+
+
   const nowMnum = new Date().toLocaleDateString("fa-IR-u-nu-latn", optionsMnum);
 
-  const index = mounth.findIndex((dr) => dr[0] === parseInt(nowMnum));
-  const indexOfRD = villa?.reservation.findIndex((dr) => dr[0] === nowMnum);
-  const indexIncP = villa?.specialIncPrice.findIndex((qq) => qq[0] === nowMnum);
-  const indexDecP = villa?.discount.findIndex((qq) => qq[0] === nowMnum);
-  const rd = villa?.reservation;
   const sliderRef = useRef(null);
 
   const handlePrev = useCallback(() => {
     setRangeDays({
-      f: '',
-      s: '',
-      y: '',
-      m: '',
+      f: "",
+      s: "",
+      y: "",
+      m: "",
     });
     if (!sliderRef.current) return;
     sliderRef.current.swiper.slidePrev();
@@ -76,10 +55,10 @@ const ert=' k'
 
   const handleNext = useCallback(() => {
     setRangeDays({
-      f: '',
-      s: '',
-      y: '',
-      m: ''
+      f: "",
+      s: "",
+      y: "",
+      m: "",
     });
     if (!sliderRef.current) return;
     sliderRef.current.swiper.slideNext();
@@ -102,10 +81,23 @@ const ert=' k'
           modules={[Navigation]}
           className={`  relative h-[600px]   rounded-3xl   flex justify-center  `}
         >
-          {mounth.slice(nowMnum-1, 12).map((mah) => (
+          {mounth.slice(nowMnum - 1, 12).map((mah) => (
             <SwiperSlide key={mah[0] - 1} className=" ">
               <div className="  lg:w-[70vw] px-5    flex justify-center dark:bg-transparent   rounded-3xl ">
+                <ClanderForEveryMounth
+                  seletedDays={seletedDays}
+                  mounth={mah}
+                  villa={villaa}
+                  rangeDays={rangeDays}
+                  setRangeDays={setRangeDays}
+                  rangeDaysForUpdate={rangeDaysForUpdate}
+                  setRangeDaysForUpdate={setRangeDaysForUpdate}
+                  state={state}
+                />
+              </div>
+              {/* <div className="  lg:w-[70vw] px-5    flex justify-center dark:bg-transparent   rounded-3xl ">
                 <CalandreDetalis
+                calData={calData}
                   rd={rd[mah[0] - 1]}
                   mounth={mounth[mah[0] - 1]}
                   specialIncPrice={villa.specialIncPrice[mah[0] - 1]}
@@ -118,12 +110,12 @@ const ert=' k'
                   nowYear={nowYear}
                   nowMnum={nowMnum}
                   seletedDays={seletedDays}
-                  setRangeDays={setRangeDays} rangeDays={rangeDays}
+                  setRangeDays={setRangeDays} 
+                  rangeDays={rangeDays}
                 />
-              </div>{" "}
+              </div>{" "} */}
             </SwiperSlide>
           ))}
-
         </Swiper>
 
         <div className="absolute w-[100vw] top-5 z-[33] pl-10 xl:pl-24 md:w-[80vw]  lg:w-[43vw] xl:w-[48vw] flex justify-end ">
@@ -146,4 +138,3 @@ const ert=' k'
 };
 
 export default Calandre;
-

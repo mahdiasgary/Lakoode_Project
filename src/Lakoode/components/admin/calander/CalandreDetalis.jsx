@@ -14,6 +14,7 @@ const CalandreDetalis = ({
   nowMnum,
   setRangeDays,
   rangeDays,
+  calData,
 }) => {
   const incP = mounth[3];
   const week = [
@@ -28,7 +29,10 @@ const CalandreDetalis = ({
   const optionsW = {
     weekday: "long",
   };
-  let nowweekk = new Date().toLocaleDateString("fa-IR-u-nu-latn", optionsW);
+  let nowweekk = new Date(calData?.data[0].date).toLocaleDateString(
+    "fa-IR-u-nu-latn",
+    optionsW
+  );
   const days = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
     22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
@@ -38,13 +42,32 @@ const CalandreDetalis = ({
     [7, 14],
     [14, 21],
     [21, 28],
-    [28, 35],
-    [35, 42],
+    [28, 31],
   ];
 
+  const optionsM = {
+    month: "long",
+  };
+  const optionsMnum = {
+    month: "numeric",
+  };
+  const optionsY = {
+    year: "numeric",
+  };
+
+  // const nowMounth = new Date('2023-9-10').toLocaleDateString("fa-IR-u-nu-latn", optionsM);
+  // const nowYear = new Date('2023-9-10').toLocaleDateString("fa-IR-u-nu-latn", optionsY);
+  // const nowMnum = new Date('2023-9-10').toLocaleDateString("fa-IR-u-nu-latn", optionsMnum);
   const optionsD = {
     day: "numeric",
   };
+  const nowDa = new Date("2023-9-1").toLocaleDateString(
+    "fa-IR-u-nu-latn",
+    optionsD
+  );
+  let nowwe = new Date().toLocaleDateString("fa-IR-u-nu-latn", optionsW);
+
+  // console.log(nowDa,nowwe)
 
   const nowDay = new Date().toLocaleDateString("fa-IR-u-nu-latn", optionsD);
   for (let i = 0; i < mounth[1]; i++) {
@@ -131,8 +154,8 @@ const CalandreDetalis = ({
     setferst("");
     if (rangeDays.f === d) {
       setRangeDays({
-        f:'',
-        s: '',
+        f: "",
+        s: "",
         y: year,
         m: mounth[0],
       });
@@ -149,11 +172,17 @@ const CalandreDetalis = ({
     setferst(d);
     setRangeDays({ f: d, s: "", y: year, m: mounth[0] });
   };
+  const wDif = [];
+  for (let i = 0; i < mounth[1]; i++) {
+    calData?.data?.unshift(i);
+  }
+
+  console.log(mounth[2], wDif);
   return (
     <div
       className={`relative ${
         nowYear == year && mounth[0] < nowMnum && "hidden"
-      } `} 
+      } `}
     >
       <table className="bg-white dark:bg-border rounded-3xl lg:w-[60vw]  ">
         <thead className="w-[80px]">
@@ -181,7 +210,8 @@ const CalandreDetalis = ({
         <tbody onMouseLeave={() => setferst("")} className="faNumber">
           {tr.map((t) => (
             <tr key={t[0]}>
-              {days.slice(t[0], t[1]).map((d) => (
+              {calData?.data?.slice(t[0], t[1]).map((d) => (
+                
                 <td
                   key={d}
                   className={`sm:p-1 text-center text-sm ${
@@ -234,22 +264,11 @@ const CalandreDetalis = ({
                         "line-through"
                       }`}
                     >
-                      {d}
+                      {/* {d.shamsiDate.split("/")[2]} */}
+                      {/* {new Date(d.date).toLocaleDateString("fa-IR-u-nu-latn", optionsD)} */}
                     </div>
-                    {rd.find((rd) => d === rd) &&
+                    {sip.find((sip) => d === sip) &&
                     ((d >= nowDay && thitM) || !thitM) ? (
-                      <div
-                        className={`text-sm text-gray-500 ${
-                          (seletedDays.find((day) => day === d) ||
-                            rangeDays.f === d ||
-                            rangeDays.s === d) &&
-                          "text-white"
-                        } `}
-                      >
-                        رزرو شده
-                      </div>
-                    ) : sip.find((sip) => d === sip) &&
-                      ((d >= nowDay && thitM) || !thitM) ? (
                       <div
                         className={`text-[12px] flex font-semibold justify-center text-red-500 ${
                           (seletedDays.find((day) => day === d) ||

@@ -20,7 +20,7 @@ export const ContextProvider = ({ children }) => {
     {},
     { refetchOnMountOrArgChange: true }
   );
-console.log(data)
+// console.log(data)
   // useEffect(() => {
   //   const handleResize = () => setWindowSize(window.innerWidth);
 

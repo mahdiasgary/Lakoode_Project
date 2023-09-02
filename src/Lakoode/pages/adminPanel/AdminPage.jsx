@@ -14,6 +14,7 @@ import PriceMake from "./reservation/PriceMake";
 import VillaClander from "./villaClander/VillaClander";
 import User from "./users/User";
 import EditeVilla from "./villaList/EditeVilla";
+import Adduser from "./users/Adduser";
 const AdminPage = ({ history }) => {
   const [mode, setMode] = useState("dark");
   const [openMenu, setOpenMenu] = useState(false);
@@ -76,6 +77,11 @@ const AdminPage = ({ history }) => {
               path={"/admin/pricedetermination"}
               exact
               component={() => <PriceMake />}
+            />
+               <Route
+              path={"/admin/adduser"}
+              exact
+              component={() => <Adduser />}
             />
              <Route
               path={"/admin/editvilla"}

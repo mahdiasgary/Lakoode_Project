@@ -8,35 +8,48 @@ import {
   GiCeremonialMask,
   MdMonitor,
   BiCameraMovie,
-  AiOutlineSchedule,FaListAlt,
-  MdMenu,RiSlideshow3Line,FiUsers,BiComment,FiFilm,FaTheaterMasks,
-  RiHome2Line,RiMovie2Line,CgAddR,FaRegListAlt,MdAddBox,ImEarth,BiDna,IoLanguage
-}from "../common/icons";
+  AiOutlineSchedule,
+  FaListAlt,
+  MdMenu,
+  RiSlideshow3Line,
+  FiUsers,
+  BiComment,
+  FiFilm,
+  FaTheaterMasks,
+  RiHome2Line,
+  RiMovie2Line,
+  CgAddR,
+  FaRegListAlt,
+  MdAddBox,
+  ImEarth,
+  BiDna,
+  IoLanguage,
+} from "../common/icons";
 
-export const adminArtistListTh=[
-  'ID' , 'IMAGE','NAME','BIRTHDATE' 
-]
-export const adminArtistListTd=[
-  'id' , 'image','name','birthDate' 
-]
-export const adminMoviesListTh=[
-  'ID' , 'COVER','TITLE','CREATED DATE' , 'TIME' , 'RELEASED DATE','ACTION'
-]
-export const adminMoviesListTd=[
-  'id' , 'image','title','createdDate' ,'time','releasedDate','action'
-]
-export const adminNormalListTd=[
-  'id' , 'title','action'
-]
-export const adminNormalListTh=[
-  'ID' , 'TITLE','ACTION'
-]
-export const adminGenreListTd=[
-  'id' ,'image', 'title','action'
-]
-export const adminGenreListTh=[
-  'ID' ,'IMAGE', 'TITLE','ACTION'
-]
+export const adminArtistListTh = ["ID", "IMAGE", "NAME", "BIRTHDATE"];
+export const adminArtistListTd = ["id", "image", "name", "birthDate"];
+export const adminMoviesListTh = [
+  "ID",
+  "COVER",
+  "TITLE",
+  "CREATED DATE",
+  "TIME",
+  "RELEASED DATE",
+  "ACTION",
+];
+export const adminMoviesListTd = [
+  "id",
+  "image",
+  "title",
+  "createdDate",
+  "time",
+  "releasedDate",
+  "action",
+];
+export const adminNormalListTd = ["id", "title", "action"];
+export const adminNormalListTh = ["ID", "TITLE", "ACTION"];
+export const adminGenreListTd = ["id", "image", "title", "action"];
+export const adminGenreListTh = ["ID", "IMAGE", "TITLE", "ACTION"];
 export const sidbarItem = [
   { id: 1, title: "Explore", icon: <MdOutlineExplore /> },
   { id: 2, title: "Movies", icon: <BiCameraMovie /> },
@@ -48,35 +61,87 @@ export const sidbarItem = [
     id: 7,
     title: "Theme",
     icon: <AiOutlineHeart />,
-    arrow: '',
+    arrow: "",
   },
   { id: 8, title: "Light Mode", icon: <AiOutlineHeart /> },
 
   { title: "User", icon: <IoNewspaperOutline /> },
   { title: "Coming Soon", icon: <AiOutlineSchedule /> },
 ];
- export const adminSidbarItem = [
-  [{ id: 21, titleFa: "پیشخوان" ,title:'comments',icon:<BiComment/>}],
+export const adminSidbarItem = [
+  [{ id: 21, titleFa: "پیشخوان", title: "comments", icon: <BiComment /> }],
 
-  [{ id: 1, titleFa: "داشبورد",title:'dashboard',icon:<RiHome2Line/> }],
-  [{ id: 5, titleFa: "کاربران",title:'users',icon:<FiUsers/> }],
+  [{ id: 1, titleFa: "داشبورد", title: "dashboard", icon: <RiHome2Line /> }],
   [
-    { id: 9, titleFa: "ویلا ها " ,title:'villas',icon:<FaTheaterMasks />},
+    { id: 5, titleFa: "کاربران", title: "usersl", icon: <FiUsers /> },
     [
-      { id: 9, titleFa: "افزودن  ویلای جدید",title:'addnewvilla',main:'addnewvilla',icon1:<CgAddR/>,icon2:<MdAddBox/> },
-      { id: 9, titleFa: "لیست ویلا ها",main:'villaslist',title:'villaslist',icon1:<FaRegListAlt/>,icon2:<FaListAlt/>  },
+      // { id: 5, titleFa: "لیست کاربران", title: "users", icon: <FiUsers /> },
+      {
+        id: 9,
+        titleFa: "    لیست کاربران",
+        title: "users",
+        main: "users",
+        icon1: <FaRegListAlt />,
+        icon2: <FaRegListAlt />,
+      },
+      {
+        id: 9,
+        titleFa: "    افزودن کاربر جدید",
+        title: "adduser",
+        main: "adduser",
+        icon1: <CgAddR />,
+        icon2: <MdAddBox />,
+      },
     ],
   ],
-  [{ id: 2, titleFa: "رزرواسیون",title:'reservation',icon:<RiMovie2Line/> },
   [
-    { id: 9, titleFa: "   تعیین قیمت",title:'pricedetermination',main:'pricedetermination',icon1:<CgAddR/>,icon2:<MdAddBox/> },
-    { id: 9, titleFa: "  تقویم رزرو ویلا ها",main:'calendar',title:'calendar',icon1:<FaRegListAlt/>,icon2:<FaListAlt/>  },
+    { id: 9, titleFa: "ویلا ها ", title: "villas", icon: <FaTheaterMasks /> },
+    [
+      {
+        id: 9,
+        titleFa: "افزودن  ویلای جدید",
+        title: "addnewvilla",
+        main: "addnewvilla",
+        icon1: <CgAddR />,
+        icon2: <MdAddBox />,
+      },
+      {
+        id: 9,
+        titleFa: "لیست ویلا ها",
+        main: "villaslist",
+        title: "villaslist",
+        icon1: <FaRegListAlt />,
+        icon2: <FaListAlt />,
+      },
+    ],
   ],
-
-],
-  [{ id: 20, titleFa: "نظرات" ,title:'comments',icon:<BiComment/>}],
-
-
+  [
+    {
+      id: 2,
+      titleFa: "رزرواسیون",
+      title: "reservation",
+      icon: <RiMovie2Line />,
+    },
+    [
+      {
+        id: 9,
+        titleFa: "   تعیین قیمت",
+        title: "pricedetermination",
+        main: "pricedetermination",
+        icon1: <CgAddR />,
+        icon2: <MdAddBox />,
+      },
+      {
+        id: 9,
+        titleFa: "  تقویم رزرو ویلا ها",
+        main: "calendar",
+        title: "calendar",
+        icon1: <FaRegListAlt />,
+        icon2: <FaListAlt />,
+      },
+    ],
+  ],
+  [{ id: 20, titleFa: "نظرات", title: "comments", icon: <BiComment /> }],
 ];
 export const footerMenu = [
   { title: "Menu", icon: <MdMenu /> },
@@ -202,12 +267,25 @@ export const trendingItem = [
 ];
 
 export const adminAddMovieListItems = [
-  ['نام' , 'متراژ'] ,['امکانات رفاهی' , 'آشپزخانه' ], ['امکانات تفریحی' , 'سرمایشی گرمایشی' ],['خدمات رفاهی' , 'موارد ایمنی' ],['سرویس بهداشتی','ظرفیت'], [  'حمام' ,"سرویس ایرانی" ,"سرویس فرنگی"],['اتاق خواب','تخت دو نفره','تخت یک نفره'], ['توضیحات']
-]
+  ["نام", "متراژ"],
+  ["امکانات رفاهی", "آشپزخانه"],
+  ["امکانات تفریحی", "سرمایشی گرمایشی"],
+  ["خدمات رفاهی", "موارد ایمنی"],
+  ["سرویس بهداشتی", "ظرفیت"],
+  ["حمام", "سرویس ایرانی", "سرویس فرنگی"],
+  ["اتاق خواب", "تخت دو نفره", "تخت یک نفره"],
+  ["توضیحات"],
+];
 export const adminAddMovieListItemsMulti = [
-'Artist' , 'Genre' ,'Language' ,'Country']
+  "Artist",
+  "Genre",
+  "Language",
+  "Country",
+];
 
-export const adminAddOthersListItems = [
-["Title"]]
+export const adminAddOthersListItems = [["Title"]];
 export const adminAddArtistListItems = [
-  ["Name" , 'DateBirth'] , ['Career'] , ['Summary']]
+  ["Name", "DateBirth"],
+  ["Career"],
+  ["Summary"],
+];

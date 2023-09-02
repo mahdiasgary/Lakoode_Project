@@ -5,13 +5,26 @@ import axios from "axios";
 import { toast } from "react-toastify";
 // require('persian-date');
 const PriceMake = () => {
+  const [rangeDaysForUpdate, setRangeDaysForUpdate] = useState({
+    day: "",
+    m: "",
+  });
+  const optionsMnum = {
+    month: "numeric",
+  };
+  const nowMnum = new Date().toLocaleDateString("fa-IR-u-nu-latn", optionsMnum);
   const { data, isFetching, isLoading, error } = useGetvillalistQuery(
     {},
     { refetchOnMountOrArgChange: true }
   );
   const [villa, setvilla] = useState("");
   let seletedDays = [];
-  const [rangeDays, setRangeDays] = useState({ f: "", s: "", y: "", m: "" });
+  const [rangeDays, setRangeDays] = useState({
+    f: "",
+    s: "",
+    y: "",
+    m: nowMnum,
+  });
 
   if (rangeDays.f !== "" && rangeDays.s === "") {
     seletedDays.push(rangeDays.f);
@@ -29,75 +42,73 @@ const PriceMake = () => {
     }
   }
   const [prise, setPrise] = useState("");
-  const [discount, setdiscount] = useState("");
-  useEffect(()=>{
+  const [discount, setdiscount] = useState("0");
+  const [calData, setCalData] = useState();
+  useEffect(() => {
     axios({
       method: "post",
-      url: `https://localhost:7103/api/Reservation/GetPricedDays`,
-      // data: {
-      //   // villaID: villa,
-      //   days: seletedDays,
-      //   price: prise,
-      //   month: rangeDays.m,
-      //   // discount: "200",
-      // },
+      url: `https://localhost:7103/api/Reservation/GetPricedDays?villaId=${villa}&month=${rangeDays.m}`,
+    }).then(function (response) {
+      setCalData(response.data);
+    });
+  }, [villa]);
+  const [state,setState]=useState(true)
+
+  const submitHand = () => {
+    axios({
+      method: "post",
+      url: `https://localhost:7103/api/Reservation/AddPriceToDays`,
+      data: {
+        villaId: villa,
+        days: seletedDays,
+        price: prise,
+        month: rangeDays.m,
+        disscount: discount,
+      },
     })
       .then(function (response) {
-        // toast.success("قیمت با موفقیت ثبت شد", {
-        //   autoClose: 1100,
-        //   position: "top-left",
-        // });
-        console.log(response.data.data);
+        setState(!state)
+        setPrise("");
+        setdiscount("0");
+        setRangeDays({ f: "", s: "", y: "", m: "" });
+        toast.success("قیمت با موفقیت ثبت شد", {
+          autoClose: 1100,
+          position: "top-left",
+        });
       })
-      .catch(function (response) {
-      });
-   
-  },[])
+      .catch(function (response) {});
 
- const submitHand=()=>{
-  axios({
-    method: "post",
-    url: `https://localhost:7103/api/Reservation/AddPriceToDays`,
-    data:  {
-      villaId: villa,
-      days: seletedDays,
-      price: prise,
-      month: rangeDays.m,
-      disscount:discount
-    },
-  })
-    .then(function (response) {
-      setPrise('');
-      setdiscount('');
-      setRangeDays({ f: "", s: "", y: "", m: "" });
-      toast.success("قیمت با موفقیت ثبت شد", {
-        autoClose: 1100,
-        position: "top-left",
-      });
+  };
+  
+  const updateHand=()=>{
+    axios({
+      method: "post",
+      url: `https://localhost:7103/api/Reservation/UpdatePricedDays`,
+      data: {
+        villaId: villa,
+        day: rangeDaysForUpdate.day,
+        price: prise,
+        month: rangeDaysForUpdate.m,
+        disscount: discount,
+      },
     })
-    .catch(function (response) {
-    });
- }
+      .then(function (response) {
+        setState(!state)
 
-  // new Date(`${rangeDays.y}/${rangeDays.m}/${seletedDays[0]}`).toDateString('fa')
-  // date: rangeDays.f,
-  // for (let i = rangeDays.f<rangeDays.s ? 1 : 0  ;i  < seletedDays.length ; i++) {
-  //   reservDays.push({
-  //     villaID: villa,
-  //     date: seletedDays[i],
-  //     prise,
-  //     discount,
-  //     disLable,
-  //     incLable,
-  //     sureLable,
-  //   });
-  // }
+        setPrise("");
+        setdiscount("0");
+        setRangeDays({ f: "", s: "", y: "", m: "" });
+        toast.success("قیمت با موفقیت تغییر یافت", {
+          autoClose: 1100,
+          position: "top-left",
+        });
+      })
+      .catch(function (response) {});
 
-  // console.log(new Date([1402,6,3]).toDateString('fa'));
-  //   for (let i = 0; i < rangeDays?.length; i++) {
-  //     ReservHand(i);
-  //   }
-  // console.log(reservDays);
+  }
+  useEffect(()=>{
+    setState(!state)
+  },[villa])
   return (
     <div>
       <div>
@@ -122,18 +133,31 @@ const PriceMake = () => {
 
       <div
         className={`${
-          rangeDays.f === "" && "opacity-60 cursor-not-allowed"
+          rangeDays.f === "" &&
+          rangeDaysForUpdate.day === "" &&
+          "opacity-60 cursor-not-allowed"
         } mt-10 bg-white   mx-5  dark:bg-border lg:mx-10 p-5 rounded-3xl`}
       >
         <div>
-          <p className="text-lg font-semibold">
-            تعیین قیمت در{" "}
-            {seletedDays?.map((d) => (
-              <span className="mx-1 px-3 rounded-lg bg-textPDark bg-opacity-60 text-white w-10 ">
-                {d}
+          <p className="text-lg flex font-semibold">
+            <span>تعیین قیمت در </span>
+            <span>
+              {seletedDays?.map((d) => (
+                <span className="mx-1 px-3 rounded-lg bg-textPDark bg-opacity-60 text-white w-10 ">
+                  {d}
+                </span>
+              ))}
+              <span
+                className={`mx-1 px-3 rounded-lg bg-textPDark bg-opacity-60 text-white w-10 ${
+                  rangeDaysForUpdate.day === "" && "hidden"
+                } `}
+              >
+                {rangeDaysForUpdate.day}
               </span>
-            ))}{" "}
+            </span>
+            <span>
             /{rangeDays?.m} /{rangeDays.y}
+            </span>
           </p>
         </div>
         <div className="flex mt-8 lg:justify-between lg:flex-row flex-col justify-start">
@@ -142,13 +166,14 @@ const PriceMake = () => {
               <p className="md:self-center">قیمت را وارد کنید</p>
               <div>
                 <input
-                  disabled={rangeDays.f === "" && true}
+                  disabled={((rangeDays.f === "" && rangeDaysForUpdate.day==='') || villa === "") && true}
                   onChange={(e) => setPrise(e.target.value)}
                   value={prise}
                   type="text"
                   dir="ltr"
                   className={` ${
-                    rangeDays.f === "" && "opacity-60 cursor-not-allowed"
+                    ((rangeDays.f === "" && rangeDaysForUpdate.day==='') || villa === "") &&
+                    "opacity-60 cursor-not-allowed"
                   } text-[20px] dark:bg-textPDark font-semibold outline-none focus:ring-2 focus:ring-btn  bg-screenLight px-4 h-12 mr-4 ml-2 rounded-2xl`}
                 />
                 تومان
@@ -160,13 +185,14 @@ const PriceMake = () => {
               </p>
               <div>
                 <input
-                  disabled={rangeDays.f === "" && true}
+                  disabled={((rangeDays.f === "" && rangeDaysForUpdate.day==='') || villa === "") && true}
                   onChange={(e) => setdiscount(e.target.value)}
                   value={discount.toLocaleString()}
                   type="text"
                   dir="ltr"
                   className={`${
-                    rangeDays.f === "" && "opacity-60 cursor-not-allowed"
+                    ((rangeDays.f === "" && rangeDaysForUpdate.day==='') || villa === "") &&
+                    "opacity-60 cursor-not-allowed"
                   } text-[20px] ml-1 dark:bg-textPDark font-semibold outline-none focus:ring-2 focus:ring-btn  bg-screenLight px-2 w-32 h-12 mr-4 rounded-2xl`}
                 />
                 تومان
@@ -175,23 +201,41 @@ const PriceMake = () => {
           </div>
         </div>
         <div className="text-center lg:text- mt-5 lg:mx-20">
-          <button
-          onClick={submitHand}
-            disabled={rangeDays.f === "" && true}
-            className={`${
-              rangeDays.f === "" && "opacity-60 cursor-not-allowed"
-            } bg-btn text-white lg:w-[20vw] w-[60vw]  py-3 rounded-xl hover:bg-blue-800 duration-300 font-semibold`}
-          >
-            ثبت
-          </button>
+          {rangeDaysForUpdate.day !== '' ? (
+            <button
+              onClick={updateHand}
+              disabled={( villa === "") && true}
+              className={`${
+                villa == "" && "opacity-60 cursor-not-allowed"
+              } bg-btn text-white lg:w-[20vw] w-[60vw]  py-3 rounded-xl hover:bg-blue-800 duration-300 font-semibold`}
+            >
+              ویراش قیمت
+            </button>
+          ) : (
+            <button
+              onClick={submitHand}
+              disabled={(rangeDays.f === "" || villa === "") && true}
+              className={`${
+                (rangeDays.f === "" || villa == "") &&
+                "opacity-60 cursor-not-allowed"
+              } bg-btn text-white lg:w-[20vw] w-[60vw]  py-3 rounded-xl hover:bg-blue-800 duration-300 font-semibold`}
+            >
+              ثبت
+            </button>
+          )}
         </div>
       </div>
 
       <div className="mt-10 bg-white  mx-2  dark:bg-border lg:mx-10 px-3 lg:p-5 rounded-3xl">
         <Calandre
+          villaa={villa}
+          calData={calData}
           seletedDays={seletedDays}
           setRangeDays={setRangeDays}
           rangeDays={rangeDays}
+          rangeDaysForUpdate={rangeDaysForUpdate}
+          setRangeDaysForUpdate={setRangeDaysForUpdate}
+          state={state}
         />
       </div>
     </div>
