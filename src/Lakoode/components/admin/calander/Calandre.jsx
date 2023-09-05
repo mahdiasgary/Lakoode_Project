@@ -13,9 +13,12 @@ const Calandre = ({
   rangeDays,
   seletedDays,
   rangeDaysForUpdate,
-  setRangeDaysForUpdate,state,setState,year,setyear
+  setRangeDaysForUpdate,
+  state,
+  setState,
+  year,
+  setyear,
 }) => {
-
   const mounth = [
     // روز ممنوع -جمعه-ماه-فاصله شنبه تا1 -شماره ماه
     [1, 4, "فروردین", [3, 10, 17, 24, 31], 32],
@@ -36,12 +39,15 @@ const Calandre = ({
     month: "numeric",
   };
 
-
   const nowMnum = new Date().toLocaleDateString("fa-IR-u-nu-latn", optionsMnum);
 
   const sliderRef = useRef(null);
 
   const handlePrev = useCallback(() => {
+    setRangeDaysForUpdate({
+      day: "",
+      m: "",
+    });
     setRangeDays({
       f: "",
       s: "",
@@ -53,6 +59,11 @@ const Calandre = ({
   }, []);
 
   const handleNext = useCallback(() => {
+    setRangeDaysForUpdate({
+      day: "",
+      m: "",
+      y:""
+    });
     setRangeDays({
       f: "",
       s: "",
@@ -65,7 +76,7 @@ const Calandre = ({
   return (
     <div className=" flex flex-col  lg:justify-center lg:gap-10">
       <div className="w-[100vw] lg:w-[70vw] h-[600px] relative self-center flex   ">
-      <div className="absolute left-0 top-5 z-[33] pl-10 xl:pl-24  xl:w-[20vw] flex justify-end ">
+        <div className="absolute left-0 top-5 z-[33] pl-10 xl:pl-20  xl:w-[20vw] flex justify-end ">
           <div
             className="prev-arrow flex  bg-white text-[19px] hover:bg-btn hover:text-white duration-300 hover:border-btn shadow-md cursor-pointer  mx-4 text-btn border w-9 h-9 rounded-lg  justify-center   "
             onClick={handlePrev}
@@ -111,25 +122,25 @@ const Calandre = ({
                   setyear={setyear}
                 />
               </div>
-              {/* <div className="  lg:w-[70vw] px-5    flex justify-center dark:bg-transparent   rounded-3xl ">
-                <CalandreDetalis
-                calData={calData}
-                  rd={rd[mah[0] - 1]}
-                  mounth={mounth[mah[0] - 1]}
-                  specialIncPrice={villa.specialIncPrice[mah[0] - 1]}
-                  discount={villa?.discount[mah[0] - 1]}
-                  year={1402}
-                  price={villa?.price}
-                  incPrice={villa?.incPrice}
-                  thitM={nowMnum == mah[0]}
-                  discountPr={villa?.discountPr}
-                  nowYear={nowYear}
-                  nowMnum={nowMnum}
+            </SwiperSlide>
+          ))}
+          {mounth.map((mah) => (
+            <SwiperSlide key={mah[0] - 1} className=" ">
+              <div className="  lg:w-[70vw] px-5    flex justify-center dark:bg-transparent   rounded-3xl ">
+                <ClanderForEveryMounth
                   seletedDays={seletedDays}
-                  setRangeDays={setRangeDays} 
+                  mounth={mah}
+                  villa={villaa}
                   rangeDays={rangeDays}
+                  setRangeDays={setRangeDays}
+                  rangeDaysForUpdate={rangeDaysForUpdate}
+                  setRangeDaysForUpdate={setRangeDaysForUpdate}
+                  state={state}
+                  setState={setState}
+                  year={parseInt(year) + 1}
+                  setyear={setyear}
                 />
-              </div>{" "} */}
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>

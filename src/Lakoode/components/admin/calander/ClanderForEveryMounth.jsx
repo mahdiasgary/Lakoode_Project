@@ -113,6 +113,7 @@ const ClanderForEveryMounth = ({
 
   const oneHand = (d) => {
     setRangeDaysForUpdate({
+      y:year,
       day: "",
       m: "",
     });
@@ -120,6 +121,7 @@ const ClanderForEveryMounth = ({
   };
   const twoHand = (d) => {
     setRangeDaysForUpdate({
+      y:year,
       day: "",
       m: "",
     });
@@ -141,6 +143,7 @@ const ClanderForEveryMounth = ({
   };
   const treeHand = (d) => {
     setRangeDaysForUpdate({
+      y:year,
       day: "",
       m: "",
     });
@@ -150,6 +153,7 @@ const ClanderForEveryMounth = ({
   const handfour = (d) => {
     setRangeDays({ f: "", s: "", y: year, m: mounth[0] });
     setRangeDaysForUpdate({
+      y:year,
       day: d,
       m: mounth[0],
     });
@@ -164,20 +168,8 @@ const ClanderForEveryMounth = ({
       <table className="bg-white dark:bg-border rounded-3xl lg:w-[60vw]  ">
         <thead className="w-[80px]">
           <th>
-            <div className="faNumber justify-end flex bg-white dark:bg-transparent py-5  rounded-t-3xl  sm:px-2">
-              <select
-                value={year}
-                onChange={(e) => {
-                  setyear(e.target.value);
-                  setState(!state);
-                }}
-                className="dark:bg-screenDark  bg-screenLight  py-1 ml- rounded-lg cursor-pointer z-[70]"
-              >
-                <option value={parseInt(nowYear)}>{parseInt(nowYear)}</option>
-                <option value={parseInt(nowYear) + 1}>
-                  {parseInt(nowYear) + 1}
-                </option>
-              </select>
+          <div className="faNumber justify-end flex bg-white dark:bg-transparent py-5  rounded-t-3xl  sm:px-2">
+              {year}
             </div>
           </th>
           <th>

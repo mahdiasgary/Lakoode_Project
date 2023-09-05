@@ -182,21 +182,77 @@ const CalandreD = ({
   const oneHand = (d) => {
     setRangeDays({ f: d, s: "", y: year, m: mounth[0] });
   };
+  // const twoHand = (d) => {
+  //   if (
+  //     parseInt(
+  //       new Date(rangeDays.f.date.split("T")[0]).toLocaleDateString(
+  //         "fa-IR-u-nu-latn",
+  //         optionsD
+  //       )
+  //     ) ==
+  //     parseInt(
+  //       new Date(d.date.split("T")[0]).toLocaleDateString(
+  //         "fa-IR-u-nu-latn",
+  //         optionsD
+  //       )
+  //     )
+  //   ) {
+  //     setRangeDays({
+  //       f: "",
+  //       s: "",
+  //       y: year,
+  //       m: mounth[0],
+  //     });
+  //     // console.log(55)
+  //   }
+  //   if (
+  //     parseInt(
+  //       new Date(rangeDays.f.date.split("T")[0]).toLocaleDateString(
+  //         "fa-IR-u-nu-latn",
+  //         optionsD
+  //       )
+  //     ) >
+  //     parseInt(
+  //       new Date(d.date.split("T")[0]).toLocaleDateString(
+  //         "fa-IR-u-nu-latn",
+  //         optionsD
+  //       )
+  //     )
+  //   ) {
+  //     setRangeDays({
+  //       f: d,
+  //       s: "",
+  //       y: year,
+  //       m: mounth[0],
+  //     });
+  //   }
+  //   if (
+  //     parseInt(
+  //       new Date(rangeDays.f.date.split("T")[0]).toLocaleDateString(
+  //         "fa-IR-u-nu-latn",
+  //         optionsD
+  //       )
+  //     ) <
+  //     parseInt(
+  //       new Date(d.date.split("T")[0]).toLocaleDateString(
+  //         "fa-IR-u-nu-latn",
+  //         optionsD
+  //       )
+  //     )
+  //   ) {
+  //     setRangeDays({
+  //       f: rangeDays.f,
+  //       s: d,
+  //       y: year,
+  //       m: mounth[0],
+  //     });
+  //   }
+  // };
+  
   const twoHand = (d) => {
     if (
-      parseInt(
-        new Date(rangeDays.f.date.split("T")[0]).toLocaleDateString(
-          "fa-IR-u-nu-latn",
-          optionsD
-        )
-      ) ==
-      parseInt(
-        new Date(d.date.split("T")[0]).toLocaleDateString(
-          "fa-IR-u-nu-latn",
-          optionsD
-        )
-      )
-    ) {
+      new Date(rangeDays.f.date?.split('T')[0]).toISOString().split('T')[0]==
+        new Date(d.date?.split("T")[0]).toISOString().split('T')[0]) {
       setRangeDays({
         f: "",
         s: "",
@@ -206,19 +262,9 @@ const CalandreD = ({
       // console.log(55)
     }
     if (
-      parseInt(
-        new Date(rangeDays.f.date.split("T")[0]).toLocaleDateString(
-          "fa-IR-u-nu-latn",
-          optionsD
-        )
-      ) >
-      parseInt(
-        new Date(d.date.split("T")[0]).toLocaleDateString(
-          "fa-IR-u-nu-latn",
-          optionsD
-        )
-      )
-    ) {
+      new Date(rangeDays.f.date?.split('T')[0]).toISOString().split('T')[0]>
+      new Date(d.date?.split("T")[0]).toISOString().split('T')[0])
+     {
       setRangeDays({
         f: d,
         s: "",
@@ -227,19 +273,8 @@ const CalandreD = ({
       });
     }
     if (
-      parseInt(
-        new Date(rangeDays.f.date.split("T")[0]).toLocaleDateString(
-          "fa-IR-u-nu-latn",
-          optionsD
-        )
-      ) <
-      parseInt(
-        new Date(d.date.split("T")[0]).toLocaleDateString(
-          "fa-IR-u-nu-latn",
-          optionsD
-        )
-      )
-    ) {
+      new Date(rangeDays.f.date?.split('T')[0]).toISOString().split('T')[0]<
+      new Date(d.date?.split("T")[0]).toISOString().split('T')[0]) {
       setRangeDays({
         f: rangeDays.f,
         s: d,
@@ -248,6 +283,7 @@ const CalandreD = ({
       });
     }
   };
+  
   const treeHand = (d) => {
     setRangeDays({ f: d, s: "", y: year, m: mounth[0] });
   };
@@ -256,26 +292,12 @@ const CalandreD = ({
   };
 
   let nowYear = new Date().toLocaleDateString("fa-IR-u-nu-latn", optionsY);
-console.log(seletedDaysOnCal)
+// console.log(seletedDaysOnCal)
   return (
-    <div className={`relative`}>
-      <table className="bg-white dark:bg-border rounded-3xl lg:w-[60vw]  ">
+      <table className="bg-white dark:bg-border rounded-3xl lg:w-[60vw] w-[100vw]  ">
         <thead className="w-[80px]">
           <th>
             <div className="faNumber justify-end flex bg-white dark:bg-transparent py-5  rounded-t-3xl  sm:px-2">
-              {/* <select
-                value={year}
-                onChange={(e) => {
-                  setyear(e.target.value);
-                  setState(!state);
-                }}
-                className="dark:bg-screenDark  bg-screenLight  py-1 ml- rounded-lg cursor-pointer z-[70]"
-              >
-                <option value={parseInt(nowYear)}>{parseInt(nowYear)}</option>
-                <option value={parseInt(nowYear) + 1}>
-                  {parseInt(nowYear) + 1}
-                </option>
-              </select> */}
               {year}
             </div>
           </th>
@@ -370,7 +392,7 @@ console.log(seletedDaysOnCal)
                        }
                         ${
                           seletedDaysOnCal.find(
-                            (day) => day == d.shamsiDate.split("/")[2]
+                            (day) => day == d.date.split('T')[0]
                           ) || rangeDays.f ==d || rangeDays.s ==d
                             ? "bg-btn dark:bg-btn text-white"
                             : "dark:bg-textPDark dark:bg-opacity-30 hover:dark:bg-gray-600 hover:bg-gray-200  bg-screenLight "
@@ -385,7 +407,7 @@ console.log(seletedDaysOnCal)
                           
                           ${
                             seletedDaysOnCal.find(
-                              (day) => day == d.shamsiDate.split("/")[2]
+                              (day) => day == d.date.split('T')[0] || rangeDays.f ==d || rangeDays.s ==d
                             ) && "text-white"
                           } 
                           ${
@@ -412,7 +434,6 @@ console.log(seletedDaysOnCal)
           ))}
         </tbody>
       </table>
-    </div>
   );
 };
 

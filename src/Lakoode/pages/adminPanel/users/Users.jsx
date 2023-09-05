@@ -118,13 +118,13 @@ const Users = ({ history }) => {
             <tbody className="px-5 rounded-3xl">
               {(data && data2 )&&
                 [...data.concat(data2)]
-                  .filter((item) => item?.nationalCode?.includes(search))
+                  .filter((item) => (item?.nationalCode).toString().includes(search.toString()))
                   .sort((date1, date2) =>
                     !sort[1]
-                      ? new Date(date1.createdDate) -
-                        new Date(date2.createdDate)
-                      : new Date(date2.createdDate) -
-                        new Date(date1.createdDate)
+                      ? new Date(date1.createdDate.split('T')[0]) -
+                        new Date(date2.createdDate.split('T')[0])
+                      : new Date(date2.createdDate.split('T')[0]) -
+                        new Date(date1.createdDate.split('T')[0])
                   )
                   .map((user) => (
                     <UsersItem

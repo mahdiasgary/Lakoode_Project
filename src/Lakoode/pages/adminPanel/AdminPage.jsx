@@ -56,11 +56,11 @@ const AdminPage = ({ history }) => {
             setOpenMenu={setOpenMenu}
           />{" "}
           <div>
-            {/* <Route
+            <Route
               path={"/admin/reservation"}
               exact
               component={() => <Resevation />}
-            /> */}
+            />
             <Route
               path={"/admin/addnewvilla"}
               exact

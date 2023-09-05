@@ -7,7 +7,8 @@ import { toast } from "react-toastify";
 const PriceMake = () => {
   const [rangeDaysForUpdate, setRangeDaysForUpdate] = useState({
     day: "",
-    m: "",
+    m: "", 
+    y: "",
   });
   const optionsMnum = {
     month: "numeric",
@@ -43,16 +44,7 @@ const PriceMake = () => {
   }
   const [prise, setPrise] = useState("");
   const [discount, setdiscount] = useState("0");
-  // const [calData, setCalData] = useState();
-  // useEffect(() => {
-  //   axios({
-  //     method: "post",
-  //     url: `https://localhost:7103/api/Reservation/GetPricedDays?villaId=${villa}&month=${rangeDays.m}`,
-  //   }).then(function (response) {
-  //     setCalData(response.data);
-  //   });
-  // }, [villa]);
-  const [state,setState]=useState(true)
+  const [state, setState] = useState(true);
 
   const submitHand = () => {
     axios({
@@ -64,24 +56,23 @@ const PriceMake = () => {
         price: prise,
         month: rangeDays.m,
         disscount: discount,
-        year:rangeDays.y
+        year: rangeDays.y,
       },
     })
       .then(function (response) {
-        setState(!state)
+        setState(!state);
         setPrise("");
         setdiscount("0");
-        setRangeDays({ f: "", s: "", y: '' , m: "" });
+        setRangeDays({ f: "", s: "", y: "", m: "" });
         toast.success("قیمت با موفقیت ثبت شد", {
           autoClose: 1100,
           position: "top-left",
         });
       })
       .catch(function (response) {});
-
   };
-  
-  const updateHand=()=>{
+
+  const updateHand = () => {
     axios({
       method: "post",
       url: `https://localhost:7103/api/Reservation/UpdatePricedDays`,
@@ -91,43 +82,45 @@ const PriceMake = () => {
         price: prise,
         month: rangeDaysForUpdate.m,
         disscount: discount,
+        year: rangeDaysForUpdate.y,
       },
     })
       .then(function (response) {
-        setState(!state)
+        setState(!state);
 
         setPrise("");
         setdiscount("0");
         setRangeDays({ f: "", s: "", y: "", m: "" });
+        setRangeDaysForUpdate({
+          day: "",
+          m: "",
+          y: "",
+        });
         toast.success("قیمت با موفقیت تغییر یافت", {
           autoClose: 1100,
           position: "top-left",
         });
       })
       .catch(function (response) {});
-
-  }
-  useEffect(()=>{
-    setState(!state)
-  },[villa])
+  };
+  useEffect(() => {
+    setState(!state);
+  }, [villa]);
   const optionsY = {
     year: "numeric",
   };
 
-  let nowYear = new Date().toLocaleDateString(
-    "fa-IR-u-nu-latn",
-    optionsY
-  );
-  const [year,setyear]=useState(nowYear)
+  let nowYear = new Date().toLocaleDateString("fa-IR-u-nu-latn", optionsY);
+  const [year, setyear] = useState(nowYear);
 
   return (
     <div>
-      <div>
-        <h1 className="text-[23px] font-bold"> رزرواسیون و تعیین قیمت</h1>
-      </div>
+      {/* <div>
+        <h1 className="text-[23px] font-bold">   تعیین قیمت</h1>
+      </div> */}
       <div className="flex mt-16 p-3 ">
         <p className="text-[18px] self-center font-bold">
-          رزرواسیون و تعیین قیمت برای ویلای :
+            تعیین قیمت برای ویلای :
         </p>
         <select
           onChange={(e) => setvilla(e.target.value)}
@@ -167,7 +160,7 @@ const PriceMake = () => {
               </span>
             </span>
             <span>
-            /{rangeDays?.m} /{rangeDays.y}
+              /{rangeDays?.m} /{rangeDays.y}
             </span>
           </p>
         </div>
@@ -177,13 +170,18 @@ const PriceMake = () => {
               <p className="md:self-center">قیمت را وارد کنید</p>
               <div>
                 <input
-                  disabled={((rangeDays.f === "" && rangeDaysForUpdate.day==='') || villa === "") && true}
+                  disabled={
+                    ((rangeDays.f === "" && rangeDaysForUpdate.day === "") ||
+                      villa === "") &&
+                    true
+                  }
                   onChange={(e) => setPrise(e.target.value)}
                   value={prise}
                   type="text"
                   dir="ltr"
                   className={` ${
-                    ((rangeDays.f === "" && rangeDaysForUpdate.day==='') || villa === "") &&
+                    ((rangeDays.f === "" && rangeDaysForUpdate.day === "") ||
+                      villa === "") &&
                     "opacity-60 cursor-not-allowed"
                   } text-[20px] dark:bg-textPDark font-semibold outline-none focus:ring-2 focus:ring-btn  bg-screenLight px-4 h-12 mr-4 ml-2 rounded-2xl`}
                 />
@@ -196,13 +194,18 @@ const PriceMake = () => {
               </p>
               <div>
                 <input
-                  disabled={((rangeDays.f === "" && rangeDaysForUpdate.day==='') || villa === "") && true}
+                  disabled={
+                    ((rangeDays.f === "" && rangeDaysForUpdate.day === "") ||
+                      villa === "") &&
+                    true
+                  }
                   onChange={(e) => setdiscount(e.target.value)}
                   value={discount.toLocaleString()}
                   type="text"
                   dir="ltr"
                   className={`${
-                    ((rangeDays.f === "" && rangeDaysForUpdate.day==='') || villa === "") &&
+                    ((rangeDays.f === "" && rangeDaysForUpdate.day === "") ||
+                      villa === "") &&
                     "opacity-60 cursor-not-allowed"
                   } text-[20px] ml-1 dark:bg-textPDark font-semibold outline-none focus:ring-2 focus:ring-btn  bg-screenLight px-2 w-32 h-12 mr-4 rounded-2xl`}
                 />
@@ -212,10 +215,10 @@ const PriceMake = () => {
           </div>
         </div>
         <div className="text-center lg:text- mt-5 lg:mx-20">
-          {rangeDaysForUpdate.day !== '' ? (
+          {rangeDaysForUpdate.day !== "" ? (
             <button
               onClick={updateHand}
-              disabled={( villa === "") && true}
+              disabled={villa === "" && true}
               className={`${
                 villa == "" && "opacity-60 cursor-not-allowed"
               } bg-btn text-white lg:w-[20vw] w-[60vw]  py-3 rounded-xl hover:bg-blue-800 duration-300 font-semibold`}

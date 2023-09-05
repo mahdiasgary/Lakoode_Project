@@ -69,11 +69,11 @@ export const sidbarItem = [
   { title: "Coming Soon", icon: <AiOutlineSchedule /> },
 ];
 export const adminSidbarItem = [
-  [{ id: 21, titleFa: "پیشخوان", title: "comments", icon: <BiComment /> }],
+  // [{ id: 21, titleFa: "پیشخوان", title: "comments", icon: <BiComment /> }],
 
-  [{ id: 1, titleFa: "داشبورد", title: "dashboard", icon: <RiHome2Line /> }],
+  [{ id: 1, titleFa: "داشبورد", title: "dashboard", icon:'' }],
   [
-    { id: 5, titleFa: "کاربران", title: "usersl", icon: <FiUsers /> },
+    { id: 5, titleFa: "کاربران", title: "usersl", icon: '' },
     [
       // { id: 5, titleFa: "لیست کاربران", title: "users", icon: <FiUsers /> },
       {
@@ -95,7 +95,7 @@ export const adminSidbarItem = [
     ],
   ],
   [
-    { id: 9, titleFa: "ویلا ها ", title: "villas", icon: <FaTheaterMasks /> },
+    { id: 9, titleFa: "ویلا ها ", title: "villas", icon: '' },
     [
       {
         id: 9,
@@ -120,9 +120,17 @@ export const adminSidbarItem = [
       id: 2,
       titleFa: "رزرواسیون",
       title: "reservation",
-      icon: <RiMovie2Line />,
+      icon: '',
     },
     [
+      {
+        id: 9,
+        titleFa: "رزرو ویلا",
+        title: "reservation",
+        main: "reservation",
+        icon1: <CgAddR />,
+        icon2: <MdAddBox />,
+      },
       {
         id: 9,
         titleFa: "   تعیین قیمت",
@@ -131,17 +139,10 @@ export const adminSidbarItem = [
         icon1: <CgAddR />,
         icon2: <MdAddBox />,
       },
-      {
-        id: 9,
-        titleFa: "  تقویم رزرو ویلا ها",
-        main: "calendar",
-        title: "calendar",
-        icon1: <FaRegListAlt />,
-        icon2: <FaListAlt />,
-      },
+     
     ],
   ],
-  [{ id: 20, titleFa: "نظرات", title: "comments", icon: <BiComment /> }],
+  // [{ id: 20, titleFa: "نظرات", title: "comments", icon: <BiComment /> }],
 ];
 export const footerMenu = [
   { title: "Menu", icon: <MdMenu /> },

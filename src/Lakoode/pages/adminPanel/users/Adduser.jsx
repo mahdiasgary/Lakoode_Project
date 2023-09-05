@@ -44,7 +44,6 @@ const Adduser = ({ history }) => {
         nationalCode: Formik.values.nationalCode,
         mobile: Formik.values.mobile,
       },
-      //   Content-Type:'application/json'
     })
       .then(({ data }) => {
         setLoadingButton(false);
