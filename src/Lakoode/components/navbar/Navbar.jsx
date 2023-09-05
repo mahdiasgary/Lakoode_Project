@@ -15,7 +15,7 @@ const Navbar = ({ isSearch, setIsSearch, openMenu, setOpenMenu, from }) => {
 
   return (
     <div className="flex justify-between w-full lg:pt-3 px-3 md:px-7 ">
-      <div className="self-  z-20 flex w-[100px]  lg:hidden text-[26px]">
+      <div className="self-  z-20 flex w-0 md:w-[100px]  lg:hidden text-[26px]">
         <div
           onClick={() => setMode(!IsDarkMode)}
           className="  cursor-pointer "

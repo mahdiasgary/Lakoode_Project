@@ -95,10 +95,10 @@ const SingupPage = ({ setOpenMenu, from, openMenu }) => {
       });
   };
   return (
-    <div className="w-full h-[900px] bg-[#f9f9f9] dark:bg-[#282a37] text-white">
+    <div className="w-full pt-3 pb-24 h-[1000px]  bg-[#f9f9f9] dark:bg-[#282a37] text-white">
       <Navbar from={"login"} openMenu={openMenu} setOpenMenu={setOpenMenu} />
 
-      <div className=" z-[5] absolute py-20 xl:px-32 flex xl:justify-start justify-center w-full text-textLight dark:text-white">
+      <div className=" z-[5] absolute  py-20 xl:px-32 flex xl:justify-start justify-center w-full text-textLight dark:text-white">
         {swichBetweenFormAndVerify ? (
           <VerifyEmail
             from={"singUp"}
@@ -129,6 +129,7 @@ const SingupPage = ({ setOpenMenu, from, openMenu }) => {
           alt="q"
         />
       )}
+    
     </div>
   );
 };

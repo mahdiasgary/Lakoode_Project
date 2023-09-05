@@ -7,7 +7,11 @@ const ClanderForEveryMounth = ({
   mounth,
   villa,
   rangeDays,
-  setRangeDays,state
+  setRangeDays,
+  state,
+  setState,
+  year,
+  setyear,
 }) => {
   const optionsD = {
     day: "numeric",
@@ -26,7 +30,6 @@ const ClanderForEveryMounth = ({
     ["6", 7, 14, 24, 28],
   ];
 
-  let year = 1402;
   const week = [
     [0, "شنبه"],
     [1, "یکشنبه"],
@@ -44,13 +47,16 @@ const ClanderForEveryMounth = ({
     [28, 35],
     [35, 42],
   ];
-  // response.data.data[10].date.split('t')[0]
+  let nowweekk = new Date("2024-10-20").toLocaleDateString(
+    "fa-IR-u-nu-latn",
+    optionsW
+  );
+  console.log(nowweekk);
   const [calData, setCalData] = useState([]);
   useEffect(() => {
-    //   villa &&
     axios({
       method: "post",
-      url: `https://localhost:7103/api/Reservation/GetPricedDays?villaId=${villa}&month=${mounth[0]}`,
+      url: `https://localhost:7103/api/Reservation/GetPricedDays?villaId=${villa}&month=${mounth[0]}&year=${year}`,
     }).then(function (response) {
       let oo = response.data.data[0].date.split("T")[0].toString();
       let nowweekk = new Date(oo).toLocaleDateString(
@@ -69,11 +75,11 @@ const ClanderForEveryMounth = ({
           ? 1
           : nowweekk === "دوشنبه"
           ? 2
-          : nowweekk === "سه شنبه"
+          : nowweekk === "سه‌شنبه"
           ? 3
           : nowweekk === "چهارشنبه"
           ? 4
-          : nowweekk === "پنج شنبه"
+          : nowweekk === "پنجشنبه"
           ? 5
           : nowweekk === "جمعه"
           ? 6
@@ -88,7 +94,6 @@ const ClanderForEveryMounth = ({
       setCalData([Array.from(Array(weekDiff).keys()), response.data?.data]);
     });
   }, [state]);
-
   let seletedDays = [];
   if (rangeDays.f !== "" && rangeDays.s === "") {
     seletedDays.push(rangeDays.f);
@@ -144,18 +149,35 @@ const ClanderForEveryMounth = ({
 
   const handfour = (d) => {
     setRangeDays({ f: "", s: "", y: year, m: mounth[0] });
-      setRangeDaysForUpdate({
-        day: d,
-        m: mounth[0],
-      });
+    setRangeDaysForUpdate({
+      day: d,
+      m: mounth[0],
+    });
   };
+  const optionsY = {
+    year: "numeric",
+  };
+
+  let nowYear = new Date().toLocaleDateString("fa-IR-u-nu-latn", optionsY);
   return (
     <div className={`relative`}>
       <table className="bg-white dark:bg-border rounded-3xl lg:w-[60vw]  ">
         <thead className="w-[80px]">
           <th>
-            <div className="faNumber bg-white dark:bg-transparent py-5 text-end rounded-t-3xl flex justify-end sm:px-2">
-              {year}
+            <div className="faNumber justify-end flex bg-white dark:bg-transparent py-5  rounded-t-3xl  sm:px-2">
+              <select
+                value={year}
+                onChange={(e) => {
+                  setyear(e.target.value);
+                  setState(!state);
+                }}
+                className="dark:bg-screenDark  bg-screenLight  py-1 ml- rounded-lg cursor-pointer z-[70]"
+              >
+                <option value={parseInt(nowYear)}>{parseInt(nowYear)}</option>
+                <option value={parseInt(nowYear) + 1}>
+                  {parseInt(nowYear) + 1}
+                </option>
+              </select>
             </div>
           </th>
           <th>
@@ -197,7 +219,7 @@ const ClanderForEveryMounth = ({
                   ) : (
                     <td
                       key={d.shamsiDate.split("/")[2]}
-                      className={`sm:p-1 text-center text-sm `}
+                      className={`  text-center text-sm `}
                     >
                       <div
                         onClick={() =>
@@ -211,14 +233,14 @@ const ClanderForEveryMounth = ({
                             ? treeHand(parseInt(d.shamsiDate.split("/")[2]))
                             : ""
                         }
-                        className={`${
+                        className={` ${
                           seletedDays.find(
                             (day) => day == d.shamsiDate.split("/")[2]
                           ) ||
                           d.shamsiDate.split("/")[2] == rangeDaysForUpdate.day
                             ? "bg-btn dark:bg-btn text-white"
                             : "dark:bg-textPDark dark:bg-opacity-30 hover:dark:bg-gray-600 hover:bg-gray-200  bg-screenLight "
-                        } rounded-2xl cursor-pointer  h-[70px] lg:h-[75px] flex flex-col justify-center duration-200 `}
+                        } m-[2px] lg:m-1  rounded-lg md:rounded-2xl cursor-pointer  h-[70px] lg:h-[75px] flex flex-col justify-center duration-200 `}
                       >
                         <div className={`text-[18px]`}>
                           {d.shamsiDate.split("/")[2]}

@@ -7,7 +7,7 @@ const LoginForm = ({ Formik, loginUserHandler, loadingButton }) => {
   const [showPassword, setShowPassword] = useState("");
 
   return (
-    <div className="fa    w-full  flex justify-center xl:justify-start  ">
+    <div className="fa    w-screen  flex justify-center xl:justify-start  ">
       <div className="item-center self-center ">
         <p className="text-sm opacity-70">خوش آمدید</p>
         <h1 className="font-extrabold text-[39px] ">ورود</h1>

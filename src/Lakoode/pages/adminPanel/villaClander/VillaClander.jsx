@@ -6,9 +6,8 @@ import { Autoplay, Pagination, Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { data1 } from "../../../components/explore/mainTile/MainTilt";
 const VillaClander = ({ setRangeDays, rangeDays, seletedDays }) => {
-  const villa = data1;
+  const villa = [];
   const optionsD = {
     day: "numeric",
   };

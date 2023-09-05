@@ -43,15 +43,15 @@ const PriceMake = () => {
   }
   const [prise, setPrise] = useState("");
   const [discount, setdiscount] = useState("0");
-  const [calData, setCalData] = useState();
-  useEffect(() => {
-    axios({
-      method: "post",
-      url: `https://localhost:7103/api/Reservation/GetPricedDays?villaId=${villa}&month=${rangeDays.m}`,
-    }).then(function (response) {
-      setCalData(response.data);
-    });
-  }, [villa]);
+  // const [calData, setCalData] = useState();
+  // useEffect(() => {
+  //   axios({
+  //     method: "post",
+  //     url: `https://localhost:7103/api/Reservation/GetPricedDays?villaId=${villa}&month=${rangeDays.m}`,
+  //   }).then(function (response) {
+  //     setCalData(response.data);
+  //   });
+  // }, [villa]);
   const [state,setState]=useState(true)
 
   const submitHand = () => {
@@ -64,13 +64,14 @@ const PriceMake = () => {
         price: prise,
         month: rangeDays.m,
         disscount: discount,
+        year:rangeDays.y
       },
     })
       .then(function (response) {
         setState(!state)
         setPrise("");
         setdiscount("0");
-        setRangeDays({ f: "", s: "", y: "", m: "" });
+        setRangeDays({ f: "", s: "", y: '' , m: "" });
         toast.success("قیمت با موفقیت ثبت شد", {
           autoClose: 1100,
           position: "top-left",
@@ -109,6 +110,16 @@ const PriceMake = () => {
   useEffect(()=>{
     setState(!state)
   },[villa])
+  const optionsY = {
+    year: "numeric",
+  };
+
+  let nowYear = new Date().toLocaleDateString(
+    "fa-IR-u-nu-latn",
+    optionsY
+  );
+  const [year,setyear]=useState(nowYear)
+
   return (
     <div>
       <div>
@@ -229,13 +240,16 @@ const PriceMake = () => {
       <div className="mt-10 bg-white  mx-2  dark:bg-border lg:mx-10 px-3 lg:p-5 rounded-3xl">
         <Calandre
           villaa={villa}
-          calData={calData}
+          // calData={calData}
           seletedDays={seletedDays}
           setRangeDays={setRangeDays}
           rangeDays={rangeDays}
           rangeDaysForUpdate={rangeDaysForUpdate}
           setRangeDaysForUpdate={setRangeDaysForUpdate}
           state={state}
+          setState={setState}
+          year={year}
+          setyear={setyear}
         />
       </div>
     </div>

@@ -216,45 +216,70 @@ const AddMovies = ({ history, from, user }) => {
     { title: "لوازم سرو غذا", id: 2 },
     { title: "ماشین لباسشویی", id: 3 },
     { title: "یخچال", id: 4 },
+    { title: "چایی ساز", id: 5 },
+    { title: "مایکروویو", id: 6 },
   ];
 
   const refaEM = [
-    { title: "منظره به حیاط", id: 5 },
-    { title: "میز ناهارخوری", id: 6 },
-    { title: "تلویزیون", id: 7 },
-    { title: "منظره به دریا", id: 8 },
-    { title: "گاز", id: 9 },
-    { title: "برق", id: 10 },
-    { title: "آب", id: 11 },
-    { title: "مبلمان", id: 12 },
-    { title: "جاروبرقی", id: 13 },
-    { title: "کمد/دراور", id: 14 },
-  ];
+    { title: "منظره به حیاط", id: 10 },
+    { title: "میز ناهارخوری", id: 11 },
+    { title: "تلویزیون", id: 12 },
+    { title: "منظره به دریا", id: 13 },
+    { title: "گاز", id: 14 },
+    { title: "برق", id: 15 },
+    { title: "آب", id: 16 },
+    { title: "مبلمان", id: 17 },
+    { title: "جاروبرقی", id: 18 },
+    { title: "کمد/دراور", id: 19 },
+    
+    { title: "رخت آویز", id: 20 },
+    { title: "اتو", id: 21 },
+    { title: "گیرنده دیجیتال", id: 22 },
+    { title: "باربیکیو", id: 23 },
+    { title: "شامپو", id: 24 },
+    { title: "حوله", id: 25 },
+    { title: "سشوار", id: 27 },
+    { title: "آلاچیق", id: 28 },
+ ];
   const sarmaGarma = [
-    { title: "کولر گازی", id: 15 },
-    { title: "رادیاتور", id: 16 },
-    { title: "پنکه سقفی", id: 17 },
-    { title: "بخاری", id: 18 },
+    { title: "کولر گازی", id: 31 },
+    { title: "رادیاتور", id: 32 },
+    { title: "پنکه سقفی", id: 33 },
+    { title: "بخاری", id: 34 },
   ];
   const refaKH = [
-    { title: "پارکینگ", id: 19 },
-    { title: "سم پاشی دوره ای", id: 20 },
-    { title: "wifi", id: 23 },
+    { title: "پارکینگ", id: 36 },
+    { title: "سم پاشی دوره ای", id: 37 },
+    { title: "wifi", id: 38 },
+    { title: "wifi", id: 39 },
+    { title: "نظافت مستمر", id: 40 },
+    { title: "شستشو ملافه ها", id: 41 },
+
+
   ];
   const scuriti = [
-    { title: "دوربین مدار بسته", id: 21 },
-    { title: "نگهبان", id: 22 },
+    { title: "دوربین مدار بسته", id: 61 },
+    { title: "نگهبان", id: 62 },
   ];
 
   const tafREf = [
-    { title: "بیلیارد", id: 24 },
-    { title: "استخر", id: 25 },
-    { title: "شاه نشین", id: 26 },
+    { title: "بیلیارد", id: 46 },
+    { title: "استخر", id: 47 },
+    { title: "شاه نشین", id: 48 },
+    { title: "کنسول بازی", id: 49 },
+    { title: "wifi", id: 50 },
+    { title: "فوتبال دستی", id: 51 },
+    { title: "پینگ پنگ", id: 52 },
+    { title: "ایر هاکی", id: 53 },
+
+
+
+
   ];
   const bath = [
-    { title: "حمام", id: 1 },
-    { title: "سرویس ایرانی", id: 27 },
-    { title: "سرویس فرنگی", id: 28 },
+    { title: "حمام", id: 56 },
+    { title: "سرویس ایرانی", id: 57 },
+    { title: "سرویس فرنگی", id: 58 },
   ];
 
   return (

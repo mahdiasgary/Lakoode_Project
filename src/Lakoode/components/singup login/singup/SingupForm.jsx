@@ -14,7 +14,7 @@ const SingupForm = ({
     <div className="w-full  flex justify-center xl:justify-start ">
       <div className="item-center self-center ">
         {/* sing up form */}
-        <div className="mx-12 y9:mx-0 ">
+        <div className=" y9:mx-0 ">
           <p className="text-sm opacity-70">به مجتمع اقامتی لاکوده خوش آمدید</p>
           <h1 className="font-extrabold text-[30px]  y9:text-[36px] mt-3 ">
             ثبت نام{" "}

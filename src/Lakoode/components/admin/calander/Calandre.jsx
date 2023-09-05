@@ -6,7 +6,6 @@ import { Autoplay, Pagination, Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { data1 } from "../../explore/mainTile/MainTilt";
 import ClanderForEveryMounth from "./ClanderForEveryMounth";
 const Calandre = ({
   setRangeDays,
@@ -14,7 +13,7 @@ const Calandre = ({
   rangeDays,
   seletedDays,
   rangeDaysForUpdate,
-  setRangeDaysForUpdate,state
+  setRangeDaysForUpdate,state,setState,year,setyear
 }) => {
 
   const mounth = [
@@ -66,6 +65,20 @@ const Calandre = ({
   return (
     <div className=" flex flex-col  lg:justify-center lg:gap-10">
       <div className="w-[100vw] lg:w-[70vw] h-[600px] relative self-center flex   ">
+      <div className="absolute left-0 top-5 z-[33] pl-10 xl:pl-24  xl:w-[20vw] flex justify-end ">
+          <div
+            className="prev-arrow flex  bg-white text-[19px] hover:bg-btn hover:text-white duration-300 hover:border-btn shadow-md cursor-pointer  mx-4 text-btn border w-9 h-9 rounded-lg  justify-center   "
+            onClick={handlePrev}
+          >
+            <BsChevronLeft className="self-center rotate-180" />
+          </div>
+          <div
+            className="next-arrow flex  bg-white text-[19px] hover:bg-btn hover:text-white duration-300 hover:border-btn shadow-md cursor-pointer   text-btn border w-9 h-9 rounded-lg  justify-center  ro "
+            onClick={handleNext}
+          >
+            <BsChevronLeft className="self-center" />
+          </div>
+        </div>
         <Swiper
           ref={sliderRef}
           style={{
@@ -93,6 +106,9 @@ const Calandre = ({
                   rangeDaysForUpdate={rangeDaysForUpdate}
                   setRangeDaysForUpdate={setRangeDaysForUpdate}
                   state={state}
+                  setState={setState}
+                  year={year}
+                  setyear={setyear}
                 />
               </div>
               {/* <div className="  lg:w-[70vw] px-5    flex justify-center dark:bg-transparent   rounded-3xl ">
@@ -117,21 +133,6 @@ const Calandre = ({
             </SwiperSlide>
           ))}
         </Swiper>
-
-        <div className="absolute w-[100vw] top-5 z-[33] pl-10 xl:pl-24 md:w-[80vw]  lg:w-[43vw] xl:w-[48vw] flex justify-end ">
-          <div
-            className="prev-arrow flex  bg-white text-[19px] hover:bg-btn hover:text-white duration-300 hover:border-btn shadow-md cursor-pointer  mx-4 text-btn border w-9 h-9 rounded-lg  justify-center   "
-            onClick={handlePrev}
-          >
-            <BsChevronLeft className="self-center rotate-180" />
-          </div>
-          <div
-            className="next-arrow flex  bg-white text-[19px] hover:bg-btn hover:text-white duration-300 hover:border-btn shadow-md cursor-pointer   text-btn border w-9 h-9 rounded-lg  justify-center  ro "
-            onClick={handleNext}
-          >
-            <BsChevronLeft className="self-center" />
-          </div>
-        </div>
       </div>
     </div>
   );
