@@ -14,10 +14,14 @@ const PriceMake = () => {
     month: "numeric",
   };
   const nowMnum = new Date().toLocaleDateString("fa-IR-u-nu-latn", optionsMnum);
-  const { data, isFetching, isLoading, error } = useGetvillalistQuery(
-    {},
-    { refetchOnMountOrArgChange: true }
-  );
+  const [data,setData]=useState([])
+  useEffect(()=>{
+
+    ;   axios.get('https://localhost:7103/api/Villa/GetAll/').then((r) => {
+      setData(r.data);
+    }).catch(r=>console.log(r))
+
+  },[])
   const [villa, setvilla] = useState("");
   let seletedDays = [];
   const [rangeDays, setRangeDays] = useState({

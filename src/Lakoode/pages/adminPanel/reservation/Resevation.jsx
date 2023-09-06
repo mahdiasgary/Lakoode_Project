@@ -3,16 +3,20 @@ import Calandre from "../../../components/admin/calander/Calandre";
 import { useGetvillalistQuery } from "../../../redux/services/movieDatabase";
 import Calandre2 from "../../villaPage/Calandre2";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Resevation = () => {
   const optionsY = {
     year: "numeric",
   };
-  const { data, isFetching, isLoading, error } = useGetvillalistQuery(
-    {},
-    { refetchOnMountOrArgChange: true }
-  );
+  const [data,setData]=useState([])
+  useEffect(()=>{
 
+    ;   axios.get('https://localhost:7103/api/Villa/GetAll/').then((r) => {
+      setData(r.data);
+    }).catch(r=>console.log(r))
+
+  },[])
   let nowYear = new Date().toLocaleDateString("fa-IR-u-nu-latn", optionsY);
   const [year, setyear] = useState(nowYear);
   const [id, setId] = useState();
@@ -70,6 +74,7 @@ const Resevation = () => {
       rangeDays.s.date?.split("T")[0]
     );
   }
+  const [mobile,setmobile]=useState('')
   const [state, setState] = useState(true);
   const [reservsDays, setreservsDays] = useState({ f: "", s: "" });
   const option = {
@@ -80,7 +85,38 @@ const Resevation = () => {
   useEffect(() => {
     setState(!state);
   }, [id]);
+// console.log(typeof(id))
+  const submitHand =()=>{
+    const fromData =new FormData()
+    
+    fromData.append('StartDay',parseInt(rangeDays.f.shamsiDate?.split('/')[2]))
+    fromData.append('StartMonth',parseInt(rangeDays.f.shamsiDate?.split('/')[1]))
+    fromData.append('StartYear',parseInt(rangeDays.f.shamsiDate?.split('/')[0]))
+    fromData.append('EndDay',parseInt(rangeDays.s.shamsiDate?.split('/')[2]))
+    fromData.append('EndMonth',parseInt(rangeDays.s.shamsiDate?.split('/')[1]))
+    fromData.append('EndYear',parseInt(rangeDays.s.shamsiDate?.split('/')[0]))
+    fromData.append('VillaId',parseInt(id))
+    fromData.append('Mobile','09362095045')
 
+    axios({
+      method: "post",
+      url: "https://localhost:7103/api/Reservation/ReserveVillaViaAdmin",
+      data: fromData,
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+      .then(function (response) {
+        console.log(response)
+        // toast.success(`رزرو شد `, {
+        //   autoClose: 1100,
+        //   position: "top-left",
+        // });
+        // setTimeout(() => history.push("villaslist"), 800);
+      })
+      .catch(function (response) {
+        //handle error
+        console.log(response);
+      });
+  }
   return (
     <div>
       {/* <div>
@@ -116,19 +152,24 @@ const Resevation = () => {
             <span> رزرواسیون در تاریخ</span>
           </p>
         </div>
-        <div className="flex mt-8 lg:justify-between  flex-col justify-start">
+        <div className="flex mt-8  lg:flex-row flex-col justify-start">
           <div className="flex">
             <p className="self-center">از</p>
             <div className=" dark:bg-gray-700 bg-opacity-30 mx-2 px-7 py-2 rounded-xl text-[18px] font-bold ">
               {rangeDays?.f?.shamsiDate}
             </div>
           </div>
-          <div className="flex mt-2">
+          <div className="flex mt-2 lg:mt-0 ">
             <p className="self-center">تا</p>
             <div className=" dark:bg-gray-700 bg-opacity-30 mx-2 px-7 py-2 rounded-xl text-[18px] font-bold ">
               {rangeDays?.s?.shamsiDate}
             </div>
-          </div>        </div>
+          </div>    
+              </div>
+              <div className="flex">
+                <p className="self-center text-[18px] font-bold pl-4">شماره موبایل</p>
+                <input onChange={(e)=>setmobile(e.target.value)}  dir="ltr" type="tel" className="h-16 px-3 dark:bg-gray-700 bg-opacity-30  rounded-xl text-[18px] font-bold mt-4 outline-none "/>
+              </div>
         <div className="text-center lg:text- mt-5 lg:mx-20">
           {/* {rangeDaysForUpdate.day !== "" ? (
             <button
@@ -142,7 +183,7 @@ const Resevation = () => {
             </button>
           ) : ( */}
           <button
-            // onClick={submitHand}
+            onClick={submitHand}
             // disabled={(rangeDays.f === "" || villa === "") && true}
             className={`${
               rangeDays.f === "" && "opacity-60 cursor-not-allowed"

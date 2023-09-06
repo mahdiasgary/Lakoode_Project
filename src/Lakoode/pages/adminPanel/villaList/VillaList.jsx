@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import UsersItem from "./UsersItem";
@@ -9,14 +9,20 @@ import {
   useRemoveUserMutation,
 } from "../../../redux/services/movieDatabase";
 import { withRouter } from "react-router-dom";
+import axios from "axios";
 
 const VillaList = ({ history }) => {
   const [sort, setsort] = useState(["id", false, false]);
-  const { data, isFetching, isLoading, error } = useGetvillalistQuery(
-    {},
-    { refetchOnMountOrArgChange: true }
-  );
-
+  // const { data, isFetching, isLoading, error } = useGetvillalistQuery(
+  //   {},
+  //   { refetchOnMountOrArgChange: true }
+  // );
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    axios.get('https://localhost:7103/api/Villa/GetAll').then((r) => {
+      setData(r.data);
+    }).catch(r=>console.log(r))
+  }, []);
   return (
     <div className=" w-full">
       <div className="flex justify-center mt-20 mb-2">
@@ -61,21 +67,14 @@ const VillaList = ({ history }) => {
             </thead>
 
             <tbody className="px-5 rounded-3xl">
-              {
-              
-                data?.data?.map((user) => (
-                  <UsersItem
-                    user={user}
-                    key={user.id}
-                  />
-                ))
-              }
+              {data?.data?.map((user) => (
+                <UsersItem user={user} key={user.id} />
+              ))}
             </tbody>
           </table>
           {/* {(isFetching || isLoading || error) && <LoadingAdminListIte />} */}
         </div>
       </div>
-   
     </div>
   );
 };

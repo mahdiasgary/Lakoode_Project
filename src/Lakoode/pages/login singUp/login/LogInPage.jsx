@@ -14,6 +14,7 @@ import VerifyEmail from "../../../components/singup login/verify email/VerifyEma
 import { useStateContext } from "../../../contextProvider/ContextProvider";
 import Navbar from "../../../components/navbar/Navbar";
 import Cookies from "js-cookie";
+import axios from "axios";
 const LogInPage = ({ history, openMenu, setOpenMenu }) => {
   const [LoginUser] = useLoginUserMutation();
   const { loginStatus, isLogin, setisLogin } = useStateContext();
@@ -41,47 +42,51 @@ const LogInPage = ({ history, openMenu, setOpenMenu }) => {
   });
   const loginUserHandler = () => {
     setLoadingButton(true);
-    LoginUser({
-      mobile: Formik.values.mobile,
-      password: Formik.values.password,
+    axios({
+      method: "post",
+      url: "https://localhost:7103/api/Account/Login",
+      data: {
+        mobile: Formik.values.mobile,
+        password: Formik.values.password,
+      },
     })
-      .unwrap()
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
         setLoadingButton(false);
 
-        if (!res.isSuccessFull && res.status === "UserNotExist") {
+        if (!res.data.isSuccessFull && res.data.status === "UserNotExist") {
           setLoadingButton(false);
-          toast.error(res.message, {
+          toast.error(res.data.message, {
             autoClose: 2100,
             position: "top-left",
           });
         }
-        if (res.isSuccessFull && res.status === "SuccessLogin") {
+        if (res.data.isSuccessFull && res.data.status === "SuccessLogin") {
           setisLogin(!isLogin);
           Cookies.set("user", [true, Formik.values.mobile]);
           history.push("/");
-          toast.success(res.message, {
+          toast.success(res.data.message, {
             autoClose: 2100,
             position: "top-left",
           });
         }
-        if (!res.isSuccessFull && res.status === "UserAccountIsNotActive") {
-          toast.info(res.message, {
+        if (!res.data.isSuccessFull && res.data.status === "UserAccountIsNotActive") {
+          toast.info(res.data.message, {
             autoClose: 2100,
             position: "top-left",
           });
-          setUserEmail(res.data);
+          setUserEmail(res.data.data);
           setSwichBetweenFormAndVerify(true);
         }
-        if (!res.isSuccessFull && res.status === "FaildLogin") {
+        if (!res.data.isSuccessFull && res.data.status === "FaildLogin") {
           setLoadingButton(false);
           toast.error("موبایل یا رمز عبور اشتباه است", {
             autoClose: 2100,
             position: "top-left",
           });
         }
-      });
+      })
+      .catch((r) => console.log(r));
   };
   return (
     <div className="w-full h-screen  bg-[#f9f9f9] dark:bg-[#282a37] text-white">

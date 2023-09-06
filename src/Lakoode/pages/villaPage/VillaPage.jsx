@@ -1,12 +1,18 @@
 // import Navigationn from "../components/Navigation";
-import balad from '../../assets/balad.png'
-import neshan from '../../assets/neshan.png'
-import google from '../../assets/google.png'
-
+import balad from "../../assets/balad.png";
+import neshan from "../../assets/neshan.png";
+import google from "../../assets/google.png";
+import logoImage from "../../assets/logoImage.png";
+import logoImageDark from "../../assets/logoImageDark.png";
+import { HiSun } from "react-icons/hi2";
+import { FaUser } from "react-icons/fa";
+import { IoMdMoon } from "react-icons/io";
+import { useStateContext } from "../../contextProvider/ContextProvider";
 import { FaBath, FaBed } from "react-icons/fa";
 import { GoHomeFill } from "react-icons/go";
 import { BsFillPeopleFill } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
+import { MdLocationOn } from "react-icons/md";
 import Calandre2 from "./Calandre2";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -16,26 +22,22 @@ import { Autoplay, Pagination, Navigation } from "swiper";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import {
-  useHistory,
-  withRouter,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory, withRouter } from "react-router-dom";
+import "leaflet/dist/leaflet.css";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import L from "leaflet";
+import icon from "leaflet/dist/images/marker-icon.png";
+import iconShadow from "leaflet/dist/images/marker-shadow.png";
+import { optiona } from "../../constans/options";
+import Foter from "../Foter";
+import Navbar from "../../components/navbar/Navbar";
+import { styles } from "../../styles/styles";
 
-import 'leaflet/dist/leaflet.css';
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
-import L from 'leaflet';
+let DefaultIcon = L.icon({
+  iconUrl: icon,
+  shadowUrl: iconShadow,
+});
 
-// const iconPerson = new L.Icon({
-//     iconUrl: require('../img/marker-pin-person.svg'),
-//     iconRetinaUrl: require('../img/marker-pin-person.svg'),
-//     iconAnchor: null,
-//     popupAnchor: null,
-//     shadowUrl: null,
-//     shadowSize: null,
-//     shadowAnchor: null,
-//     iconSize: new L.Point(60, 75),
-//     className: 'leaflet-div-icon'
-// })
 const VillaPagee = () => {
   const optionsY = {
     year: "numeric",
@@ -52,11 +54,7 @@ const VillaPagee = () => {
     });
   }, []);
 
-  const [img, setImg] = useState([
-    false,
-    "",
-    villaInf,
-  ]);
+  const [img, setImg] = useState([false, "", villaInf]);
   const optionsD = {
     day: "numeric",
   };
@@ -115,14 +113,19 @@ const VillaPagee = () => {
               d.date?.split("T")[0] ==
               new Date(currentDate).toISOString().split("T")[0]
           );
+
+        if (daysPrice.concat(daysPrice2)[index]?.isPriced === false) {
+          setRangeDays({ f: "", s: "", m: "", y: "" });
+        }
+
         if (daysPrice.concat(daysPrice2)[index]?.isPriced) {
           seletedDays.push(daysPrice.concat(daysPrice2)[index]?.price);
           daysdis.push(daysPrice.concat(daysPrice2)[index]?.disscount);
-
+          seletedDaysOnCal.push(
+            new Date(currentDate).toISOString().split("T")[0]
+          );
         }
-        seletedDaysOnCal.push(
-          new Date(currentDate).toISOString().split("T")[0]
-        );
+
         currentDate.setUTCDate(currentDate.getUTCDate() + steps);
       }
       return dateArray;
@@ -140,20 +143,58 @@ const VillaPagee = () => {
     month: "long",
     year: "numeric",
   };
-  const position = [36.685357408400314, 51.41840014662684]
-  // w-[90vw] md:w-[80vw]  lg:w-[43vw] xl:w-[48vw]
-const wightW=window.innerWidth
-  // console.log(new Date('2024-10-8').toISOString().split('T')[0]>new Date('2023-11-7').toISOString().split('T')[0])
+  const position = [36.685357408400314, 51.41840014662684];
+  const { IsDarkMode, setMode, loginStatus } = useStateContext();
   return (
     villaInf?.images[0] && (
       <div className={`bg-screenColor dark:text-white `}>
-       
+        <div className="sticky    backdrop-blur-sm pt-4 lg:mb-0 mb-10  z-[49] lg:flex">
+          <div className="flex justify-between w-full  px-3 md:px-7 ">
+            <div className="flex self-center justify-center ">
+              <Link to={"/"}>
+                <div className="self-center  font-extrabold sm:mx-3  flex min-w-[145px] sm:min-w-[150px] z-40 ">
+                  <img
+                    src={IsDarkMode ? logoImage : logoImageDark}
+                    alt="logoImage"
+                    className=" h-[35px] lg:h-[40px] opacity-90 dark:opacity-100"
+                  />
+                </div>
+              </Link>
+            </div>
+            <div className="   flex   ">
+              <div
+                onClick={() => setMode(!IsDarkMode)}
+                className="mx-2 lg:flex  text-[26px] self-center  cursor-pointer "
+              >
+                {IsDarkMode ? (
+                  <HiSun />
+                ) : (
+                  <IoMdMoon className="text-[25px] text-btn " />
+                )}
+              </div>
+              <div className={``}>
+                {loginStatus ? (
+                  <Link to={"/user"}>
+                    <button className={`${styles.profileLg_Btn}  `}>
+                      <span>
+                        <FaUser className="inline self-center mr-2" />
+                      </span>
+                      <p>پروفایل</p>
+                    </button>
+                  </Link>
+                ) : (
+                  <Link to={"/login"}>
+                    <button className={` ${styles.loginBtn} `}>ورود</button>
+                  </Link>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
 
-
-
-
-
-        <div className={`fixed z-[50] bg-opacity-  ${!img[0] && "hidden"} `}>
+        <div
+          className={`fixed top-0 z-[50] bg-opacity-  ${!img[0] && "hidden"} `}
+        >
           <div
             onClick={() => setImg([false, img[1], img[2]])}
             className="z-[58] absolute text-white m-4 bg-white bg-opacity-20 cursor-pointer backdrop-blur-sm p-3 rounded-2xl "
@@ -161,36 +202,8 @@ const wightW=window.innerWidth
             <IoMdClose className="text-[33px]" />
           </div>
           <div className="z-[55] absolute w-[100vw] h-screen flex flex-col justify-center  ">
-            <div className="">
-              <Swiper
-                style={{
-                  "--swiper-navigation-color": "#fff",
-                  "--swiper-navigation-size": "40px",
-                  "--swiper-pagination-color": "#fff",
-                }}
-                centeredSlides={true}
-                pagination={{
-                  clickable: true,
-                }}
-                navigation={true}
-                modules={[Pagination, Navigation]}
-                className={`  flex justify-center  `}
-              >
-                <SwiperSlide>
-                  <div className="px-8 self-center justify-center max-h-[80vh] y9:h-[80vh]   x:max-w-[58vw]  flex dark:bg-transparent  text-textDark rounded-3xl ">
-                    <img src={img[1]} alt="" className="rounded-3xl" />
-                  </div>
-                </SwiperSlide>
-                {img[2]
-                  ?.filter((v) => v !== img[1])
-                  .map((item) => (
-                    <SwiperSlide key={item}>
-                      <div className="px-8 self-center justify-center max-h-[80vh] y9:h-[80vh]   x:max-w-[58vw]  flex dark:bg-transparent  text-textDark rounded-3xl ">
-                        <img src={item} alt="" className="rounded-3xl" />
-                      </div>
-                    </SwiperSlide>
-                  ))}
-              </Swiper>
+            <div className="px-8 self-center justify-center   x:max-w-[58vw]  flex dark:bg-transparent  text-textDark rounded-3xl ">
+              <img src={img[1]} alt="" className="rounded-3xl" />
             </div>
           </div>
           <div
@@ -198,20 +211,20 @@ const wightW=window.innerWidth
             className="z-[52] fixed  top-0 bg-opacity-80 backdrop-blur-sm bg-secondColorDark w-screen h-screen  "
           ></div>
         </div>
-        <div className="relative  z-[5] flex justify-center py-5 lg:hidden ">
-          <Link href={"/"}>
-            <img src="/q.png" alt="img" />
-          </Link>
-        </div>
+
         {/* <Navigation /> */}
 
         <div>
           <div className="flex flex-col-reverse lg:flex-row  lg:justify-between  px-5 md:px-10 xl:p-20 pb-0">
             <div className="lg:w-[50vw]">
               <div className="">
-                <p className="faNumber text-[24px] font-bold">
-                  {villaInf.name} {villaInf.id}{" "}
-                </p>
+                <div className="faNumber text-[24px] flex font-bold">
+                  <p className="self-center">{villaInf.name}</p>
+                  <div className="flex text-btn text-sm self-center mx-3">
+                    <MdLocationOn />
+                    <p>چالوس</p>
+                  </div>
+                </div>
                 <p className="faNumber text-sm font-semibold text-gray-400 mx-4 ">
                   ویلا {JSON.parse(villaInf.roomCount)[0]}خواب تا ظرفیت{" "}
                   {JSON.parse(villaInf.roomCount)[5]} نفر{" "}
@@ -325,7 +338,7 @@ const wightW=window.innerWidth
                   </div>
                 </div>
               </div>
-              <div className="mt-10 lg:w-[480px]">
+              <div className="mt-20 lg:w-[480px]">
                 <p className="opacity-50  font-bold">توضیحات :</p>
                 {villaInf.description}
               </div>
@@ -345,7 +358,7 @@ const wightW=window.innerWidth
                 </div>
               </div> */}
 
-              <div className="w-full dark:bg-border dark:bg-opacity-60 dark:border-0  lg:w-[480px] mt-10 self-center border pt-4  rounded-2xl ">
+              <div className="w-full max-h-[370px]  overflow-y-auto dark:bg-border dark:bg-opacity-60 dark:border-0  lg:w-[480px] mt-10 self-center border pt-4  rounded-2xl ">
                 <p className="opacity-70 px-2   font-bold">امکانات :</p>
                 <div className="flex gap-7 md:gap-10 justify-center px-2 ">
                   <div className="flex justify-around  flex-wrap gap-7 md:gap-1">
@@ -355,17 +368,27 @@ const wightW=window.innerWidth
                       </p>
                       <div>
                         <div className="mt-2 ">
-                          {/* {data1.villa.optionsRefa.map((o) => (
+                          {JSON.parse(villaInf?.villaFacilities).map((o) => (
                             <div
-                              key={o.name}
-                              className="flex text-[15px] font-bold "
+                              key={o}
+                              className={` text-[15px] font-bold ${
+                                10 <= o && o <= 30 ? "flex" : "hidden"
+                              } `}
                             >
                               <div className="self-center mx-2 text-[19px] ">
-                                {o.icon}
+                                {
+                                  optiona[optiona.findIndex((w) => w.id === o)]
+                                    ?.icon
+                                }
                               </div>
-                              <p>{o.name}</p>
+                              <p>
+                                {
+                                  optiona[optiona.findIndex((w) => w.id === o)]
+                                    ?.title
+                                }
+                              </p>
                             </div>
-                          ))} */}
+                          ))}
                         </div>
                       </div>
                     </div>
@@ -375,17 +398,27 @@ const wightW=window.innerWidth
                       </p>
                       <div>
                         <div className="mt-2 mb-8">
-                          {/* {data1.villa.optioanKitch.map((o) => (
+                          {JSON.parse(villaInf?.villaFacilities).map((o) => (
                             <div
-                              key={o.name}
-                              className="flex text-[15px]  font-bold "
+                              key={o}
+                              className={` text-[15px] font-bold ${
+                                1 <= o && o <= 9 ? "flex" : "hidden"
+                              } `}
                             >
                               <div className="self-center mx-2 text-[19px] ">
-                                {o.icon}
+                                {
+                                  optiona[optiona.findIndex((w) => w.id === o)]
+                                    ?.icon
+                                }
                               </div>
-                              <p>{o.name}</p>
+                              <p>
+                                {
+                                  optiona[optiona.findIndex((w) => w.id === o)]
+                                    ?.title
+                                }
+                              </p>
                             </div>
-                          ))} */}
+                          ))}
                         </div>
                       </div>
                     </div>
@@ -395,17 +428,27 @@ const wightW=window.innerWidth
                       </p>
                       <div>
                         <div className="mt-2 ">
-                          {/* {data1.villa.optionsColl.map((o) => (
+                          {JSON.parse(villaInf?.villaFacilities).map((o) => (
                             <div
-                              key={o.name}
-                              className="flex text-[15px]  font-bold "
+                              key={o}
+                              className={` text-[15px] font-bold ${
+                                31 <= o && o <= 35 ? "flex" : "hidden"
+                              } `}
                             >
                               <div className="self-center mx-2 text-[19px] ">
-                                {o.icon}
+                                {
+                                  optiona[optiona.findIndex((w) => w.id === o)]
+                                    ?.icon
+                                }
                               </div>
-                              <p>{o.name}</p>
+                              <p>
+                                {
+                                  optiona[optiona.findIndex((w) => w.id === o)]
+                                    ?.title
+                                }
+                              </p>
                             </div>
-                          ))} */}
+                          ))}
                         </div>
                       </div>
                     </div>
@@ -415,17 +458,27 @@ const wightW=window.innerWidth
                       </p>
                       <div>
                         <div className="mt-2 ">
-                          {/* {data1.villa.optionsREfa2?.map((o) => (
+                          {JSON.parse(villaInf?.villaFacilities).map((o) => (
                             <div
-                              key={o.name}
-                              className="flex text-[15px]  font-bold "
+                              key={o}
+                              className={` text-[15px] font-bold ${
+                                36 <= o && o <= 45 ? "flex" : "hidden"
+                              } `}
                             >
                               <div className="self-center mx-2 text-[19px] ">
-                                {o.icon}
+                                {
+                                  optiona[optiona.findIndex((w) => w.id === o)]
+                                    ?.icon
+                                }
                               </div>
-                              <p>{o.name}</p>
+                              <p>
+                                {
+                                  optiona[optiona.findIndex((w) => w.id === o)]
+                                    ?.title
+                                }
+                              </p>
                             </div>
-                          ))} */}
+                          ))}
                         </div>
                       </div>
                     </div>
@@ -436,17 +489,27 @@ const wightW=window.innerWidth
                       </p>
                       <div>
                         <div className="mt-2 ">
-                          {/* {data1.villa.optionsSecurity.map((o) => (
+                          {JSON.parse(villaInf?.villaFacilities).map((o) => (
                             <div
-                              key={o.name}
-                              className="flex text-[15px]  font-bold "
+                              key={o}
+                              className={` text-[15px] font-bold ${
+                                61 <= o && o <= 65 ? "flex" : "hidden"
+                              } `}
                             >
                               <div className="self-center mx-2 text-[19px] ">
-                                {o.icon}
+                                {
+                                  optiona[optiona.findIndex((w) => w.id === o)]
+                                    ?.icon
+                                }
                               </div>
-                              <p>{o.name}</p>
+                              <p>
+                                {
+                                  optiona[optiona.findIndex((w) => w.id === o)]
+                                    ?.title
+                                }
+                              </p>
                             </div>
-                          ))} */}
+                          ))}
                         </div>
                       </div>
                     </div>
@@ -456,17 +519,27 @@ const wightW=window.innerWidth
                       </p>
                       <div>
                         <div className="mt-2 ">
-                          {/* {data1.villa.optionsTaf.map((o) => (
+                          {JSON.parse(villaInf?.villaFacilities).map((o) => (
                             <div
-                              key={o.name}
-                              className="flex text-[15px]  font-bold "
+                              key={o}
+                              className={` text-[15px] font-bold ${
+                                46 <= o && o <= 55 ? "flex" : "hidden"
+                              } `}
                             >
                               <div className="self-center mx-2 text-[19px] ">
-                                {o.icon}
+                                {
+                                  optiona[optiona.findIndex((w) => w.id === o)]
+                                    ?.icon
+                                }
                               </div>
-                              <p>{o.name}</p>
+                              <p>
+                                {
+                                  optiona[optiona.findIndex((w) => w.id === o)]
+                                    ?.title
+                                }
+                              </p>
                             </div>
-                          ))} */}
+                          ))}
                         </div>
                       </div>
                     </div>
@@ -476,17 +549,27 @@ const wightW=window.innerWidth
                       </p>
                       <div>
                         <div className="mt-2 ">
-                          {/* {data1.villa.optionsWC.map((o) => (
+                          {JSON.parse(villaInf?.villaFacilities).map((o) => (
                             <div
-                              key={o.name}
-                              className="flex text-[15px]  font-bold "
+                              key={o}
+                              className={` text-[15px] font-bold ${
+                                56 <= o && o <= 60 ? "flex" : "hidden"
+                              } `}
                             >
                               <div className="self-center mx-2 text-[19px] ">
-                                {o.icon}
+                                {
+                                  optiona[optiona.findIndex((w) => w.id === o)]
+                                    ?.icon
+                                }
                               </div>
-                              <p>{o.name}</p>
+                              <p>
+                                {
+                                  optiona[optiona.findIndex((w) => w.id === o)]
+                                    ?.title
+                                }
+                              </p>
                             </div>
-                          ))} */}
+                          ))}
                         </div>
                       </div>
                     </div>
@@ -515,19 +598,6 @@ const wightW=window.innerWidth
                   modules={[Autoplay, Pagination, Navigation]}
                   className={` h-[260px] md:h-[350px] rounded-3xl x:h-[50vh] max-w-[700px] x:max-w-[58vw] flex  `}
                 >
-                  {/* <SwiperSlide>
-                    <div
-                      onClick={() => setImg([true, data1.villa.mainImg, img[2]])}
-                      className=" h-[270px] cursor-pointer flex justify-center md:h-[350px] x:h-[50vh] max-w-[700px] x:max-w-[58vw] flex dark:bg-transparent  bg-black bg-opacity-70 text-textDark rounded-3xl "
-                    >
-                      <img
-                        src={`https://localhost:7103/api/Villa/GetImage?imageName=${villaInf?.images[0]?.imageName}`}
-                        alt=""
-                        className="rounded-3xl"
-                      />
-                    </div>
-                  </SwiperSlide> */}
-
                   {villaInf?.images?.map((item) => (
                     <SwiperSlide key={item}>
                       <div
@@ -552,76 +622,93 @@ const wightW=window.innerWidth
               </div>
               <div className="flex justify-center  gap-3 xl:gap-5 mt-3 xl:mt-5  lg:w-[48vw] ">
                 <img
-                  // onClick={() =>
-                  //   setImg([true, data1.villa.secindImg0[0], img[2]])
-                  // }
+                  onClick={() =>
+                    setImg([
+                      true,
+                      `https://localhost:7103/api/Villa/GetImage?imageName=${villaInf?.images[1]?.imageName}`,
+                      img[2],
+                    ])
+                  }
                   src={`https://localhost:7103/api/Villa/GetImage?imageName=${villaInf?.images[1]?.imageName}`}
                   alt=""
                   className="rounded-3xl w-[47vw] cursor-pointer h-[150px] sm:h-[160px] md:h-[170px] lg:h-[182px] sm:w-[48vw] md:w-[35vw] lg:w-[21vw] xl:w-[24vw]"
                 />
 
                 <img
-                  // onClick={() =>
-                  //   setImg([true, .villa.secindImg0[1], img[2]])
-                  // }
+                  onClick={() =>
+                    setImg([
+                      true,
+                      `https://localhost:7103/api/Villa/GetImage?imageName=${villaInf?.images[2]?.imageName}`,
+                      img[2],
+                    ])
+                  }
                   src={`https://localhost:7103/api/Villa/GetImage?imageName=${villaInf?.images[2]?.imageName}`}
                   alt=""
                   className="rounded-3xl w-[42vw] cursor-pointer h-[150px] lg:h-[182px] sm:h-[160px] md:h-[170px]  md:w-[35vw] lg:w-[21vw] xl:w-[24vw]"
                 />
               </div>
-              <div className=" w-[90vw] md:w-[80vw]  lg:w-[43vw] xl:w-[48vw] text-center  dark:bg-border dark:bg-opacity-60 dark:border-0 rounded-3xl mt-5   self-center pt-4">
-                <p className=" text-sm">
-                  برای دریافت لوکیشن روی اپلیکشن مورد نظر کلیک کنید
-                </p>
-                <div className="flex justify-center  ">
-                  <div className=" flex text-center lg:gap-7 gap-5 justify-between">
-                    <div className="  ">
-                      <a href="https://nshn.ir/_bfBy1Qxixvj">
-                        <img
-                          src={neshan}
-                          alt="مسیر یابی لاکوده با نشان"
-                          className="w-[50px] pt-3"
-                        />
-                        <p>نشان</p>
-                      </a>
-                    </div>
-                    <div>
-                      <a href="https://goo.gl/maps/NiHHqYqPnb6WKmu8A">
-                        <img
-                          src={google}
-                          alt="مسیر یابی لاکوده با گوگل مپ"
-                          className="w-[50px] pb-1 pt-3 "
-                        />
-                        <p>گوگل مپ</p>
-                      </a>
-                    </div>
-                    <div>
-                      <a href="https://balad.ir/#18.98/36.6854501/51.4188642">
-                        <img
-                          src={balad}
-                          alt="مسیر یابی لاکوده با بلد"
-                          className="w-[43px] pb-1 mt-5 rounded-lg"
-                        />
-  
-                        <p className="mb-[2px]">بلد</p>
-                      </a>
+              <div className="flex justify-center w-[90vw] md:w-[80vw] lg:h-[200px] h-[200px]  lg:w-[43vw] xl:w-[48vw] text-center  dark:bg-border dark:bg-opacity-60 dark:border-0 rounded-3xl mt-5   self-center pt-4">
+                <div className="self-center">
+                  <p className=" text-sm">
+                    برای دریافت لوکیشن روی اپلیکشن مورد نظر کلیک کنید
+                  </p>
+                  <div className="flex justify-center  ">
+                    <div className=" flex text-center lg:gap-7 gap-5 justify-between">
+                      <div className="  ">
+                        <a href="https://nshn.ir/_bfBy1Qxixvj">
+                          <img
+                            src={neshan}
+                            alt="مسیر یابی لاکوده با نشان"
+                            className="w-[50px] pt-3"
+                          />
+                          <p>نشان</p>
+                        </a>
+                      </div>
+                      <div>
+                        <a href="https://goo.gl/maps/NiHHqYqPnb6WKmu8A">
+                          <img
+                            src={google}
+                            alt="مسیر یابی لاکوده با گوگل مپ"
+                            className="w-[50px] pb-1 pt-3 "
+                          />
+                          <p>گوگل مپ</p>
+                        </a>
+                      </div>
+                      <div>
+                        <a href="https://balad.ir/#18.98/36.6854501/51.4188642">
+                          <img
+                            src={balad}
+                            alt="مسیر یابی لاکوده با بلد"
+                            className="w-[43px] pb-1 mt-5 rounded-lg"
+                          />
+
+                          <p className="mb-[2px]">بلد</p>
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className='mt-5 overflow-hidden'>
-  <MapContainer style={{ width:`${wightW<720 ? '100%' : '100%'}`,borderRadius:'25px', height:`${wightW<720 ? '300px' : '300px'}` }}  center={position} zoom={13} scrollWheelZoom={false}>
-    <TileLayer
-      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-    />
-    <Marker position={position}>
-      <Popup>
-      مجتمع اقامتی لاکوده
-      </Popup>
-    </Marker>
-  </MapContainer>
-        </div>
+              <div className="mt-0 px-4 z-0 hidden lg:flex overflow-hidden">
+                <MapContainer
+                  style={{
+                    width: "100%",
+                    borderRadius: "25px",
+                    height: "260px",
+                  }}
+                  center={position}
+                  zoom={11}
+                  scrollWheelZoom={false}
+                >
+                  <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  />
+                  <Marker icon={DefaultIcon} position={position}>
+                    <Popup>مجتمع اقامتی لاکوده</Popup>
+                  </Marker>
+                </MapContainer>
+              </div>
             </div>
           </div>
 
@@ -719,8 +806,30 @@ const wightW=window.innerWidth
               seletedDaysOnCal={seletedDaysOnCal}
             />
           </div>
+          <div>
+            <div className="px-4 z-0 lg:hidden overflow-hidden">
+              <MapContainer
+                style={{
+                  width: "100%",
+                  borderRadius: "25px",
+                  height: "250px",
+                }}
+                center={position}
+                zoom={11}
+                scrollWheelZoom={false}
+              >
+                <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                <Marker icon={DefaultIcon} position={position}>
+                  <Popup>مجتمع اقامتی لاکوده</Popup>
+                </Marker>
+              </MapContainer>
+            </div>
+          </div>
         </div>
-        {/* <Footer /> */}
+        <Foter />
       </div>
     )
   );

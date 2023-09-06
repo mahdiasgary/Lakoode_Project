@@ -58,9 +58,7 @@ export const ContextProvider = ({ children }) => {
     setIsDarkMode(prob);
   };
   const [loginStatus,setloginStatus]=useState()
-  useEffect(()=>{
-    setloginStatus(Cookies.get('user'))
-  },[isLogin])
+
   return (
     <StateContext.Provider
       value={{

@@ -4,6 +4,7 @@ import { RiEyeCloseLine } from "react-icons/ri";
 import { useSubmitOtpForForgotPasswordMutation } from "../../../redux/services/movieDatabase";
 import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const CreatePasswordFrom = ({ Formik, email, history }) => {
   const [loadingButton, setLoadingButton] = useState(false);
@@ -11,44 +12,45 @@ const CreatePasswordFrom = ({ Formik, email, history }) => {
   const [showPassword, setShowPassword] = useState("");
   const [submitOtpForForgotPasswordMutation] =
     useSubmitOtpForForgotPasswordMutation();
-    console.log({
-      email,
-      password: Formik.values.newPassword,
-      confirmPassword: Formik.values.confirmPassword,
-    })
+  // console.log({
+  //   email,
+  //   password: Formik.values.newPassword,
+  //   confirmPassword: Formik.values.confirmPassword,
+  // })
   const submitOtpForForgotPasswordHandler = () => {
     setLoadingButton(true);
-    submitOtpForForgotPasswordMutation({
-      mobile:email,
-      password: Formik.values.newPassword,
-      confirmPassword: Formik.values.confirmPassword,
-    })
-      .unwrap()
-      .then((res) => {
-        console.log(res)
-
-        setLoadingButton(false);
-        if (res.isSuccessFull) {
-          toast.success(res.message, {
-            autoClose: 2100,
-            position: "top-left",
-          });
-          history.push("/login");
-        }
-        if (!res.isSuccessFull) {
-          toast.success(res.message, {
-            autoClose: 2100,
-            position: "top-left",
-          });
-        }
-      });
+    axios({
+      method: "post",
+      url: "https://localhost:7103/api/Account/SubmitPassword",
+      data: {
+        mobile: email,
+        password: Formik.values.newPassword,
+        confirmPassword: Formik.values.confirmPassword,
+      },
+    }).then((res) => {
+      setLoadingButton(false);
+      if (res.data.isSuccessFull) {
+        toast.success(res.data.message, {
+          autoClose: 2100,
+          position: "top-left",
+        });
+        history.push("/login");
+      }
+      if (!res.data.isSuccessFull) {
+        toast.success(res.data.message, {
+          autoClose: 2100,
+          position: "top-left",
+        });
+      }
+    });
   };
   return (
     <div className="w-full z-[5] flex justify-center xl:justify-start  ">
       <form className="item-center self-center ">
         <h1 className="font-extrabold text-[39px] ">ساخت رمز عبور جدید</h1>
         <p className="text- opacity-70  mt-3">
-رمز عبور جدید شما باید متفاوت باشد        </p>
+          رمز عبور جدید شما باید متفاوت باشد{" "}
+        </p>
         {/* <p className="text- opacity-70  ">form Previously Used Passord.</p> */}
 
         {/*  form */}

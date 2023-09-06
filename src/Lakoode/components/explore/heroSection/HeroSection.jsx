@@ -8,7 +8,7 @@ import { TiLocation } from "react-icons/ti";
 import Slider from "react-slider";
 import { PiSunHorizonBold } from "react-icons/pi";
 import Navbar from "../../navbar/Navbar";
-
+import qqq from '../../../assets/bg3w.png'
 const HeroSection = ({
   setPriceRoom,
   priceRange,
@@ -49,17 +49,17 @@ const HeroSection = ({
   };
   return (
     <div>
-      <div className="lg:flex lg:justify-center lg:mt-10  ">
-        <div className="relative bg-hero bg-no-repeat bg-cover text-white">
+      <div className="lg:flex lg:justify-center  ">
+        <div className="relative bg-hero bg-no-repeat  bg-cover text-white">
           <div className="relative z-[5] pt-3 flex justify-center py-4 lg:hidden ">
           <Navbar className='sticky top-0' from={"ww"} />
           </div>
-          <div className=" 3xl:bg-[#4a6dff] shadow-xl bg-[#0f0f0f] absolute lg:rounded-[50px]  inset-0 w-full h-full">
+          <div className=" 3xl:bg-[#4a6dff]   dark:bg-[#0f0f0f] absolute lg:rounded-[50px]  inset-0 w-full h-full">
            
             <img
-              src="https://s8.uupload.ir/files/88_6zw5.jpg"
+              src={qqq}
               alt="d"
-              className="opacity-70 transform lg:rounded-[50px] hidden dark:hidden lg:flex  w-full h-full"
+              className="opacity- transform lg:rounded-b-[50px] hidden dark:hidden lg:flex  w-full h-full"
             />
             <img
               alt="lakoode"
@@ -72,17 +72,17 @@ const HeroSection = ({
               className="opacity-50 transform lg:rounded-[50px]  lg:hidden  w-full h-full"
             />
           </div>
-          <div className="relative  containe flex flex-co  items-cente justify-cente pt-0 pb-36 sm:py- lg:py-24 xl:py-36 xl:px- w-[85vw] 2xl:py-56">
+          <div className="relative  containe flex flex-co  items-cente justify-cente pt-0 pb-36 sm:py- lg:py-24 h-[60vh] w-[98vw]   2xl:py-72">
             <div
-              className="hidden md:flex flex-col   text-white mx-10  backdrop-blur-s p-4 rounded-3xl bg-[#0f0f0f bg-opacity-10  text-en  font-bold   lg:text-[20px]
+              className="hidden md:flex flex-col  mt-12 text-black mx-32  backdrop-blur-s p-4 rounded-3xl bg-[#0f0f0f bg-opacity-10  text-en  font-bold   lg:text-[20px]
     "
             >
-              <p className="opacity-80">
+              <p className="opacity-70 text-">
                 تجربه ای بینظیر وفراموش نشدنی
                 {/* Enjoy Your  */}
               </p>
 
-              <p className="opacity-80">
+              <p className="opacity-80 text">
                 در مجتمع اقامتی
                 {/* Dream Vacation in Lakoode */}
               </p>
@@ -96,7 +96,7 @@ const HeroSection = ({
         </div>
       </div>
 
-      <div className="text-white dark:text-white  relative lg:-top-[000px] mb-10 lg:dark:-top-[0px] -top-[150px] text-en  flex flex-col w-full   font-bold  mt-10 text-[34px]">
+      <div className="text-white dark:text-white  relative lg:-top-[000px] mb-10 lg:dark:-top-[0px] -top-[250px] text-en  flex flex-col w-full   font-bold  mt-10 text-[34px]">
         <div className="flex justify-center text-center">
           <div className="flex justify-center text-[16px] text-black  dark:text-white w-[90vw] max-w-[880px] lg:h-[200px] rounded-3xl  bg-white dark:bg-prameryColorDark dark:bg-opacity-50 dark:backdrop-blur-sm lg:border-0 border-[#4a6dff] lg:shadow-2xl  ">
             <div className="flex flex-col w-full">

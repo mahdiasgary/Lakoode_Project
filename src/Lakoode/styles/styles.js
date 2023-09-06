@@ -6,9 +6,9 @@ export const styles = {
   sideBar:
     "min-w-[290px] md:min-w-[230px] xl:min-w-[250px] 2xl:min-w-[300px]  h-screen lg:sticky top-0 left-0  flex flex-col text-[17px] ",
   loginBtn:
-    "px-9 text-textDark py-2 self-center btn rounded-xl hover:bg-[#ca2b20] hover:rounded-md duration-200 font-bold ",
+    "px-7 lg:px-10 text-textDark py-2 self-center btn rounded-xl hover:bg-[#ca2b20] hover:rounded-md duration-200 font-bold ",
     profileLg_Btn:
-    "px-5 flex  opacity-90 text-textDark py-2 self-center border border-btn rounded-xl hover:bg-btn hover:rounded-md duration-200 font-bold text-sm",
+    "px-5  flex  opacity-90 text-textDark py-2 self-center border border-btn rounded-xl hover:bg-btn hover:rounded-md duration-200 font-bold text-sm",
  loginBtn2:
     "px-12 self-start text-textDark py-2 btn rounded-xl hover:bg-[#ca2b20] hover:rounded-md duration-200 font-bold text-sm",
   searchIcn:

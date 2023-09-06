@@ -250,8 +250,6 @@ const AddMovies = ({ history, from, user }) => {
   const refaKH = [
     { title: "پارکینگ", id: 36 },
     { title: "سم پاشی دوره ای", id: 37 },
-    { title: "wifi", id: 38 },
-    { title: "wifi", id: 39 },
     { title: "نظافت مستمر", id: 40 },
     { title: "شستشو ملافه ها", id: 41 },
 
@@ -284,7 +282,7 @@ const AddMovies = ({ history, from, user }) => {
 
   return (
     <div className=" my-10  mx-6 sm:mx-10 md:mx-28">
-      <button onClick={SubmiHandler}>55555</button>
+      {/* <button onClick={SubmiHandler}>55555</button> */}
       {/* <AddMoveImage
                 movieBackground={movieBackground}
                 setMovieBackground={setMovieBackground}

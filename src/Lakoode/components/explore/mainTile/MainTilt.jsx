@@ -1,14 +1,21 @@
 
 import { Link } from "react-router-dom";
-import { useGetvillalistQuery } from "../../../redux/services/movieDatabase";
 import Tiltt from "./Tilt";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const MainTilt = ({ priceRange, selectetOpt, priceRoom }) => {
-  const { data, isFetching, isLoading, error } = useGetvillalistQuery(
-    {},
-    { refetchOnMountOrArgChange: true }
-  );
-  console.log(data?.data)
+
+  const [data,setData]=useState([])
+  useEffect(()=>{
+
+    ;   axios.get('https://localhost:7103/api/Villa/GetAll/').then((r) => {
+      setData(r.data);
+    }).catch(r=>console.log(r))
+
+  },[])
+
+  // console.log(data?.data)
   const defaultOptions = {
     reverse: false, // reverse the tilt direction
     max: 35, // max tilt rotation (degrees)
@@ -61,20 +68,12 @@ const tafREf = [
               ) : (
                 data?.data?.map((villa, index) => (
                  <Tiltt villa={villa} defaultOptions={defaultOptions}/>
+                
                 ))
               )}
             </div>
           </div>
-          {/* <div className="flex justify-center pt-5 pb-3 w-full">
-            <div
-              onClick={() => setww(ww === 9 ? 3 : 9)}
-              className={`${
-                ww === 9 && "rotate-180"
-              } rounded-[50%]  bg-btn flex justify-center  text-white self-center mb-3 cursor-pointer w-[50px] h-[50px] hover:h-[55px] duration-150 hover:w-[55px] `}
-            >
-              <BsArrowDown className="self-center text-[22px] duration-75 hover:text-[25px]" />
-            </div>
-          </div> */}
+
         </div>
       </div>
     </div>

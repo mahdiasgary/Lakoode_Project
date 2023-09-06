@@ -15,7 +15,9 @@
   font-family: Vazirmatn FD;
 
 }
-
+.leaflet-div-icon{
+  background-color: #007bff;
+}
 
 .IranNastaliq {
   font-family: 'IranNastaliq';

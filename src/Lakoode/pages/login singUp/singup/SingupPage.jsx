@@ -30,8 +30,7 @@ const SingupPage = ({ setOpenMenu, from, openMenu }) => {
     confirmPassword: "",
   };
   const validationSchema = Yup.object({
-    email: Yup.string()
-      .email("user@example.com"),
+    email: Yup.string().email("user@example.com"),
     password: Yup.string()
       .required("لطفا این فیلد را پر کنید")
       .min(8, "رمز عبور کوتاه است . باید حداقل 8 کارکتر باشد"),
@@ -53,29 +52,50 @@ const SingupPage = ({ setOpenMenu, from, openMenu }) => {
     validationSchema,
     validateOnMount: true,
   });
-
+  // console.log({
+  //   name: Formik.values.firstName,
+  //   lastName: Formik.values.lastName,
+  //   email: Formik.values.email,
+  //   mobile: Formik.values.mobile,
+  //   nationalCode: Formik.values.nationalCode,
+  //   password: Formik.values.password,
+  //   confirmPassword: Formik.values.confirmPassword,
+  // });
   const userRegister = () => {
     setLoadingButton(true);
     setUserEmail(Formik.values.mobile);
-    useRegisterUser({
-      name: Formik.values.firstName,
-      lastName: Formik.values.lastName,
-      email: Formik.values.email,
-      mobile: Formik.values.mobile,
-      nationalCode: Formik.values.nationalCode,
-      password: Formik.values.password,
-      confirmPassword: Formik.values.confirmPassword,
+
+    // useRegisterUser({
+    //   name: Formik.values.firstName,
+    //   lastName: Formik.values.lastName,
+    //   email: Formik.values.email,
+    //   mobile: Formik.values.mobile,
+    //   nationalCode: Formik.values.nationalCode,
+    //   password: Formik.values.password,
+    //   confirmPassword: Formik.values.confirmPassword,
+    // });
+    axios({
+      method: "post",
+      url: "https://localhost:7103/api/Account/Register",
+      data: {
+        name: Formik.values.firstName,
+        lastName: Formik.values.lastName,
+        email: Formik.values.email,
+        mobile: Formik.values.mobile,
+        nationalCode: Formik.values.nationalCode,
+        password: Formik.values.password,
+        confirmPassword: Formik.values.confirmPassword,
+      },
     })
-      .unwrap()
       .then((res) => {
         setLoadingButton(false);
-        
+
         if (res.isSuccessFull && res.status === "SuccessRegister") {
           axios
-          .get("https://localhost:7103/api/Account/ActiveAccount", {
-            params: { mobile: Formik.values.mobile },
-          })
-          .then((res) => {
+            .get("https://localhost:7103/api/Account/ActiveAccount", {
+              params: { mobile: Formik.values.mobile },
+            })
+            .then((res) => {
               console.log(res);
               setSwichBetweenFormAndVerify(true);
               toast.info(res.message, {
@@ -85,10 +105,10 @@ const SingupPage = ({ setOpenMenu, from, openMenu }) => {
             });
         }
       })
-      .catch(() => {
+      .catch((r) => {
         setLoadingButton(false);
-
-        toast.info("این شماره ثبت نام شده است", {
+        console.log(r);
+        toast.info(r.data.errors, {
           autoClose: 2100,
           position: "top-left",
         });
@@ -129,7 +149,6 @@ const SingupPage = ({ setOpenMenu, from, openMenu }) => {
           alt="q"
         />
       )}
-    
     </div>
   );
 };

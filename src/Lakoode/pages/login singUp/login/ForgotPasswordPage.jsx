@@ -51,7 +51,7 @@ const ForgotPasswordPage = ({ history, openMenu, setOpenMenu }) => {
 
   const sendEmailForForgotPasswordHandler = () => {
     axios
-      .get("https://localhost:7103/api/Account/ActiveAccount", {
+      .get("https://localhost:7103/api/Account/SendSmsForgotPassword", {
         params: { mobile: Formik.values.mobile },
       })
       .then((res) => {
@@ -59,7 +59,7 @@ const ForgotPasswordPage = ({ history, openMenu, setOpenMenu }) => {
         console.log(res.data);
         if (res.data.isSuccessFull ) {
           setSwichBetweenFormAndVerify(true);
-          toast.info(res.data.message, {
+          toast.success(res.data.message, {
             autoClose: 2100,
             position: "top-left",
           });
@@ -75,6 +75,10 @@ const ForgotPasswordPage = ({ history, openMenu, setOpenMenu }) => {
       })
       .catch((res) => {
         console.log(res);
+        toast.error('خطا مجددا امتجان کنید  ', {
+          autoClose: 2100,
+          position: "top-left",
+        });
         setloadingButton(false);
       });
   };

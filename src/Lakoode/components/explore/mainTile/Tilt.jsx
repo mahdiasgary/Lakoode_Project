@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Tilt } from "react-tilt";
+import { optiona } from "../../../constans/options";
 
 const Tiltt = ({ villa, defaultOptions }) => {
   const tafREf = [
@@ -20,13 +21,10 @@ const Tiltt = ({ villa, defaultOptions }) => {
   let nowDate = new Date().toLocaleDateString("fa-IR-u-nu-latn");
   const [calData, setCalData] = useState([]);
   const [calDataNow, setCalDataNow] = useState();
-
   useEffect(() => {
     axios({
       method: "post",
-      url: `https://localhost:7103/api/Reservation/GetPricedDays?villaId=${
-        villa.id
-      }&month=${nowmonth}&year=${nowyear}`,
+      url: `https://localhost:7103/api/Reservation/GetPricedDays?villaId=${villa.id}&month=${nowmonth}&year=${nowyear}`,
     }).then(function (response) {
       let indexoNow = response.data?.data?.findIndex(
         (d) => d.shamsiDate === nowDate
@@ -71,21 +69,25 @@ const Tiltt = ({ villa, defaultOptions }) => {
                   <p className="text-[18px]">{villa.name} </p>
                   <p>ID : {villa.id} </p>
                 </div>
-                <ul className="flex mx-2">
-                  {JSON.parse(villa.villaFacilities).map((opt, index) => (
-                    <li
-                      key={index}
-                      className={`${
-                        (opt > 26 || opt < 24) && "hidden"
-                      }  text-blue-500 dark:text-white dark:bg-btn dark:bg-opacity-60 dark:border-0 border-blue-500 flex mx-1 flex-col justify-center border rounded-xl w-[45px]  cursor-pointer h-[45px]  my-1 `}
+                <ul className="flex gap-1 mx-2">
+                  {JSON.parse(villa?.villaFacilities).map((o) => (
+                    <div
+                      key={o}
+                      className={` text-[15px] font-bold ${
+                        46 <= o && o <= 55 ? "flex" : "hidden"
+                      } faNumber  w-[45px] h-[45px]  flex-col justify-center text-white text-center bg-blue-500    rounded-xl text- font-semibold
+                  `}
                     >
-                      <div className="flex justify-center text-[16px]">
-                        {tafREf[tafREf.findIndex((v) => v.id === opt)]?.title}
+                      <div className="self-center">
+                      <div className="flex self-center justify-center text-[16px]">
+                        {optiona[optiona.findIndex((w) => w.id === o)]?.icon}
                       </div>
                       <p className="text-center text-[10px] font-semibold">
-                        {tafREf[tafREf.findIndex((v) => v.id === opt)]?.title}
+                        {optiona[optiona.findIndex((w) => w.id === o)]?.title}
                       </p>
-                    </li>
+
+                      </div>
+                    </div>
                   ))}
                 </ul>
                 <p className="faNumber text-sm font-semibold text-gray-400 mx-4 ">
@@ -99,11 +101,7 @@ const Tiltt = ({ villa, defaultOptions }) => {
                 <p className="text-gray-700 dark:text-textPlight text-sm">
                   شروع قیمت هر شب :{" "}
                 </p>
-                <div
-                  className={`${
-                    calDataNow?.disscount === 0 && "hidden"
-                  } faNumber w-[120px] flex text-white text-center pt-1  px-1 bg-blue-500  self-  rounded-xl text- font-semibold`}
-                >
+                <div className={`${calDataNow?.disscount === 0 && "hidden"} `}>
                   <p>
                     {parseInt(
                       calDataNow?.disscount?.toString().slice(0, -3)

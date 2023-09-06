@@ -4,7 +4,7 @@ import { HiArrowNarrowLeft } from "react-icons/hi";
 import { withRouter } from "react-router-dom";
 import { useSMSPASSMutation } from "../../../redux/services/movieDatabase";
 import { toast } from "react-toastify";
-
+import axios from "axios";
 
 const Vw = ({
   setSwichBetweenFormAndVerify,
@@ -49,43 +49,55 @@ const Vw = ({
     }
   };
 
-
-
-
   const verifyEmailHandler = () => {
     setLoadingButton(true);
 
-    sMSPASSMutation({
-      // firstNumber: Formik.values.digit1.toString(),
-      // secondNumber: Formik.values.digit2.toString(),
-      // thirdNumber: Formik.values.digit3.toString(),
-      // furthNumber: Formik.values.digit4.toString(),
-      mobile: userEmail,
-      otpCode:Formik.values.digit1.toString()+Formik.values.digit2.toString()+Formik.values.digit3.toString()+Formik.values.digit4.toString()
+    // sMSPASSMutation({
+    //   // firstNumber: Formik.values.digit1.toString(),
+    //   // secondNumber: Formik.values.digit2.toString(),
+    //   // thirdNumber: Formik.values.digit3.toString(),
+    //   // furthNumber: Formik.values.digit4.toString(),
+    //   mobile: userEmail,
+    //   otpCode:
+    //     Formik.values.digit1.toString() +
+    //     Formik.values.digit2.toString() +
+    //     Formik.values.digit3.toString() +
+    //     Formik.values.digit4.toString(),
+    // })
+    axios({
+      method: "post",
+      url: "https://localhost:7103/api/Account/ActiveAccount",
+      data: {
+        mobile: userEmail,
+        otpCode:
+          Formik.values.digit1.toString() +
+          Formik.values.digit2.toString() +
+          Formik.values.digit3.toString() +
+          Formik.values.digit4.toString(),
+      },
     })
-      .unwrap()
+      
       .then((res) => {
-        setLoadingButton(false)
-
-        if (!res.isSuccessFull) {
+        setLoadingButton(false);
+console.log(res)
+        if (!res.data.isSuccessFull) {
           setCorrectCode(-1);
-          toast.error(res.message, {
+          toast.error(res.data.message, {
             autoClose: 2100,
             position: "top-left",
           });
         }
 
-        if (res.isSuccessFull) {
+        if (res.data.isSuccessFull) {
           setCorrectCode(1);
-          setSwichBetweenCreateAndVerify(true)
-          toast.success(res.message, {
+          setSwichBetweenCreateAndVerify(true);
+          toast.success(res.data.message, {
             autoClose: 2100,
             position: "top-left",
           });
           setTimeout(() => setSwichBetweenCreateAndVerify(true), 800);
-         
         }
-      });
+      }).catch((r)=>console.log(r));
   };
   const [counter, setCounter] = React.useState(120);
 
@@ -110,7 +122,7 @@ const Vw = ({
         </div>
         <div className="text-center w-[350px] justify-center flex  mt-2 opacity-75 ">
           <p className=" mx-1">
-            کد 4 رقمی به شماره  <br /> ارسال شد{" "}
+            کد 4 رقمی به شماره <br /> ارسال شد{" "}
             <p className="text-btn font-semibold  text-[16px] ">
               <span className="text-textDark font-normal opacity-75"> </span>
               {userEmail}
@@ -150,22 +162,19 @@ const Vw = ({
                   disabled={counter !== 0}
                   onClick={() => {
                     setCounter(120);
-                    
 
                     axios
-                    .get("https://localhost:7103/api/Account/ActiveAccount", {
-                      params: { mobile: userEmail },
-                    })
-                    .then((res) => {
-                      if (res.data.isSuccessFull ) {
-                        toast.info(res.data.message, {
-                          autoClose: 2100,
-                          position: "top-left",
-                        });
-                      }})
-
-
-
+                      .get("https://localhost:7103/api/Account/ActiveAccount", {
+                        params: { mobile: userEmail },
+                      })
+                      .then((res) => {
+                        if (res.data.isSuccessFull) {
+                          toast.info(res.data.message, {
+                            autoClose: 2100,
+                            position: "top-left",
+                          });
+                        }
+                      });
                   }}
                   className={` ${
                     counter === 0 ? "text-btn" : "cursor-not-allowed"
@@ -212,10 +221,8 @@ const Vw = ({
                           ></path>
                         </svg>
                       </div>
-
-<p className="mx-2">
-  صبور باشید...
-  </p>                    </div>
+                      <p className="mx-2">صبور باشید...</p>{" "}
+                    </div>
                   </button>
                 ) : (
                   <button
@@ -223,7 +230,7 @@ const Vw = ({
                       Formik.values.digit1 === "" ||
                       Formik.values.digit2 === "" ||
                       Formik.values.digit3 === "" ||
-                      Formik.values.digit4 === "" 
+                      Formik.values.digit4 === ""
                         ? true
                         : false
                     }
@@ -232,7 +239,7 @@ const Vw = ({
                       Formik.values.digit1 === "" ||
                       Formik.values.digit2 === "" ||
                       Formik.values.digit3 === "" ||
-                      Formik.values.digit4 === "" 
+                      Formik.values.digit4 === ""
                         ? "bg-gray-500 cursor-not-allowed opacity-80 "
                         : "hover:bg-blue-800 bg-btn cursor-pointer"
                     }   h-[50px] w-[90vw] text-center se:w-[350px] outline-none px-5 text-white  duration-300 justify-center font-bold text-lg shadow-md  my-1 rounded-2xl mt-5   `}

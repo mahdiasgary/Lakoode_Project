@@ -3,11 +3,18 @@ import MainTilt from "../components/explore/mainTile/MainTilt";
 import Navbar from "../components/navbar/Navbar";
 import HeroSection from "../components/explore/heroSection/HeroSection";
 import { useState } from "react";
-import SideBar from "../components/Sidebar/SideBar";
-import FooterMenu from "../components/mobile-footer-menu/FooterMenu";
 import Foter from "./Foter";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import logoImage from "../assets/logoImage.png";
+import logoImageDark from "../assets/logoImageDark.png";
+import { HiSun } from "react-icons/hi2";
+import { FaUser } from "react-icons/fa";
+import { IoMdMoon } from "react-icons/io";
+import { styles } from "../styles/styles";
 const Explore = ({ openMenu, setOpenMenu }) => {
-  const { rtl } = useStateContext();
+  const {rtl, IsDarkMode, setMode, loginStatus } = useStateContext();
+
+  // const { rtl } = useStateContext();
   const [priceRange, setPriceRange] = useState([999000, 10000000]);
   const [priceRoom, setPriceRoom] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, ""]);
   const [selectetOpt, setselectetOpt] = useState(["z"]);
@@ -22,9 +29,7 @@ const Explore = ({ openMenu, setOpenMenu }) => {
           width={2000}
         />
       </div>
-      <div className="sticky backdrop-blur-sm top-0 hidden  z-[100] lg:flex">
-        <Navbar from={"ex"} openMenu={openMenu} setOpenMenu={setOpenMenu} />
-      </div>
+     
       {/* <div className="mt-8 lg:w-full  mx-5  flex xs:flex-row flex-col xs:justify-between "> */}
       <HeroSection
         priceRange={priceRange}

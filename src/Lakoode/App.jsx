@@ -22,6 +22,7 @@ import nprogress from "nprogress";
 import ForgotPasswordPage from "./pages/login singUp/login/ForgotPasswordPage";
 import Routs from "./Routs";
 import Cookies from "js-cookie";
+import axios from "axios";
 const App = () => {
   const { setIsDarkMode, IsDarkMode } = useStateContext();
   const [isSearchItemsShow, setIsSearchItemsShow] = useState(false);
@@ -32,7 +33,8 @@ const App = () => {
     nprogress.start();
     nprogress.done();
   }, [location.pathname]);
-
+// axios.get('https://localhost:7103/api/Account/Login').then(r=>console.log(r))
+ 
   return (
     <BrowserRouter>
       <ToastContainer theme="dark" />

@@ -4,7 +4,7 @@ export const movieCoreApi = createApi({
   reducerPath: "movieCoreApi",
   credentials: "include",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://localhost:7103/",
+    baseUrl: "http://localhost:7103",
   }),
   endpoints: (builder) => ({
     getArtisitListInAdminPanel: builder.query({
@@ -29,7 +29,7 @@ export const movieCoreApi = createApi({
       query: () => "Admin/Movie/Index",
     }),
     getvillalist: builder.query({
-      query: () => "api/Villa/GetAll"
+      query: () => "/api/Villa/GetAll"
     }),
 
     addMovieInAdminPanel: builder.mutation({
