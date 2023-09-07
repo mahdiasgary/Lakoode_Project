@@ -154,6 +154,8 @@ const AddMovies = ({ history, from, user }) => {
     if (user) {
       axios({
         method: "put",
+        withCredentials:true,
+
         url: `https://localhost:7103/api/Villa/Edit/${user?.id}`,
         data: {
           name: Formik.values.name,
@@ -193,6 +195,7 @@ const AddMovies = ({ history, from, user }) => {
         });
     } else {
       axios({
+        withCredentials:true,
         method: "post",
         url: "https://localhost:7103/api/Villa/Create",
         data: formData,

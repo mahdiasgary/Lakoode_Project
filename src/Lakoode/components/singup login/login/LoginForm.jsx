@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { RiEyeCloseLine } from "react-icons/ri";
 import { MdRemoveRedEye } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; 
 
 const LoginForm = ({ Formik, loginUserHandler, loadingButton }) => {
   const [showPassword, setShowPassword] = useState("");
 
   return (
-    <div className="fa    w-screen  flex justify-center xl:justify-start  ">
+    <div className="fa     flex justify-center xl:justify-start  ">
       <div className="item-center self-center ">
         <p className="text-sm opacity-70">خوش آمدید</p>
         <h1 className="font-extrabold text-[39px] ">ورود</h1>

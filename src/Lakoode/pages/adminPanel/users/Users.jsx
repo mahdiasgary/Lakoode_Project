@@ -3,6 +3,7 @@ import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import UsersItem from "./UsersItem";
 import { BsArrowDown } from "react-icons/bs";
+
 import {
   useGetUsersListInAdminPanelQuery,
   useRemoveUserMutation,
@@ -12,7 +13,6 @@ import LoadingAdminListItem from "../../../common/LoadingAdminListItem";
 import axios from "axios";
 // import ToolTip from "../../../common/ToolTip";
 const Users = ({ history }) => {
-  const [, updateState] = useState();
   // const { data, isFetching, isLoading, error } =
   // useGetUsersListInAdminPanelQuery();
   const [data, setData] = useState([]);
@@ -32,7 +32,6 @@ const Users = ({ history }) => {
       .then((r) => setData2(r.data.data));
 
     },[])
-    console.log(data)
 
  
   const [mobileTaKH, setmobileTaKH] = useState("");

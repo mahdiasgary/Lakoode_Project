@@ -66,7 +66,7 @@ const Calandre2 = ({
       
       <div className="w-[100vw] lg:w-[65vw] h-[600px] relative self-center flex   ">
 
-      <div className="absolute left-0 pl-10   top-5 z-[33]  flex justify-end ">
+      <div className="absolute left-0 pl-10   top-5 z-[2]  flex justify-end ">
           <div
             className="prev-arrow flex  bg-white text-[19px] hover:bg-btn hover:text-white duration-300 hover:border-btn shadow-md cursor-pointer  mx-4 text-btn border w-9 h-9 rounded-lg  justify-center   "
             onClick={handlePrev}

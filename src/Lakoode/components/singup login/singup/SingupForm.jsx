@@ -8,7 +8,7 @@ const SingupForm = ({
   setSwichBetweenFormAndVerify,
   userRegister,
   loadingButton,
-}) => {
+}) => { 
   const [showPassword, setShowPassword] = useState("");
   return (
     <div className="w-full  flex justify-center xl:justify-start ">

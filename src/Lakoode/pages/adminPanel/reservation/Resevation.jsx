@@ -12,7 +12,7 @@ const Resevation = () => {
   const [data,setData]=useState([])
   useEffect(()=>{
 
-    ;   axios.get('https://localhost:7103/api/Villa/GetAll/').then((r) => {
+    ;   axios.get('https://localhost:7103/api/Villa/GetAll', { withCredentials: true }).then((r) => {
       setData(r.data);
     }).catch(r=>console.log(r))
 
@@ -24,7 +24,7 @@ const Resevation = () => {
   // let priceToday = useHistory()?.location.state.priceToday;
   const [villaInf, setvillaInf] = useState();
   useEffect(() => {
-    axios.get(`https://localhost:7103/api/Villa/Get?Id=${id}`).then((res) => {
+    axios.get(`https://localhost:7103/api/Villa/Get?Id=${id}`,{withCredentials:true}).then((res) => {
       setvillaInf(res.data.data);
     });
   }, []);
@@ -49,6 +49,7 @@ const Resevation = () => {
       rangeDays.m !== "" &&
       axios({
         method: "post",
+        withCredentials:true,
         url: `https://localhost:7103/api/Reservation/GetPricedDays?villaId=${id}&month=${rangeDays.m}&year=${year}`,
       }).then(function (response) {
         setDayPrice(response.data.data);
@@ -86,6 +87,7 @@ const Resevation = () => {
     setState(!state);
   }, [id]);
 // console.log(typeof(id))
+console.log(id)
   const submitHand =()=>{
     const fromData =new FormData()
     
@@ -99,6 +101,7 @@ const Resevation = () => {
     fromData.append('Mobile','09362095045')
 
     axios({
+      withCredentials:true,
       method: "post",
       url: "https://localhost:7103/api/Reservation/ReserveVillaViaAdmin",
       data: fromData,
@@ -106,10 +109,10 @@ const Resevation = () => {
     })
       .then(function (response) {
         console.log(response)
-        // toast.success(`رزرو شد `, {
-        //   autoClose: 1100,
-        //   position: "top-left",
-        // });
+        toast.success(`${response.data.message}`, {
+          autoClose: 1100,
+          position: "top-left",
+        });
         // setTimeout(() => history.push("villaslist"), 800);
       })
       .catch(function (response) {
@@ -168,7 +171,7 @@ const Resevation = () => {
               </div>
               <div className="flex">
                 <p className="self-center text-[18px] font-bold pl-4">شماره موبایل</p>
-                <input onChange={(e)=>setmobile(e.target.value)}  dir="ltr" type="tel" className="h-16 px-3 dark:bg-gray-700 bg-opacity-30  rounded-xl text-[18px] font-bold mt-4 outline-none "/>
+                <input onChange={(e)=>setmobile(e.target.value)}  dir="ltr" type="tel" className="h-16 px-3 bg-screenLight dark:bg-gray-700 dark:bg-opacity-30  rounded-xl text-[18px] font-bold mt-4 outline-none "/>
               </div>
         <div className="text-center lg:text- mt-5 lg:mx-20">
           {/* {rangeDaysForUpdate.day !== "" ? (

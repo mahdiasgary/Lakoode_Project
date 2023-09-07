@@ -5,6 +5,8 @@ import { GiThroneKing, GiBigWave } from "react-icons/gi";
 import { LiaSwimmingPoolSolid } from "react-icons/lia";
 import { RiBilliardsFill } from "react-icons/ri";
 import { TiLocation } from "react-icons/ti";
+import aq from "../../../pages/login singUp/login/Screenshot (168).png";
+
 import Slider from "react-slider";
 import { PiSunHorizonBold } from "react-icons/pi";
 import Navbar from "../../navbar/Navbar";
@@ -50,8 +52,8 @@ const HeroSection = ({
   return (
     <div>
       <div className="lg:flex lg:justify-center  ">
-        <div className="relative bg-hero bg-no-repeat  bg-cover text-white">
-          <div className="relative z-[5] pt-3 flex justify-center py-4 lg:hidden ">
+        <div className="relative bg-hero bg-no-repeat w-full bg-cover text-white">
+          <div className="relative z-[5]  flex justify-center  ">
           <Navbar className='sticky top-0' from={"ww"} />
           </div>
           <div className=" 3xl:bg-[#4a6dff]   dark:bg-[#0f0f0f] absolute lg:rounded-[50px]  inset-0 w-full h-full">
@@ -63,8 +65,8 @@ const HeroSection = ({
             />
             <img
               alt="lakoode"
-              src={"https://s6.uupload.ir/files/bg2_vrz1.png"}
-              className="opacity-70 hidden dark:lg:flex transform lg:rounded-[50px]    w-full h-full"
+              src={aq}
+              className="opacity- transform -scale-x-100 hidden dark:lg:flex transform lg:rounded-[50px]    w-full h-full"
             />
             <img
               alt="lakoode"
@@ -72,9 +74,9 @@ const HeroSection = ({
               className="opacity-50 transform lg:rounded-[50px]  lg:hidden  w-full h-full"
             />
           </div>
-          <div className="relative  containe flex flex-co  items-cente justify-cente pt-0 pb-36 sm:py- lg:py-24 h-[60vh] w-[98vw]   2xl:py-72">
+          <div className="relative  containe flex flex-co  items-cente justify-cente pt-0 pb-36 sm:py- lg:py-24 h-[60vh] w-full   2xl:py-72">
             <div
-              className="hidden md:flex flex-col  mt-12 text-black mx-32  backdrop-blur-s p-4 rounded-3xl bg-[#0f0f0f bg-opacity-10  text-en  font-bold   lg:text-[20px]
+              className="hidden md:flex flex-col  mt-12 dark:text-screenLight text-black mx-32  backdrop-blur-s p-4 rounded-3xl bg-[#0f0f0f bg-opacity-10  text-en  font-bold   lg:text-[20px]
     "
             >
               <p className="opacity-70 text-">

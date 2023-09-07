@@ -47,7 +47,7 @@ const Tiltt = ({ villa, defaultOptions }) => {
       >
         <Tilt options={defaultOptions}>
           <div
-            className={` bg-white dark:backdrop-blur-sm dark:text-white dark:bg-border dark:bg-opacity-50  dark:border-0 dark:border-border border my-4 cursor-pointer w-[80vw] sm:w-[330px] sm:h-[400px] rounded-3xl shadow-2xl  md:m-5 flex flex-col justify-between`}
+            className={` bg-white dark:backdrop-blur-sm dark:text-white dark:bg-border dark:bg-opacity-50  dark:border-0 dark:border-border border my-4 cursor-pointer w-[80vw] sm:w-[330px] sm:h-[420px] rounded-3xl shadow-2xl  md:m-5 flex flex-col justify-between`}
           >
             <div>
               <div className="relative">
@@ -74,8 +74,8 @@ const Tiltt = ({ villa, defaultOptions }) => {
                     <div
                       key={o}
                       className={` text-[15px] font-bold ${
-                        46 <= o && o <= 55 ? "flex" : "hidden"
-                      } faNumber  w-[45px] h-[45px]  flex-col justify-center text-white text-center bg-blue-500    rounded-xl text- font-semibold
+                        46 <= o && o <= 50 ? "flex" : "hidden"
+                      } faNumber  w-[45px] h-[45px]  flex-col justify-center text-btn text-center border-2 mb-1 border-blue-500    rounded-xl text- font-semibold
                   `}
                     >
                       <div className="self-center">
@@ -101,13 +101,13 @@ const Tiltt = ({ villa, defaultOptions }) => {
                 <p className="text-gray-700 dark:text-textPlight text-sm">
                   شروع قیمت هر شب :{" "}
                 </p>
-                <div className={`${calDataNow?.disscount === 0 && "hidden"} `}>
+                <div className={` text-center py-2 justify-center flex bg-btn text-white rounded-xl ${calDataNow?.disscount === 0 && "hidden"} `}>
                   <p>
                     {parseInt(
                       calDataNow?.disscount?.toString().slice(0, -3)
                     ).toLocaleString()}
                   </p>
-                  <span className="text-[12px] self-start pr-1">
+                  <span className="text-[12px] self-start ">
                     هزار تومان تخفیف
                   </span>
                 </div>

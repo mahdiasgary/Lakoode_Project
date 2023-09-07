@@ -408,14 +408,14 @@ const CalandreD = ({
                           ${
                             seletedDaysOnCal.find(
                               (day) => day == d.date.split('T')[0] || rangeDays.f ==d || rangeDays.s ==d
-                            ) && "text-white"
+                            ) ? "text-white": ' text-blue-500'
                           } 
                           ${
                             mounth[0] === nowMonthToday &&
                             d.shamsiDate.split("/")[2] < nowDayToday &&
                             "text-gray-500 "
                           }
-                          text-blue-500`}
+                         `}
                         >
                           {mounth[0] === nowMonthToday &&
                           d.shamsiDate.split("/")[2] < nowDayToday

@@ -10,10 +10,17 @@ import * as Yup from "yup";
 import Navbar from "../../../components/navbar/Navbar";
 import axios from "axios";
 import { useStateContext } from "../../../contextProvider/ContextProvider";
+import { withRouter } from "react-router-dom";
 
-const SingupPage = ({ setOpenMenu, from, openMenu }) => {
-  const { loginStatus } = useStateContext();
-  if (loginStatus) history.push("/user");
+const SingupPage = ({ setOpenMenu, from, openMenu,history }) => {
+  axios
+  .get("https://localhost:7103/api/Account/Login", { withCredentials: true })
+  .then((r) => {
+    console.log(r.data)
+    if (r.data.isSuccessFull) {
+      history.push("/user");
+    }
+  });
   const [useRegisterUser] = useRegisterUserMutation();
   const [swichBetweenFormAndVerify, setSwichBetweenFormAndVerify] =
     useState(false);
@@ -153,4 +160,4 @@ const SingupPage = ({ setOpenMenu, from, openMenu }) => {
   );
 };
 
-export default SingupPage;
+export default withRouter(SingupPage);

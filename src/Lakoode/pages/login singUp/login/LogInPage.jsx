@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import a from "./Screenshot (168).png";
 import b from "./Most-Expensive-Movies-Ever-Made.png";
 import LoginForm from "../../../components/singup login/login/LoginForm";
@@ -16,9 +16,15 @@ import Navbar from "../../../components/navbar/Navbar";
 import Cookies from "js-cookie";
 import axios from "axios";
 const LogInPage = ({ history, openMenu, setOpenMenu }) => {
-  const [LoginUser] = useLoginUserMutation();
-  const { loginStatus, isLogin, setisLogin } = useStateContext();
-  if (loginStatus) history.push("/user");
+    axios
+      .get("https://localhost:7103/api/Account/Login", { withCredentials: true })
+      .then((r) => {
+        console.log(r.data)
+        if (r.data.isSuccessFull) {
+          history.push("/user");
+        }
+      });
+
 
   const [userEmail, setUserEmail] = useState("");
   const [swichBetweenFormAndVerify, setSwichBetweenFormAndVerify] =
@@ -44,6 +50,7 @@ const LogInPage = ({ history, openMenu, setOpenMenu }) => {
     setLoadingButton(true);
     axios({
       method: "post",
+      withCredentials:true,
       url: "https://localhost:7103/api/Account/Login",
       data: {
         mobile: Formik.values.mobile,
@@ -62,8 +69,6 @@ const LogInPage = ({ history, openMenu, setOpenMenu }) => {
           });
         }
         if (res.data.isSuccessFull && res.data.status === "SuccessLogin") {
-          setisLogin(!isLogin);
-          Cookies.set("user", [true, Formik.values.mobile]);
           history.push("/");
           toast.success(res.data.message, {
             autoClose: 2100,

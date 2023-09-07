@@ -9,7 +9,7 @@ const MainTilt = ({ priceRange, selectetOpt, priceRoom }) => {
   const [data,setData]=useState([])
   useEffect(()=>{
 
-    ;   axios.get('https://localhost:7103/api/Villa/GetAll/').then((r) => {
+    ;   axios.get('https://localhost:7103/api/Villa/GetAll/',{withCredentials:true}).then((r) => {
       setData(r.data);
     }).catch(r=>console.log(r))
 

@@ -8,7 +8,7 @@ export const styles = {
   loginBtn:
     "px-7 lg:px-10 text-textDark py-2 self-center btn rounded-xl hover:bg-[#ca2b20] hover:rounded-md duration-200 font-bold ",
     profileLg_Btn:
-    "px-5  flex  opacity-90 text-textDark py-2 self-center border border-btn rounded-xl hover:bg-btn hover:rounded-md duration-200 font-bold text-sm",
+    "px-5  flex  opacity-90  py-2 self-center border border-btn rounded-xl hover:bg-btn hover:rounded-md duration-200 font-bold text-sm",
  loginBtn2:
     "px-12 self-start text-textDark py-2 btn rounded-xl hover:bg-[#ca2b20] hover:rounded-md duration-200 font-bold text-sm",
   searchIcn:

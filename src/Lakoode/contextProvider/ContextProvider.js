@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { useGetLoginStatusQuery } from "../redux/services/movieDatabase";
 import Cookies from "js-cookie";
 import { use } from "i18next";
+import axios from "axios";
 
 const StateContext = createContext();
 
@@ -15,22 +16,10 @@ export const ContextProvider = ({ children }) => {
   const [selectedSideBarItem, setSelectedSideBarItem] = useState("dashboard");
   const [iconRotate, setIconRotate] = useState(["", false]);
   const [windowSize, setWindowSize] = useState(window.innerWidth);
-  const [isLogin,setisLogin]=useState(false)
-  const {data}=useGetLoginStatusQuery(
+  const { data } = useGetLoginStatusQuery(
     {},
     { refetchOnMountOrArgChange: true }
   );
-// console.log(data)
-  // useEffect(() => {
-  //   const handleResize = () => setWindowSize(window.innerWidth);
-
-  //   window.addEventListener("resize", handleResize);
-
-  //   handleResize();
-
-  //   return () => window.removeEventListener("resize", handleResize);
-  // }, []);
-
 
   useEffect(() => {
     const screenMode = localStorage.getItem("DarkMode");
@@ -57,13 +46,25 @@ export const ContextProvider = ({ children }) => {
   const setMode = (prob) => {
     setIsDarkMode(prob);
   };
-  const [loginStatus,setloginStatus]=useState()
+  const [loginStatus, setloginStatus] = useState(false);
+  // const [userInfo,setUserInf]=useState()
 
+  axios
+    .get("https://localhost:7103/api/Account/Login", { withCredentials: true })
+    .then((r) => {
+      if (r.data.isSuccessfull) {
+        setloginStatus(true);
+        // setUserInf(r.data)
+      }
+      if (!r.data.isSuccessfull) {
+        setloginStatus(false);
+      }
+    });
   return (
     <StateContext.Provider
       value={{
+        
         loginStatus,
-        isLogin,setisLogin,
         windowSize,
         selectedSideBarItem,
         setSelectedSideBarItem,

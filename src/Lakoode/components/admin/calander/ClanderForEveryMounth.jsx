@@ -242,7 +242,7 @@ const ClanderForEveryMounth = ({
                             seletedDays.find(
                               (day) => day == d.shamsiDate.split("/")[2]
                             ) ||
-                            d.shamsiDate.split("/")[2] == rangeDaysForUpdate.day
+                            d.shamsiDate.split("/")[2] == rangeDaysForUpdate.day || d===rangeDays.f
                               ? "text-white"
                               : " text-blue-500"
                           } `}

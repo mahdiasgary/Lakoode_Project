@@ -49,9 +49,13 @@ const VillaPagee = () => {
   let priceToday = useHistory()?.location.state.priceToday;
   const [villaInf, setvillaInf] = useState();
   useEffect(() => {
-    axios.get(`https://localhost:7103/api/Villa/Get?Id=${id}`).then((res) => {
-      setvillaInf(res.data.data);
-    });
+    axios
+      .get(`https://localhost:7103/api/Villa/Get?Id=${id}`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setvillaInf(res.data.data);
+      });
   }, []);
 
   const [img, setImg] = useState([false, "", villaInf]);
@@ -144,56 +148,24 @@ const VillaPagee = () => {
     year: "numeric",
   };
   const position = [36.685357408400314, 51.41840014662684];
-  const { IsDarkMode, setMode, loginStatus } = useStateContext();
+  const [loginS, setloginS] = useState(false);
+  useEffect(() => {
+    axios
+      .get("https://localhost:7103/api/Account/Login", {
+        withCredentials: true,
+      })
+      .then((r) => {
+        if (r.data.isSuccessFull) {
+          setloginS(true);
+        }
+      });
+  }, []);
   return (
     villaInf?.images[0] && (
       <div className={`bg-screenColor dark:text-white `}>
-        <div className="sticky    backdrop-blur-sm pt-4 lg:mb-0 mb-10  z-[49] lg:flex">
-          <div className="flex justify-between w-full  px-3 md:px-7 ">
-            <div className="flex self-center justify-center ">
-              <Link to={"/"}>
-                <div className="self-center  font-extrabold sm:mx-3  flex min-w-[145px] sm:min-w-[150px] z-40 ">
-                  <img
-                    src={IsDarkMode ? logoImage : logoImageDark}
-                    alt="logoImage"
-                    className=" h-[35px] lg:h-[40px] opacity-90 dark:opacity-100"
-                  />
-                </div>
-              </Link>
-            </div>
-            <div className="   flex   ">
-              <div
-                onClick={() => setMode(!IsDarkMode)}
-                className="mx-2 lg:flex  text-[26px] self-center  cursor-pointer "
-              >
-                {IsDarkMode ? (
-                  <HiSun />
-                ) : (
-                  <IoMdMoon className="text-[25px] text-btn " />
-                )}
-              </div>
-              <div className={``}>
-                {loginStatus ? (
-                  <Link to={"/user"}>
-                    <button className={`${styles.profileLg_Btn}  `}>
-                      <span>
-                        <FaUser className="inline self-center mr-2" />
-                      </span>
-                      <p>پروفایل</p>
-                    </button>
-                  </Link>
-                ) : (
-                  <Link to={"/login"}>
-                    <button className={` ${styles.loginBtn} `}>ورود</button>
-                  </Link>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-
+        <Navbar />
         <div
-          className={`fixed top-0 z-[50] bg-opacity-  ${!img[0] && "hidden"} `}
+          className={`fixed top-0 z-[70] bg-opacity-  ${!img[0] && "hidden"} `}
         >
           <div
             onClick={() => setImg([false, img[1], img[2]])}
@@ -794,17 +766,39 @@ const VillaPagee = () => {
                 </div>
               </div>
             </div>
-            <Calandre2
-              villaa={villaInf?.id}
-              seletedDays={seletedDays}
-              setRangeDays={setRangeDays}
-              rangeDays={rangeDays}
-              state={state}
-              setState={setState}
-              year={year}
-              setyear={setyear}
-              seletedDaysOnCal={seletedDaysOnCal}
-            />
+            <div className="relative mt-4 lg:mt-0">
+              <div className="relative">
+                <Calandre2
+                  villaa={villaInf?.id}
+                  seletedDays={seletedDays}
+                  setRangeDays={setRangeDays}
+                  rangeDays={rangeDays}
+                  state={state}
+                  setState={setState}
+                  year={year}
+                  setyear={setyear}
+                  seletedDaysOnCal={seletedDaysOnCal}
+                />
+              </div>
+              <div
+                className={`${loginS && 'hidden'} text-white flex w-full justify-center h-[455px] lg:h-[500px] z-[3]  lg:w-[60vw]  top-0 lg:left-0 absolute`}
+              >
+                <div className="w-full flex justify-center lg:mx-0 mx-3 bg-gray-700 bg-opacity-60 backdrop-blur-sm rounded-3xl">
+                  <div className="self-center text-center ">
+                    <p>
+                      برای انتخاب تاریخ و رزرو باید وارد حساب کاربری خود شوید
+                    </p>
+                    <div>
+                      <Link to={"/login"}>
+                        <button className="px-6 py-2 mt-2 hover:bg-blue-700 duration-150 bg-btn text-center rounded-2xl">
+                          ورود به حساب کاربری
+                        </button>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div>
             <div className="px-4 z-0 lg:hidden overflow-hidden">

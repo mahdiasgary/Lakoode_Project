@@ -9,63 +9,108 @@ import { FaUser } from "react-icons/fa";
 import { IoMdMoon } from "react-icons/io";
 import { useStateContext } from "../../contextProvider/ContextProvider";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
 
 const Navbar = ({ isSearch, setIsSearch, openMenu, setOpenMenu, from }) => {
-  const { IsDarkMode, setMode, loginStatus } = useStateContext();
+  const { IsDarkMode, setMode } = useStateContext();
+  const [loginStatus, setloginStatus] = useState(false);
+  // const [userInfo,setUserInf]=useState()
+
+  axios
+    .get("https://localhost:7103/api/Account/Login", { withCredentials: true })
+    .then((r) => {
+      if (r.data.isSuccessFull) {
+        setloginStatus(true);
+        // setUserInf(r.data)
+      }
+      if (!r.data.isSuccessFull) {
+        setloginStatus(false);
+      }
+    });
 
   return (
-    <div className="flex justify-between w-full  px-3 md:px-7 ">
-      <div className="self-  z-20 flex w-0 md:w-[100px]  lg:hidden text-[26px]">
-        <div
-          onClick={() => setMode(!IsDarkMode)}
-          className="  cursor-pointer "
-        >
-          {IsDarkMode ? (
-            <HiSun />
-          ) : (
-            <IoMdMoon className="text-[25px] text-btn " />
-          )}
-        </div>
-      </div>
-      <div className="flex self-center justify-center ">
-
-        <Link to={"/"}>
-          <div className="self-center  font-extrabold sm:mx-3 flex min-w-[145px] sm:min-w-[150px] z-40 ">
-            <img
-              src={IsDarkMode || from =='ww' ? logoImage : logoImageDark}
-              alt="logoImage"
-              className=" h-[40px] opacity-90 "
-            />
+    <div className="w-full z-[60] relative">
+      <div className={` justify-between ${from === "login" ? "flex " : 'md:flex hidden '}    p-5 `}>
+      <Link to={"/"}>
+            <div className=" self-center ">
+              <img
+                src={IsDarkMode ? logoImage : logoImageDark}
+                alt="logoImage"
+                className=" h-[35px] md:h-[40px] opacity-90 "
+              />
+            </div>
+          </Link>
+        <div className={`   flex   `}>
+          <div
+            onClick={() => setMode(!IsDarkMode)}
+            className="mx-2 flex  text-[26px] self-center cursor-pointer "
+          >
+            {IsDarkMode ? (
+              <HiSun />
+            ) : (
+              <IoMdMoon className={` ${from === "login" && 'lg:text-white'} text-[25px] text-btn ` }/>
+            )}
           </div>
-        </Link>
+          <div className={` ${from === "login" && 'hidden'}`}>
+            {loginStatus ? (
+              <Link to={"/user"}>
+                <button className={`${styles.profileLg_Btn} text-btn  `}>
+                  <span>
+                    <FaUser className="" />
+                  </span>
+                  <p className={`text-btn`}>پروفایل</p>
+                </button>
+              </Link>
+            ) : (
+              <Link to={"/login"}>
+                <button className={` ${styles.loginBtn} `}>ورود</button>
+              </Link>
+            )}
+          </div>
+        </div>
       </div>
 
-      <div className="   flex   ">
-        <div
-          onClick={() => setMode(!IsDarkMode)}
-          className="mx-2 lg:flex hidden text-[26px] self-center cursor-pointer "
-        >
-          {IsDarkMode ? (
-            <HiSun />
-          ) : (
-            <IoMdMoon className="text-[25px] text-btn " />
-          )}
+      <div className={` ${from === "login" ? "hidden " : 'flex flex-col md:hidden '} pt-4`}>
+        <div className="flex  justify-between pt-2  px-5 ">
+        
+            <div
+              onClick={() => setMode(!IsDarkMode)}
+              className="mx-2 flex  text-[26px] self-center cursor-pointer "
+            >
+              {IsDarkMode ? (
+                <HiSun />
+              ) : (
+                <IoMdMoon className="text-[25px] text-btn " />
+              )}
+            </div>
+            <div className={` `}>
+              {loginStatus ? (
+                <Link to={"/user"}>
+                  <button className={`${styles.profileLg_Btn} text-sm  `}>
+                    <span>
+                      <FaUser className="" />
+                    </span>
+                    <p>پروفایل</p>
+                  </button>
+                </Link>
+              ) : (
+                <Link to={"/login"}>
+                  <button className={` ${styles.loginBtn} text-sm `}>ورود</button>
+                </Link>
+              )}
+            </div>
         </div>
-        <div className={`${from === "login" && "hidden"} `}>
-          {loginStatus ? (
-            <Link to={"/user"}>
-              <button className={`${styles.profileLg_Btn}  `}>
-                <span>
-                  <FaUser className="" />
-                </span>
-                <p>پروفایل</p>
-              </button>
-            </Link>
-          ) : (
-            <Link to={"/login"}>
-              <button className={` ${styles.loginBtn} `}>ورود</button>
-            </Link>
-          )}
+        <div className="flex justify-center">
+        <Link to={"/"}>
+            <div className=" self-center ">
+              <img
+                src={IsDarkMode ? logoImage : logoImageDark}
+                alt="logoImage"
+                className=" h-[35px] opacity- "
+              />
+            </div>
+          </Link>
         </div>
       </div>
     </div>

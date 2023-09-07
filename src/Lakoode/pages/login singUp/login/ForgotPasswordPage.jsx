@@ -16,6 +16,14 @@ import axios from "axios";
 import Vw from "./Vw";
 
 const ForgotPasswordPage = ({ history, openMenu, setOpenMenu }) => {
+  axios
+  .get("https://localhost:7103/api/Account/Login", { withCredentials: true })
+  .then((r) => {
+    console.log(r.data)
+    if (r.data.isSuccessFull) {
+      history.push("/user");
+    }
+  });
   const initialValues = {
     mobile: "",
     password: "",

@@ -19,15 +19,15 @@ const Explore = ({ openMenu, setOpenMenu }) => {
   const [priceRoom, setPriceRoom] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, ""]);
   const [selectetOpt, setselectetOpt] = useState(["z"]);
   return (
-    <div>
+    <div className="dark:bg-[rgb(40,42,55)]">
       <div className="fixed opacity-20 hidden dark:flex ">
-        <img
+        {/* <img
           alt={"f"}
           src={"https://s6.uupload.ir/files/bg3_kuz9.png"}
           className="w-screen h-screen"
           height={2000}
           width={2000}
-        />
+        /> */}
       </div>
      
       {/* <div className="mt-8 lg:w-full  mx-5  flex xs:flex-row flex-col xs:justify-between "> */}
