@@ -149,9 +149,9 @@ const PriceMake = () => {
         <div>
           <p className="text-lg flex font-semibold">
             <span>تعیین قیمت در </span>
-            <span>
+            <span className="flex flex-wrap ">
               {seletedDays?.map((d) => (
-                <span className="mx-1 px-3 rounded-lg bg-textPDark bg-opacity-60 text-white w-10 ">
+                <span className="m-1 text-center px-3 rounded-lg bg-textPDark bg-opacity-60 text-white w-10 ">
                   {d}
                 </span>
               ))}
@@ -163,7 +163,7 @@ const PriceMake = () => {
                 {rangeDaysForUpdate.day}
               </span>
             </span>
-            <span>
+            <span className="min-w-[50px] flex">
               /{rangeDays?.m} /{rangeDays.y}
             </span>
           </p>

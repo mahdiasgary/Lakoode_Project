@@ -55,6 +55,7 @@ const ClanderForEveryMounth = ({
   const [calData, setCalData] = useState([]);
   useEffect(() => {
     axios({
+      withCredentials:true,
       method: "post",
       url: `https://localhost:7103/api/Reservation/GetPricedDays?villaId=${villa}&month=${mounth[0]}&year=${year}`,
     }).then(function (response) {

@@ -12,15 +12,15 @@ import axios from "axios";
 import { useStateContext } from "../../../contextProvider/ContextProvider";
 import { withRouter } from "react-router-dom";
 
-const SingupPage = ({ setOpenMenu, from, openMenu,history }) => {
+const SingupPage = ({ setOpenMenu, from, openMenu, history }) => {
   axios
-  .get("https://localhost:7103/api/Account/Login", { withCredentials: true })
-  .then((r) => {
-    console.log(r.data)
-    if (r.data.isSuccessFull) {
-      history.push("/user");
-    }
-  });
+    .get("https://localhost:7103/api/Account/Login", { withCredentials: true })
+    .then((r) => {
+      console.log(r.data);
+      if (r.data.isSuccessFull) {
+        history.push("/user");
+      }
+    });
   const [useRegisterUser] = useRegisterUserMutation();
   const [swichBetweenFormAndVerify, setSwichBetweenFormAndVerify] =
     useState(false);
@@ -59,29 +59,13 @@ const SingupPage = ({ setOpenMenu, from, openMenu,history }) => {
     validationSchema,
     validateOnMount: true,
   });
-  // console.log({
-  //   name: Formik.values.firstName,
-  //   lastName: Formik.values.lastName,
-  //   email: Formik.values.email,
-  //   mobile: Formik.values.mobile,
-  //   nationalCode: Formik.values.nationalCode,
-  //   password: Formik.values.password,
-  //   confirmPassword: Formik.values.confirmPassword,
-  // });
+
   const userRegister = () => {
     setLoadingButton(true);
     setUserEmail(Formik.values.mobile);
-
-    // useRegisterUser({
-    //   name: Formik.values.firstName,
-    //   lastName: Formik.values.lastName,
-    //   email: Formik.values.email,
-    //   mobile: Formik.values.mobile,
-    //   nationalCode: Formik.values.nationalCode,
-    //   password: Formik.values.password,
-    //   confirmPassword: Formik.values.confirmPassword,
-    // });
     axios({
+      withCredentials: true,
+
       method: "post",
       url: "https://localhost:7103/api/Account/Register",
       data: {
@@ -97,25 +81,25 @@ const SingupPage = ({ setOpenMenu, from, openMenu,history }) => {
       .then((res) => {
         setLoadingButton(false);
 
-        if (res.isSuccessFull && res.status === "SuccessRegister") {
-          axios
-            .get("https://localhost:7103/api/Account/ActiveAccount", {
-              params: { mobile: Formik.values.mobile },
-            })
-            .then((res) => {
-              console.log(res);
-              setSwichBetweenFormAndVerify(true);
-              toast.info(res.message, {
-                autoClose: 2100,
-                position: "top-left",
-              });
-            });
-        }
+        console.log(res);
+        // if (res.isSuccessFull && res.status === "SuccessRegister") {
+        // axios
+        //   .get("https://localhost:7103/api/Account/ActiveAccount", {
+        //     params: { mobile: Formik.values.mobile },
+        //   })
+        //   .then((res) => {
+        setSwichBetweenFormAndVerify(true);
+        toast.info(res.message, {
+          autoClose: 2100,
+          position: "top-left",
+        });
+        // });
+        // }
       })
       .catch((r) => {
         setLoadingButton(false);
         console.log(r);
-        toast.info(r.data.errors, {
+        toast.info("شماره موبایل اشتباه است", {
           autoClose: 2100,
           position: "top-left",
         });

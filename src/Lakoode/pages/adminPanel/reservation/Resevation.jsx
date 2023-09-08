@@ -9,14 +9,15 @@ const Resevation = () => {
   const optionsY = {
     year: "numeric",
   };
-  const [data,setData]=useState([])
-  useEffect(()=>{
-
-    ;   axios.get('https://localhost:7103/api/Villa/GetAll', { withCredentials: true }).then((r) => {
-      setData(r.data);
-    }).catch(r=>console.log(r))
-
-  },[])
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    axios
+      .get("https://localhost:7103/api/Villa/GetAll", { withCredentials: true })
+      .then((r) => {
+        setData(r.data);
+      })
+      .catch((r) => console.log(r));
+  }, []);
   let nowYear = new Date().toLocaleDateString("fa-IR-u-nu-latn", optionsY);
   const [year, setyear] = useState(nowYear);
   const [id, setId] = useState();
@@ -24,9 +25,13 @@ const Resevation = () => {
   // let priceToday = useHistory()?.location.state.priceToday;
   const [villaInf, setvillaInf] = useState();
   useEffect(() => {
-    axios.get(`https://localhost:7103/api/Villa/Get?Id=${id}`,{withCredentials:true}).then((res) => {
-      setvillaInf(res.data.data);
-    });
+    axios
+      .get(`https://localhost:7103/api/Villa/Get?Id=${id}`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setvillaInf(res.data.data);
+      });
   }, []);
 
   const optionsMnum = {
@@ -49,7 +54,7 @@ const Resevation = () => {
       rangeDays.m !== "" &&
       axios({
         method: "post",
-        withCredentials:true,
+        withCredentials: true,
         url: `https://localhost:7103/api/Reservation/GetPricedDays?villaId=${id}&month=${rangeDays.m}&year=${year}`,
       }).then(function (response) {
         setDayPrice(response.data.data);
@@ -75,7 +80,7 @@ const Resevation = () => {
       rangeDays.s.date?.split("T")[0]
     );
   }
-  const [mobile,setmobile]=useState('')
+  const [mobile, setmobile] = useState("");
   const [state, setState] = useState(true);
   const [reservsDays, setreservsDays] = useState({ f: "", s: "" });
   const option = {
@@ -86,40 +91,60 @@ const Resevation = () => {
   useEffect(() => {
     setState(!state);
   }, [id]);
-// console.log(typeof(id))
-console.log(id)
-  const submitHand =()=>{
-    const fromData =new FormData()
-    
-    fromData.append('StartDay',parseInt(rangeDays.f.shamsiDate?.split('/')[2]))
-    fromData.append('StartMonth',parseInt(rangeDays.f.shamsiDate?.split('/')[1]))
-    fromData.append('StartYear',parseInt(rangeDays.f.shamsiDate?.split('/')[0]))
-    fromData.append('EndDay',parseInt(rangeDays.s.shamsiDate?.split('/')[2]))
-    fromData.append('EndMonth',parseInt(rangeDays.s.shamsiDate?.split('/')[1]))
-    fromData.append('EndYear',parseInt(rangeDays.s.shamsiDate?.split('/')[0]))
-    fromData.append('VillaId',parseInt(id))
-    fromData.append('Mobile','09362095045')
+  // console.log(typeof(id))
+  console.log(id);
+  const submitHand = () => {
+    const fromData = new FormData();
+
+    fromData.append(
+      "StartDay",
+      parseInt(rangeDays.f.shamsiDate?.split("/")[2])
+    );
+    fromData.append(
+      "StartMonth",
+      parseInt(rangeDays.f.shamsiDate?.split("/")[1])
+    );
+    fromData.append(
+      "StartYear",
+      parseInt(rangeDays.f.shamsiDate?.split("/")[0])
+    );
+    fromData.append("EndDay", parseInt(rangeDays.s.shamsiDate?.split("/")[2]));
+    fromData.append(
+      "EndMonth",
+      parseInt(rangeDays.s.shamsiDate?.split("/")[1])
+    );
+    fromData.append("EndYear", parseInt(rangeDays.s.shamsiDate?.split("/")[0]));
+    fromData.append("VillaId", parseInt(id));
+    fromData.append("Mobile", "09362095045");
 
     axios({
-      withCredentials:true,
+      withCredentials: true,
       method: "post",
       url: "https://localhost:7103/api/Reservation/ReserveVillaViaAdmin",
       data: fromData,
       headers: { "Content-Type": "multipart/form-data" },
     })
-      .then(function (response) {
-        console.log(response)
-        toast.success(`${response.data.message}`, {
-          autoClose: 1100,
-          position: "top-left",
-        });
+      .then(function (r) {
+        // console.log(r);
+        if (!r.data.isSuccessFull) {
+          toast.error(`${r.data.message}`, {
+            autoClose: 1100,
+            position: "top-left",
+          });
+        }
+        if (r.data.isSuccessFull) {
+          toast.success(`${r.data.message}`, {
+            autoClose: 1100,
+            position: "top-left",
+          });
+        }
         // setTimeout(() => history.push("villaslist"), 800);
       })
-      .catch(function (response) {
+      .catch(function (r) {
         //handle error
-        console.log(response);
+        console.log(r);
       });
-  }
+  };
   return (
     <div>
       {/* <div>
@@ -167,12 +192,17 @@ console.log(id)
             <div className=" dark:bg-gray-700 bg-opacity-30 mx-2 px-7 py-2 rounded-xl text-[18px] font-bold ">
               {rangeDays?.s?.shamsiDate}
             </div>
-          </div>    
-              </div>
-              <div className="flex">
-                <p className="self-center text-[18px] font-bold pl-4">شماره موبایل</p>
-                <input onChange={(e)=>setmobile(e.target.value)}  dir="ltr" type="tel" className="h-16 px-3 bg-screenLight dark:bg-gray-700 dark:bg-opacity-30  rounded-xl text-[18px] font-bold mt-4 outline-none "/>
-              </div>
+          </div>
+        </div>
+        <div className="flex">
+          <p className="self-center text-[18px] font-bold pl-4">شماره موبایل</p>
+          <input
+            onChange={(e) => setmobile(e.target.value)}
+            dir="ltr"
+            type="tel"
+            className="h-16 px-3 bg-screenLight dark:bg-gray-700 dark:bg-opacity-30  rounded-xl text-[18px] font-bold mt-4 outline-none "
+          />
+        </div>
         <div className="text-center lg:text- mt-5 lg:mx-20">
           {/* {rangeDaysForUpdate.day !== "" ? (
             <button
@@ -192,7 +222,9 @@ console.log(id)
               rangeDays.f === "" && "opacity-60 cursor-not-allowed"
             } bg-btn text-white lg:w-[20vw] w-[60vw]  py-3 rounded-xl hover:bg-blue-800 duration-300 font-semibold`}
           >
-            رزرو برای {seletedDaysOnCal.length!==0 ? seletedDaysOnCal.length-1 : 0 } شب اقامت 
+            رزرو برای{" "}
+            {seletedDaysOnCal.length !== 0 ? seletedDaysOnCal.length - 1 : 0} شب
+            اقامت
           </button>
           {/* )} */}
         </div>

@@ -71,7 +71,7 @@ export const sidbarItem = [
 export const adminSidbarItem = [
   // [{ id: 21, titleFa: "پیشخوان", title: "comments", icon: <BiComment /> }],
 
-  [{ id: 1, titleFa: "داشبورد", title: "dashboard", icon:'' }],
+  [{ id: 1, titleFa: "داشبورد", title: "", icon:'' }],
   [
     { id: 5, titleFa: "کاربران", title: "usersl", icon: '' },
     [

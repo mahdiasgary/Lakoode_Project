@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from "react";
-// import AvatarCrop from "./AvatarCrop";
 import { Link, useLocation } from "react-router-dom";
-import UserGeneral from "../../../components/user profile/UserGeneral";
-import { Swiper, SwiperSlide } from "swiper/react";
 import { BsArrowDown } from "react-icons/bs";
-
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-import { Autoplay, Pagination, Navigation, FreeMode } from "swiper";
 import axios from "axios";
 import TraconeshItem from "./TraconeshItem";
 const User = () => {
@@ -19,7 +11,8 @@ const User = () => {
   const [search, setSearch] = useState("");
   useEffect(() => {
     axios
-      .get(`https://localhost:7103/api/User/GetUserDetail?mobile=${usermobile}`)
+    
+      .get(`https://localhost:7103/api/User/GetUserDetail?mobile=${usermobile}`,{withCredentials:true})
       .then((r) => setData(r.data.data));
   }, []);
   return (
@@ -153,7 +146,7 @@ const User = () => {
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     type="text"
-                    placeholder="جستجو..."
+                    placeholder="جستجو کد رهگیری..."
                     className="h-[45px] w-[220px] rounded-2xl px-2 dark:bg-transparent border-2 dark:border-border outline-btn "
                   />
                 </div>

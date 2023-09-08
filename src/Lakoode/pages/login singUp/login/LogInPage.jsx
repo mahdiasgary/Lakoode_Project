@@ -16,15 +16,14 @@ import Navbar from "../../../components/navbar/Navbar";
 import Cookies from "js-cookie";
 import axios from "axios";
 const LogInPage = ({ history, openMenu, setOpenMenu }) => {
-    axios
-      .get("https://localhost:7103/api/Account/Login", { withCredentials: true })
-      .then((r) => {
-        console.log(r.data)
-        if (r.data.isSuccessFull) {
-          history.push("/user");
-        }
-      });
-
+  axios
+    .get("https://localhost:7103/api/Account/Login", { withCredentials: true })
+    .then((r) => {
+      // console.log(r.data)
+      if (r.data.isSuccessFull) {
+        history.push("/user");
+      }
+    });
 
   const [userEmail, setUserEmail] = useState("");
   const [swichBetweenFormAndVerify, setSwichBetweenFormAndVerify] =
@@ -50,7 +49,7 @@ const LogInPage = ({ history, openMenu, setOpenMenu }) => {
     setLoadingButton(true);
     axios({
       method: "post",
-      withCredentials:true,
+      withCredentials: true,
       url: "https://localhost:7103/api/Account/Login",
       data: {
         mobile: Formik.values.mobile,
@@ -58,7 +57,7 @@ const LogInPage = ({ history, openMenu, setOpenMenu }) => {
       },
     })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setLoadingButton(false);
 
         if (!res.data.isSuccessFull && res.data.status === "UserNotExist") {
@@ -75,13 +74,23 @@ const LogInPage = ({ history, openMenu, setOpenMenu }) => {
             position: "top-left",
           });
         }
-        if (!res.data.isSuccessFull && res.data.status === "UserAccountIsNotActive") {
-          toast.info(res.data.message, {
-            autoClose: 2100,
-            position: "top-left",
-          });
-          setUserEmail(res.data.data);
-          setSwichBetweenFormAndVerify(true);
+        if (
+          !res.data.isSuccessFull &&
+          res.data.status === "UserAccountIsNotActive"
+        ) {
+          axios
+            .get(
+              `https://localhost:7103/api/Account/ActiveAccount?Mobile=${Formik.values.mobile}`
+            )
+            .then((res) => {
+              console.log(res);
+              setUserEmail(res.data.data);
+              setSwichBetweenFormAndVerify(true);
+              toast.info(res.message, {
+                autoClose: 2100,
+                position: "top-left",
+              });
+            });
         }
         if (!res.data.isSuccessFull && res.data.status === "FaildLogin") {
           setLoadingButton(false);
@@ -91,12 +100,17 @@ const LogInPage = ({ history, openMenu, setOpenMenu }) => {
           });
         }
       })
-      .catch((r) => console.log(r));
+      .catch((r) =>
+        toast.error(r.data.message, {
+          autoClose: 2100,
+          position: "top-left",
+        })
+      );
   };
   return (
     <div className="w-full h-screen  bg-[#f9f9f9] dark:bg-[#282a37] text-white">
       <Navbar from={"login"} openMenu={openMenu} setOpenMenu={setOpenMenu} />
-      <div className=" z-[5] absolute pt-12 xl:px-32 flex xl:justify-start justify-center  text-textLight dark:text-white">
+      <div className=" z-[5] absolute  py-20 xl:px-32 flex xl:justify-start justify-center w-full text-textLight dark:text-white">
         {/* log in form and verify email */}
         {!swichBetweenFormAndVerify ? (
           <LoginForm
