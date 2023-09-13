@@ -26,13 +26,14 @@ const AdminPage = ({ history }) => {
     nprogress.done();
   }, [history.location.pathname]);
   const [state, set] = useState(false);
+  const [admin, setAdmin] = useState();
   useEffect(() => {
     axios
       .get("https://localhost:7103/api/Account/Login", {
         withCredentials: true,
       })
       .then((r) => {
-        // console.log(r.data);
+        setAdmin(r.data.data);
         if (!r.data.isSuccessFull) {
           history.push("/");
         }
@@ -73,6 +74,7 @@ const AdminPage = ({ history }) => {
               openMenu={openMenu}
               setOpenMenu={setOpenMenu}
               setMode={setMode}
+              admin={admin}
             />
           </div>
 

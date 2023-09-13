@@ -5,11 +5,7 @@ import { Tilt } from "react-tilt";
 import { optiona } from "../../../constans/options";
 
 const Tiltt = ({ villa, defaultOptions }) => {
-  const tafREf = [
-    { title: "بیلیارد", id: 24 },
-    { title: "استخر", id: 25 },
-    { title: "شاه نشین", id: 26 },
-  ];
+
   const optionsM = {
     month: "numeric",
   };

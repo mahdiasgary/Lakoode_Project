@@ -8,43 +8,24 @@ import logoImageDark from "../../../assets/logoImageDark.png";
 import AdminSideBarList from "./AdminSideBarList";
 import { adminSidbarItem } from "../../../constans";
 import { useStateContext } from "../../../contextProvider/ContextProvider";
-const AdminSideBar = ({ openMenu, setOpenMenu }) => {
-  const {IsDarkMode,setMode}=useStateContext()
-
+const AdminSideBar = ({ openMenu, setOpenMenu, admin }) => {
+  const { IsDarkMode, setMode } = useStateContext();
+  // console.log(admin)
   return (
     <div
-    className={`${styles.sideBar} overflow-y-auto origin-left  scrollbar-thin dark:scrollbar-track-[#1c1d21] scrollbar-track-gray-300 dark:scrollbar-thumb-border scrollbar-thumb-gray-400 scrollbar-track-rounded-md   scrollbar-thumb-rounded-md ${
-      !openMenu && " left-[-300px] fixed"
-    } ${ 
-      openMenu &&
-      "fixed lg:relative left-0   dark:bg-[#07070a] lg:dark:bg-transparent bg-screenLight"
-    }  duration-500 z-[52] `}
-  >
+      className={`${
+        styles.sideBar
+      } overflow-y-auto origin-left  scrollbar-thin dark:scrollbar-track-[#1c1d21] scrollbar-track-gray-300 dark:scrollbar-thumb-border scrollbar-thumb-gray-400 scrollbar-track-rounded-md   scrollbar-thumb-rounded-md ${
+        !openMenu && " left-[-300px] fixed"
+      } ${
+        openMenu &&
+        "fixed lg:relative left-0   dark:bg-[#07070a] lg:dark:bg-transparent bg-screenLight"
+      }  duration-500 z-[52] `}
+    >
       <div className=" lg:hidden " onClick={() => setOpenMenu(!openMenu)}>
         <MdMenuOpen className="text-[27px] mt-10 mx-10 cursor-pointer text-btn  " />
       </div>
-      <div className={` lg:hidden flex  flex-col `}>
-        {/* <button className={`${styles.loginBtn2} mx-5 my-5 `}>LOG IN</button> */}
-        {/* <div className="mx-2  ">
-          <DarkModeToggle
-            mode={mode}
-            dark="dark"
-            light="light"
-            size="sm"
-            inactiveTrackColor="#e2e8f0"
-            inactiveTrackColorOnHover="#f8fafc"
-            inactiveTrackColorOnActive="#cbd5e1"
-            activeTrackColor="#334155"
-            activeTrackColorOnHover="#1e293b"
-            activeTrackColorOnActive="#0f172a"
-            inactiveThumbColor="#1e293b"
-            activeThumbColor="#e2e8f0"
-            onChange={(mode) => {
-              setMode(mode);
-            }}
-          />
-        </div> */}
-      </div>
+      <div className={` lg:hidden flex  flex-col `}></div>
       <div className=" font-extrabold hidden sm:mx-3 md:mx-5 lg:mx-8 mb-8  mt-10 lg:flex min-w-[145px] sm:min-w-[150px] ">
         <img
           src={IsDarkMode ? logoImage : logoImageDark}
@@ -52,12 +33,17 @@ const AdminSideBar = ({ openMenu, setOpenMenu }) => {
           className=" h-[31.6px]  sm:h-[38px] mx-1"
         />
       </div>
+      <div className="flex justify-between px-5 pb-5">
+        <p className="self-center">{admin?.name + "  " + admin?.lastName}</p>
+        <span className="text-btn self-center bg-btn bg-opacity-20 text-[13px] rounded-2xl px-2 py-1 ">
+          انلاین
+        </span>
+      </div>
       <div>
         <AdminSideBarList
           subTitle="MENU"
           items={adminSidbarItem}
           menu={openMenu}
-          
         />
       </div>
     </div>

@@ -13,7 +13,8 @@ const Dashboard = () => {
   const [IsActive, setIsActive] = useState(true);
   const [sort, setsort] = useState(["createdDate", true, true]);
   const [search, setSearch] = useState(["", "", ""]);
-  const [state,setState]=useState('')
+  const [state, setState] = useState("");
+  const [villas, setvillas] = useState([]);
   useEffect(() => {
     axios
       .get(`https://localhost:7103/api/Admin/Reservation/GetAllReservedDays`, {
@@ -25,16 +26,20 @@ const Dashboard = () => {
       .get(`https://localhost:7103/api/Admin/Villa/GetAll`, {
         withCredentials: true,
       })
-      .then((r) => setIsActive(r.data.data[0].ipG_IsActive));
-      axios
-        .get("https://localhost:7103/api/Admin/Home/AdminIndex", {
-          withCredentials: true,
-        })
-        .then((r) => {
-          if (r.data.isSuccessFull) {
-            setDash(r.data.data);
-          }
-        });
+      .then((r) => {
+        setIsActive(r.data.data[0].ipG_IsActive);
+        setvillas(r.data.data);
+      });
+
+    axios
+      .get("https://localhost:7103/api/Admin/Home/AdminIndex", {
+        withCredentials: true,
+      })
+      .then((r) => {
+        if (r.data.isSuccessFull) {
+          setDash(r.data.data);
+        }
+      });
   }, [state]);
 
   let ww =
@@ -80,7 +85,7 @@ const Dashboard = () => {
       data: formData,
     })
       .then(function (response) {
-        setState(Math.random())
+        setState(Math.random());
         toast.success(
           ` ${arg ? "درگاه بانکی فعال شد" : "درگاه بانکی غیر فعال شد"}`,
           {
@@ -151,21 +156,20 @@ const Dashboard = () => {
             </div>
           </div>
           <div>
-            <div className="flex gap-4 bg-white p-5 rounded-3xl ">
-              <div className="flex   rounded-3xl bg-screenLight ">
-                <div className="py-2 pr-3">لاکوده 1</div>
-                <div className="px-4 mr-2  text-sm self-center text-white py-[10px] rounded-l-3xl bg-btn">
-                  رزرو{" "}
+            <div className="flex  flex-wrap gap-4 dark:bg-opacity-40 dark:bg-border bg-white p-5 rounded-3xl ">
+              {villas.map((villa) => (
+                !villa?.isDisabled &&
+                <div className="flex   rounded-3xl dark:bg-opacity- ">
+                  <div className="py-2 rounded-r-3xl  dark:bg-border bg-screenLight px-3">
+                    {villa?.name}{" "}
+                  </div>
+                  <div
+                    className={`px-4  text-white py-[10px] rounded-l-3xl text-sm self-center ${villa?.isDisabled && 'hidden'} ${villa?.isReserved ? 'bg-btn' : 'bg-gray-500'}`}
+                  >
+                    {villa?.isReserved ? "رزرو" : "خالی"}
+                  </div>
                 </div>
-              </div>
-              <div className="flex     ">
-                <div className="py-2 rounded-r-3xl bg-screenLight px-3">
-                  ویلای 1
-                </div>
-                <div className="px-4  text-white py-[10px] rounded-l-3xl text-sm self-center bg-gray-500">
-                  خالی{" "}
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>

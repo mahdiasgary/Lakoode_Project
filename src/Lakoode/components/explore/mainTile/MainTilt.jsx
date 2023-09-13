@@ -18,7 +18,8 @@ const MainTilt = ({ selectetOpt, priceRoom,priceRange }) => {
       q.villaFacilities?.includes(selectetOpt[2]) &&
       q.villaFacilities?.includes(selectetOpt[3]) &&
       q.villaFacilities?.includes(selectetOpt[4]) &&
-      JSON.parse(q.roomCount)[0].toString().includes(priceRoom) &&
+      JSON.parse(q.roomCount)[0].toString().includes(priceRoom) 
+      &&
     (q.pricedDays[0]?.price - q?.pricedDays[0]?.disscount)<=priceRange[1] &&
     (q.pricedDays[0]?.price - q?.pricedDays[0]?.disscount)>=priceRange[0]
   );
