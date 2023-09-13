@@ -15,13 +15,13 @@ import Navbar from "../../../components/navbar/Navbar";
 import axios from "axios";
 import Vw from "./Vw";
 
-const ForgotPasswordPage = ({ history, openMenu, setOpenMenu }) => {
+const ForgotPasswordPage = ({ history, openMenu, setOpenMenu,login }) => {
   axios
   .get("https://localhost:7103/api/Account/Login", { withCredentials: true })
   .then((r) => {
-    console.log(r.data)
-    if (r.data.isSuccessFull) {
-      history.push("/user");
+    // console.log(r.data)
+    if (!r.data.isSuccessFull && login ) {
+      history.push("/login");
     }
   });
   const initialValues = {
@@ -114,6 +114,7 @@ const ForgotPasswordPage = ({ history, openMenu, setOpenMenu }) => {
           )
         ) : (
           <ForgetPasswordForm
+          login={login}
             setloadingButton={setloadingButton}
             loadingButton={loadingButton}
             Formik={Formik}

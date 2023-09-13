@@ -2,12 +2,6 @@
 import balad from "../../assets/balad.png";
 import neshan from "../../assets/neshan.png";
 import google from "../../assets/google.png";
-import logoImage from "../../assets/logoImage.png";
-import logoImageDark from "../../assets/logoImageDark.png";
-import { HiSun } from "react-icons/hi2";
-import { FaUser } from "react-icons/fa";
-import { IoMdMoon } from "react-icons/io";
-import { useStateContext } from "../../contextProvider/ContextProvider";
 import { FaBath, FaBed } from "react-icons/fa";
 import { GoHomeFill } from "react-icons/go";
 import { BsFillPeopleFill } from "react-icons/bs";
@@ -31,7 +25,7 @@ import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import { optiona } from "../../constans/options";
 import Foter from "../Foter";
 import Navbar from "../../components/navbar/Navbar";
-import { styles } from "../../styles/styles";
+import { toast } from "react-toastify";
 
 let DefaultIcon = L.icon({
   iconUrl: icon,
@@ -50,14 +44,14 @@ const VillaPagee = () => {
   const [villaInf, setvillaInf] = useState();
   useEffect(() => {
     axios
-      .get(`https://localhost:7103/api/Villa/Get?Id=${id}`, {
+      .get(`https://localhost:7103/api/Home/GetVilla?Id=${id}`, {
         withCredentials: true,
       })
       .then((res) => {
         setvillaInf(res.data.data);
       });
   }, []);
-
+  // console.log(villaInf);
   const [img, setImg] = useState([false, "", villaInf]);
   const optionsD = {
     day: "numeric",
@@ -78,12 +72,13 @@ const VillaPagee = () => {
   const [daysPrice2, setDayPrice2] = useState([]);
 
   const daysdis = [];
-  // console.log(daysdis);
   useEffect(() => {
     if (rangeDays.f !== "" && rangeDays.s !== "") {
       axios({
+        withCredentials: true,
+
         method: "post",
-        url: `https://localhost:7103/api/Reservation/GetPricedDays?villaId=${id}&month=${
+        url: `https://localhost:7103/api/Home/GetCalender?villaId=${id}&month=${
           rangeDays.f.shamsiDate?.split("/")[1]
         }&year=${rangeDays.f.shamsiDate?.split("/")[0]}`,
       }).then(function (response) {
@@ -94,8 +89,9 @@ const VillaPagee = () => {
         rangeDays.s.shamsiDate?.split("/")[1]
       ) {
         axios({
+          withCredentials: true,
           method: "post",
-          url: `https://localhost:7103/api/Reservation/GetPricedDays?villaId=${id}&month=${
+          url: `https://localhost:7103/api/Admin/Reservation/GetPricedDays?villaId=${id}&month=${
             rangeDays.s.shamsiDate?.split("/")[1]
           }&year=${rangeDays.s.shamsiDate?.split("/")[0]}`,
         }).then(function (response) {
@@ -118,7 +114,10 @@ const VillaPagee = () => {
               new Date(currentDate).toISOString().split("T")[0]
           );
 
-        if (daysPrice.concat(daysPrice2)[index]?.isPriced === false) {
+        if (
+          daysPrice.concat(daysPrice2)[index]?.isPriced === false ||
+          daysPrice.concat(daysPrice2)[index]?.isReserved
+        ) {
           setRangeDays({ f: "", s: "", m: "", y: "" });
         }
 
@@ -160,10 +159,117 @@ const VillaPagee = () => {
         }
       });
   }, []);
+  // console.log(rangeDays)
+  const [ISdisss, setISDis] = useState([false, ""]);
+  const [disss, setDis] = useState("");
+  useEffect(() => {
+    setISDis([false, ""]);
+  }, [rangeDays]);
+  const dissHand = () => {
+    const formData = new FormData();
+    formData.append("StartDay", parseInt(rangeDays.f.shamsiDate.split("/")[2]));
+    formData.append(
+      "StartMonth",
+      parseInt(rangeDays.f.shamsiDate.split("/")[1])
+    );
+    formData.append(
+      "StartYear",
+      parseInt(rangeDays.f.shamsiDate.split("/")[0])
+    );
+    formData.append("EndDay", parseInt(rangeDays.s.shamsiDate.split("/")[2]));
+    formData.append("EndMonth", parseInt(rangeDays.s.shamsiDate.split("/")[1]));
+    formData.append("EndYear", parseInt(rangeDays.s.shamsiDate.split("/")[0]));
+    formData.append("DisscountCode", disss);
+    formData.append("VillaId", parseInt(villaInf.id));
+    // formData.append("Mobile",'09201413045');
+
+    axios({
+      method: "post",
+      withCredentials: true,
+      headers: { "Content-Type": "multipart/form-data" },
+      url: "https://localhost:7103/api/Home/CheckDisscount",
+      data: formData,
+    })
+      .then(function (response) {
+        console.log(response);
+        if (response.data.isSuccessFull) {
+          setISDis([true, response.data.data]);
+          toast.success("کد تخفیف اعمال شد", {
+            autoClose: 1100,
+            position: "top-left",
+          });
+        }
+        if (!response.data.isSuccessFull) {
+          setISDis(true);
+          toast.error("کد تخفیف نادرست است", {
+            autoClose: 1100,
+            position: "top-left",
+          });
+        }
+        // window.location.reload();
+      })
+      .catch(function (response) {
+        toast.error(` ${".مجددا تلاش نمایید"}`, {
+          autoClose: 1100,
+          position: "top-left",
+        });
+      });
+  };
+  const [show, setshow] = useState(false);
+  const submitHand = () => {
+    const formData = new FormData();
+    formData.append("StartDay", parseInt(rangeDays.f.shamsiDate.split("/")[2]));
+    formData.append(
+      "StartMonth",
+      parseInt(rangeDays.f.shamsiDate.split("/")[1])
+    );
+    formData.append(
+      "StartYear",
+      parseInt(rangeDays.f.shamsiDate.split("/")[0])
+    );
+    formData.append("EndDay", parseInt(rangeDays.s.shamsiDate.split("/")[2]));
+    formData.append("EndMonth", parseInt(rangeDays.s.shamsiDate.split("/")[1]));
+    formData.append("EndYear", parseInt(rangeDays.s.shamsiDate.split("/")[0]));
+    formData.append("DisscountCode", disss);
+    formData.append("VillaId", parseInt(villaInf.id));
+
+    axios({
+      method: "post",
+      withCredentials: true,
+      headers: { "Content-Type": "multipart/form-data" },
+      url: "https://localhost:7103/api/Home/SubmitReservation",
+      data: formData,
+    })
+      .then(function (response) {
+        if (response.data.isSuccessFull) {
+          setshow(true);
+          toast.success("رزرو اولیه برای شما میهمان عزیر ثبت شد", {
+            autoClose: 1100,
+            position: "top-left",
+          });
+        }
+        if (!response.data.isSuccessFull) {
+          setISDis(true);
+          toast.error("ویلا در این تاریخ رزرو شده است ", {
+            autoClose: 1100,
+            position: "top-left",
+          });
+        }
+      })
+      .catch(function (response) {
+        toast.error(` ${".مجددا تلاش نمایید"}`, {
+          autoClose: 1100,
+          position: "top-left",
+        });
+      });
+  };
+  const [check ,setCheck]=useState(false)
   return (
     villaInf?.images[0] && (
-      <div className={`bg-screenColor dark:text-white `}>
-        <Navbar />
+      <div className={`bg-screenColor  dark:text-white `}>
+        <div className="mb-10">
+          <Navbar />
+        </div>
         <div
           className={`fixed top-0 z-[70] bg-opacity-  ${!img[0] && "hidden"} `}
         >
@@ -208,10 +314,10 @@ const VillaPagee = () => {
                     <div className="text-[17px] flex text-gray-400 gap-3 font-bold ">
                       <div
                         className={`${
-                          priceToday.disscount === 0 && "hidden"
+                          priceToday?.disscount === 0 && "hidden"
                         } flex line-through self-center `}
                       >
-                        {priceToday.price.toLocaleString()}
+                        {priceToday?.price.toLocaleString()}
                         <div className="relative font-semibold text-sm mr-1 self-start mt-1">
                           <p>توما</p>
                           <div className="absolute -top-3 right-3 ">
@@ -576,14 +682,14 @@ const VillaPagee = () => {
                         onClick={() =>
                           setImg([
                             true,
-                            `https://localhost:7103/api/Villa/GetImage?imageName=${item?.imageName}`,
+                            `https://localhost:7103/api/Admin/Villa/GetImage?imageName=${item?.imageName}`,
                             img[2],
                           ])
                         }
                         className=" h-[270px] cursor-pointer flex justify-center md:h-[350px] x:h-[50vh] max-w-[700px] x:max-w-[58vw] flex dark:bg-transparent  bg-black bg-opacity-70 text-textDark rounded-3xl "
                       >
                         <img
-                          src={`https://localhost:7103/api/Villa/GetImage?imageName=${item?.imageName}`}
+                          src={`https://localhost:7103/api/Admin/Villa/GetImage?imageName=${item?.imageName}`}
                           alt=""
                           className="rounded-3xl"
                         />
@@ -597,11 +703,11 @@ const VillaPagee = () => {
                   onClick={() =>
                     setImg([
                       true,
-                      `https://localhost:7103/api/Villa/GetImage?imageName=${villaInf?.images[1]?.imageName}`,
+                      `https://localhost:7103/api/Admin/Villa/GetImage?imageName=${villaInf?.images[1]?.imageName}`,
                       img[2],
                     ])
                   }
-                  src={`https://localhost:7103/api/Villa/GetImage?imageName=${villaInf?.images[1]?.imageName}`}
+                  src={`https://localhost:7103/api/Admin/Villa/GetImage?imageName=${villaInf?.images[1]?.imageName}`}
                   alt=""
                   className="rounded-3xl w-[47vw] cursor-pointer h-[150px] sm:h-[160px] md:h-[170px] lg:h-[182px] sm:w-[48vw] md:w-[35vw] lg:w-[21vw] xl:w-[24vw]"
                 />
@@ -610,11 +716,11 @@ const VillaPagee = () => {
                   onClick={() =>
                     setImg([
                       true,
-                      `https://localhost:7103/api/Villa/GetImage?imageName=${villaInf?.images[2]?.imageName}`,
+                      `https://localhost:7103/api/Admin/Villa/GetImage?imageName=${villaInf?.images[2]?.imageName}`,
                       img[2],
                     ])
                   }
-                  src={`https://localhost:7103/api/Villa/GetImage?imageName=${villaInf?.images[2]?.imageName}`}
+                  src={`https://localhost:7103/api/Admin/Villa/GetImage?imageName=${villaInf?.images[2]?.imageName}`}
                   alt=""
                   className="rounded-3xl w-[42vw] cursor-pointer h-[150px] lg:h-[182px] sm:h-[160px] md:h-[170px]  md:w-[35vw] lg:w-[21vw] xl:w-[24vw]"
                 />
@@ -661,7 +767,7 @@ const VillaPagee = () => {
                   </div>
                 </div>
               </div>
-              <div className="mt-0 px-4 z-0 hidden lg:flex overflow-hidden">
+              <div className="mt-4 lg:px-0 px-4 z-0 hidden lg:flex overflow-hidden">
                 <MapContainer
                   style={{
                     width: "100%",
@@ -686,7 +792,7 @@ const VillaPagee = () => {
 
           <div className="flex my-10 lg:flex-row flex-col justify-center mb-20">
             <div className="flex  justify-center">
-              <div className="w-[350px] h-[480px]  dark:border-0  border rounded-3xl p-5 bg-white dark:bg-border dark:bg-opacity-60">
+              <div className="w-[350px]  cursor-not-allowed h-[480px]  dark:border-0  border rounded-3xl p-5 bg-white dark:bg-border dark:bg-opacity-60">
                 <p>تاریح مورد نظر را روی تقویم انتخاب کنید</p>
                 <div className="border dark:bg-border dark:bg-opacity dark:border-0  rounded-xl">
                   <div className="flex mt-3 p-5 justify-between">
@@ -713,26 +819,91 @@ const VillaPagee = () => {
                   </div>
                 </div>
                 <div>
-                  <div className="cursor-pointer mt-5 h-10 flex text-sm border border-btn self-center  rounded-xl  text-white">
-                    <input
-                      dir="ltr"
-                      placeholder="کد تخفیف"
-                      type="text"
-                      className="rounded-r-xl w-full dark:bg-transparent px-5"
-                    />
-                    <div className="px-3 bg-btn py-2  hover:bg-blue-800 rounded-l-xl">
-                      ثبت
+                  {ISdisss[0] ? (
+                    <p className="text-sm text-btn bg-btn bg-opacity-20 rounded-xl mt-4 py-2 my-2 px-4">
+                      {`                      کد تخفیف به مقدار ${(
+                        parseInt(
+                          seletedDays.reduce(
+                            (partialSum, a) => partialSum + a,
+                            0
+                          ) -
+                            daysdis.reduce(
+                              (partialSum, a) => partialSum + a,
+                              0
+                            ) -
+                            ISdisss[1]
+                        ) / 1000
+                      ).toLocaleString()}هزار تومان اعمال شد
+`}{" "}
+                    </p>
+                  ) : (
+                    <div
+                      className={` mt-5 h-10 flex text-sm  self-center  rounded-xl  text-white  `}
+                    >
+                      <input
+                        disabled={
+                          rangeDays.f === "" || (rangeDays.s === "" && true)
+                        }
+                        value={disss}
+                        onChange={(e) => setDis(e.target.value)}
+                        placeholder="کد تخفیف"
+                        type="text"
+                        className={`${
+                          rangeDays.f === "" ||
+                          (rangeDays.s === "" && "opacity-10")
+                        }  rounded-r-xl border text-black border-btn outline-none w-full dark:bg-transparent px-5`}
+                      />
+                      <button
+                        disabled={
+                          rangeDays.f === "" || (rangeDays.s === "" && true)
+                        }
+                        onClick={dissHand}
+                        className={` ${
+                          rangeDays.f === "" || rangeDays.s === ""
+                            ? "cursor-not-allowed"
+                            : "hover:bg-blue-800"
+                        }  px-3 self-center dark:text-white bg-btn h-10 flex flex-col justify-center   rounded-l-xl`}
+                      >
+                        اعمال
+                      </button>
                     </div>
-                  </div>
+                  )}
                 </div>
-                <div className="mt-5">
-                  <p className="text-sm">
-                    شرایط و قوانین لاکوده را مطالعه کرده و میپذیرم
+                <div className="flex mt-5">
+                  <p className="text-sm mb-3">
+                    <Link to={"/lakooderoles"}>
+                      <p className="text-btn font-semibold inline px-1">
+                        شرایط و قوانین لاکوده{" "}
+                      </p>
+                    </Link>
+                    را مطالعه کرده و میپذیرم
                   </p>
+
+                  <input
+                    type="checkbox"
+                    onChange={(e) => setCheck(e.target.checked)}
+                    className="w-4 h-4 mt-[3px] mx-1 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  />
                 </div>
-                <div className="mt-1 mb-3 bg-btn text-white rounded-2xl text-center py-5 cursor-pointer ">
-                  رزرو و انتقال به درگاه بانکی
-                </div>
+                {villaInf.ipG_IsActive ? (
+                  <div className="mt-1 mb-3 bg-btn text-white rounded-2xl text-center py-5 cursor-pointer ">
+                    رزرو و انتقال به درگاه بانکی
+                  </div>
+                ) : (
+                  <button
+                    disabled={
+                      rangeDays.f === "" || (rangeDays.s === "" && true)
+                    }
+                    onClick={submitHand}
+                    className={`${
+                      rangeDays.f === "" || rangeDays.s === "" || !check
+                        ? "cursor-not-allowed bg-gray-500"
+                        : "hover:bg-blue-800 bg-btn"
+                    }   w-full mt-1 mb-3 font-semibold text-[18px]  duration-300  text-white rounded-2xl text-center py-5  `}
+                  >
+                    ثبت رزرو اولیه{" "}
+                  </button>
+                )}
                 <div className="border-b ">
                   <div className="flex justify-between text-sm pt-4 py-2">
                     <p> {seletedDays.length} شب اقامت </p>
@@ -747,9 +918,16 @@ const VillaPagee = () => {
                   <div className="flex justify-between text-sm  pb-2">
                     <p> مقدار تخفیف</p>
                     <p>
-                      {daysdis
-                        .reduce((partialSum, a) => partialSum + a, 0)
-                        .toLocaleString()}{" "}
+                      {ISdisss[0]
+                        ? parseInt(
+                            seletedDays.reduce(
+                              (partialSum, a) => partialSum + a,
+                              0
+                            ) - ISdisss[1]
+                          ).toLocaleString()
+                        : daysdis
+                            .reduce((partialSum, a) => partialSum + a, 0)
+                            .toLocaleString()}{" "}
                       تومان
                     </p>
                   </div>
@@ -757,10 +935,15 @@ const VillaPagee = () => {
                 <div className="flex justify-between pt-2">
                   <p>جمع مبلغ قابل پرداخت</p>
                   <p>
-                    {parseInt(
-                      seletedDays.reduce((partialSum, a) => partialSum + a, 0) -
-                        daysdis.reduce((partialSum, a) => partialSum + a, 0)
-                    ).toLocaleString()}{" "}
+                    {ISdisss[0]
+                      ? parseInt(ISdisss[1]).toLocaleString()
+                      : parseInt(
+                          seletedDays.reduce(
+                            (partialSum, a) => partialSum + a,
+                            0
+                          ) -
+                            daysdis.reduce((partialSum, a) => partialSum + a, 0)
+                        ).toLocaleString()}{" "}
                     تومان
                   </p>
                 </div>
@@ -781,7 +964,9 @@ const VillaPagee = () => {
                 />
               </div>
               <div
-                className={`${loginS && 'hidden'} text-white flex w-full justify-center h-[455px] lg:h-[500px] z-[3]  lg:w-[60vw]  top-0 lg:left-0 absolute`}
+                className={`${
+                  loginS && "hidden"
+                } text-white flex w-full justify-center h-[455px] lg:h-[500px] z-[3]  lg:w-[60vw]  top-0 lg:left-0 absolute`}
               >
                 <div className="w-full flex justify-center lg:mx-0 mx-3 bg-gray-700 bg-opacity-60 backdrop-blur-sm rounded-3xl">
                   <div className="self-center text-center ">
@@ -824,6 +1009,107 @@ const VillaPagee = () => {
           </div>
         </div>
         <Foter />
+        {show && (
+          <div className="w-full h-screen flex flex-col justify-center fixed bg-slate-600 z-[60] top-0 bg-opacity-60">
+            <span className="bg-screenLight max-w-[80vw] self-center rounded-3xl border-btn border-2 border-dashed p-10 ">
+              <p className="text-center text-[19px]  pb-5 text-green-500 font-bold">
+                رزرو اولیه شما با موفقیت ثبت شد.
+              </p>
+              <p className=" font-bold">میهمان عزیز</p>
+              <p className="text-blue-500">
+                جهت نهایی شدن رزرو ویلای شما تیم پشتیبانی لاکوده در اسرع وقت با
+                شما تماس خواهد گرفت.
+              </p>
+              <p className="text-blue-500">
+                در صورت داشتن کد تخفیف به همکاران ما ارائه دهید.
+              </p>
+
+              <div>
+                <p>جهت ارتباط با ما به این شماره تماس بگیرید</p>
+                <a
+                  href="tel:09134260356"
+                  className="text-lg font-bold flex gap-1"
+                >
+                  <span>0356</span>
+                  <span>426</span>
+                  <span>0913</span>
+                </a>
+              </div>
+              <div className=" flex pt-10">
+                <div>تاریخ ورود</div>{" "}
+                <div className="pr-3">
+                  {new Date(rangeDays.f.date?.split("T")[0]).toLocaleDateString(
+                    "fa-IR-u-nu-latn",
+                    option
+                  )}
+                </div>
+              </div>
+              <div className="flex">
+                <div className="">تاریخ خروج</div>{" "}
+                <div className="pr-3 ">
+                  {new Date(rangeDays.s.date?.split("T")[0]).toLocaleDateString(
+                    "fa-IR-u-nu-latn",
+                    option
+                  )}
+                </div>
+              </div>
+
+              <div className="border-b ">
+                <div className="flex justify-between text-sm pt-4 py-2">
+                  <p> {seletedDays.length} شب اقامت </p>
+                  <p>
+                    {seletedDays
+                      .reduce((partialSum, a) => partialSum + a, 0)
+                      .toLocaleString()}{" "}
+                    تومان
+                  </p>
+                </div>
+
+                <div className="flex justify-between text-sm  pb-2">
+                  <p> مقدار تخفیف</p>
+                  <p>
+                    {ISdisss[0]
+                      ? parseInt(
+                          seletedDays.reduce(
+                            (partialSum, a) => partialSum + a,
+                            0
+                          ) - ISdisss[1]
+                        ).toLocaleString()
+                      : daysdis
+                          .reduce((partialSum, a) => partialSum + a, 0)
+                          .toLocaleString()}{" "}
+                    تومان
+                  </p>
+                </div>
+              </div>
+              <div className="flex justify-between pt-2">
+                <p>جمع مبلغ قابل پرداخت</p>
+                <p>
+                  {ISdisss[0]
+                    ? parseInt(ISdisss[1]).toLocaleString()
+                    : parseInt(
+                        seletedDays.reduce(
+                          (partialSum, a) => partialSum + a,
+                          0
+                        ) - daysdis.reduce((partialSum, a) => partialSum + a, 0)
+                      ).toLocaleString()}{" "}
+                  تومان
+                </p>
+              </div>
+              <button
+                onClick={() => {
+                  setRangeDays({ f: "", s: "", m: "", y: "" });
+                  setshow(false);
+                  setISDis([false, ""]);
+                  setDis('');
+                }}
+                className="w-full text-center mt-8 px-10 py-3 hover:bg-blue-800 duration-200 cursor-pointer rounded-2xl bg-btn font-bold  text-white"
+              >
+                تایید
+              </button>
+            </span>
+          </div>
+        )}
       </div>
     )
   );

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 const ForgetPasswordForm = ({
   Formik,
+  login,
   setSwichBetweenFormAndVerify,
   sendEmailForForgotPasswordHandler,
   loadingButton,
@@ -10,8 +11,8 @@ const ForgetPasswordForm = ({
   return (
     <div className="w-full z-[5] flex justify-center xl:justify-start  ">
       <div className="item-center self-center ">
-        <h1 className="font-extrabold text-[30px] y9:text-[39px] ">
-          فراموشی رمز عبور{" "}
+        <h1 className="font-extrabold text-[25px] lg:text-[30px] y9:text-[39px] ">
+          {login ? "تغییر رمز عبور" : "فراموشی رمز عبور"}
         </h1>
         <p className="text- opacity-70  mt-3">لطفا شماره موبایل خود را </p>
         <p className="text- opacity-70  ">برای دریافت کد تایید وارد کنید</p>

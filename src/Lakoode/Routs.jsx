@@ -4,13 +4,13 @@ import LogInPage from "./pages/login singUp/login/LogInPage";
 import ForgotPasswordPage from "./pages/login singUp/login/ForgotPasswordPage";
 import SingupPage from "./pages/login singUp/singup/SingupPage";
 import AdminPage from "./pages/adminPanel/AdminPage";
-import FooterMenu from "./components/mobile-footer-menu/FooterMenu";
 import { useStateContext } from "./contextProvider/ContextProvider";
 import Navbar from "./components/navbar/Navbar";
 import Explore from "./pages/Explore";
 import UserProfile from "./pages/profile/profile/UserProfile";
 import nprogress from "nprogress";
 import VillaPagee from "./pages/villaPage/VillaPage";
+import Roles from "./Roles";
 
 const Routs = ({ history }) => {
   const { setIsDarkMode, IsDarkMode } = useStateContext();
@@ -55,6 +55,19 @@ const Routs = ({ history }) => {
             />
           )}
         />
+          <Route
+          path={"/forgotpassword"}
+          exact
+          component={() => (
+            <ForgotPasswordPage
+              setMode={setMode}
+              mode={mode}
+              openMenu={openMenu}
+              setOpenMenu={setOpenMenu}
+              login={true}
+            />
+          )}
+        />
 
         <Route
           path={"/singup"}
@@ -92,6 +105,12 @@ const Routs = ({ history }) => {
             <div className="flex">
               <div className=" w-full flex flex-col  ">
                 <Route path={"/user"} exact component={() => <UserProfile />} />
+
+                <Route
+                  path={"/lakooderoles"}
+                  exact
+                  component={() => <Roles />}
+                />
                 <Route
                   path={"/"}
                   exact
@@ -99,6 +118,7 @@ const Routs = ({ history }) => {
                     <Explore openMenu={openMenu} setOpenMenu={setOpenMenu} />
                   )}
                 />
+
                 <div className="bg-[#101018] "></div>
               </div>
             </div>

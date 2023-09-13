@@ -12,7 +12,7 @@ const Resevation = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
     axios
-      .get("https://localhost:7103/api/Villa/GetAll", { withCredentials: true })
+      .get("https://localhost:7103/api/Admin/Villa/GetAll", { withCredentials: true })
       .then((r) => {
         setData(r.data);
       })
@@ -26,7 +26,7 @@ const Resevation = () => {
   const [villaInf, setvillaInf] = useState();
   useEffect(() => {
     axios
-      .get(`https://localhost:7103/api/Villa/Get?Id=${id}`, {
+      .get(`https://localhost:7103/api/Admin/Villa/Get?Id=${id}`, {
         withCredentials: true,
       })
       .then((res) => {
@@ -55,7 +55,7 @@ const Resevation = () => {
       axios({
         method: "post",
         withCredentials: true,
-        url: `https://localhost:7103/api/Reservation/GetPricedDays?villaId=${id}&month=${rangeDays.m}&year=${year}`,
+        url: `https://localhost:7103/api/Admin/Reservation/GetPricedDays?villaId=${id}&month=${rangeDays.m}&year=${year}`,
       }).then(function (response) {
         setDayPrice(response.data.data);
       });
@@ -115,12 +115,12 @@ const Resevation = () => {
     );
     fromData.append("EndYear", parseInt(rangeDays.s.shamsiDate?.split("/")[0]));
     fromData.append("VillaId", parseInt(id));
-    fromData.append("Mobile", "09362095045");
+    fromData.append("Mobile", mobile.toString());
 
     axios({
       withCredentials: true,
       method: "post",
-      url: "https://localhost:7103/api/Reservation/ReserveVillaViaAdmin",
+      url: "https://localhost:7103/api/Admin/Reservation/ReserveVillaViaAdmin",
       data: fromData,
       headers: { "Content-Type": "multipart/form-data" },
     })

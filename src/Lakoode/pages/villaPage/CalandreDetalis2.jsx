@@ -8,7 +8,9 @@ const CalandreD = ({
   rangeDays,
   setRangeDays,
   state,
-  year,setyear,setState
+  year,
+  setyear,
+  setState,
 }) => {
   const optionsD = {
     day: "numeric",
@@ -58,10 +60,9 @@ const CalandreD = ({
   useEffect(() => {
     //   villa &&
     axios({
+      withCredentials: true,
       method: "post",
-      url: `https://localhost:7103/api/Reservation/GetPricedDays?villaId=${villa}&month=${
-        mounth[0]
-      }&year=${year}`,
+      url: `https://localhost:7103/api/Admin/Reservation/GetPricedDays?villaId=${villa}&month=${mounth[0]}&year=${year}`,
     }).then(function (response) {
       let oo = response.data.data[0].date.split("T")[0].toString();
       let nowweekk = new Date(oo).toLocaleDateString(
@@ -106,10 +107,11 @@ const CalandreD = ({
   if (rangeDays.f !== "" && rangeDays.s === "") {
     seletedDays.push(
       parseInt(
-      new Date(rangeDays.f.date.split("T")[0]).toLocaleDateString(
-        "fa-IR-u-nu-latn",
-        optionsD
-      ))
+        new Date(rangeDays.f.date.split("T")[0]).toLocaleDateString(
+          "fa-IR-u-nu-latn",
+          optionsD
+        )
+      )
     );
   }
 
@@ -248,11 +250,12 @@ const CalandreD = ({
   //     });
   //   }
   // };
-  
+
   const twoHand = (d) => {
     if (
-      new Date(rangeDays.f.date?.split('T')[0]).toISOString().split('T')[0]==
-        new Date(d.date?.split("T")[0]).toISOString().split('T')[0]) {
+      new Date(rangeDays.f.date?.split("T")[0]).toISOString().split("T")[0] ==
+      new Date(d.date?.split("T")[0]).toISOString().split("T")[0]
+    ) {
       setRangeDays({
         f: "",
         s: "",
@@ -262,9 +265,9 @@ const CalandreD = ({
       // console.log(55)
     }
     if (
-      new Date(rangeDays.f.date?.split('T')[0]).toISOString().split('T')[0]>
-      new Date(d.date?.split("T")[0]).toISOString().split('T')[0])
-     {
+      new Date(rangeDays.f.date?.split("T")[0]).toISOString().split("T")[0] >
+      new Date(d.date?.split("T")[0]).toISOString().split("T")[0]
+    ) {
       setRangeDays({
         f: d,
         s: "",
@@ -273,8 +276,9 @@ const CalandreD = ({
       });
     }
     if (
-      new Date(rangeDays.f.date?.split('T')[0]).toISOString().split('T')[0]<
-      new Date(d.date?.split("T")[0]).toISOString().split('T')[0]) {
+      new Date(rangeDays.f.date?.split("T")[0]).toISOString().split("T")[0] <
+      new Date(d.date?.split("T")[0]).toISOString().split("T")[0]
+    ) {
       setRangeDays({
         f: rangeDays.f,
         s: d,
@@ -283,7 +287,7 @@ const CalandreD = ({
       });
     }
   };
-  
+
   const treeHand = (d) => {
     setRangeDays({ f: d, s: "", y: year, m: mounth[0] });
   };
@@ -292,94 +296,98 @@ const CalandreD = ({
   };
 
   let nowYear = new Date().toLocaleDateString("fa-IR-u-nu-latn", optionsY);
-// console.log(seletedDaysOnCal)
+  // console.log(seletedDaysOnCal)
   return (
-      <table className="bg-white dark:bg-border rounded-3xl lg:w-[60vw] w-[100vw]  ">
-        <thead className="w-[80px]">
-          <th>
-            <div className="faNumber justify-end flex bg-white dark:bg-transparent py-5  rounded-t-3xl  sm:px-2">
-              {year}
-            </div>
+    <table className="bg-white dark:bg-border rounded-3xl lg:w-[60vw] w-[100vw]  ">
+      <thead className="w-[80px]">
+        <th>
+          <div className="faNumber justify-end flex bg-white dark:bg-transparent py-5  rounded-t-3xl  sm:px-2">
+            {year}
+          </div>
+        </th>
+        <th>
+          <div className="faNumber bg-white dark:bg-transparent py-3 rounded-t-3xl flex">
+            {mounth[2]}
+          </div>
+        </th>
+      </thead>
+      <thead>
+        {week.map((w) => (
+          <th
+            key={w}
+            className="w-[70px]  min-w-[50px] text-sm font-semibold  mt-1"
+          >
+            {w[1]}
           </th>
-          <th>
-            <div className="faNumber bg-white dark:bg-transparent py-3 rounded-t-3xl flex">
-              {mounth[2]}
-            </div>
-          </th>
-        </thead>
-        <thead>
-          {week.map((w) => (
-            <th
-              key={w}
-              className="w-[70px]  min-w-[50px] text-sm font-semibold  mt-1"
-            >
-              {w[1]}
-            </th>
-          ))}
-        </thead>
-        <tbody className="faNumber">
-          {tr.map((t) => (
-            <tr key={t[0]}>
-              {calData
-                ?.flat()
-                ?.slice(t[0], t[1])
-                .map((d, index) =>
-                  d === 0 ||
-                  d === 1 ||
-                  d === 2 ||
-                  d === 3 ||
-                  d === 4 ||
-                  d === 5 ||
-                  d === 6 ||
-                  d === 7 ? (
-                    <td key={index} className={`text-center text-sm `}>
-                      <div
-                        className={` rounded-2xl   h-[70px] lg:h-[75px] flex flex-col justify-center duration-200 `}
-                      ></div>
-                    </td>
-                  ) : (
-                    <td
-                      key={d.shamsiDate.split("/")[2]}
-                      className={` text-center text-sm `}
-                    >
-                      <div
-                        onClick={() => {
-                          if (mounth[0] === nowMonthToday) {
-                            rangeDays.f === "" &&
-                            rangeDays.s === "" &&
-                            d.isPriced &&
-                            parseInt(d.shamsiDate.split("/")[2]) >= nowDayToday
-                              ? oneHand(d)
-                              : rangeDays.f !== "" &&
-                                rangeDays.s === "" &&
-                                d.isPriced &&
-                                parseInt(d.shamsiDate.split("/")[2]) >=
-                                  nowDayToday
-                              ? twoHand(d)
-                              : rangeDays.f !== "" &&
-                                rangeDays.s !== "" &&
-                                d.isPriced &&
-                                parseInt(d.shamsiDate.split("/")[2]) >=
-                                  nowDayToday
-                              ? treeHand(d)
-                              : "";
-                          } else {
-                            rangeDays.f === "" &&
-                            rangeDays.s === "" &&
-                            d.isPriced
-                              ? oneHand(d)
-                              : rangeDays.f !== "" &&
-                                rangeDays.s === "" &&
-                                d.isPriced
-                              ? twoHand(d)
-                              : rangeDays.f !== "" &&
-                                rangeDays.s !== "" &&
-                                d.isPriced
-                              ? treeHand(d)
-                              : "";
-                          }
-                        }}
-                        className={`m-[2px] lg:m-1
+        ))}
+      </thead>
+      <tbody className="faNumber">
+        {tr.map((t) => (
+          <tr key={t[0]}>
+            {calData
+              ?.flat()
+              ?.slice(t[0], t[1])
+              .map((d, index) =>
+                d === 0 ||
+                d === 1 ||
+                d === 2 ||
+                d === 3 ||
+                d === 4 ||
+                d === 5 ||
+                d === 6 ||
+                d === 7 ? (
+                  <td key={index} className={`text-center text-sm `}>
+                    <div
+                      className={` rounded-2xl   h-[70px] lg:h-[75px] flex flex-col justify-center duration-200 `}
+                    ></div>
+                  </td>
+                ) : (
+                  <td
+                    key={d.shamsiDate.split("/")[2]}
+                    className={` text-center text-sm `}
+                  >
+                    <div
+                      onClick={() => {
+                        if (mounth[0] === nowMonthToday) {
+                          rangeDays.f === "" &&
+                          rangeDays.s === "" &&
+                          d.isPriced &&
+                          !d.isReserved &&
+                          parseInt(d.shamsiDate.split("/")[2]) >= nowDayToday
+                            ? oneHand(d)
+                            : rangeDays.f !== "" &&
+                              rangeDays.s === "" &&
+                              d.isPriced &&
+                              parseInt(d.shamsiDate.split("/")[2]) >=
+                                nowDayToday
+                            ? twoHand(d)
+                            : rangeDays.f !== "" &&
+                              rangeDays.s !== "" &&
+                              d.isPriced &&
+                              !d.isReserved &&
+                              parseInt(d.shamsiDate.split("/")[2]) >=
+                                nowDayToday
+                            ? treeHand(d)
+                            : "";
+                        } else {
+                          rangeDays.f === "" &&
+                          rangeDays.s === "" &&
+                          !d.isReserved &&
+                          d.isPriced
+                            ? oneHand(d)
+                            : rangeDays.f !== "" &&
+                              rangeDays.s === "" &&
+                              d.isPriced
+                            ? twoHand(d)
+                            : rangeDays.f !== "" &&
+                              rangeDays.s !== "" &&
+                              !d.isReserved &&
+                              d.isPriced
+                            ? treeHand(d)
+                            : "";
+                        }
+                      }}
+                      className={`m-[2px] lg:m-1
                        ${
                          mounth[0] === nowMonthToday &&
                          parseInt(d.shamsiDate.split("/")[2]) === nowDayToday &&
@@ -392,23 +400,30 @@ const CalandreD = ({
                        }
                         ${
                           seletedDaysOnCal.find(
-                            (day) => day == d.date.split('T')[0]
-                          ) || rangeDays.f ==d || rangeDays.s ==d
+                            (day) => day == d.date.split("T")[0]
+                          ) ||
+                          rangeDays.f == d ||
+                          rangeDays.s == d
                             ? "bg-btn dark:bg-btn text-white"
                             : "dark:bg-textPDark dark:bg-opacity-30 hover:dark:bg-gray-600 hover:bg-gray-200  bg-screenLight "
                         }
                          rounded-2xl cursor-pointer  h-[70px] lg:h-[75px] flex flex-col justify-center duration-200 `}
-                      >
-                        <div className={`text-[18px]`}>
-                          {d.shamsiDate.split("/")[2]}
-                        </div>
-                        <div
-                          className={`  flex font-semibold justify-center 
+                    >
+                      <div className={`text-[18px]`}>
+                        {d.shamsiDate.split("/")[2]}
+                      </div>
+                      <div
+                        className={`  flex font-semibold justify-center 
                           
                           ${
                             seletedDaysOnCal.find(
-                              (day) => day == d.date.split('T')[0] || rangeDays.f ==d || rangeDays.s ==d
-                            ) ? "text-white": ' text-blue-500'
+                              (day) =>
+                                day == d.date.split("T")[0] ||
+                                rangeDays.f == d ||
+                                rangeDays.s == d
+                            )
+                              ? "text-white"
+                              : " text-blue-500"
                           } 
                           ${
                             mounth[0] === nowMonthToday &&
@@ -416,24 +431,27 @@ const CalandreD = ({
                             "text-gray-500 "
                           }
                          `}
-                        >
-                          {mounth[0] === nowMonthToday &&
-                          d.shamsiDate.split("/")[2] < nowDayToday
-                            ? "رزرو شده"
-                            : d.isPriced
-                            ? parseInt(
-                                (d.price - d.disscount).toString().slice(0, -3)
-                              ).toLocaleString()
-                            : ""}
-                        </div>
+                      >
+                        {(mounth[0] === nowMonthToday &&
+                          d.shamsiDate.split("/")[2] < nowDayToday) ||
+                        d.isReserved ? (
+                          <p className="text-gray-500">رزرو شده</p>
+                        ) : d.isPriced ? (
+                          parseInt(
+                            (d.price - d.disscount).toString().slice(0, -3)
+                          ).toLocaleString()
+                        ) : (
+                          ""
+                        )}
                       </div>
-                    </td>
-                  )
-                )}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                    </div>
+                  </td>
+                )
+              )}
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 };
 

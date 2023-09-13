@@ -23,8 +23,9 @@ const Tiltt = ({ villa, defaultOptions }) => {
   const [calDataNow, setCalDataNow] = useState();
   useEffect(() => {
     axios({
+      withCredentials: true,
       method: "post",
-      url: `https://localhost:7103/api/Reservation/GetPricedDays?villaId=${villa.id}&month=${nowmonth}&year=${nowyear}`,
+      url: `https://localhost:7103/api/Admin/Reservation/GetPricedDays?villaId=${villa.id}&month=${nowmonth}&year=${nowyear}`,
     }).then(function (response) {
       let indexoNow = response.data?.data?.findIndex(
         (d) => d.shamsiDate === nowDate
@@ -36,15 +37,16 @@ const Tiltt = ({ villa, defaultOptions }) => {
   //   console.log(calDataNow);
 
   return (
-    <div>
+    <div className={`${!villa.pricedDays[0]?.price && 'hidden'}`}>
       {" "}
       <Link
         key={villa.id}
         to={{
           pathname: `/villapage/${villa.id}`,
-          state: { id: villa.id, price: calData, priceToday: calDataNow },
+          state: { id: villa.id, price: calData, priceToday:villa.pricedDays[0]  },
         }}
       >
+       
         <Tilt options={defaultOptions}>
           <div
             className={` bg-white dark:backdrop-blur-sm dark:text-white dark:bg-border dark:bg-opacity-50  dark:border-0 dark:border-border border my-4 cursor-pointer w-[80vw] sm:w-[330px] sm:h-[420px] rounded-3xl shadow-2xl  md:m-5 flex flex-col justify-between`}
@@ -53,7 +55,7 @@ const Tiltt = ({ villa, defaultOptions }) => {
               <div className="relative">
                 <img
                   className="rounded-t-3xl w-full h-[220px]"
-                  src={`https://localhost:7103/api/Villa/GetImage?imageName=${villa.images[0].imageName}`}
+                  src={`https://localhost:7103/api/Admin/Villa/GetImage?imageName=${villa.images[0].imageName}`}
                   alt="لاکوده"
                 />
                 <div
@@ -79,13 +81,12 @@ const Tiltt = ({ villa, defaultOptions }) => {
                   `}
                     >
                       <div className="self-center">
-                      <div className="flex self-center justify-center text-[16px]">
-                        {optiona[optiona.findIndex((w) => w.id === o)]?.icon}
-                      </div>
-                      <p className="text-center text-[10px] font-semibold">
-                        {optiona[optiona.findIndex((w) => w.id === o)]?.title}
-                      </p>
-
+                        <div className="flex self-center justify-center text-[16px]">
+                          {optiona[optiona.findIndex((w) => w.id === o)]?.icon}
+                        </div>
+                        <p className="text-center text-[10px] font-semibold">
+                          {optiona[optiona.findIndex((w) => w.id === o)]?.title}
+                        </p>
                       </div>
                     </div>
                   ))}
@@ -101,7 +102,11 @@ const Tiltt = ({ villa, defaultOptions }) => {
                 <p className="text-gray-700 dark:text-textPlight text-sm">
                   شروع قیمت هر شب :{" "}
                 </p>
-                <div className={` text-center py-2 justify-center flex bg-btn text-white rounded-xl ${calDataNow?.disscount === 0 && "hidden"} `}>
+                <div
+                  className={` text-center py-2 justify-center flex bg-btn text-white rounded-xl ${
+                    villa.pricedDays[0]?.disscount === 0 && "hidden"
+                  } `}
+                >
                   <p>
                     {parseInt(
                       calDataNow?.disscount?.toString().slice(0, -3)
@@ -116,18 +121,17 @@ const Tiltt = ({ villa, defaultOptions }) => {
                 <div className="flex flex-col   ">
                   <p className="font-bold text-[20px] faNumber ">
                     {(
-                      (calDataNow?.price - calDataNow?.disscount) /
-                      100
+                      villa.pricedDays[0]?.price - villa.pricedDays[0]?.disscount
                     ).toLocaleString()}
                   </p>
                   <div className="w-full">
                     <div className="flex justify-between ">
                       <p
                         className={`${
-                          calDataNow?.disscount === 0 && "hidden"
+                          villa.pricedDays[0]?.disscount === 0 && "hidden"
                         } faNumber font-bold text-sm self-center line-through mr-2 text-gray-400`}
                       >
-                        {calDataNow?.price?.toLocaleString()}
+                        {villa.pricedDays[0]?.price?.toLocaleString()}
                       </p>
                     </div>
                   </div>

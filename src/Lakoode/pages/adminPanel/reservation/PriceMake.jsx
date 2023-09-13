@@ -7,21 +7,24 @@ import { toast } from "react-toastify";
 const PriceMake = () => {
   const [rangeDaysForUpdate, setRangeDaysForUpdate] = useState({
     day: "",
-    m: "", 
+    m: "",
     y: "",
   });
   const optionsMnum = {
     month: "numeric",
   };
   const nowMnum = new Date().toLocaleDateString("fa-IR-u-nu-latn", optionsMnum);
-  const [data,setData]=useState([])
-  useEffect(()=>{
-
-    ;   axios.get('https://localhost:7103/api/Villa/GetAll/',{withCredentials:true}).then((r) => {
-      setData(r.data);
-    }).catch(r=>console.log(r))
-
-  },[])
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    axios
+      .get("https://localhost:7103/api/Admin/Villa/GetAll/", {
+        withCredentials: true,
+      })
+      .then((r) => {
+        setData(r.data);
+      })
+      .catch((r) => console.log(r));
+  }, []);
   const [villa, setvilla] = useState("");
   let seletedDays = [];
   const [rangeDays, setRangeDays] = useState({
@@ -52,8 +55,9 @@ const PriceMake = () => {
 
   const submitHand = () => {
     axios({
+      withCredentials: true,
       method: "post",
-      url: `https://localhost:7103/api/Reservation/AddPriceToDays`,
+      url: `https://localhost:7103/api/Admin/Reservation/AddPriceToDays`,
       data: {
         villaId: villa,
         days: seletedDays,
@@ -78,8 +82,10 @@ const PriceMake = () => {
 
   const updateHand = () => {
     axios({
+      withCredentials: true,
+
       method: "post",
-      url: `https://localhost:7103/api/Reservation/UpdatePricedDays`,
+      url: `https://localhost:7103/api/Admin/Reservation/UpdatePricedDays`,
       data: {
         villaId: villa,
         day: rangeDaysForUpdate.day,
@@ -124,7 +130,7 @@ const PriceMake = () => {
       </div> */}
       <div className="flex mt-16 p-3 ">
         <p className="text-[18px] self-center font-bold">
-            تعیین قیمت برای ویلای :
+          تعیین قیمت برای ویلای :
         </p>
         <select
           onChange={(e) => setvilla(e.target.value)}

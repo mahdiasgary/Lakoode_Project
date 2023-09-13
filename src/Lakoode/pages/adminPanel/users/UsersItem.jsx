@@ -20,22 +20,22 @@ const UsersItem = ({ user, removeUserHandler, setmobile, history }) => {
       cancelButtonColor: "#d33",
       confirmButtonText: "بله حذف شود",
       cancelButtonText: "لغو",
-    }).then(() => {
-      console.log(4);
-
-      axios
-        .get(
-          `https://localhost:7103/api/User/DisableUser?mobile=${user.mobile}`
-        )
-        .then((res) => {
-          window. location. reload()          // history.push("/admin/villaslist");
-          Swal.fire({
-            title: "موفق",
-            text: ` کاربر ${user.name} حذف شد.`,
-            icone: "success",
-            confirmButtonColor: "#3085d6",
+    }).then((r) => {
+      if (r.isConfirmed) {
+        axios
+          .get(
+            `https://localhost:7103/api/Admin/User/DisableUser?mobile=${user.mobile}`
+          )
+          .then((res) => {
+            window.location.reload(); // history.push("/admin/villaslist");
+            Swal.fire({
+              title: "موفق",
+              text: ` کاربر ${user.name} حذف شد.`,
+              icone: "success",
+              confirmButtonColor: "#3085d6",
+            });
           });
-        });
+      }
     });
   };
   const addHandler = () => {
@@ -48,26 +48,28 @@ const UsersItem = ({ user, removeUserHandler, setmobile, history }) => {
       cancelButtonColor: "#d33",
       confirmButtonText: "بله فعال شود",
       cancelButtonText: "لغو",
-    }).then(() => { 
-      console.log(4);
-
-      axios
-        .get(`https://localhost:7103/api/User/EnableUser?mobile=${user.mobile}`)
-        .then((res) => {
-          window. location. reload()
-          Swal.fire({
-            title: "موفق",
-            text: ` کاربر ${user.name} فعال شد.`,
-            icone: "success",
-            confirmButtonColor: "#3085d6",
+    }).then((r) => {
+      if (r.isConfirmed) {
+        axios
+          .get(
+            `https://localhost:7103/api/Admin/User/EnableUser?mobile=${user.mobile}`
+          )
+          .then((res) => {
+            window.location.reload();
+            Swal.fire({
+              title: "موفق",
+              text: ` کاربر ${user.name} فعال شد.`,
+              icone: "success",
+              confirmButtonColor: "#3085d6",
+            });
           });
-        });
+      }
     });
   };
   return (
     <tr className=" py-10 rounded-xl  hover:text-screenLight dark:text-[#d1d1d3] group border-b dark:border-0  ">
       <td>
-        <div className="flex px-2 group-hover:dark:bg-[#24272e] group-hover:bg-[#6d7077] duration-300 self-center h-[64px] flex-col justify-center text-center my-1">
+        <div className="flex px-2 group-hover:dark:bg-[#24272e] rounded-r-xl group-hover:bg-[#6d7077] duration-300 self-center h-[64px] flex-col justify-center text-center my-1">
           {user.name}
         </div>
       </td>
@@ -87,21 +89,22 @@ const UsersItem = ({ user, removeUserHandler, setmobile, history }) => {
           onClick={() => {
             setmobile(user.mobile);
           }}
-          className="flex cursor-pointer px-2 min-w-[200px] group-hover:dark:bg-[#24272e] text-sm group-hover:bg-[#6d7077] duration-300 self-center h-[64px] flex-col justify-center text-center my-1"
+          className="flex cursor-pointer px-2  group-hover:dark:bg-[#24272e] text-sm group-hover:bg-[#6d7077] duration-300 self-center h-[64px] flex-col justify-center text-center my-1"
         >
           {/* {user.createdDate.split("+")[0]} */}
           {user.mobile}
         </div>
       </td>
       <td>
-        <div className="flex px-2 min-w-[200px] group-hover:dark:bg-[#24272e] text-sm group-hover:bg-[#6d7077] duration-300 self-center h-[64px] flex-col justify-center text-center my-1">
+        <div className="flex px-2  group-hover:dark:bg-[#24272e] text-sm group-hover:bg-[#6d7077] duration-300 self-center h-[64px] flex-col justify-center text-center my-1">
           {/* {user.createdDate.split("+")[0]} */}
           {new Date(user.createdDate).toLocaleDateString("fa")}
         </div>
       </td>
+      
       <td>
-        <div className="flex px-2 group-hover:dark:bg-[#24272e] rounded-l-xl group-hover:bg-[#6d7077] duration-300 self-center h-[64px] flex-col justify-center text-center my-1">
-          <div className="flex gap-2 text-[19px] py-[2px]">
+        <div className="flex justify-center px-2 group-hover:dark:bg-[#24272e] rounded-l-xl group-hover:bg-[#6d7077] duration-300 self-center h-[64px]  text-center my-1">
+          <div className="flex gap-2 lg:gap-4 self-center text-[19px] py-[2px]">
             <Link to={`user?${user.mobile}`}>
               <div className="text-sm self-center font-semibold cursor-pointer group-hover:text-white text-btn">
                 جزئیات

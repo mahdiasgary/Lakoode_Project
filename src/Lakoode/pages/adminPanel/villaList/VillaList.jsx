@@ -1,30 +1,22 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "react-tooltip/dist/react-tooltip.css";
-import { Tooltip as ReactTooltip } from "react-tooltip";
 import UsersItem from "./UsersItem";
-import { BsArrowDown } from "react-icons/bs";
-import {
-  useGetUsersListInAdminPanelQuery,
-  useGetvillalistQuery,
-  useRemoveUserMutation,
-} from "../../../redux/services/movieDatabase";
+
 import { withRouter } from "react-router-dom";
 import axios from "axios";
+import LoadingAdminListItem from "../../../common/LoadingAdminListItem";
 
 const VillaList = ({ history }) => {
   const [sort, setsort] = useState(["id", false, false]);
-  // const { data, isFetching, isLoading, error } = useGetvillalistQuery(
-  //   {},
-  //   { refetchOnMountOrArgChange: true }
-  // );
-  const [data, setData] = useState([]);
+
+  const [data, setData] = useState();
   useEffect(() => {
-    axios.get('https://localhost:7103/api/Villa/GetAll',{withCredentials:true}).then((r) => {
+    axios.get('https://localhost:7103/api/Admin/Villa/GetAll',{withCredentials:true}).then((r) => {
       setData(r.data);
     }).catch(r=>console.log(r))
   }, []);
   return (
-    <div className=" w-full">
+    <div className="pb-20 w-full">
       <div className="flex justify-center mt-20 mb-2">
         <div className="flex justify-between  min-w-[85vw] max-w-[85vw] md:min-w-[70vw] md:max-w-[70vw]">
           <div className="text-[23px] font-bold ">لیست ویلا ها</div>
@@ -72,7 +64,7 @@ const VillaList = ({ history }) => {
               ))}
             </tbody>
           </table>
-          {/* {(isFetching || isLoading || error) && <LoadingAdminListIte />} */}
+          {!data && <LoadingAdminListItem />}
         </div>
       </div>
     </div>

@@ -15,7 +15,7 @@ import AdminAddItemList from "../../../../common/adminPanel/AdminAddItemList";
 import { adminAddMovieListItems } from "../../../../constans";
 import axios from "axios";
 const AddMovies = ({ history, from, user }) => {
-  console.log(user)
+  console.log(user);
   const [imgs, setImgs] = useState([]);
   const initialValues = {
     name: from && user ? user.name : "",
@@ -115,11 +115,6 @@ const AddMovies = ({ history, from, user }) => {
   const SubmiHandler = () => {
     setLoadingButton(true);
 
-
-
-
-
-
     const formData = new FormData();
     formData.append("Name", Formik.values.name);
     formData.append("Size", Formik.values.metraj);
@@ -146,41 +141,51 @@ const AddMovies = ({ history, from, user }) => {
           .concat(selectedsecurity)
           .concat(selectedsarma)
           .concat(selectedrfaEM)
-       ));
+      )
+    );
     for (let i = 0; i < imgs.length; i++) {
       formData.append("Images", imgs[i]);
     }
 
     if (user) {
+      const formData2 = new FormData();
+      formData2.append("Name", Formik.values.name);
+      formData2.append("Size", Formik.values.metraj);
+      formData2.append("Description", Formik.values.summary);
+      formData2.append(
+        "RoomCount",
+        JSON.stringify([
+          Formik.values.room,
+          Formik.values.onebed,
+          Formik.values.bathroom,
+          Formik.values.iraniantoilet,
+          Formik.values.tiolet,
+          Formik.values.valency,
+          Formik.values.twobed,
+        ])
+      );
+      formData2.append(
+        "VillaFacilities",
+        JSON.stringify(
+          selectedkech
+            .concat(selectedbath)
+            .concat(selectedrefaKH)
+            .concat(selectedtaf)
+            .concat(selectedsecurity)
+            .concat(selectedsarma)
+            .concat(selectedrfaEM)
+        )
+      );
+      for (let i = 0; i < imgs.length; i++) {
+        formData2.append("Images", imgs[i]);
+      }
       axios({
         method: "put",
-        withCredentials:true,
+        withCredentials: true,
+        headers: { "Content-Type": "multipart/form-data" },
 
-        url: `https://localhost:7103/api/Villa/Edit/${user?.id}`,
-        data: {
-          name: Formik.values.name,
-          description: Formik.values.summary,
-          size: Formik.values.metraj,
-          roomCount: JSON.stringify([
-            Formik.values.room,
-            Formik.values.onebed,
-            Formik.values.bathroom,
-            Formik.values.iraniantoilet,
-            Formik.values.tiolet,
-            Formik.values.valency,
-            Formik.values.twobed,
-          ]),
-          villaFacilities: JSON.stringify(
-            selectedkech
-              .concat(selectedbath)
-              .concat(selectedrefaKH)
-              .concat(selectedtaf)
-              .concat(selectedsecurity)
-              .concat(selectedsarma)
-              .concat(selectedrfaEM)
-          ),
-          isDisabled: false,
-        },
+        url: `https://localhost:7103/api/Admin/Villa/Edit/${user?.id}`,
+        data: formData2,
       })
         .then(function (response) {
           toast.success(`${Formik.values.name} ویرایش شد! `, {
@@ -191,13 +196,12 @@ const AddMovies = ({ history, from, user }) => {
         })
         .catch(function (response) {
           //handle error
-          console.log(response);
         });
     } else {
       axios({
-        withCredentials:true,
+        withCredentials: true,
         method: "post",
-        url: "https://localhost:7103/api/Villa/Create",
+        url: "https://localhost:7103/api/Admin/Villa/Create",
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       })
@@ -227,14 +231,13 @@ const AddMovies = ({ history, from, user }) => {
     { title: "منظره به حیاط", id: 10 },
     { title: "میز ناهارخوری", id: 11 },
     { title: "تلویزیون", id: 12 },
-    { title: "منظره به دریا", id: 13 },
     { title: "گاز", id: 14 },
     { title: "برق", id: 15 },
     { title: "آب", id: 16 },
     { title: "مبلمان", id: 17 },
     { title: "جاروبرقی", id: 18 },
     { title: "کمد/دراور", id: 19 },
-    
+
     { title: "رخت آویز", id: 20 },
     { title: "اتو", id: 21 },
     { title: "گیرنده دیجیتال", id: 22 },
@@ -243,7 +246,7 @@ const AddMovies = ({ history, from, user }) => {
     { title: "حوله", id: 25 },
     { title: "سشوار", id: 27 },
     { title: "آلاچیق", id: 28 },
- ];
+  ];
   const sarmaGarma = [
     { title: "کولر گازی", id: 31 },
     { title: "رادیاتور", id: 32 },
@@ -255,8 +258,6 @@ const AddMovies = ({ history, from, user }) => {
     { title: "سم پاشی دوره ای", id: 37 },
     { title: "نظافت مستمر", id: 40 },
     { title: "شستشو ملافه ها", id: 41 },
-
-
   ];
   const scuriti = [
     { title: "دوربین مدار بسته", id: 61 },
@@ -264,6 +265,8 @@ const AddMovies = ({ history, from, user }) => {
   ];
 
   const tafREf = [
+    { title: "منظره به دریا", id: 54 },
+
     { title: "بیلیارد", id: 46 },
     { title: "استخر", id: 47 },
     { title: "شاه نشین", id: 48 },
@@ -272,10 +275,6 @@ const AddMovies = ({ history, from, user }) => {
     { title: "فوتبال دستی", id: 51 },
     { title: "پینگ پنگ", id: 52 },
     { title: "ایر هاکی", id: 53 },
-
-
-
-
   ];
   const bath = [
     { title: "حمام", id: 56 },
@@ -330,9 +329,7 @@ const AddMovies = ({ history, from, user }) => {
               </li>
 
               <li
-                className={`${
-                  user && "hidden"
-                } mb-10 ml-2 sm:ml-6 flex flex-col w-full`}
+                className={` mb-10 ml-2 sm:ml-6 flex flex-col w-full`}
               >
                 <UplaodBox setImgs={setImgs} imgs={imgs} />
               </li>

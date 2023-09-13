@@ -11,7 +11,7 @@ export const movieCoreApi = createApi({
       query: () => "Admin/Artist/Index",
     }),
     getUsersListInAdminPanel: builder.query({
-      query: () => "api/User/GetUserList",
+      query: () => "api/Admin/User/GetUserList",
     }),
     getGenreListInAdminPanel: builder.query({
       query: () => "Admin/Genre/Index",
@@ -29,7 +29,7 @@ export const movieCoreApi = createApi({
       query: () => "Admin/Movie/Index",
     }),
     getvillalist: builder.query({
-      query: () => "/api/Villa/GetAll"
+      query: () => "/api/Admin/Villa/GetAll"
     }),
 
     addMovieInAdminPanel: builder.mutation({
@@ -144,7 +144,7 @@ export const movieCoreApi = createApi({
     }),
     addvilla: builder.mutation({
       query: (payload) => ({
-        url: "api/Villa/Create",
+        url: "api/Admin/Villa/Create",
         method: "POST",
         body: payload,
         headers: {
@@ -155,7 +155,7 @@ export const movieCoreApi = createApi({
     }),
     removeVilla: builder.mutation({
       query: (payload) => ({
-        url: "api/Villa/Disable",
+        url: "api/Admin/Villa/Disable",
         method: "POST",
         body: payload,
       }),

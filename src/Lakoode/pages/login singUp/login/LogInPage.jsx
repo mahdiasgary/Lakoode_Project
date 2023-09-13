@@ -110,7 +110,7 @@ const LogInPage = ({ history, openMenu, setOpenMenu }) => {
   return (
     <div className="w-full h-screen  bg-[#f9f9f9] dark:bg-[#282a37] text-white">
       <Navbar from={"login"} openMenu={openMenu} setOpenMenu={setOpenMenu} />
-      <div className=" z-[5] absolute  py-20 xl:px-32 flex xl:justify-start justify-center w-full text-textLight dark:text-white">
+      <div className=" z-[5] absolute  pt-20 xl:px-32 flex xl:justify-start justify-center w-full text-textLight dark:text-white">
         {/* log in form and verify email */}
         {!swichBetweenFormAndVerify ? (
           <LoginForm

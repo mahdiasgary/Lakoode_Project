@@ -36,8 +36,9 @@ const Adduser = ({ history }) => {
   });
   const userRegister = () => {
     axios({
+      withCredentials:true,
       method: "post",
-      url: "https://localhost:7103/api/User/CreateUser",
+      url: "https://localhost:7103/api/Admin/User/CreateUser",
       data: {
         name: Formik.values.firstName,
         lastName: Formik.values.lastName,

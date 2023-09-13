@@ -10,54 +10,32 @@ import aq from "../../../pages/login singUp/login/Screenshot (168).png";
 import Slider from "react-slider";
 import { PiSunHorizonBold } from "react-icons/pi";
 import Navbar from "../../navbar/Navbar";
-import qqq from '../../../assets/bg3w.png'
+import qqq from "../../../assets/bg3w.png";
+import { MdLocationOn } from "react-icons/md";
 const HeroSection = ({
   setPriceRoom,
   priceRange,
   setPriceRange,
   selectetOpt,
-  setselectetOpt,
   priceRoom,
+  setselectetOpt,
 }) => {
   const progressRef = useRef(null);
-  const [selectetOpt2, setselectetOpt2] = useState([]);
-
-  const selectOptHendler = (selectOpt) => {
-    let isSelected = selectetOpt.find((opt) => opt === selectOpt);
-
-    if (isSelected) {
-      const select = selectetOpt.filter((opt) => opt !== selectOpt);
-      const select7 = select.filter((opt) => opt !== "z");
-
-      setselectetOpt(select7);
-    } else {
-      if (selectetOpt.find((opt) => opt === "z")) {
-        setselectetOpt([selectOpt]);
-      } else setselectetOpt([...selectetOpt, selectOpt]);
-    }
-
-    let isSelected2 = selectetOpt2.find((opt) => opt === selectOpt);
-    if (isSelected2) {
-      const select2 = selectetOpt2.filter((opt) => opt !== selectOpt);
-      setselectetOpt2(select2);
-    } else setselectetOpt2([...selectetOpt2, selectOpt]);
-  };
 
   const rehand = () => {
     setPriceRange([999000, 10000000]);
     setselectetOpt(["z"]);
-    setselectetOpt2([]);
-    setPriceRoom(["", 1, 2, 3, 4, 5, 6]);
+    setselectetOpt(["", "", "", "", ""]);
+    setPriceRoom("");
   };
   return (
     <div>
       <div className="lg:flex lg:justify-center  ">
         <div className="relative bg-hero bg-no-repeat w-full bg-cover text-white">
           <div className="relative z-[5]  flex justify-center  ">
-          <Navbar className='sticky top-0' from={"ww"} />
+            <Navbar className="sticky top-0" from={"ww"} />
           </div>
-          <div className=" 3xl:bg-[#4a6dff]   dark:bg-[#0f0f0f] absolute lg:rounded-[50px]  inset-0 w-full h-full">
-           
+          <div className="   md:h-[300px]   absolute lg:rounded-[50px]  inset-0 w-full h-[250px] lg:h-full">
             <img
               src={qqq}
               alt="d"
@@ -66,17 +44,19 @@ const HeroSection = ({
             <img
               alt="lakoode"
               src={aq}
-              className="opacity- transform -scale-x-100 hidden dark:lg:flex transform lg:rounded-[50px]    w-full h-full"
+              className="opacity-  -scale-x-100 hidden dark:lg:flex transform lg:rounded-[50px]    w-full h-full"
             />
-            <img
-              alt="lakoode"
-              src={"https://s6.uupload.ir/files/test2_j1lu.png"}
-              className="opacity-50 transform lg:rounded-[50px]  lg:hidden  w-full h-full"
-            />
+            <div className="bg-[#0f0f0f] dark:bg-[#0f0f0f] transform lg:rounded-[50px] rounded-b-3xl  lg:hidden">
+              <img
+                alt="lakoode"
+                src={"https://s6.uupload.ir/files/test2_j1lu.png"}
+                className="opacity-60 bg-[#0f0f0f] dark:bg-[#0f0f0f] transform lg:rounded-[50px] rounded-b-3xl  lg:hidden  w-full md:h-[300px] h-[250px]"
+              />
+            </div>
           </div>
-          <div className="relative  containe flex flex-co  items-cente justify-cente pt-0 pb-36 sm:py- lg:py-24 h-[60vh] w-full   2xl:py-72">
+          <div className="relative  containe flex flex-co  items-cente justify-cente pt-0  pb-20 py-5 lg:py-24 lg:h-[60vh] w-full   2xl:py-72">
             <div
-              className="hidden md:flex flex-col  mt-12 dark:text-screenLight text-black mx-32  backdrop-blur-s p-4 rounded-3xl bg-[#0f0f0f bg-opacity-10  text-en  font-bold   lg:text-[20px]
+              className="hidden md:flex flex-col  mt-4 dark:text-screenLight text-black mx-32  backdrop-blur-s p-4 rounded-3xl bg-[#0f0f0f bg-opacity-10  text-en  font-bold   lg:text-[20px]
     "
             >
               <p className="opacity-70 text-">
@@ -89,7 +69,11 @@ const HeroSection = ({
                 {/* Dream Vacation in Lakoode */}
               </p>
               <p className="lg:text-[30px] ">لاکوده</p>
-              <p className="text-[14px] font-bold hidden lg:flex mt-8 ">
+              <div className="flex text-btn  mx-3">
+                    <MdLocationOn className="self-center"/>
+                    <p>چالوس</p>
+                  </div>
+              <p className="text-[14px] font-bold hidden lg:flex mt-5 ">
                 مجتمع اقامتی و تفریحی لاکوده بر این تلاش دارد که به شما عزیزان
                 محیطی پر از ارامش اريه دهد.{" "}
               </p>
@@ -98,7 +82,7 @@ const HeroSection = ({
         </div>
       </div>
 
-      <div className="text-white dark:text-white  relative lg:-top-[000px] mb-10 lg:dark:-top-[0px] -top-[250px] text-en  flex flex-col w-full   font-bold  mt-10 text-[34px]">
+      <div className="text-white dark:text-white  relative lg:-top-[000px] mb-10 lg:dark:-top-[0px] -top-[50px] text-en  flex flex-col w-full   font-bold  mt-10 text-[34px]">
         <div className="flex justify-center text-center">
           <div className="flex justify-center text-[16px] text-black  dark:text-white w-[90vw] max-w-[880px] lg:h-[200px] rounded-3xl  bg-white dark:bg-prameryColorDark dark:bg-opacity-50 dark:backdrop-blur-sm lg:border-0 border-[#4a6dff] lg:shadow-2xl  ">
             <div className="flex flex-col w-full">
@@ -117,16 +101,32 @@ const HeroSection = ({
                   <div className="flex flex-col justify-center h-full w-full ">
                     <ul className="flex justify-around md:justify-start">
                       <li
-                        onClick={() => selectOptHendler("وایفای")}
+                        onClick={() => {
+                          !selectetOpt.find((opt) => opt === "50")
+                            ? setselectetOpt([
+                                "50",
+                                selectetOpt[1],
+                                selectetOpt[2],
+                                selectetOpt[3],
+                                selectetOpt[4],
+                              ])
+                            : setselectetOpt([
+                                "",
+                                selectetOpt[1],
+                                selectetOpt[2],
+                                selectetOpt[3],
+                                selectetOpt[4],
+                              ]);
+                        }}
                         className={`${
-                          selectetOpt2.find((opt) => opt === "وایفای")
+                          selectetOpt.find((opt) => opt === "50")
                             ? "text-btn border-2 border-btn shadow-lg"
                             : "dark:border-border dark:text-screenLight border-2"
                         }   flex  hover:border-btn  flex-col justify-center  border   rounded-xl w-[70px]  cursor-pointer duration-150 h-[70px] lg:w-[70px] lg:h-[70px] text-[16px] `}
                       >
                         <div
                           className={`${
-                            selectetOpt2.find((opt) => opt === "وایفای")
+                            selectetOpt.find((opt) => opt === "50")
                               ? "text-btn"
                               : "text-red-500 "
                           } flex justify-center text-[18px] `}
@@ -137,16 +137,32 @@ const HeroSection = ({
                       </li>
 
                       <li
-                        onClick={() => selectOptHendler("استخر")}
+                        onClick={() => {
+                          !selectetOpt.find((opt) => opt === "47")
+                            ? setselectetOpt([
+                                selectetOpt[0],
+                                "47",
+                                selectetOpt[2],
+                                selectetOpt[3],
+                                selectetOpt[4],
+                              ])
+                            : setselectetOpt([
+                                selectetOpt[0],
+                                "",
+                                selectetOpt[2],
+                                selectetOpt[3],
+                                selectetOpt[4],
+                              ]);
+                        }}
                         className={`${
-                          selectetOpt2.find((opt) => opt === "استخر")
+                          selectetOpt.find((opt) => opt === "47")
                             ? "text-btn border-2 border-btn shadow-lg"
                             : "dark:border-border dark:text-screenLight border-2"
                         }  lg:mx-4 hover:border-btn  flex flex-col justify-center border rounded-xl w-[70px]  cursor-pointer duration-150 h-[70px] lg:w-[70px] lg:h-[70px] text-[16px] `}
                       >
                         <div
                           className={`${
-                            selectetOpt2.find((opt) => opt === "استخر")
+                            selectetOpt.find((opt) => opt === "47")
                               ? "text-btn"
                               : "dark:text-blue-500 text-violet-700"
                           } flex  justify-center text-[28px]  `}
@@ -156,16 +172,32 @@ const HeroSection = ({
                         <p className="text-sm">استخر</p>
                       </li>
                       <li
-                        onClick={() => selectOptHendler("شاه نشین")}
+                        onClick={() => {
+                          !selectetOpt.find((opt) => opt === "48")
+                            ? setselectetOpt([
+                                selectetOpt[0],
+                                selectetOpt[1],
+                                "48",
+                                selectetOpt[3],
+                                selectetOpt[4],
+                              ])
+                            : setselectetOpt([
+                                selectetOpt[0],
+                                selectetOpt[1],
+                                "",
+                                selectetOpt[3],
+                                selectetOpt[4],
+                              ]);
+                        }}
                         className={`${
-                          selectetOpt2.find((opt) => opt === "شاه نشین")
+                          selectetOpt.find((opt) => opt === "48")
                             ? "text-btn border-2 border-btn shadow-lg"
                             : "dark:border-border dark:text-screenLight border-2"
                         } flex flex-col hover:border-btn  justify-center border rounded-xl w-[70px] cursor-pointer h-[70px] lg:w-[70px] lg:h-[70px] duration-150 text-[16px] `}
                       >
                         <div
                           className={` ${
-                            selectetOpt2.find((opt) => opt === "شاه نشین")
+                            selectetOpt.find((opt) => opt === "48")
                               ? "text-btn"
                               : "text-teal-500"
                           } flex justify-center text-[22px] `}
@@ -175,16 +207,32 @@ const HeroSection = ({
                         <p className="text-sm">شاه نشین</p>
                       </li>
                       <li
-                        onClick={() => selectOptHendler("رو به دریا")}
+                        onClick={() => {
+                          !selectetOpt.find((opt) => opt === "54")
+                            ? setselectetOpt([
+                                selectetOpt[0],
+                                selectetOpt[1],
+                                selectetOpt[2],
+                                "54",
+                                selectetOpt[4],
+                              ])
+                            : setselectetOpt([
+                                selectetOpt[0],
+                                selectetOpt[1],
+                                selectetOpt[2],
+                                "",
+                                selectetOpt[4],
+                              ]);
+                        }}
                         className={`${
-                          selectetOpt2.find((opt) => opt === "رو به دریا")
+                          selectetOpt.find((opt) => opt === "54")
                             ? "text-btn border-2 border-btn shadow-lg"
                             : "dark:border-border dark:text-screenLight border-2"
                         }  lg:mx-4 flex hover:border-btn  flex-col justify-center border rounded-xl w-[70px] cursor-pointer h-[70px] lg:w-[70px] lg:h-[70px] duration-150 text-[16px] `}
                       >
                         <div
                           className={`${
-                            selectetOpt2.find((opt) => opt === "رو به دریا")
+                            selectetOpt.find((opt) => opt === "54")
                               ? " dark:text-btn"
                               : "dark:text-yellow-300 text-btn"
                           } flex justify-center text-[23px] `}
@@ -194,16 +242,32 @@ const HeroSection = ({
                         <p className="text-sm">رو به دریا </p>
                       </li>
                       <li
-                        onClick={() => selectOptHendler("بیلیارد")}
+                        onClick={() => {
+                          !selectetOpt.find((opt) => opt === "46")
+                            ? setselectetOpt([
+                                selectetOpt[0],
+                                selectetOpt[1],
+                                selectetOpt[2],
+                                selectetOpt[3],
+                                "46",
+                              ])
+                            : setselectetOpt([
+                                selectetOpt[0],
+                                selectetOpt[1],
+                                selectetOpt[2],
+                                selectetOpt[3],
+                                "",
+                              ]);
+                        }}
                         className={`${
-                          selectetOpt2.find((opt) => opt === "بیلیارد")
+                          selectetOpt.find((opt) => opt === "46")
                             ? "text-btn border-2 border-btn shadow-lg"
                             : "dark:border-border dark:text-screenLight border-2"
                         } flex  flex-col hover:border-btn  justify-center border rounded-xl w-[70px] cursor-pointer h-[70px] lg:w-[70px] lg:h-[70px] duration-150 text-[16px] `}
                       >
                         <div
                           className={`${
-                            selectetOpt2.find((opt) => opt === "بیلیارد") &&
+                            selectetOpt.find((opt) => opt === "46") &&
                             "text-btn"
                           } flex justify-center text-[20px]`}
                         >
@@ -287,6 +351,7 @@ const HeroSection = ({
                         <option value="2"> دو</option>
                         <option value="3"> سه</option>
                         <option value="4"> چهار</option>
+                        <option value="5"> پنج</option>
                       </select>
                     </div>
                   </div>

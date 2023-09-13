@@ -11,8 +11,11 @@ const User = () => {
   const [search, setSearch] = useState("");
   useEffect(() => {
     axios
-    
-      .get(`https://localhost:7103/api/User/GetUserDetail?mobile=${usermobile}`,{withCredentials:true})
+
+      .get(
+        `https://localhost:7103/api/Admin/User/GetUserDetail?mobile=${usermobile}`,
+        { withCredentials: true }
+      )
       .then((r) => setData(r.data.data));
   }, []);
   return (
@@ -133,11 +136,11 @@ const User = () => {
         </div>
       </div>
 
-      <div className="mt-8 md:self-center w-full  ">
-        <div className="dark:bg-border bg-white dark:bg-opacity-40  rounded-3xl p-4  ">
+      <div className="mt-8 md:self-center ">
+        <div className="dark:bg-border bg-white dark:bg-opacity-40  rounded-3xl p-4 mx-4 md:px-10">
           <div className="">
             <div className="flex justify-center  mb-2">
-              <div className=" min-w-[85vw] flex justify-between max-w-[85vw] md:min-w-[70vw] md:max-w-[70vw]">
+              <div className=" min-w-[85vw] flex justify-between max-w-[85vw] md:min-w-[60vw] md:max-w-[60vw]">
                 <div className="text-[19px] self-center font-bold ">
                   لیست رزرو ها
                 </div>
@@ -203,6 +206,11 @@ const User = () => {
                           <div className=""> قیمت</div>
                         </div>
                       </th>
+                      {/* <th className="w-[10%]">
+                        <div className="flex justify-center text-sm">
+                          <div className=""> وضعیت</div>
+                        </div>
+                      </th>{" "} */}
                       <th className="">
                         <div className="flex justify-center text-sm">
                           <div className=""> عملیات</div>

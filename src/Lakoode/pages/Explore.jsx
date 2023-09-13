@@ -16,8 +16,8 @@ const Explore = ({ openMenu, setOpenMenu }) => {
 
   // const { rtl } = useStateContext();
   const [priceRange, setPriceRange] = useState([999000, 10000000]);
-  const [priceRoom, setPriceRoom] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, ""]);
-  const [selectetOpt, setselectetOpt] = useState(["z"]);
+  const [priceRoom, setPriceRoom] = useState('');
+  const [selectetOpt, setselectetOpt] = useState(['','','','','']);
   return (
     <div className="dark:bg-[rgb(40,42,55)]">
       <div className="fixed opacity-20 hidden dark:flex ">
@@ -39,7 +39,7 @@ const Explore = ({ openMenu, setOpenMenu }) => {
         priceRoom={priceRoom}
         setselectetOpt={setselectetOpt}
       />
-      <MainTilt />
+      <MainTilt selectetOpt={selectetOpt} priceRange={priceRange}  priceRoom={priceRoom}/>
     
       <Foter/>
     </div>

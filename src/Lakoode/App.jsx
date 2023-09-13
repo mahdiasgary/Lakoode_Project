@@ -10,7 +10,7 @@ import NavBar from "./components/navbar/Navbar";
 import Explore from "./pages/Explore";
 
 import "./styles/globalStyles.css";
-import FooterMenu from "./components/mobile-footer-menu/FooterMenu";
+// import FooterMenu from "./components/mobile-footer-menu/FooterMenu";
 import { useStateContext } from "./contextProvider/ContextProvider";
 import AdminPage from "./pages/adminPanel/AdminPage";
 import { ToastContainer } from "react-toastify";

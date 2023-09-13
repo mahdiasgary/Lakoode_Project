@@ -66,7 +66,6 @@ export const optiona = [
   { title: "منظره به حیاط", id: 10, icon: <BiHomeCircle /> },
   { title: "میز ناهارخوری", id: 11, icon: <MdOutlineTableBar /> },
   { title: "تلویزیون", id: 12, icon: <FaDesktop /> },
-  { title: "منظره به دریا", id: 13, icon: <PiSunHorizonBold /> },
   { title: "گاز", id: 14, icon: <MdOutlineGasMeter /> },
   { title: "برق", id: 15, icon: <MdOutlinePower /> },
   { title: "آب", icon: <GiTap /> },
@@ -114,4 +113,7 @@ export const optiona = [
   { title: "ایر هاکی", id: 53, icon: <GiHockey /> },
   { title: "کنسول بازی", id: 49, icon: <PiGameControllerBold /> },
   { title: "پینگ پنگ", id: 52, icon: <TbPingPong /> },
+  { title: "منظره به دریا", id: 54, icon: <PiSunHorizonBold /> },
+
 ];
+ 
