@@ -157,9 +157,9 @@ const Dashboard = () => {
           </div>
           <div>
             <div className="flex  flex-wrap gap-4 dark:bg-opacity-40 dark:bg-border bg-white p-5 rounded-3xl ">
-              {villas.map((villa) => (
+              {villas.map((villa,index) => (
                 !villa?.isDisabled &&
-                <div className="flex   rounded-3xl dark:bg-opacity- ">
+                <div key={index} className="flex   rounded-3xl dark:bg-opacity- ">
                   <div className="py-2 rounded-r-3xl  dark:bg-border bg-screenLight px-3">
                     {villa?.name}{" "}
                   </div>
@@ -294,8 +294,8 @@ const Dashboard = () => {
                 </thead>
 
                 <tbody className="px-5 rounded-3xl ">
-                  {www?.map((user) => (
-                    <Ritem setState={setState} user={user} key={user.mobile} />
+                  {www?.map((user ,index) => (
+                    <Ritem  setState={setState} user={user} key={index} />
                   ))}
                 </tbody>
               </table>
@@ -327,8 +327,8 @@ const Dashboard = () => {
                   className="dark:bg-border text-center rounded-2xl mx-2 w-20 py-1 bg-white  dark:bg-opacity-40"
                 >
                   <option value="">---</option>
-                  {mounth.map((m) => (
-                    <option key={m[0]} value={m[0]}>
+                  {mounth.map((m,index) => (
+                    <option key={index} value={m[0]}>
                       {m[1]}
                     </option>
                   ))}
@@ -343,8 +343,8 @@ const Dashboard = () => {
                   className="dark:bg-border text-center rounded-2xl mx-2 w-20 py-1 bg-white  dark:bg-opacity-40"
                 >
                   <option value="">---</option>
-                  {yyy.map((m) => (
-                    <option key={m[0]} value={m[0]}>
+                  {yyy.map((m,index) => (
+                    <option key={index} value={m[0]}>
                       {m}
                     </option>
                   ))}
@@ -431,8 +431,8 @@ const Dashboard = () => {
                 </thead>
 
                 <tbody className="px-5 rounded-3xl ">
-                  {ww?.map((user) => (
-                    <Ritem user={user} key={user.mobile} />
+                  {ww?.map((user,index) => (
+                    <Ritem user={user} key={index} />
                   ))}
                 </tbody>
               </table>

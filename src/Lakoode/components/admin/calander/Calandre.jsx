@@ -106,7 +106,7 @@ const Calandre = ({
           className={`  relative h-[600px]   rounded-3xl   flex justify-center  `}
         >
           {mounth.slice(nowMnum - 1, 12).map((mah) => (
-            <SwiperSlide key={mah[0] - 1} className=" ">
+            <SwiperSlide key={mah[0]} className=" ">
               <div className="  lg:w-[70vw] px-5    flex justify-center dark:bg-transparent   rounded-3xl ">
                 <ClanderForEveryMounth
                   seletedDays={seletedDays}
@@ -125,7 +125,7 @@ const Calandre = ({
             </SwiperSlide>
           ))}
           {mounth.map((mah) => (
-            <SwiperSlide key={mah[0] - 1} className=" ">
+            <SwiperSlide key={mah[0]} className=" ">
               <div className="  lg:w-[70vw] px-5    flex justify-center dark:bg-transparent   rounded-3xl ">
                 <ClanderForEveryMounth
                   seletedDays={seletedDays}

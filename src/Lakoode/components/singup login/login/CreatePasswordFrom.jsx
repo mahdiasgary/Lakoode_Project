@@ -12,11 +12,7 @@ const CreatePasswordFrom = ({ Formik, email, history }) => {
   const [showPassword, setShowPassword] = useState("");
   const [submitOtpForForgotPasswordMutation] =
     useSubmitOtpForForgotPasswordMutation();
-  // console.log({
-  //   email,
-  //   password: Formik.values.newPassword,
-  //   confirmPassword: Formik.values.confirmPassword,
-  // })
+
   const submitOtpForForgotPasswordHandler = () => {
     setLoadingButton(true);
     axios({

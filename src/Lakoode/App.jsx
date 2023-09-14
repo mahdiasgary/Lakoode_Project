@@ -34,7 +34,6 @@ const App = () => {
     nprogress.start();
     nprogress.done();
   }, [location.pathname]);
-// axios.get('https://localhost:7103/api/Account/Login').then(r=>console.log(r))
  
   return (
     <BrowserRouter>

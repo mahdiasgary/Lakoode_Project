@@ -16,7 +16,6 @@ const SingupPage = ({ setOpenMenu, from, openMenu, history }) => {
   axios
     .get("https://localhost:7103/api/Account/Login", { withCredentials: true })
     .then((r) => {
-      console.log(r.data);
       if (r.data.isSuccessFull) {
         history.push("/user");
       }
@@ -81,24 +80,15 @@ const SingupPage = ({ setOpenMenu, from, openMenu, history }) => {
       .then((res) => {
         setLoadingButton(false);
 
-        console.log(res);
-        // if (res.isSuccessFull && res.status === "SuccessRegister") {
-        // axios
-        //   .get("https://localhost:7103/api/Account/ActiveAccount", {
-        //     params: { mobile: Formik.values.mobile },
-        //   })
-        //   .then((res) => {
         setSwichBetweenFormAndVerify(true);
         toast.info(res.message, {
           autoClose: 2100,
           position: "top-left",
         });
-        // });
-        // }
+    
       })
       .catch((r) => {
         setLoadingButton(false);
-        console.log(r);
         toast.info("شماره موبایل اشتباه است", {
           autoClose: 2100,
           position: "top-left",

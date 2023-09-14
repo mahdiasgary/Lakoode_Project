@@ -3,7 +3,6 @@ import FormItem from "../FormItem";
 import MultipleSelect from "../MultipleSelect";
 
 const AdminAddItemList = ({ itemList, Formik, dataQuery, selectHandler }) => {
-  // console.log(selectHandler["languageHandleChange"]);
 
   return (
     <div>

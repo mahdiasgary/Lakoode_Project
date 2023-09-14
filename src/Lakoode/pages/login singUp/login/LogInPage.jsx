@@ -83,7 +83,6 @@ const LogInPage = ({ history, openMenu, setOpenMenu }) => {
               `https://localhost:7103/api/Account/ActiveAccount?Mobile=${Formik.values.mobile}`
             )
             .then((res) => {
-              console.log(res);
               setUserEmail(res.data.data);
               setSwichBetweenFormAndVerify(true);
               toast.info(res.message, {

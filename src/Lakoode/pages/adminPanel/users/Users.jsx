@@ -50,7 +50,6 @@ const Users = ({ history }) => {
       data: formData,
     })
       .then(function (response) {
-        console.log(response);
         if (response.data.isSuccessFull) {
           toast.success(`کد تخفیف به ${mobileTaKH} ارسال شد! `, {
             autoClose: 1100,
@@ -173,10 +172,10 @@ const Users = ({ history }) => {
                       : new Date(date2.createdDate.split("T")[0]) -
                         new Date(date1.createdDate.split("T")[0])
                   )
-                  .map((user) => (
+                  .map((user,index) => (
                     <UsersItem
                       user={user}
-                      key={user.mobile}
+                      key={index}
                       // forceUpdate={forceUpdate}
                       setmobile={setmobileTaKH}
                     />

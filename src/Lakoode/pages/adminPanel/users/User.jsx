@@ -239,8 +239,8 @@ const User = () => {
                             : new Date(date2.submitDate.split("T")[0]) -
                               new Date(date1.submitDate.split("T")[0])
                         )
-                        .map((user) => (
-                          <TraconeshItem user={user} key={user.mobile} />
+                        .map((user,index) => (
+                          <TraconeshItem user={user} key={index} />
                         ))
                       )}
                   </tbody>

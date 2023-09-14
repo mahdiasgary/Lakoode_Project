@@ -16,7 +16,6 @@ const Resevation = () => {
       .then((r) => {
         setData(r.data);
       })
-      .catch((r) => console.log(r));
   }, []);
   let nowYear = new Date().toLocaleDateString("fa-IR-u-nu-latn", optionsY);
   const [year, setyear] = useState(nowYear);
@@ -48,7 +47,6 @@ const Resevation = () => {
   });
   const [daysPrice, setDayPrice] = useState([]);
   const daysdis = [];
-  // console.log(daysdis);
   useEffect(() => {
     rangeDays.f !== "" &&
       rangeDays.m !== "" &&
@@ -91,7 +89,6 @@ const Resevation = () => {
   useEffect(() => {
     setState(!state);
   }, [id]);
-  // console.log(typeof(id))
   const submitHand = () => {
     const fromData = new FormData();
 
@@ -124,7 +121,6 @@ const Resevation = () => {
       headers: { "Content-Type": "multipart/form-data" },
     })
       .then(function (r) {
-        // console.log(r);
         if (!r.data.isSuccessFull) {
           toast.error(`${r.data.message}`, {
             autoClose: 1100,
@@ -139,10 +135,7 @@ const Resevation = () => {
         }
         // setTimeout(() => history.push("villaslist"), 800);
       })
-      .catch(function (r) {
-        //handle error
-        console.log(r);
-      });
+     
   };
   return (
     <div>
@@ -159,8 +152,8 @@ const Resevation = () => {
           className="px-12 dark:bg-border mx-5 py-4 rounded-2xl text-[18px] font-bold"
         >
           <option value="">انتخاب کنید</option>
-          {data?.data?.map((item) => (
-            <option  value={item.id} className={item.isDisabled && 'hidden' }> {item.name}</option>
+          {data?.data?.map((item,index) => (
+            <option key={index} value={item.id} className={item.isDisabled && 'hidden' }> {item.name}</option>
           ))}
         </select>
       </div>

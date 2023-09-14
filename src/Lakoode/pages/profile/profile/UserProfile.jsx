@@ -41,7 +41,6 @@ const UserProfile = ({ history }) => {
           url: `https://localhost:7103/api/Account/SignOut`,
         })
           .then((r) => window.location.reload())
-          .catch((r) => console.log(r));
       }
       // console.log(r)
     });

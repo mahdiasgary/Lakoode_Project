@@ -39,33 +39,7 @@ const TraconechItem = ({ user }) => {
       }
     });
   };
-  // console.log(user);
-  // // console.log(response);
-  // const approHand = () => {
 
-  //   const formData = new FormData();
-  //   formData.append("reservationId", user.id);
-  //   axios({
-  //     method: "post",
-  //     withCredentials: true,
-  //     headers: { "Content-Type": "multipart/form-data" },
-  //     url: `https://localhost:7103/api/Admin/Reservation/ApproveReservation`,
-  //     data: formData,
-  //   })
-  //     .then(function (response) {
-  //       if(response.data.isSuccessFull){
-  //         toast.success(`تایید شد `, {
-  //           autoClose: 1100,
-  //           position: "top-left",
-  //         });
-
-  //       }
-  //     })
-  //     .catch(function (response) {
-  //       //handle error        console.log(response);
-
-  //     });
-  // };
   return (
     <tr className=" py-10 rounded-xl  hover:text-screenLight dark:text-[#d1d1d3] group border-b dark:border-0  ">
       <td>

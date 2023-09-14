@@ -23,7 +23,6 @@ const PriceMake = () => {
       .then((r) => {
         setData(r.data);
       })
-      .catch((r) => console.log(r));
   }, []);
   const [villa, setvilla] = useState("");
   let seletedDays = [];
@@ -139,8 +138,8 @@ const PriceMake = () => {
           className="px-12 dark:bg-border mx-5 py-4 rounded-2xl text-[18px] font-bold"
         >
           <option value="">انتخاب کنید</option>
-          {data?.data?.map((item) => (
-            <option value={item.id}  className={item.isDisabled && 'hidden' }> {item.name}</option>
+          {data?.data?.map((item,index) => (
+            <option value={item.id} key={index}  className={item.isDisabled && 'hidden' }> {item.name}</option>
           ))}
         </select>
       </div>
@@ -156,8 +155,8 @@ const PriceMake = () => {
           <p className="text-lg flex font-semibold">
             <span>تعیین قیمت در </span>
             <span className="flex flex-wrap ">
-              {seletedDays?.map((d) => (
-                <span className="m-1 text-center px-3 rounded-lg bg-textPDark bg-opacity-60 text-white w-10 ">
+              {seletedDays?.map((d,index) => (
+                <span key={index} className="m-1 text-center px-3 rounded-lg bg-textPDark bg-opacity-60 text-white w-10 ">
                   {d}
                 </span>
               ))}

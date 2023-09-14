@@ -64,7 +64,6 @@ const ForgotPasswordPage = ({ history, openMenu, setOpenMenu,login }) => {
       })
       .then((res) => {
         setloadingButton(false);
-        console.log(res.data);
         if (res.data.isSuccessFull ) {
           setSwichBetweenFormAndVerify(true);
           toast.success(res.data.message, {
@@ -82,7 +81,6 @@ const ForgotPasswordPage = ({ history, openMenu, setOpenMenu,login }) => {
         }
       })
       .catch((res) => {
-        console.log(res);
         toast.error('خطا مجددا امتجان کنید  ', {
           autoClose: 2100,
           position: "top-left",

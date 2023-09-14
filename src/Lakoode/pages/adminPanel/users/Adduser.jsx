@@ -48,7 +48,6 @@ const Adduser = ({ history }) => {
     })
       .then(({ data }) => {
         setLoadingButton(false);
-        console.log({ data });
         toast.success(`${Formik.values.firstName} با موفقیت ثبت نام شد`, {
           autoClose: 2100,
           position: "top-left",
@@ -56,7 +55,6 @@ const Adduser = ({ history }) => {
         history.push("users");
       })
       .catch((res) => {
-        console.log(res);
         setLoadingButton(false);
         toast.info("این شماره ثبت نام شده است", {
           autoClose: 2100,

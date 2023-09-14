@@ -184,73 +184,6 @@ const CalandreD = ({
   const oneHand = (d) => {
     setRangeDays({ f: d, s: "", y: year, m: mounth[0] });
   };
-  // const twoHand = (d) => {
-  //   if (
-  //     parseInt(
-  //       new Date(rangeDays.f.date.split("T")[0]).toLocaleDateString(
-  //         "fa-IR-u-nu-latn",
-  //         optionsD
-  //       )
-  //     ) ==
-  //     parseInt(
-  //       new Date(d.date.split("T")[0]).toLocaleDateString(
-  //         "fa-IR-u-nu-latn",
-  //         optionsD
-  //       )
-  //     )
-  //   ) {
-  //     setRangeDays({
-  //       f: "",
-  //       s: "",
-  //       y: year,
-  //       m: mounth[0],
-  //     });
-  //     // console.log(55)
-  //   }
-  //   if (
-  //     parseInt(
-  //       new Date(rangeDays.f.date.split("T")[0]).toLocaleDateString(
-  //         "fa-IR-u-nu-latn",
-  //         optionsD
-  //       )
-  //     ) >
-  //     parseInt(
-  //       new Date(d.date.split("T")[0]).toLocaleDateString(
-  //         "fa-IR-u-nu-latn",
-  //         optionsD
-  //       )
-  //     )
-  //   ) {
-  //     setRangeDays({
-  //       f: d,
-  //       s: "",
-  //       y: year,
-  //       m: mounth[0],
-  //     });
-  //   }
-  //   if (
-  //     parseInt(
-  //       new Date(rangeDays.f.date.split("T")[0]).toLocaleDateString(
-  //         "fa-IR-u-nu-latn",
-  //         optionsD
-  //       )
-  //     ) <
-  //     parseInt(
-  //       new Date(d.date.split("T")[0]).toLocaleDateString(
-  //         "fa-IR-u-nu-latn",
-  //         optionsD
-  //       )
-  //     )
-  //   ) {
-  //     setRangeDays({
-  //       f: rangeDays.f,
-  //       s: d,
-  //       y: year,
-  //       m: mounth[0],
-  //     });
-  //   }
-  // };
-
   const twoHand = (d) => {
     if (
       new Date(rangeDays.f.date?.split("T")[0]).toISOString().split("T")[0] ==
@@ -296,7 +229,6 @@ const CalandreD = ({
   };
 
   let nowYear = new Date().toLocaleDateString("fa-IR-u-nu-latn", optionsY);
-  // console.log(seletedDaysOnCal)
   return (
     <table className="bg-white dark:bg-border rounded-3xl lg:w-[60vw] w-[100vw]  ">
       <thead className="w-[80px]">
@@ -312,9 +244,9 @@ const CalandreD = ({
         </th>
       </thead>
       <thead>
-        {week.map((w) => (
+        {week.map((w,index) => (
           <th
-            key={w}
+            key={index}
             className="w-[70px]  min-w-[50px] text-sm font-semibold  mt-1"
           >
             {w[1]}
@@ -322,8 +254,8 @@ const CalandreD = ({
         ))}
       </thead>
       <tbody className="faNumber">
-        {tr.map((t) => (
-          <tr key={t[0]}>
+        {tr.map((t,index) => (
+          <tr key={index}>
             {calData
               ?.flat()
               ?.slice(t[0], t[1])
@@ -417,11 +349,10 @@ const CalandreD = ({
                           
                           ${
                             seletedDaysOnCal.find(
-                              (day) =>
-                              day == d.date.split("T")[0] 
-                              ) ||
-                                rangeDays.f == d ||
-                                rangeDays.s == d
+                              (day) => day == d.date.split("T")[0]
+                            ) ||
+                            rangeDays.f == d ||
+                            rangeDays.s == d
                               ? "text-white"
                               : " text-blue-500"
                           } 
@@ -435,7 +366,9 @@ const CalandreD = ({
                         {(mounth[0] === nowMonthToday &&
                           d.shamsiDate.split("/")[2] < nowDayToday) ||
                         d.isReserved ? (
-                          <p className="text-gray-500 text-[12px] md:text-[13px] ">رزرو شده</p>
+                          <p className="text-gray-500 text-[12px] md:text-[13px] ">
+                            رزرو شده
+                          </p>
                         ) : d.isPriced ? (
                           parseInt(
                             (d.price - d.disscount).toString().slice(0, -3)

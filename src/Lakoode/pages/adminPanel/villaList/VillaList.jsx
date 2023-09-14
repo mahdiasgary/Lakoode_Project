@@ -13,7 +13,7 @@ const VillaList = ({ history }) => {
   useEffect(() => {
     axios.get('https://localhost:7103/api/Admin/Villa/GetAll',{withCredentials:true}).then((r) => {
       setData(r.data);
-    }).catch(r=>console.log(r))
+    })
   }, []);
   return (
     <div className="pb-20 w-full">

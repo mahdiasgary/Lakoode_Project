@@ -57,7 +57,7 @@ const MainTilt = ({ selectetOpt, priceRoom,priceRange }) => {
                   className={`md:mx-16  duration-500  rounded-3xl z-[5] w-[80vw] lg:w-[80vw] max-w-[1040px]   grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 place-items-center`}
                 >
                   {ww?.map((villa, index) => (
-                    <Tiltt villa={villa} defaultOptions={defaultOptions} />
+                    <Tiltt villa={villa} key={index} defaultOptions={defaultOptions} />
                   ))}
                 </div>
               </div>

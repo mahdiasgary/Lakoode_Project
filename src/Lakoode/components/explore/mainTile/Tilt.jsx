@@ -51,9 +51,9 @@ const Tiltt = ({ villa, defaultOptions }) => {
                   {/* <p>ID : {villa.id} </p> */}
                 </div>
                 <ul className="flex gap-1 mx-2">
-                  {JSON.parse(villa?.villaFacilities).map((o) => (
+                  {JSON.parse(villa?.villaFacilities).map((o,index) => (
                     <div
-                      key={o}
+                      key={index}
                       className={` text-[15px] font-bold ${
                         46 <= o && o <= 50 ? "flex" : "hidden"
                       } faNumber  w-[45px] h-[45px]  flex-col justify-center text-btn text-center border-2 mb-1 border-blue-500    rounded-xl text- font-semibold

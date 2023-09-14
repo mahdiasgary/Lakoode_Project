@@ -4,13 +4,9 @@ import AdminListItemCard from "./AdminListItemCard";
 import LoadingAdminListItem from "../LoadingAdminListItem";
 
 const AdminListItems = ({ dataQuery, thAndTdAdminList, search }) => {
-// dataBase
   const { data, isFetching, isLoading, error } = dataQuery;
 
-  // sort [th,id,name/tiltle,time,BIRTHDATE]
   const [sort, setsort] = useState(["ID", false, false]);
-//  console.log(data[sort[0].toLowerCase()])
-  // sort by value
   const sortBy = (key) => {
     if (key[0] === "NAME" || key[0] === "TITLE")
       return function sort(a, b) {
@@ -20,13 +16,7 @@ const AdminListItems = ({ dataQuery, thAndTdAdminList, search }) => {
           return -1;
         }
       };
-    // else
-    //   return function sort(a, b) {
-    //     let value1 = a[key[0].toLowerCase()];
-    //     let value2 = b[key[0].toLowerCase()];
-    //     if (key[0]==='ID' ? key[1] : key[0]==='TIME' ? key[3] : key[0]==='BIRTHDATE' ? key[4] : false) return value2 - value1;
-    //     else value1 - value2;
-    //   };
+
     else
     return function sort(a, b) {
       let value1 = a[key[0].toLowerCase()];
@@ -96,10 +86,10 @@ const AdminListItems = ({ dataQuery, thAndTdAdminList, search }) => {
               ]?.includes(search)
             )
             .sort(sortBy(sort))
-            .map((tdItem) => (
+            .map((tdItem,index) => (
               <AdminListItemCard
                 item={tdItem}
-                key={tdItem.id}
+                key={index}
                 td={thAndTdAdminList[1]}
               />
             ))}

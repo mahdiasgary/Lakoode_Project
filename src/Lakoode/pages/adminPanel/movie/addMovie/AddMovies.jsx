@@ -15,7 +15,6 @@ import AdminAddItemList from "../../../../common/adminPanel/AdminAddItemList";
 import { adminAddMovieListItems } from "../../../../constans";
 import axios from "axios";
 const AddMovies = ({ history, from, user }) => {
-  console.log(user);
   const [imgs, setImgs] = useState([]);
   const initialValues = {
     name: from && user ? user.name : "",
@@ -212,10 +211,7 @@ const AddMovies = ({ history, from, user }) => {
           });
           setTimeout(() => history.push("villaslist"), 800);
         })
-        .catch(function (response) {
-          //handle error
-          console.log(response);
-        });
+      ;
     }
   };
   const kechQU = [

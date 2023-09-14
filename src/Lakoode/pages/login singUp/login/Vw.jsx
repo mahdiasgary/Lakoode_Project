@@ -97,7 +97,7 @@ console.log(res)
           });
           setTimeout(() => setSwichBetweenCreateAndVerify(true), 800);
         }
-      }).catch((r)=>console.log(r));
+      });
   };
   const [counter, setCounter] = React.useState(120);
 
@@ -147,7 +147,7 @@ console.log(res)
                       : correctCode === -1
                       ? "ring-2 ring-red-500 focus:ring-[3px] focus:ring-red-500 "
                       : ""
-                  }  h-[80px] y9:h-[88px] w-[55px] ring y9:w-[69px] text-[35px] text-center px-5 flex-col outline-none focus:ring-2 duration-150 focus:ring-btn justify-center text-textLight dark:text-textDark bg-white dark:bg-[#323645] shadow-md  my-1 rounded-2xl mt-5  `}
+                  }  h-[80px] y9:h-[88px] w-[70px] ring y9:w-[69px] text-[35px] text-center px-5 flex-col outline-none focus:ring-2 duration-150 focus:ring-btn justify-center text-textLight dark:text-textDark bg-white dark:bg-[#323645] shadow-md  my-1 rounded-2xl mt-5  `}
                   maxLength={1}
                 />
               ))}

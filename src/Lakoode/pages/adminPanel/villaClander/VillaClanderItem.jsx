@@ -121,11 +121,11 @@ const VillaClanderItem = ({
           ))}
         </thead>
         <tbody  className="faNumber">
-          {tr.map((t) => (
-            <tr key={t[0]}>
-              {days.slice(t[0], t[1]).map((d) => (
+          {tr.map((t,index) => (
+            <tr key={index}>
+              {days.slice(t[0], t[1]).map((d,index) => (
                 <td
-                  key={d}
+                  key={index}
                   className={`sm:p-1 text-center text-sm ${
                     d === parseInt(nowDay) &&
                     thitM &&

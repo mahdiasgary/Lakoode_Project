@@ -51,7 +51,6 @@ const ClanderForEveryMounth = ({
     "fa-IR-u-nu-latn",
     optionsW
   );
-  console.log(nowweekk);
   const [calData, setCalData] = useState([]);
   useEffect(() => {
     axios({
@@ -180,9 +179,9 @@ const ClanderForEveryMounth = ({
           </th>
         </thead>
         <thead>
-          {week.map((w) => (
+          {week.map((w,index) => (
             <th
-              key={w}
+              key={index}
               className="w-[70px]  min-w-[50px] text-sm font-semibold  mt-1"
             >
               {w[1]}
@@ -190,8 +189,8 @@ const ClanderForEveryMounth = ({
           ))}
         </thead>
         <tbody className="faNumber">
-          {tr.map((t) => (
-            <tr key={t[0]}>
+          {tr.map((t,index) => (
+            <tr key={index}>
               {calData
                 ?.flat()
                 ?.slice(t[0], t[1])
