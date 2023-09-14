@@ -1,25 +1,48 @@
 // import { adminSidbarItem } from "../../../constans";
 import { styles } from "../../../styles/styles";
-import { MdMenu, MdMenuOpen } from "react-icons/md";
+import { MdMenuOpen } from "react-icons/md";
 import { useEffect, useState } from "react";
-import { DarkModeToggle } from "@anatoliygatt/dark-mode-toggle";
+import { FaPowerOff } from "react-icons/fa";
 import logoImage from "../../../assets/logoImage.png";
 import logoImageDark from "../../../assets/logoImageDark.png";
 import AdminSideBarList from "./AdminSideBarList";
 import { adminSidbarItem } from "../../../constans";
 import { useStateContext } from "../../../contextProvider/ContextProvider";
+import Swal from "sweetalert2";
+import axios from "axios";
 const AdminSideBar = ({ openMenu, setOpenMenu, admin }) => {
   const { IsDarkMode, setMode } = useStateContext();
-  // console.log(admin)
+  const logout = () => {
+    Swal.fire({
+      title: "مطمئن هستید؟",
+      text: "مایل به خروج از حساب کاربری خود هستید",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: " بله",
+      cancelButtonText: "لغو",
+    }).then((r) => {
+      if (r.isConfirmed) {
+        axios({
+          withCredentials: true,
+          method: "post",
+          url: `https://localhost:7103/api/Account/SignOut`,
+        })
+          .then((r) => window.location.reload())
+          .catch((r) => console.log(r));
+      }
+    });
+  };
   return (
     <div
       className={`${
         styles.sideBar
-      } overflow-y-auto origin-left  scrollbar-thin dark:scrollbar-track-[#1c1d21] scrollbar-track-gray-300 dark:scrollbar-thumb-border scrollbar-thumb-gray-400 scrollbar-track-rounded-md   scrollbar-thumb-rounded-md ${
-        !openMenu && " left-[-300px] fixed"
+      } overflow-y-auto origin-right  scrollbar-thin dark:scrollbar-track-[#1c1d21] scrollbar-track-gray-300 dark:scrollbar-thumb-border scrollbar-thumb-gray-400 scrollbar-track-rounded-md   scrollbar-thumb-rounded-md ${
+        !openMenu && " right-[-300px] fixed"
       } ${
         openMenu &&
-        "fixed lg:relative left-0   dark:bg-[#07070a] lg:dark:bg-transparent bg-screenLight"
+        "fixed lg:relative right-0   dark:bg-[#07070a] lg:dark:bg-transparent bg-screenLight"
       }  duration-500 z-[52] `}
     >
       <div className=" lg:hidden " onClick={() => setOpenMenu(!openMenu)}>
@@ -33,11 +56,15 @@ const AdminSideBar = ({ openMenu, setOpenMenu, admin }) => {
           className=" h-[31.6px]  sm:h-[38px] mx-1"
         />
       </div>
-      <div className="flex justify-between px-5 pb-5">
+      <div className="flex justify-between px-5 pt-5 lg:pt-0 pb-5">
         <p className="self-center">{admin?.name + "  " + admin?.lastName}</p>
-        <span className="text-btn self-center bg-btn bg-opacity-20 text-[13px] rounded-2xl px-2 py-1 ">
-          انلاین
-        </span>
+        <button
+          onClick={logout}
+          className="text-red-500 gap-1 flex hover:bg-opacity-100 duration-200 hover:text-white  self-center bg-red-500  bg-opacity-20 text-[13px] rounded-2xl px-3 py-1 "
+        >
+          <FaPowerOff className="self-center " />
+          <p>خروج </p>
+        </button>
       </div>
       <div>
         <AdminSideBarList

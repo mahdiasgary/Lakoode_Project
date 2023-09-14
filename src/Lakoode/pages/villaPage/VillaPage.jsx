@@ -36,6 +36,7 @@ const VillaPagee = () => {
   const optionsY = {
     year: "numeric",
   };
+  const [loadingButton, setLoadingButton] = useState(false);
 
   let nowYear = new Date().toLocaleDateString("fa-IR-u-nu-latn", optionsY);
   const [year, setyear] = useState(nowYear);
@@ -51,7 +52,6 @@ const VillaPagee = () => {
         setvillaInf(res.data.data);
       });
   }, []);
-  // console.log(villaInf);
   const [img, setImg] = useState([false, "", villaInf]);
   const optionsD = {
     day: "numeric",
@@ -91,7 +91,7 @@ const VillaPagee = () => {
         axios({
           withCredentials: true,
           method: "post",
-          url: `https://localhost:7103/api/Admin/Reservation/GetPricedDays?villaId=${id}&month=${
+          url: `https://localhost:7103/api/Home/GetCalender?villaId=${id}&month=${
             rangeDays.s.shamsiDate?.split("/")[1]
           }&year=${rangeDays.s.shamsiDate?.split("/")[0]}`,
         }).then(function (response) {
@@ -133,7 +133,6 @@ const VillaPagee = () => {
       }
       return dateArray;
     }
-    console.log(seletedDays);
 
     const dates = dateRange(
       rangeDays.f.date?.split("T")[0],
@@ -159,7 +158,6 @@ const VillaPagee = () => {
         }
       });
   }, []);
-  // console.log(rangeDays)
   const [ISdisss, setISDis] = useState([false, ""]);
   const [disss, setDis] = useState("");
   useEffect(() => {
@@ -191,7 +189,6 @@ const VillaPagee = () => {
       data: formData,
     })
       .then(function (response) {
-        console.log(response);
         if (response.data.isSuccessFull) {
           setISDis([true, response.data.data]);
           toast.success("کد تخفیف اعمال شد", {
@@ -216,7 +213,12 @@ const VillaPagee = () => {
       });
   };
   const [show, setshow] = useState(false);
+  const [code, setcode] = useState(false);
+  const [corat, setcorat] = useState(false);
+
   const submitHand = () => {
+    setLoadingButton(true);
+
     const formData = new FormData();
     formData.append("StartDay", parseInt(rangeDays.f.shamsiDate.split("/")[2]));
     formData.append(
@@ -241,7 +243,11 @@ const VillaPagee = () => {
       data: formData,
     })
       .then(function (response) {
+        setLoadingButton(false);
+
         if (response.data.isSuccessFull) {
+          setcode(response.data.data);
+          setcorat(false);
           setshow(true);
           toast.success("رزرو اولیه برای شما میهمان عزیر ثبت شد", {
             autoClose: 1100,
@@ -263,7 +269,7 @@ const VillaPagee = () => {
         });
       });
   };
-  const [check ,setCheck]=useState(false)
+  const [check, setCheck] = useState(false);
   return (
     villaInf?.images[0] && (
       <div className={`bg-screenColor  dark:text-white `}>
@@ -326,16 +332,16 @@ const VillaPagee = () => {
                         </div>
                       </div>
                       <div
-                        className={`${
+                        className={` ${
                           priceToday?.disscount === 0 && "hidden"
-                        } faNumber w-[120px] flex text-white text-center pt-1  px-1 bg-blue-500  self-  rounded-xl text- font-semibold`}
+                        } faNumber w-[120px] flex justify-center text-white text-center pt-1  px-1 bg-blue-500  self-  rounded-xl text- font-semibold`}
                       >
-                        <p>
+                        <p className="self-center  pr-2">
                           {parseInt(
                             priceToday?.disscount?.toString().slice(0, -3)
                           ).toLocaleString()}
                         </p>
-                        <span className="text-[12px] self-start pr-1">
+                        <span className="text-[12px] self-center pr-1">
                           هزار تومان تخفیف
                         </span>
                       </div>{" "}
@@ -436,218 +442,268 @@ const VillaPagee = () => {
                 </div>
               </div> */}
 
-              <div className="w-full max-h-[370px]  overflow-y-auto dark:bg-border dark:bg-opacity-60 dark:border-0  lg:w-[480px] mt-10 self-center border pt-4  rounded-2xl ">
-                <p className="opacity-70 px-2   font-bold">امکانات :</p>
+              <div
+                dir="ltr"
+                className="w-full max-h-[370px] scrollbar-thin dark:scrollbar-track-[#1c1d21] scrollbar-track-gray-300 dark:scrollbar-thumb-border scrollbar-thumb-gray-400 scrollbar-track-rounded-md   scrollbar-thumb-rounded-md  overflow-y-auto dark:bg-border dark:bg-opacity-60 dark:border-0  lg:w-[480px] mt-10 self-center border pt-4  rounded-2xl "
+              >
+                <p className="opacity-70 px-2 text-end  font-bold">
+                  {" "}
+                  : امکانات{" "}
+                </p>
                 <div className="flex gap-7 md:gap-10 justify-center px-2 ">
                   <div className="flex justify-around  flex-wrap gap-7 md:gap-1">
-                    <div className="min-w-[125px]  my-2 ">
-                      <p className="opacity-60 font-bold text-sm">
-                        امکانات رفاهی
-                      </p>
-                      <div>
-                        <div className="mt-2 ">
-                          {JSON.parse(villaInf?.villaFacilities).map((o) => (
-                            <div
-                              key={o}
-                              className={` text-[15px] font-bold ${
-                                10 <= o && o <= 30 ? "flex" : "hidden"
-                              } `}
-                            >
-                              <div className="self-center mx-2 text-[19px] ">
-                                {
-                                  optiona[optiona.findIndex((w) => w.id === o)]
-                                    ?.icon
-                                }
-                              </div>
-                              <p>
-                                {
-                                  optiona[optiona.findIndex((w) => w.id === o)]
-                                    ?.title
-                                }
-                              </p>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
                     <div className="w-[125px] my-2 ">
-                      <p className="opacity-60 font-bold text-sm">
+                      <p className="opacity-60 font-bold text-end text-sm">
                         امکانات آشپزخانه
                       </p>
                       <div>
                         <div className="mt-2 mb-8">
-                          {JSON.parse(villaInf?.villaFacilities).map((o) => (
-                            <div
-                              key={o}
-                              className={` text-[15px] font-bold ${
-                                1 <= o && o <= 9 ? "flex" : "hidden"
-                              } `}
-                            >
-                              <div className="self-center mx-2 text-[19px] ">
-                                {
-                                  optiona[optiona.findIndex((w) => w.id === o)]
-                                    ?.icon
-                                }
+                          {JSON.parse(villaInf?.villaFacilities).map(
+                            (o, index) => (
+                              <div
+                                key={index}
+                                className={` text-[15px] font-bold ${
+                                  1 <= o && o <= 9
+                                    ? "flex justify-end"
+                                    : "hidden"
+                                } `}
+                              >
+                                <p className="text-end">
+                                  {
+                                    optiona[
+                                      optiona.findIndex((w) => w.id === o)
+                                    ]?.title
+                                  }
+                                </p>
+                                <div className="self-center mx-2 text-[19px] ">
+                                  {
+                                    optiona[
+                                      optiona.findIndex((w) => w.id === o)
+                                    ]?.icon
+                                  }
+                                </div>
                               </div>
-                              <p>
-                                {
-                                  optiona[optiona.findIndex((w) => w.id === o)]
-                                    ?.title
-                                }
-                              </p>
-                            </div>
-                          ))}
+                            )
+                          )}
                         </div>
                       </div>
                     </div>
                     <div className="w-[125px] my-2 ">
-                      <p className="opacity-60 font-bold text-sm">
+                      <p className="opacity-60 font-bold text-end text-sm">
                         سرمایشی گرمایشی
                       </p>
                       <div>
                         <div className="mt-2 ">
-                          {JSON.parse(villaInf?.villaFacilities).map((o) => (
-                            <div
-                              key={o}
-                              className={` text-[15px] font-bold ${
-                                31 <= o && o <= 35 ? "flex" : "hidden"
-                              } `}
-                            >
-                              <div className="self-center mx-2 text-[19px] ">
-                                {
-                                  optiona[optiona.findIndex((w) => w.id === o)]
-                                    ?.icon
-                                }
+                          {JSON.parse(villaInf?.villaFacilities).map(
+                            (o, index) => (
+                              <div
+                                key={index}
+                                className={` text-[15px] font-bold ${
+                                  31 <= o && o <= 35
+                                    ? "flex justify-end"
+                                    : "hidden"
+                                } `}
+                              >
+                                <p className="text-end">
+                                  {
+                                    optiona[
+                                      optiona.findIndex((w) => w.id === o)
+                                    ]?.title
+                                  }
+                                </p>
+                                <div className="self-center mx-2 text-[19px] ">
+                                  {
+                                    optiona[
+                                      optiona.findIndex((w) => w.id === o)
+                                    ]?.icon
+                                  }
+                                </div>
                               </div>
-                              <p>
-                                {
-                                  optiona[optiona.findIndex((w) => w.id === o)]
-                                    ?.title
-                                }
-                              </p>
-                            </div>
-                          ))}
+                            )
+                          )}
                         </div>
                       </div>
                     </div>
-                    <div className="w-[125px] my-2 ">
-                      <p className="opacity-60 font-bold text-sm">
-                        خدمات رفاهی
+
+                    <div className="w-[125px]  my-2 ">
+                      <p className="opacity-60 font-bold text-end text-sm">
+                        امکانات رفاهی
                       </p>
                       <div>
                         <div className="mt-2 ">
-                          {JSON.parse(villaInf?.villaFacilities).map((o) => (
-                            <div
-                              key={o}
-                              className={` text-[15px] font-bold ${
-                                36 <= o && o <= 45 ? "flex" : "hidden"
-                              } `}
-                            >
-                              <div className="self-center mx-2 text-[19px] ">
-                                {
-                                  optiona[optiona.findIndex((w) => w.id === o)]
-                                    ?.icon
-                                }
+                          {JSON.parse(villaInf?.villaFacilities).map(
+                            (o, index) => (
+                              <div
+                                key={index}
+                                className={` text-[15px] font-bold ${
+                                  10 <= o && o <= 30
+                                    ? "flex  justify-end "
+                                    : "hidden"
+                                } `}
+                              >
+                                <p className="text-end">
+                                  {
+                                    optiona[
+                                      optiona.findIndex((w) => w.id === o)
+                                    ]?.title
+                                  }
+                                </p>
+                                <div className="self-center mx-2 text-[19px] ">
+                                  {
+                                    optiona[
+                                      optiona.findIndex((w) => w.id === o)
+                                    ]?.icon
+                                  }
+                                </div>
                               </div>
-                              <p>
-                                {
-                                  optiona[optiona.findIndex((w) => w.id === o)]
-                                    ?.title
-                                }
-                              </p>
-                            </div>
-                          ))}
+                            )
+                          )}
                         </div>
                       </div>
                     </div>
 
                     <div className="w-[125px] my-2 ">
-                      <p className="opacity-60 font-bold text-sm">
+                      <p className="opacity-60 font-bold text-end text-sm">
+                        خدمات رفاهی
+                      </p>
+                      <div>
+                        <div className="mt-2 ">
+                          {JSON.parse(villaInf?.villaFacilities).map(
+                            (o, index) => (
+                              <div
+                                key={index}
+                                className={` text-[15px] font-bold ${
+                                  36 <= o && o <= 45
+                                    ? "flex justify-end"
+                                    : "hidden"
+                                } `}
+                              >
+                                <p className="text-end">
+                                  {
+                                    optiona[
+                                      optiona.findIndex((w) => w.id === o)
+                                    ]?.title
+                                  }
+                                </p>
+                                <div className="self-center mx-2 text-[19px] ">
+                                  {
+                                    optiona[
+                                      optiona.findIndex((w) => w.id === o)
+                                    ]?.icon
+                                  }
+                                </div>
+                              </div>
+                            )
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="w-[125px] my-2 ">
+                      <p className="opacity-60 font-bold text-end text-sm">
                         موارد ایمنی
                       </p>
                       <div>
                         <div className="mt-2 ">
-                          {JSON.parse(villaInf?.villaFacilities).map((o) => (
-                            <div
-                              key={o}
-                              className={` text-[15px] font-bold ${
-                                61 <= o && o <= 65 ? "flex" : "hidden"
-                              } `}
-                            >
-                              <div className="self-center mx-2 text-[19px] ">
-                                {
-                                  optiona[optiona.findIndex((w) => w.id === o)]
-                                    ?.icon
-                                }
+                          {JSON.parse(villaInf?.villaFacilities).map(
+                            (o, index) => (
+                              <div
+                                key={index}
+                                className={` text-[15px] font-bold ${
+                                  61 <= o && o <= 65
+                                    ? "flex justify-end"
+                                    : "hidden"
+                                } `}
+                              >
+                                <p className="text-end">
+                                  {
+                                    optiona[
+                                      optiona.findIndex((w) => w.id === o)
+                                    ]?.title
+                                  }
+                                </p>
+                                <div className="self-center mx-2 text-[19px] ">
+                                  {
+                                    optiona[
+                                      optiona.findIndex((w) => w.id === o)
+                                    ]?.icon
+                                  }
+                                </div>
                               </div>
-                              <p>
-                                {
-                                  optiona[optiona.findIndex((w) => w.id === o)]
-                                    ?.title
-                                }
-                              </p>
-                            </div>
-                          ))}
+                            )
+                          )}
                         </div>
                       </div>
                     </div>
                     <div className="w-[125px] my-2 ">
-                      <p className="opacity-60 font-bold text-sm">
+                      <p className="opacity-60 font-bold text-end text-sm">
                         امکانات تفریحی
                       </p>
                       <div>
                         <div className="mt-2 ">
-                          {JSON.parse(villaInf?.villaFacilities).map((o) => (
-                            <div
-                              key={o}
-                              className={` text-[15px] font-bold ${
-                                46 <= o && o <= 55 ? "flex" : "hidden"
-                              } `}
-                            >
-                              <div className="self-center mx-2 text-[19px] ">
-                                {
-                                  optiona[optiona.findIndex((w) => w.id === o)]
-                                    ?.icon
-                                }
+                          {JSON.parse(villaInf?.villaFacilities).map(
+                            (o, index) => (
+                              <div
+                                key={index}
+                                className={` text-[15px] font-bold ${
+                                  46 <= o && o <= 55
+                                    ? "flex justify-end"
+                                    : "hidden"
+                                } `}
+                              >
+                                <p className="text-end">
+                                  {
+                                    optiona[
+                                      optiona.findIndex((w) => w.id === o)
+                                    ]?.title
+                                  }
+                                </p>
+                                <div className="self-center mx-2 text-[19px] ">
+                                  {
+                                    optiona[
+                                      optiona.findIndex((w) => w.id === o)
+                                    ]?.icon
+                                  }
+                                </div>
                               </div>
-                              <p>
-                                {
-                                  optiona[optiona.findIndex((w) => w.id === o)]
-                                    ?.title
-                                }
-                              </p>
-                            </div>
-                          ))}
+                            )
+                          )}
                         </div>
                       </div>
                     </div>
                     <div className="w-[125px] my-2 ">
-                      <p className="opacity-60 font-bold text-sm">
+                      <p className="opacity-60 font-bold text-end text-sm">
                         سرویس بهداشتی
                       </p>
                       <div>
                         <div className="mt-2 ">
-                          {JSON.parse(villaInf?.villaFacilities).map((o) => (
-                            <div
-                              key={o}
-                              className={` text-[15px] font-bold ${
-                                56 <= o && o <= 60 ? "flex" : "hidden"
-                              } `}
-                            >
-                              <div className="self-center mx-2 text-[19px] ">
-                                {
-                                  optiona[optiona.findIndex((w) => w.id === o)]
-                                    ?.icon
-                                }
+                          {JSON.parse(villaInf?.villaFacilities).map(
+                            (o, index) => (
+                              <div
+                                key={index}
+                                className={` text-[15px] font-bold ${
+                                  56 <= o && o <= 60
+                                    ? "flex justify-end"
+                                    : "hidden"
+                                } `}
+                              >
+                                <p className="text-end">
+                                  {
+                                    optiona[
+                                      optiona.findIndex((w) => w.id === o)
+                                    ]?.title
+                                  }
+                                </p>
+                                <div className="self-center mx-2 text-[19px] ">
+                                  {
+                                    optiona[
+                                      optiona.findIndex((w) => w.id === o)
+                                    ]?.icon
+                                  }
+                                </div>
                               </div>
-                              <p>
-                                {
-                                  optiona[optiona.findIndex((w) => w.id === o)]
-                                    ?.title
-                                }
-                              </p>
-                            </div>
-                          ))}
+                            )
+                          )}
                         </div>
                       </div>
                     </div>
@@ -676,20 +732,20 @@ const VillaPagee = () => {
                   modules={[Autoplay, Pagination, Navigation]}
                   className={` h-[260px] md:h-[350px] rounded-3xl x:h-[50vh] max-w-[700px] x:max-w-[58vw] flex  `}
                 >
-                  {villaInf?.images?.map((item) => (
-                    <SwiperSlide key={item}>
+                  {villaInf?.images?.map((item, index) => (
+                    <SwiperSlide key={index}>
                       <div
                         onClick={() =>
                           setImg([
                             true,
-                            `https://localhost:7103/api/Admin/Villa/GetImage?imageName=${item?.imageName}`,
+                            `https://localhost:7103/api/Home/GetImageInIndex?imageName=${item?.imageName}`,
                             img[2],
                           ])
                         }
                         className=" h-[270px] cursor-pointer flex justify-center md:h-[350px] x:h-[50vh] max-w-[700px] x:max-w-[58vw] flex dark:bg-transparent  bg-black bg-opacity-70 text-textDark rounded-3xl "
                       >
                         <img
-                          src={`https://localhost:7103/api/Admin/Villa/GetImage?imageName=${item?.imageName}`}
+                          src={`https://localhost:7103/api/Home/GetImageInIndex?imageName=${item?.imageName}`}
                           alt=""
                           className="rounded-3xl"
                         />
@@ -703,11 +759,11 @@ const VillaPagee = () => {
                   onClick={() =>
                     setImg([
                       true,
-                      `https://localhost:7103/api/Admin/Villa/GetImage?imageName=${villaInf?.images[1]?.imageName}`,
+                      `https://localhost:7103/api/Home/GetImageInIndex?imageName=${villaInf?.images[1]?.imageName}`,
                       img[2],
                     ])
                   }
-                  src={`https://localhost:7103/api/Admin/Villa/GetImage?imageName=${villaInf?.images[1]?.imageName}`}
+                  src={`https://localhost:7103/api/Home/GetImageInIndex?imageName=${villaInf?.images[1]?.imageName}`}
                   alt=""
                   className="rounded-3xl w-[47vw] cursor-pointer h-[150px] sm:h-[160px] md:h-[170px] lg:h-[182px] sm:w-[48vw] md:w-[35vw] lg:w-[21vw] xl:w-[24vw]"
                 />
@@ -716,11 +772,11 @@ const VillaPagee = () => {
                   onClick={() =>
                     setImg([
                       true,
-                      `https://localhost:7103/api/Admin/Villa/GetImage?imageName=${villaInf?.images[2]?.imageName}`,
+                      `https://localhost:7103/api/Home/GetImageInIndex?imageName=${villaInf?.images[2]?.imageName}`,
                       img[2],
                     ])
                   }
-                  src={`https://localhost:7103/api/Admin/Villa/GetImage?imageName=${villaInf?.images[2]?.imageName}`}
+                  src={`https://localhost:7103/api/Home/GetImageInIndex?imageName=${villaInf?.images[2]?.imageName}`}
                   alt=""
                   className="rounded-3xl w-[42vw] cursor-pointer h-[150px] lg:h-[182px] sm:h-[160px] md:h-[170px]  md:w-[35vw] lg:w-[21vw] xl:w-[24vw]"
                 />
@@ -792,7 +848,7 @@ const VillaPagee = () => {
 
           <div className="flex my-10 lg:flex-row flex-col justify-center mb-20">
             <div className="flex  justify-center">
-              <div className="w-[350px]  cursor-not-allowed h-[480px]  dark:border-0  border rounded-3xl p-5 bg-white dark:bg-border dark:bg-opacity-60">
+              <div className="w-[350px]   h-[480px]  dark:border-0  border rounded-3xl p-5 bg-white dark:bg-border dark:bg-opacity-60">
                 <p>تاریح مورد نظر را روی تقویم انتخاب کنید</p>
                 <div className="border dark:bg-border dark:bg-opacity dark:border-0  rounded-xl">
                   <div className="flex mt-3 p-5 justify-between">
@@ -850,8 +906,9 @@ const VillaPagee = () => {
                         type="text"
                         className={`${
                           rangeDays.f === "" ||
-                          (rangeDays.s === "" && "opacity-10")
-                        }  rounded-r-xl border text-black border-btn outline-none w-full dark:bg-transparent px-5`}
+                          (rangeDays.s === "" &&
+                            "opacity-10 cursor-not-allowed")
+                        }  rounded-r-xl border text-black dark:text-white border-btn outline-none w-full dark:bg-transparent px-5`}
                       />
                       <button
                         disabled={
@@ -880,6 +937,9 @@ const VillaPagee = () => {
                   </p>
 
                   <input
+                    disabled={
+                      rangeDays.f === "" || (rangeDays.s === "" && true)
+                    }
                     type="checkbox"
                     onChange={(e) => setCheck(e.target.checked)}
                     className="w-4 h-4 mt-[3px] mx-1 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
@@ -894,7 +954,7 @@ const VillaPagee = () => {
                     disabled={
                       rangeDays.f === "" || (rangeDays.s === "" && true)
                     }
-                    onClick={submitHand}
+                    onClick={() => setcorat(true)}
                     className={`${
                       rangeDays.f === "" || rangeDays.s === "" || !check
                         ? "cursor-not-allowed bg-gray-500"
@@ -986,7 +1046,7 @@ const VillaPagee = () => {
             </div>
           </div>
           <div>
-            <div className="px-4 z-0 lg:hidden overflow-hidden">
+            <div className="px-4 relative z-[0] lg:hidden overflow-hidden">
               <MapContainer
                 style={{
                   width: "100%",
@@ -1010,18 +1070,18 @@ const VillaPagee = () => {
         </div>
         <Foter />
         {show && (
-          <div className="w-full h-screen flex flex-col justify-center fixed bg-slate-600 z-[60] top-0 bg-opacity-60">
-            <span className="bg-screenLight max-w-[80vw] self-center rounded-3xl border-btn border-2 border-dashed p-10 ">
-              <p className="text-center text-[19px]  pb-5 text-green-500 font-bold">
+          <div className="w-full h-screen flex flex-col justify-center fixed dark:bg-gray-900 bg-gray-600 z-[60] top-0 dark:bg-opacity-80 bg-opacity-60">
+            <div className="bg-screenLight dark:bg-border backdrop-blur-sm dark:bg-opacity-90  max-w-[80vw] self-center rounded-3xl border-btn border-2 border-dashed p-6 md:p-10 ">
+              <p className="text-center text-[19px]  pb-1 text-green-500 font-bold">
                 رزرو اولیه شما با موفقیت ثبت شد.
               </p>
-              <p className=" font-bold">میهمان عزیز</p>
-              <p className="text-blue-500">
+              <p className="text-center text-[19px] pb-3 lg:pb-5 text-green-500 font-bold">
+                کد پیگیری {code}{" "}
+              </p>
+              <p className=" font-bold">مهمان عزیز</p>
+              <p className="text-blue-500 font-semibold ">
                 جهت نهایی شدن رزرو ویلای شما تیم پشتیبانی لاکوده در اسرع وقت با
                 شما تماس خواهد گرفت.
-              </p>
-              <p className="text-blue-500">
-                در صورت داشتن کد تخفیف به همکاران ما ارائه دهید.
               </p>
 
               <div>
@@ -1101,13 +1161,141 @@ const VillaPagee = () => {
                   setRangeDays({ f: "", s: "", m: "", y: "" });
                   setshow(false);
                   setISDis([false, ""]);
-                  setDis('');
+                  setDis("");
                 }}
-                className="w-full text-center mt-8 px-10 py-3 hover:bg-blue-800 duration-200 cursor-pointer rounded-2xl bg-btn font-bold  text-white"
+                className="w-full text-center mt-8  px-10 py-3 hover:bg-blue-800 duration-200 cursor-pointer rounded-2xl bg-btn font-bold  text-white"
               >
                 تایید
               </button>
-            </span>
+            </div>
+          </div>
+        )}
+        {corat && (
+          <div className="w-full h-screen flex flex-col justify-center fixed dark:bg-gray-900 bg-gray-600 z-[66] top-0 dark:bg-opacity-80 bg-opacity-60">
+            <div className="bg-screenLight dark:bg-border backdrop-blur-sm dark:bg-opacity-90  max-w-[80vw] self-center rounded-3xl border-btn border-2 border- p-10 ">
+              <p className="text-center text-[18px]  pb-1 text-btn font-bold">
+                آیا تمایل به ادامه رزرو دارید؟{" "}
+              </p>
+
+              <div>
+                <p>جهت ارتباط با ما به این شماره تماس بگیرید</p>
+                <a
+                  href="tel:09134260356"
+                  className="text-lg font-bold flex gap-1"
+                >
+                  <span>0356</span>
+                  <span>426</span>
+                  <span>0913</span>
+                </a>
+              </div>
+              <div className=" flex pt-10">
+                <div>تاریخ ورود</div>{" "}
+                <div className="pr-3">
+                  {new Date(rangeDays.f.date?.split("T")[0]).toLocaleDateString(
+                    "fa-IR-u-nu-latn",
+                    option
+                  )}
+                </div>
+              </div>
+              <div className="flex">
+                <div className="">تاریخ خروج</div>{" "}
+                <div className="pr-3 ">
+                  {new Date(rangeDays.s.date?.split("T")[0]).toLocaleDateString(
+                    "fa-IR-u-nu-latn",
+                    option
+                  )}
+                </div>
+              </div>
+
+              <div className="border-b ">
+                <div className="flex justify-between text-sm pt-4 py-2">
+                  <p> {seletedDays.length} شب اقامت </p>
+                  <p>
+                    {seletedDays
+                      .reduce((partialSum, a) => partialSum + a, 0)
+                      .toLocaleString()}{" "}
+                    تومان
+                  </p>
+                </div>
+
+                <div className="flex justify-between text-sm  pb-2">
+                  <p> مقدار تخفیف</p>
+                  <p>
+                    {ISdisss[0]
+                      ? parseInt(
+                          seletedDays.reduce(
+                            (partialSum, a) => partialSum + a,
+                            0
+                          ) - ISdisss[1]
+                        ).toLocaleString()
+                      : daysdis
+                          .reduce((partialSum, a) => partialSum + a, 0)
+                          .toLocaleString()}{" "}
+                    تومان
+                  </p>
+                </div>
+              </div>
+              <div className="flex justify-between pt-2">
+                <p>جمع مبلغ قابل پرداخت</p>
+                <p>
+                  {ISdisss[0]
+                    ? parseInt(ISdisss[1]).toLocaleString()
+                    : parseInt(
+                        seletedDays.reduce(
+                          (partialSum, a) => partialSum + a,
+                          0
+                        ) - daysdis.reduce((partialSum, a) => partialSum + a, 0)
+                      ).toLocaleString()}{" "}
+                  تومان
+                </p>
+              </div>
+
+              {loadingButton ? (
+                <button
+                  disabled={true}
+                  className="w-full  text-center mt-8   py-3  duration-200 cursor-not-allowed rounded-2xl bg-btn font-bold  text-white"
+                >
+                  <div dir="rtl" className="flex justify-center">
+                    <div className="self-center">
+                      <svg
+                        className="w-5 h-5 mx-3 -ml-1 text-white animate-spin"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          class="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          stroke-width="4"
+                        ></circle>
+                        <path
+                          class="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
+                      </svg>
+                    </div>
+                    <p className="mx-2 px-2">صبور باشید...</p>{" "}
+                  </div>
+                </button>
+              ) : (
+                <button
+                  onClick={submitHand}
+                  className="w-full text-center mt-8  px-10 py-3 hover:bg-blue-800 duration-200 cursor-pointer rounded-2xl bg-btn font-bold  text-white"
+                >
+                  ادامه و رزرو{" "}
+                </button>
+              )}
+              <button
+                onClick={() => setcorat(false)}
+                className="w-full text-center mt-2 px-9 hover:text-white py-2 hover:bg-red-500 duration-200 cursor-pointer rounded-2xl text-red-500 font-bold  border-2 border-red-500"
+              >
+                لغو{" "}
+              </button>
+            </div>
           </div>
         )}
       </div>

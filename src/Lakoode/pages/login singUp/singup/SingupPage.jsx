@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import a from "../login/Screenshot (168).png";
+import a from "../../../assets/88.png";
 import b from "../login/Most-Expensive-Movies-Ever-Made.png";
 import SingupForm from "../../../components/singup login/singup/SingupForm";
 import VerifyEmail from "../../../components/singup login/verify email/VerifyEmail";
@@ -129,7 +129,7 @@ const SingupPage = ({ setOpenMenu, from, openMenu, history }) => {
       {/* log in image background */}
       {localStorage.getItem("DarkMode") === "dark" ? (
         <img
-          className="opacity-60 transform -scale-x-100  h-screen hidden  md:flex   fixed left-0 top-0 z-[0] "
+          className="opacity-70 transform -scale-x-100  h-screen hidden  md:flex   fixed left-0 top-0 z-[0] "
           src={a}
           alt=""
         />

@@ -24,7 +24,7 @@ const UsersItem = ({ user, removeUserHandler, setmobile, history }) => {
       if (r.isConfirmed) {
         axios
           .get(
-            `https://localhost:7103/api/Admin/User/DisableUser?mobile=${user.mobile}`
+            `https://localhost:7103/api/Admin/User/DisableUser?mobile=${user.mobile}`,{withCredentials:true}
           )
           .then((res) => {
             window.location.reload(); // history.push("/admin/villaslist");
@@ -52,7 +52,7 @@ const UsersItem = ({ user, removeUserHandler, setmobile, history }) => {
       if (r.isConfirmed) {
         axios
           .get(
-            `https://localhost:7103/api/Admin/User/EnableUser?mobile=${user.mobile}`
+            `https://localhost:7103/api/Admin/User/EnableUser?mobile=${user.mobile}`,{withCredentials:true}
           )
           .then((res) => {
             window.location.reload();

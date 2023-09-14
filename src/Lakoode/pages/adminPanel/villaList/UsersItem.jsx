@@ -20,22 +20,22 @@ const UsersItem = ({ user, removeVillaHandler }) => {
       confirmButtonText: "بله حذف شود",
       cancelButtonText: "لغو",
     }).then((r) => {
-      if(r.isConfirmed){
-
-      axios
-        .get("https://localhost:7103/api/Admin/Villa/Disable", {
-          params: { id: user.id },
-          withCredentials:true
-        })
-        .then((res) => {
-          history.push("/admin/villaslist");
-          Swal.fire({
-            title: "موفق",
-            text: ` ویلا ${user.name} حذف شد.`,
-            icone: "success",
-            confirmButtonColor: "#3085d6",
+      if (r.isConfirmed) {
+        axios
+          .get("https://localhost:7103/api/Admin/Villa/Disable", {
+            params: { id: user.id },
+            withCredentials: true,
+          })
+          .then((res) => {
+            history.push("/admin/villaslist");
+            Swal.fire({
+              title: "موفق",
+              text: ` ویلا ${user.name} حذف شد.`,
+              icone: "success",
+              confirmButtonColor: "#3085d6",
+            });
           });
-        });}
+      }
     });
   };
   const history = useHistory();
@@ -55,7 +55,7 @@ const UsersItem = ({ user, removeVillaHandler }) => {
       <td>
         <div className="flex px-2 group-hover:dark:bg-[#24272e] group-hover:bg-[#6d7077] duration-300 self-center h-[64px] flex-col justify-center text-center my-1">
           <img
-            src={`https://localhost:7103/api/Admin/Villa/GetImage?imageName=${user.images[0].imageName}`}
+            src={`https://localhost:7103/api/Home/GetImageInIndex?imageName=${user.images[0].imageName}`}
             // src={`https://localhost:7103/Content/images/`}
             alt="ff"
             className="w-[40px] h-[40px] self-center rounded-[50%] "

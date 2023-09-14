@@ -149,9 +149,9 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="px-8 lg:px-20 mt-10">
-          <div className="text-[17px] flex my-2 lg:self-center font-bold ">
+          <div className="md:text-[17px] flex flex-col lg:flex-row my-2 lg:self-center font-bold ">
             وضعیت رزرواسیون ویلا ها ( امروز )
-            <div className="mx-4 text-sm self-center opacity-90">
+            <div className="mx-4 text-sm lg:self-center opacity-90">
               {new Date().toLocaleDateString("fa-IR-u-nu-latn", option)}
             </div>
           </div>
@@ -314,8 +314,10 @@ const Dashboard = () => {
               <div className="text-[17px] my-2 lg:self-center font-bold ">
                 لیست رزرو های تایید شده
               </div>
-              <div className="flex">
-                <p className="self-center">رزرو های ثبت شده در ماه</p>
+              <div className="flex flex-col lg:flex-row">
+                <p className="lg:self-center">رزرو های ثبت شده</p>
+                <div className="flex mx-2">
+                <p className="self-center ">در ماه</p>
                 <select
                   onChange={(e) =>
                     setSearch([e.target.value, search[1], search[2]])
@@ -347,6 +349,8 @@ const Dashboard = () => {
                     </option>
                   ))}
                 </select>
+
+                </div>
               </div>
               <div>
                 <input
@@ -356,7 +360,7 @@ const Dashboard = () => {
                   }
                   type="text"
                   placeholder="جستجوی کد رهگیری..."
-                  className="h-[45px] w-[220px] rounded-2xl px-2 dark:bg-transparent border-2 dark:border-border outline-btn "
+                  className="h-[45px] placeholder:text-sm w-[220px] rounded-2xl px-2 dark:bg-transparent border-2 dark:border-border outline-btn "
                 />
               </div>
             </div>

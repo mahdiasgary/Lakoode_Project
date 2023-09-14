@@ -33,7 +33,7 @@ const Ritem = ({ user, setState }) => {
           headers: { "Content-Type": "multipart/form-data" },
         }).then(function (response) {
           window.location.reload();
-      setState(Math.random());
+          setState(Math.random());
           toast.success("رزرو لغو شد", {
             autoClose: 1100,
             position: "top-left",
@@ -108,9 +108,11 @@ const Ritem = ({ user, setState }) => {
       </td>
 
       <td>
-        <div className="flex px-2  group-hover:dark:bg-[#24272e] group-hover:bg-gray-500 duration-300 self-center h-[64px] flex-col justify-center text-center my-1">
-          {user.user.mobile}
-        </div>
+        <a href={`tel:${user.user.mobile}`}>
+          <div className="flex px-2  group-hover:dark:bg-[#24272e] group-hover:bg-gray-500 duration-300 self-center h-[64px] flex-col justify-center text-center my-1">
+            {user.user.mobile}
+          </div>
+        </a>
       </td>
       <td>
         <div className="flex px-2  group-hover:dark:bg-[#24272e] group-hover:bg-gray-500 duration-300 self-center h-[64px] flex-col justify-center text-center my-1">
@@ -146,8 +148,8 @@ const Ritem = ({ user, setState }) => {
       <td>
         <div className="flex px-2 group-hover:dark:bg-[#24272e] group-hover:bg-gray-500 duration-300 self-center h-[64px] flex-col justify-center text-center my-1">
           {user.isApproved ? (
-            <div className="text-[12px] py-2 text-green-600 px-2 group-hover:text-white bg-green-500 bg-opacity-30 font-bold rounded-lg ">
-              تایید شده
+            <div className="text-[12px] py-2 text-center w-[72px] text-green-600 px-2 group-hover:text-white bg-green-500 bg-opacity-30 font-bold rounded-lg ">
+            تایید شده
             </div>
           ) : (
             <div

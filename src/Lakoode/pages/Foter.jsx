@@ -3,7 +3,7 @@ import logoImageDark from "../assets/logoImageDark.png";
 import { FaTelegram, FaInstagram, FaLinkedin } from "react-icons/fa";
 const Foter = () => {
   return (
-    <div className=" rounded-t-3xl relative dark:bg-opacity-80 dark:bg-border dark:text-white bg-[#e5e7eb] text-black md:px-16 pt-10 pb-10 mt-10 ">
+    <div className=" rounded-t-3xl relative dark:bg-opacity-80 dark:bg-border dark:text-white bg-[#e5e7eb] text-black md:px-16 pt-10 pb-10 mt-72 ">
       <div className="flex flex-col lg:flex-row lg:justify-between ">
         <div className="  flex justify-center md:w-[470px] text-sm leading-5 md:leading-7">
           <div className="px-5 lg:py-0 lg:px-0 " id="about">
@@ -11,9 +11,16 @@ const Foter = () => {
               درباره مجتمع اقامتی لاکوده
             </p>
             <p className="text-[#6a6c87] dark:text-textPlight text-center md:text-start ">
-            مجموعه اقامتی لاکوده با بیش از ۸ سال سابقه در ارائه خدمت به میهمانان عزیز هم اکنون با مدیریت جدید سعی در ارتقا خدمات و افزایش سطح کیفی اقامت شما میمهمانان عزیز دارد
-این مجموعه واقع در شهر چالوس که اولین شهر شمالی مجاور دریا از سمت تهران است موقعیت ان در در منطقه گردشگری خط هشت میباشد و فاصله مجموعه اقامتی با دریا و اولین سوپرمارکت کمتر از ۱ دقیقه و با اولین نانوایی کمتر از ۵ دقیقه میباشد .اقلیم و فرهنگ منطقه اقامتی شرایط غیربومی و میهمان نواز برای مسافران از تمام نقاط ایران زا فراهم اورده 
-ما و تیم مجموعه تمام سعی و تلاش خود را بر این داریم تا برای شما تجربه ای به یادماندنی رقم بزنیم.
+              مجموعه اقامتی لاکوده با بیش از ۸ سال سابقه در ارائه خدمت به
+              میهمانان عزیز هم اکنون با مدیریت جدید سعی در ارتقا خدمات و افزایش
+              سطح کیفی اقامت شما میمهمانان عزیز دارد این مجموعه واقع در شهر
+              چالوس که اولین شهر شمالی مجاور دریا از سمت تهران است موقعیت ان در
+              در منطقه گردشگری خط هشت میباشد و فاصله مجموعه اقامتی با دریا و
+              اولین سوپرمارکت کمتر از ۱ دقیقه و با اولین نانوایی کمتر از ۵ دقیقه
+              میباشد .اقلیم و فرهنگ منطقه اقامتی شرایط غیربومی و میهمان نواز
+              برای مسافران از تمام نقاط ایران زا فراهم اورده ما و تیم مجموعه
+              تمام سعی و تلاش خود را بر این داریم تا برای شما تجربه ای به
+              یادماندنی رقم بزنیم.
             </p>
           </div>
         </div>
@@ -51,20 +58,20 @@ const Foter = () => {
           </div>
           <div className="mt-3">
             <p>ما رو در شبکه های اجتماعی دنبال کنید.</p>
-            <div className="flex justify-center gap-7 mt-3">
+            <div className="flex justify-center  mt-3">
               <div className="text-[#6a6c87]">
-                <a href="#">
+                {/* <a href="#">
                   <div>
                     <FaLinkedin className="text-[30px] text-[#6a6c87] dark:text-textPlight  duration-200 hover:text-blue-700 dark:hover:text-blue-600 " />
                   </div>
-                </a>
+                </a> */}
               </div>
-              <a href="#">
+              <a href="https://instagram.com/lakoode?igshid=ZGUzMzM3NWJiOQ==">
                 <div>
-                  <FaInstagram className="text-[30px] text-[#6a6c87] dark:text-textPlight  duration-200 hover:text-red-500 dark:hover:text-red-500" />
+                  <FaInstagram className="text-[30px] ml-5 text-[#6a6c87] dark:text-textPlight  duration-200 hover:text-red-500 dark:hover:text-red-500" />
                 </div>
               </a>{" "}
-              <a href="#">
+              <a href="https://t.me/villa_lakoode">
                 <div>
                   <FaTelegram className="text-[30px] text-[#6a6c87] dark:text-textPlight  duration-200 hover:text-blue-400 dark:hover:text-blue-400" />
                 </div>
@@ -91,8 +98,10 @@ const Foter = () => {
       <hr className="p-2 w-96" />
       Copyright-© {new Date().getFullYear()}
     </div> */}
+    <div className="text-center mt-10">
+      تمامی حقوق برای لاکوده محفوظ است
+    </div>
     </div>
   );
 };
 export default Foter;
-

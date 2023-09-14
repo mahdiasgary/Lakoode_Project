@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import a from "./Screenshot (168).png";
+import a from "../../../assets/88.png";
 import b from "./Most-Expensive-Movies-Ever-Made.png";
 import ForgetPasswordForm from "../../../components/singup login/login/ForgetPasswordForm";
 import VerifyEmail from "../../../components/singup login/verify email/VerifyEmail";
@@ -128,7 +128,7 @@ const ForgotPasswordPage = ({ history, openMenu, setOpenMenu,login }) => {
         {/* log in image background */}
         {localStorage.getItem("DarkMode") === "dark" ? (
         <img
-          className="opacity-60 transform -scale-x-100  h-screen hidden  md:flex   fixed left-0 top-0 z-[0] "
+          className="opacity-70 transform -scale-x-100  h-screen hidden  md:flex   fixed left-0 top-0 z-[0] "
           src={a}
           alt=""
         />

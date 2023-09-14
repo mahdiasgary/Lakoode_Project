@@ -5,7 +5,6 @@ import { Tilt } from "react-tilt";
 import { optiona } from "../../../constans/options";
 
 const Tiltt = ({ villa, defaultOptions }) => {
-
   const optionsM = {
     month: "numeric",
   };
@@ -16,33 +15,17 @@ const Tiltt = ({ villa, defaultOptions }) => {
   let nowmonth = new Date().toLocaleDateString("fa-IR-u-nu-latn", optionsM);
   let nowDate = new Date().toLocaleDateString("fa-IR-u-nu-latn");
   const [calData, setCalData] = useState([]);
-  const [calDataNow, setCalDataNow] = useState();
-  useEffect(() => {
-    axios({
-      withCredentials: true,
-      method: "post",
-      url: `https://localhost:7103/api/Admin/Reservation/GetPricedDays?villaId=${villa.id}&month=${nowmonth}&year=${nowyear}`,
-    }).then(function (response) {
-      let indexoNow = response.data?.data?.findIndex(
-        (d) => d.shamsiDate === nowDate
-      );
-      setCalDataNow(response.data?.data[indexoNow]);
-      setCalData(response.data?.data);
-    });
-  }, []);
-  //   console.log(calDataNow);
 
   return (
-    <div className={`${!villa.pricedDays[0]?.price && 'hidden'}`}>
+    <div className={`${!villa.pricedDays[0]?.price && "hidden"}`}>
       {" "}
       <Link
         key={villa.id}
         to={{
           pathname: `/villapage/${villa.id}`,
-          state: { id: villa.id, price: calData, priceToday:villa.pricedDays[0]  },
+          state: { id: villa.id, priceToday: villa.pricedDays[0] },
         }}
       >
-       
         <Tilt options={defaultOptions}>
           <div
             className={` bg-white dark:backdrop-blur-sm dark:text-white dark:bg-border dark:bg-opacity-50  dark:border-0 dark:border-border border my-4 cursor-pointer w-[80vw] sm:w-[330px] sm:h-[420px] rounded-3xl shadow-2xl  md:m-5 flex flex-col justify-between`}
@@ -51,12 +34,12 @@ const Tiltt = ({ villa, defaultOptions }) => {
               <div className="relative">
                 <img
                   className="rounded-t-3xl w-full h-[220px]"
-                  src={`https://localhost:7103/api/Admin/Villa/GetImage?imageName=${villa.images[0].imageName}`}
+                  src={`https://localhost:7103/api/Home/GetImageInIndex?imageName=${villa.images[0].imageName}`}
                   alt="لاکوده"
                 />
                 <div
                   className={`${
-                    calDataNow?.disscount === 0 && "hidden"
+                    villa.pricedDays[0].disscount === 0 && "hidden"
                   } absolute top-2 right-2 text-white  bg-blue-500 px-2 rounded-xl text-sm font-semibold py-1`}
                 >
                   تخفیف ویژه
@@ -65,7 +48,7 @@ const Tiltt = ({ villa, defaultOptions }) => {
               <div>
                 <div className="flex justify-between font-bold mx-4 mt-3">
                   <p className="text-[18px]">{villa.name} </p>
-                  <p>ID : {villa.id} </p>
+                  {/* <p>ID : {villa.id} </p> */}
                 </div>
                 <ul className="flex gap-1 mx-2">
                   {JSON.parse(villa?.villaFacilities).map((o) => (
@@ -105,7 +88,7 @@ const Tiltt = ({ villa, defaultOptions }) => {
                 >
                   <p>
                     {parseInt(
-                      calDataNow?.disscount?.toString().slice(0, -3)
+                      villa.pricedDays[0].disscount?.toString().slice(0, -3)
                     ).toLocaleString()}
                   </p>
                   <span className="text-[12px] self-start ">
@@ -117,7 +100,8 @@ const Tiltt = ({ villa, defaultOptions }) => {
                 <div className="flex flex-col   ">
                   <p className="font-bold text-[20px] faNumber ">
                     {(
-                      villa.pricedDays[0]?.price - villa.pricedDays[0]?.disscount
+                      villa.pricedDays[0]?.price -
+                      villa.pricedDays[0]?.disscount
                     ).toLocaleString()}
                   </p>
                   <div className="w-full">

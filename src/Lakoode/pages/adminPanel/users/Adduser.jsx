@@ -65,13 +65,13 @@ const Adduser = ({ history }) => {
       });
   };
   return (
-    <div className="w-full lg:px-20 mt-8 flex justify-center xl:justify-start ">
-      <div className="item-center self-center ">
+    <div className="w-full min-h-screen lg:px-20 mt-8 flex justify-center xl:justify-start ">
+      <div className="item-center  ">
         {/* sing up form */}
 
         <h1 className="font-extrabold text-[25px] mb-10 ">افزودن کاربر جدید</h1>
 
-        <div className="mx-12 y9:mx-0 ">
+        <div className=" y9:mx-0 ">
           <div>
             <div className="flex flex-col  md:flex-row md:max-w-[450px] md:gap-2">
               <div>

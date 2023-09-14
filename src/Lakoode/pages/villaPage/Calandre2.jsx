@@ -41,23 +41,13 @@ const Calandre2 = ({
   const sliderRef = useRef(null);
 
   const handlePrev = useCallback(() => {
-    // setRangeDays({
-    //   f: "",
-    //   s: "",
-    //   y: "",
-    //   m: "",
-    // });
+
     if (!sliderRef.current) return;
     sliderRef.current.swiper.slidePrev();
   }, []);
 
   const handleNext = useCallback(() => {
-    // setRangeDays({
-    //   f: "",
-    //   s: "",
-    //   y: "",
-    //   m: "",
-    // });
+ 
     if (!sliderRef.current) return;
     sliderRef.current.swiper.slideNext();
   }, []);

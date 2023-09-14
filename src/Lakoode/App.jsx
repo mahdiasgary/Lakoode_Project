@@ -23,6 +23,7 @@ import ForgotPasswordPage from "./pages/login singUp/login/ForgotPasswordPage";
 import Routs from "./Routs";
 import Cookies from "js-cookie";
 import axios from "axios";
+import ScrollToTop from "./ScrollToTop";
 const App = () => {
   const { setIsDarkMode, IsDarkMode } = useStateContext();
   const [isSearchItemsShow, setIsSearchItemsShow] = useState(false);
@@ -38,6 +39,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <ToastContainer theme="dark" />
+      <ScrollToTop />
       <Routs />
     </BrowserRouter>
   );

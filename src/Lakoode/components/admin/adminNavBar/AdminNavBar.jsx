@@ -2,7 +2,6 @@ import { MdMenu, MdMenuOpen } from "react-icons/md";
 import { styles } from "../../../styles/styles";
 import logoImage from "../../../assets/logoImage.png";
 import logoImageDark from "../../../assets/logoImageDark.png";
-// import Search from "./Search";
 import {HiSun} from 'react-icons/hi2'
 import {IoMdMoon } from 'react-icons/io'
 import { useStateContext } from "../../../contextProvider/ContextProvider"; 

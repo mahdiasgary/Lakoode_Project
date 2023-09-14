@@ -4,7 +4,7 @@ export const styles = {
   adminSideBarItem:
     "flex pl-7 lg:pl-2 text-[17px] md:text-[19px] lg:text-[19px]  py-4 dark:hover:bg-[#29263b] hover:bg-zinc-300 rounded-r-xl cursor-pointer  duration-75 hover:border-l-[3px] border-btn ",
   sideBar:
-    "min-w-[290px] md:min-w-[230px] xl:min-w-[250px] 2xl:min-w-[300px]  h-screen lg:sticky top-0 left-0  flex flex-col text-[17px] ",
+    "min-w-[290px] md:min-w-[230px] xl:min-w-[250px] 2xl:min-w-[300px]  h-screen lg:sticky top-0 right-0  flex flex-col text-[17px] ",
   loginBtn:
     "px-7 lg:px-10 text-textDark py-2 self-center btn rounded-xl hover:bg-[#ca2b20] hover:rounded-md duration-200 font-bold ",
     profileLg_Btn:

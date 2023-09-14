@@ -6,12 +6,15 @@ import { LiaSwimmingPoolSolid } from "react-icons/lia";
 import { RiBilliardsFill } from "react-icons/ri";
 import { TiLocation } from "react-icons/ti";
 import aq from "../../../pages/login singUp/login/Screenshot (168).png";
+import test1 from "../../../assets/text1.png";
 
+import test2 from "../../../assets/test2.png";
 import Slider from "react-slider";
 import { PiSunHorizonBold } from "react-icons/pi";
 import Navbar from "../../navbar/Navbar";
 import qqq from "../../../assets/bg3w.png";
 import { MdLocationOn } from "react-icons/md";
+import { useStateContext } from "../../../contextProvider/ContextProvider";
 const HeroSection = ({
   setPriceRoom,
   priceRange,
@@ -28,6 +31,8 @@ const HeroSection = ({
     setselectetOpt(["", "", "", "", ""]);
     setPriceRoom("");
   };
+  const { IsDarkMode, setMode } = useStateContext();
+
   return (
     <div>
       <div className="lg:flex lg:justify-center  ">
@@ -46,12 +51,23 @@ const HeroSection = ({
               src={aq}
               className="opacity-  -scale-x-100 hidden dark:lg:flex transform lg:rounded-[50px]    w-full h-full"
             />
-            <div className="bg-[#0f0f0f] dark:bg-[#0f0f0f] transform lg:rounded-[50px] rounded-b-3xl  lg:hidden">
-              <img
-                alt="lakoode"
-                src={"https://s6.uupload.ir/files/test2_j1lu.png"}
-                className="opacity-60 bg-[#0f0f0f] dark:bg-[#0f0f0f] transform lg:rounded-[50px] rounded-b-3xl  lg:hidden  w-full md:h-[300px] h-[250px]"
-              />
+            <div className=" transform lg:rounded-[50px] rounded-b-3xl  lg:hidden">
+              {IsDarkMode ? (
+                <img
+                  alt="lakoode"
+                  src={test2}
+                  className="opacity-60   transform lg:rounded-[50px] rounded-b-3xl  lg:hidden  w-full md:h-[300px] h-[250px]"
+                />
+              ) : (
+                <div className="bg-[#0f0f0f] rounded-b-3xl  lg:hidden  ">
+
+                  <img
+                    alt="lakoode"
+                    src={test1}
+                    className="opacity-60 dark:hidden bg-[#0f0f0f] dark:bg-[#0f0f0f] transform lg:rounded-[50px] rounded-b-3xl  lg:hidden  w-full md:h-[300px] h-[250px]"
+                  />
+                </div>
+              )}
             </div>
           </div>
           <div className="relative  containe flex flex-co  items-cente justify-cente pt-0  pb-20 py-5 lg:py-24 lg:h-[60vh] w-full   2xl:py-72">
@@ -60,8 +76,7 @@ const HeroSection = ({
     "
             >
               <p className="opacity-70 text-">
-                تجربه ای بینظیر وفراموش نشدنی
-                {/* Enjoy Your  */}
+خاطراتی فراموش نشدنی به آرامش دریا                {/* Enjoy Your  */}
               </p>
 
               <p className="opacity-80 text">
@@ -70,12 +85,11 @@ const HeroSection = ({
               </p>
               <p className="lg:text-[30px] ">لاکوده</p>
               <div className="flex text-btn  mx-3">
-                    <MdLocationOn className="self-center"/>
-                    <p>چالوس</p>
-                  </div>
+                <MdLocationOn className="self-center" />
+                <p>چالوس</p>
+              </div>
               <p className="text-[14px] font-bold hidden lg:flex mt-5 ">
-                مجتمع اقامتی و تفریحی لاکوده بر این تلاش دارد که به شما عزیزان
-                محیطی پر از ارامش اريه دهد.{" "}
+       شمیم دریا تا عطر بهارنارنج اقامت خود را با مجتمع اقامتی لاکوده به یادماندنی کنید
               </p>
             </div>
           </div>

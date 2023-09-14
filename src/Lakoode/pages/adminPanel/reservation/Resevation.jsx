@@ -92,7 +92,6 @@ const Resevation = () => {
     setState(!state);
   }, [id]);
   // console.log(typeof(id))
-  console.log(id);
   const submitHand = () => {
     const fromData = new FormData();
 
@@ -147,9 +146,7 @@ const Resevation = () => {
   };
   return (
     <div>
-      {/* <div>
-        <h1 className="text-[23px] font-bold"> رزرواسیون   </h1>
-      </div> */}
+    
       <div className="flex mt-16 p-3 ">
         <p className="text-[18px] self-center font-bold">
           رزرواسیون برای ویلای :
@@ -163,7 +160,7 @@ const Resevation = () => {
         >
           <option value="">انتخاب کنید</option>
           {data?.data?.map((item) => (
-            <option value={item.id}> {item.name}</option>
+            <option  value={item.id} className={item.isDisabled && 'hidden' }> {item.name}</option>
           ))}
         </select>
       </div>

@@ -89,19 +89,19 @@ const User = () => {
             </div>
           </fieldset>
           <fieldset
-            className={`flex flex-col justify-center border-b dark:rounded-none rounded-xl
+              className={`${data?.email ==='UserAddedByAdmin' && 'hidden'} flex flex-col justify-center border-b dark:rounded-none rounded-xl
                     border-[#787f98] border-opacity-40 
                      duration-150 shadow-md  my-1 px-1  h-[73px] w-[300px] `}
-          >
-            <legend
-              className={` px-1 text-sm y9:text-[16px] text-btn  text-[17px]`}
             >
-              ایمیل{" "}
-            </legend>
-            <div className="flex justify-between mb-1 ">
-              <p className="self-center pl-3">{data.email}</p>
-            </div>
-          </fieldset>
+              <legend
+                className={` px-1 text-sm y9:text-[16px] text-btn  text-[17px]`}
+              >
+                ایمیل{" "}
+              </legend>
+              <div className="flex justify-between mb-1 ">
+                <p className="self-center pl-3">{data?.email}</p>
+              </div>
+            </fieldset>
           <fieldset
             className={`flex flex-col justify-center border-b dark:rounded-none rounded-xl
                     border-[#787f98] border-opacity-40 
@@ -150,7 +150,7 @@ const User = () => {
                     onChange={(e) => setSearch(e.target.value)}
                     type="text"
                     placeholder="جستجو کد رهگیری..."
-                    className="h-[45px] w-[220px] rounded-2xl px-2 dark:bg-transparent border-2 dark:border-border outline-btn "
+                    className="h-[45px] placeholder:text-sm w-[220px] rounded-2xl px-2 dark:bg-transparent border-2 dark:border-border outline-btn "
                   />
                 </div>
               </div>
@@ -220,7 +220,12 @@ const User = () => {
                   </thead>
 
                   <tbody className="px-5 rounded-3xl">
-                    {data["reservations"] &&
+                  {data?.reservations?.length === 0 ? (
+                        <p className="text-center py-5 w-full ">
+                          رزروی برای کاربر یافت نشد :(
+                        </p>
+                      ) : (
+                        data["reservations"] &&
                       [...data["reservations"]]
                         .filter((item) =>
                           (item?.orderNuumber)
@@ -236,7 +241,8 @@ const User = () => {
                         )
                         .map((user) => (
                           <TraconeshItem user={user} key={user.mobile} />
-                        ))}
+                        ))
+                      )}
                   </tbody>
                 </table>
                 {!data && <LoadingAdminListItem />}

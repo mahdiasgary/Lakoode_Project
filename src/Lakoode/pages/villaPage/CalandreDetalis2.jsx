@@ -62,7 +62,7 @@ const CalandreD = ({
     axios({
       withCredentials: true,
       method: "post",
-      url: `https://localhost:7103/api/Admin/Reservation/GetPricedDays?villaId=${villa}&month=${mounth[0]}&year=${year}`,
+      url: `https://localhost:7103/api/Home/GetCalender?villaId=${villa}&month=${mounth[0]}&year=${year}`,
     }).then(function (response) {
       let oo = response.data.data[0].date.split("T")[0].toString();
       let nowweekk = new Date(oo).toLocaleDateString(
@@ -418,10 +418,10 @@ const CalandreD = ({
                           ${
                             seletedDaysOnCal.find(
                               (day) =>
-                                day == d.date.split("T")[0] ||
+                              day == d.date.split("T")[0] 
+                              ) ||
                                 rangeDays.f == d ||
                                 rangeDays.s == d
-                            )
                               ? "text-white"
                               : " text-blue-500"
                           } 
@@ -435,7 +435,7 @@ const CalandreD = ({
                         {(mounth[0] === nowMonthToday &&
                           d.shamsiDate.split("/")[2] < nowDayToday) ||
                         d.isReserved ? (
-                          <p className="text-gray-500">رزرو شده</p>
+                          <p className="text-gray-500 text-[12px] md:text-[13px] ">رزرو شده</p>
                         ) : d.isPriced ? (
                           parseInt(
                             (d.price - d.disscount).toString().slice(0, -3)

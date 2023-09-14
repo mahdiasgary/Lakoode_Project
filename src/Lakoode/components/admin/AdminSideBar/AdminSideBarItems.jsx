@@ -54,7 +54,7 @@ const AdminSideBarItems = ({ history, item, menu }) => {
                     {item[0].icon}
                   </span>
                   <p
-                    className={`origin-left  ${
+                    className={`origin-right  ${
                       selectedSideBarItem === item[0].title && "text-btn"
                     } `}
                   >
@@ -79,7 +79,7 @@ const AdminSideBarItems = ({ history, item, menu }) => {
                     .toLowerCase()}`}
                 >
                   <li
-                    className={`origin-left flex  hover:text-btn border-btn  pl-8  ${
+                    className={`origin-right flex  hover:text-btn border-btn  pl-8  ${
                       !state ? " py-3 duration-300" : "scale-x-0  h-0 text-0"
                     }
                    ${
@@ -131,7 +131,7 @@ const AdminSideBarItems = ({ history, item, menu }) => {
                   {item[0].icon}
                 </span>
                 <p
-                  className={`origin-left ${
+                  className={`origin-right ${
                     selectedSideBarItem === item[0].title.toLowerCase() &&
                     "text-btn "
                   } `}

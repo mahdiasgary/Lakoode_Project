@@ -37,8 +37,7 @@ const MainTilt = ({ selectetOpt, priceRoom,priceRange }) => {
 
   return (
     <div
-      id="about-me"
-      className="dark:text-white text-[16px] relative mt-36 -top-24  md:top-0 "
+      className="dark:text-white mb-72 text-[16px] relative mt-36 -top-24  md:top-0 "
     >
       <div className="flex justify-center"></div>
       <div className="flex justify-center ">

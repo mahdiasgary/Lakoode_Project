@@ -140,7 +140,7 @@ const PriceMake = () => {
         >
           <option value="">انتخاب کنید</option>
           {data?.data?.map((item) => (
-            <option value={item.id}> {item.name}</option>
+            <option value={item.id}  className={item.isDisabled && 'hidden' }> {item.name}</option>
           ))}
         </select>
       </div>

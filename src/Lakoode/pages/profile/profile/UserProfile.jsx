@@ -132,7 +132,7 @@ const UserProfile = ({ history }) => {
               </div>
             </fieldset>
             <fieldset
-              className={`flex flex-col justify-center border-b dark:rounded-none rounded-xl
+              className={`${userInfo?.email ==='UserAddedByAdmin' && 'hidden'} flex flex-col justify-center border-b dark:rounded-none rounded-xl
                     border-[#787f98] border-opacity-40 
                      duration-150 shadow-md  my-1 px-1  h-[73px] w-[300px] `}
             >
@@ -146,7 +146,7 @@ const UserProfile = ({ history }) => {
               </div>
             </fieldset>
             <fieldset
-              className={`flex flex-col justify-center border-b dark:rounded-none rounded-xl
+              className={`flex flex-col  justify-center border-b dark:rounded-none rounded-xl
                     border-[#787f98] border-opacity-40 
                      duration-150 shadow-md  my-1 px-1  h-[73px] w-[300px] `}
             >
@@ -162,6 +162,10 @@ const UserProfile = ({ history }) => {
                 </p>
               </div>
             </fieldset>{" "}
+          </div>
+        </div>
+        <div className="mt-2 md:self-center w-full px-5 y7:px-10 xl:px-16 ">
+          
             <Link to={"/forgotpassword"}>
               <div
                 className={`flex flex-col cursor-pointer hover:bg-blue-800 text-center justify-center bg-btn text-white  rounded-[30px]
@@ -171,14 +175,19 @@ const UserProfile = ({ history }) => {
                 تغییر رمز عبور
               </div>
             </Link>
-          </div>
         </div>
 
-        <div className="mt-8 md:self-center w-full px-5 y7:px-10 xl:px-16 ">
+        <div className="mt-8 md:self-center w-full px-3 y7:px-5 xl:px-16 ">
           <div className="dark:bg-border bg-white dark:bg-opacity-40  rounded-3xl p-4  ">
             <div className="">
               <p className="text-[20px] font-semibold my-4 mx-3 ">رزرو ها </p>
               <div className="flex justify-center w-full">
+             {
+              userInfo?.reservations.length === 0 ? (
+                <p className="text-center py-5 w-full ">
+                  رزروی برای شما یافت نشد :(
+                </p>
+              ) : 
                 <div className="dark:bg-[#1c1d21] bg-white  bg-opacity-40 overflow-x-auto min-w-[85vw] max-w-[85vw] md:min-w-[70vw] md:max-w-[70vw] rounded-2xl">
                   <table className="rounded-xl   table-auto w-full border dark:border-0 ">
                     <thead>
@@ -223,11 +232,7 @@ const UserProfile = ({ history }) => {
                     </thead>
 
                     <tbody className="px-5 rounded-3xl">
-                      {userInfo?.reservations.length === 0 ? (
-                        <p className="text-center py-5 w-full ">
-                          رزروی برای شما یافت نشد :(
-                        </p>
-                      ) : (
+                      {(
                         userInfo?.reservations?.map((user) => (
                           <UserItemIndex user={user} key={user.mobile} />
                         ))
@@ -235,6 +240,8 @@ const UserProfile = ({ history }) => {
                     </tbody>
                   </table>
                 </div>
+
+             }
               </div>
             </div>
           </div>

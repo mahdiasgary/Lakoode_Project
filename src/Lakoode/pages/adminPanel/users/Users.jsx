@@ -99,7 +99,7 @@ const Users = ({ history }) => {
       {/* </div> */}
 
       <div className="flex justify-center mt-10 mb-2">
-        <div className="flex justify-between  min-w-[85vw] max-w-[85vw] md:min-w-[70vw] md:max-w-[70vw]">
+        <div className="flex lg:flex-row flex-col lg:justify-between  min-w-[85vw] max-w-[85vw] md:min-w-[70vw] md:max-w-[70vw]">
           <div className="text-[23px] font-bold ">لیست کاربران</div>
           <div>
             <input
