@@ -2,14 +2,14 @@ import Tiltt from "./Tilt";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-const MainTilt = ({ selectetOpt, priceRoom,priceRange }) => {
+const MainTilt = ({ selectetOpt, priceRoom, priceRange }) => {
   const [data, setData] = useState();
   useEffect(() => {
     axios.get("https://localhost:7103/api/Home/GetAll").then((r) => {
       setData(r.data);
     });
   }, []);
-
+console.log(selectetOpt)
   let ww = data?.data?.filter(
     (q) =>
       !q.isDisabled &&
@@ -18,10 +18,9 @@ const MainTilt = ({ selectetOpt, priceRoom,priceRange }) => {
       q.villaFacilities?.includes(selectetOpt[2]) &&
       q.villaFacilities?.includes(selectetOpt[3]) &&
       q.villaFacilities?.includes(selectetOpt[4]) &&
-      JSON.parse(q.roomCount)[0].toString().includes(priceRoom) 
-      &&
-    (q.pricedDays[0]?.price - q?.pricedDays[0]?.disscount)<=priceRange[1] &&
-    (q.pricedDays[0]?.price - q?.pricedDays[0]?.disscount)>=priceRange[0]
+      JSON.parse(q.roomCount)[0].toString().includes(priceRoom) &&
+      q.pricedDays[0]?.price - q?.pricedDays[0]?.disscount <= priceRange[1] &&
+      q.pricedDays[0]?.price - q?.pricedDays[0]?.disscount >= priceRange[0]
   );
   const defaultOptions = {
     reverse: false, // reverse the tilt direction
@@ -36,9 +35,7 @@ const MainTilt = ({ selectetOpt, priceRoom,priceRange }) => {
   };
 
   return (
-    <div
-      className="dark:text-white mb-72 text-[16px] relative mt-36 -top-24  md:top-0 "
-    >
+    <div className="dark:text-white mb-72 text-[16px] relative mt-36 -top-24  md:top-0 ">
       <div className="flex justify-center"></div>
       <div className="flex justify-center ">
         <div className="flex  bg-opacity-50 w-[100vw] md:w-[90vw] flex-col justify-between rounded-3xl">
@@ -57,7 +54,11 @@ const MainTilt = ({ selectetOpt, priceRoom,priceRange }) => {
                   className={`md:mx-16  duration-500  rounded-3xl z-[5] w-[80vw] lg:w-[80vw] max-w-[1040px]   grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 place-items-center`}
                 >
                   {ww?.map((villa, index) => (
-                    <Tiltt villa={villa} key={index} defaultOptions={defaultOptions} />
+                    <Tiltt
+                      villa={villa}
+                      key={index}
+                      defaultOptions={defaultOptions}
+                    />
                   ))}
                 </div>
               </div>

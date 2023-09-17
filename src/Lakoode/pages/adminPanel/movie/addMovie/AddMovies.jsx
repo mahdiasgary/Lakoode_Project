@@ -262,7 +262,6 @@ const AddMovies = ({ history, from, user }) => {
 
   const tafREf = [
     { title: "منظره به دریا", id: 54 },
-
     { title: "بیلیارد", id: 46 },
     { title: "استخر", id: 47 },
     { title: "شاه نشین", id: 48 },
