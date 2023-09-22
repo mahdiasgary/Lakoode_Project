@@ -53,9 +53,9 @@ const VerifyEmail = ({
     setLoadingButton(true);
     axios({
       withCredentials: true,
-
+      headers: { "Content-Type": "application/json" },
       method: "post",
-      url: "https://localhost:7103/api/Account/ActiveAccount",
+      url: "https://api.lakoode.ir/api/Account/ActiveAccount",
       data: {
         mobile: userEmail,
         otpCode:
@@ -166,9 +166,10 @@ const VerifyEmail = ({
                     axios
 
                       .get(
-                        `https://localhost:7103/api/Account/ActiveAccount?mobile=${userEmail}`,
+                        `https://api.lakoode.ir/api/Account/ActiveAccount?mobile=${userEmail}`,
                         {
                           withCredentials: true,
+                          headers: { "Content-Type": "application/json" }
                         }
                       )
                       .then((res) => {

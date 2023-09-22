@@ -26,8 +26,9 @@ const AdminSideBar = ({ openMenu, setOpenMenu, admin }) => {
       if (r.isConfirmed) {
         axios({
           withCredentials: true,
+          headers:{"Content-Type":"application/json"},
           method: "post",
-          url: `https://localhost:7103/api/Account/SignOut`,
+          url: `https://api.lakoode.ir/api/Account/SignOut`,
         })
           .then((r) => window.location.reload())
       }

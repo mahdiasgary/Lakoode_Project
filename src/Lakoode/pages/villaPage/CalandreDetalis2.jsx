@@ -61,8 +61,9 @@ const CalandreD = ({
     //   villa &&
     axios({
       withCredentials: true,
+      headers: { "Content-Type": "application/json" },
       method: "post",
-      url: `https://localhost:7103/api/Home/GetCalender?villaId=${villa}&month=${mounth[0]}&year=${year}`,
+      url: `https://api.lakoode.ir/api/Home/GetCalender?villaId=${villa}&month=${mounth[0]}&year=${year}`,
     }).then(function (response) {
       let oo = response.data.data[0].date.split("T")[0].toString();
       let nowweekk = new Date(oo).toLocaleDateString(
@@ -244,7 +245,7 @@ const CalandreD = ({
         </th>
       </thead>
       <thead>
-        {week.map((w,index) => (
+        {week.map((w, index) => (
           <th
             key={index}
             className="w-[70px]  min-w-[50px] text-sm font-semibold  mt-1"
@@ -254,7 +255,7 @@ const CalandreD = ({
         ))}
       </thead>
       <tbody className="faNumber">
-        {tr.map((t,index) => (
+        {tr.map((t, index) => (
           <tr key={index}>
             {calData
               ?.flat()

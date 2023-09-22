@@ -50,7 +50,7 @@ export const ContextProvider = ({ children }) => {
   // const [userInfo,setUserInf]=useState()
 
   axios
-    .get("https://localhost:7103/api/Account/Login", { withCredentials: true })
+    .get("https://api.lakoode.ir/api/Account/Login", { withCredentials: true ,headers: { "Content-Type": "application/json" }})
     .then((r) => {
       if (r.data.isSuccessfull) {
         setloginStatus(true);
@@ -63,7 +63,6 @@ export const ContextProvider = ({ children }) => {
   return (
     <StateContext.Provider
       value={{
-        
         loginStatus,
         windowSize,
         selectedSideBarItem,

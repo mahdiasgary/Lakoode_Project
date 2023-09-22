@@ -55,7 +55,7 @@ const Routs = ({ history }) => {
             />
           )}
         />
-          <Route
+        <Route
           path={"/forgotpassword"}
           exact
           component={() => (
@@ -118,6 +118,13 @@ const Routs = ({ history }) => {
                     <Explore openMenu={openMenu} setOpenMenu={setOpenMenu} />
                   )}
                 />
+                {/* <Route
+                  path={"*"}
+                  exact
+                  component={() => (
+                    <Explore openMenu={openMenu} setOpenMenu={setOpenMenu} />
+                  )}
+                /> */}
 
                 <div className="bg-[#101018] "></div>
               </div>

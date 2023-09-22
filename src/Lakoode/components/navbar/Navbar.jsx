@@ -11,13 +11,16 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 
-const Navbar = ({  from }) => {
+const Navbar = ({ from }) => {
   const { IsDarkMode, setMode } = useStateContext();
   const [loginStatus, setloginStatus] = useState(false);
   const [qq, setqq] = useState(false);
 
   axios
-    .get("https://localhost:7103/api/Account/Login", { withCredentials: true })
+    .get("https://api.lakoode.ir/api/Account/Login", {
+      withCredentials: true,
+      headers: { "Content-Type": "application/json" }
+    })
     .then((r) => {
       if (r.data.isSuccessFull) {
         setloginStatus(true);
@@ -27,8 +30,10 @@ const Navbar = ({  from }) => {
       }
     });
   axios
-    .get("https://localhost:7103/api/Admin/Home/AdminIndex", {
+    .get("https://api.lakoode.ir/api/Admin/Home/AdminIndex", {
       withCredentials: true,
+      headers:{"Content-Type":"application/json"}
+
     })
     .then((r) => {
       if (r.data.isSuccessFull) {
@@ -70,8 +75,9 @@ const Navbar = ({  from }) => {
           <div className={` ${from === "login" && "hidden"}`}>
             {loginStatus ? (
               <Link to={`/${qq ? "admin" : "user"}`}>
-                <button className={`px-2 lg:px-5 text-textDark py-2 self-center btn rounded-xl hover:bg-blue-800 hover:rounded-md duration-200 font-bold text-sm flex  `}>
-                
+                <button
+                  className={`px-2 lg:px-5 text-textDark py-2 self-center btn rounded-xl hover:bg-blue-800 hover:rounded-md duration-200 font-bold text-sm flex  `}
+                >
                   <span>
                     <FaUser className="" />
                   </span>
@@ -106,7 +112,9 @@ const Navbar = ({  from }) => {
           <div className={` `}>
             {loginStatus ? (
               <Link to={`/${qq ? "admin" : "user"}`}>
-                <button className={`px-2 lg:px-10 text-textDark py-2 self-center btn rounded-xl hover:bg-blue-800 hover:rounded-md duration-200 font-bold text-sm flex  `}>
+                <button
+                  className={`px-2 lg:px-10 text-textDark py-2 self-center btn rounded-xl hover:bg-blue-800 hover:rounded-md duration-200 font-bold text-sm flex  `}
+                >
                   <span className="self-center pl-1">
                     <FaUser className="" />
                   </span>

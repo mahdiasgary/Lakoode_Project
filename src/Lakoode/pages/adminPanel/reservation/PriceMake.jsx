@@ -17,12 +17,12 @@ const PriceMake = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
     axios
-      .get("https://localhost:7103/api/Admin/Villa/GetAll/", {
-        withCredentials: true,
+      .get("https://api.lakoode.ir/api/Admin/Villa/GetAll/", {
+        withCredentials: true,headers: { "Content-Type": "application/json" }
       })
       .then((r) => {
         setData(r.data);
-      })
+      });
   }, []);
   const [villa, setvilla] = useState("");
   let seletedDays = [];
@@ -55,8 +55,9 @@ const PriceMake = () => {
   const submitHand = () => {
     axios({
       withCredentials: true,
+      headers: { "Content-Type": "application/json" },
       method: "post",
-      url: `https://localhost:7103/api/Admin/Reservation/AddPriceToDays`,
+      url: `https://api.lakoode.ir/api/Admin/Reservation/AddPriceToDays`,
       data: {
         villaId: villa,
         days: seletedDays,
@@ -82,9 +83,9 @@ const PriceMake = () => {
   const updateHand = () => {
     axios({
       withCredentials: true,
-
+      headers: { "Content-Type": "application/json" },
       method: "post",
-      url: `https://localhost:7103/api/Admin/Reservation/UpdatePricedDays`,
+      url: `https://api.lakoode.ir/api/Admin/Reservation/UpdatePricedDays`,
       data: {
         villaId: villa,
         day: rangeDaysForUpdate.day,
@@ -138,8 +139,15 @@ const PriceMake = () => {
           className="px-12 dark:bg-border mx-5 py-4 rounded-2xl text-[18px] font-bold"
         >
           <option value="">انتخاب کنید</option>
-          {data?.data?.map((item,index) => (
-            <option value={item.id} key={index}  className={item.isDisabled && 'hidden' }> {item.name}</option>
+          {data?.data?.map((item, index) => (
+            <option
+              value={item.id}
+              key={index}
+              className={item.isDisabled && "hidden"}
+            >
+              {" "}
+              {item.name}
+            </option>
           ))}
         </select>
       </div>
@@ -155,8 +163,11 @@ const PriceMake = () => {
           <p className="text-lg flex font-semibold">
             <span>تعیین قیمت در </span>
             <span className="flex flex-wrap ">
-              {seletedDays?.map((d,index) => (
-                <span key={index} className="m-1 text-center px-3 rounded-lg bg-textPDark bg-opacity-60 text-white w-10 ">
+              {seletedDays?.map((d, index) => (
+                <span
+                  key={index}
+                  className="m-1 text-center px-3 rounded-lg bg-textPDark bg-opacity-60 text-white w-10 "
+                >
                   {d}
                 </span>
               ))}

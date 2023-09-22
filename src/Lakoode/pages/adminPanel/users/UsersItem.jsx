@@ -24,7 +24,8 @@ const UsersItem = ({ user, removeUserHandler, setmobile, history }) => {
       if (r.isConfirmed) {
         axios
           .get(
-            `https://localhost:7103/api/Admin/User/DisableUser?mobile=${user.mobile}`,{withCredentials:true}
+            `https://api.lakoode.ir/api/Admin/User/DisableUser?mobile=${user.mobile}`,
+            { withCredentials: true,headers: { "Content-Type": "application/json" } }
           )
           .then((res) => {
             window.location.reload(); // history.push("/admin/villaslist");
@@ -52,7 +53,8 @@ const UsersItem = ({ user, removeUserHandler, setmobile, history }) => {
       if (r.isConfirmed) {
         axios
           .get(
-            `https://localhost:7103/api/Admin/User/EnableUser?mobile=${user.mobile}`,{withCredentials:true}
+            `https://api.lakoode.ir/api/Admin/User/EnableUser?mobile=${user.mobile}`,
+            { withCredentials: true,headers: { "Content-Type": "application/json" } }
           )
           .then((res) => {
             window.location.reload();
@@ -101,7 +103,7 @@ const UsersItem = ({ user, removeUserHandler, setmobile, history }) => {
           {new Date(user.createdDate).toLocaleDateString("fa")}
         </div>
       </td>
-      
+
       <td>
         <div className="flex justify-center px-2 group-hover:dark:bg-[#24272e] rounded-l-xl group-hover:bg-[#6d7077] duration-300 self-center h-[64px]  text-center my-1">
           <div className="flex gap-2 lg:gap-4 self-center text-[19px] py-[2px]">

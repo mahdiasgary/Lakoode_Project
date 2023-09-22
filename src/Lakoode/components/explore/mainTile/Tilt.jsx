@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Tilt } from "react-tilt";
@@ -34,7 +33,7 @@ const Tiltt = ({ villa, defaultOptions }) => {
               <div className="relative">
                 <img
                   className="rounded-t-3xl w-full h-[220px]"
-                  src={`https://localhost:7103/api/Home/GetImageInIndex?imageName=${villa.images[0].imageName}`}
+                  src={`https://api.lakoode.ir/api/Home/GetImageInIndex?imageName=${villa?.images[0].imageName}`}
                   alt="لاکوده"
                 />
                 <div
@@ -51,7 +50,7 @@ const Tiltt = ({ villa, defaultOptions }) => {
                   {/* <p>ID : {villa.id} </p> */}
                 </div>
                 <ul className="flex gap-1 mx-2">
-                  {JSON.parse(villa?.villaFacilities).map((o,index) => (
+                  {JSON.parse(villa?.villaFacilities).map((o, index) => (
                     <div
                       key={index}
                       className={` text-[15px] font-bold ${

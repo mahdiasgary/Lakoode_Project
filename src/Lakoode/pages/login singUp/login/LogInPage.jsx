@@ -17,7 +17,7 @@ import Cookies from "js-cookie";
 import axios from "axios";
 const LogInPage = ({ history, openMenu, setOpenMenu }) => {
   axios
-    .get("https://localhost:7103/api/Account/Login", { withCredentials: true })
+    .get("https://api.lakoode.ir/api/Account/Login", { withCredentials: true,headers: { "Content-Type": "application/json" } })
     .then((r) => {
       // console.log(r.data)
       if (r.data.isSuccessFull) {
@@ -50,7 +50,8 @@ const LogInPage = ({ history, openMenu, setOpenMenu }) => {
     axios({
       method: "post",
       withCredentials: true,
-      url: "https://localhost:7103/api/Account/Login",
+      headers: { "Content-Type": "application/json" },
+      url: "https://api.lakoode.ir/api/Account/Login",
       data: {
         mobile: Formik.values.mobile,
         password: Formik.values.password,
@@ -80,8 +81,8 @@ const LogInPage = ({ history, openMenu, setOpenMenu }) => {
         ) {
           axios
             .get(
-              `https://localhost:7103/api/Account/ActiveAccount?Mobile=${Formik.values.mobile}`
-            )
+              `https://api.lakoode.ir/api/Account/ActiveAccount?Mobile=${Formik.values.mobile}`
+            ,{withCredentials:true,headers: { "Content-Type": "application/json" }})
             .then((res) => {
               setUserEmail(res.data.data);
               setSwichBetweenFormAndVerify(true);

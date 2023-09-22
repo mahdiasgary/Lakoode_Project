@@ -36,9 +36,10 @@ const Adduser = ({ history }) => {
   });
   const userRegister = () => {
     axios({
-      withCredentials:true,
       method: "post",
-      url: "https://localhost:7103/api/Admin/User/CreateUser",
+      withCredentials: true,
+      headers: { "Content-Type": "application/json" },
+      url: "https://api.lakoode.ir/api/Admin/User/CreateUser",
       data: {
         name: Formik.values.firstName,
         lastName: Formik.values.lastName,
@@ -56,7 +57,8 @@ const Adduser = ({ history }) => {
       })
       .catch((res) => {
         setLoadingButton(false);
-        toast.info("این شماره ثبت نام شده است", {
+        console.log(res)
+        toast.error("خطایی رخ داد", {
           autoClose: 2100,
           position: "top-left",
         });
@@ -172,7 +174,7 @@ const Adduser = ({ history }) => {
                         ></path>
                       </svg>
                     </div>
-                    <p>صبور باشید ...</p>
+                    <p  className="px-2">صبور باشید ...</p>
                   </div>
                 </button>
               ) : (

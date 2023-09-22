@@ -17,14 +17,16 @@ const Dashboard = () => {
   const [villas, setvillas] = useState([]);
   useEffect(() => {
     axios
-      .get(`https://localhost:7103/api/Admin/Reservation/GetAllReservedDays`, {
+      .get(`https://api.lakoode.ir/api/Admin/Reservation/GetAllReservedDays`, {
         withCredentials: true,
+        headers: { "Content-Type": "application/json" }
       })
       .then((r) => setData(r.data.data));
 
     axios
-      .get(`https://localhost:7103/api/Admin/Villa/GetAll`, {
+      .get(`https://api.lakoode.ir/api/Admin/Villa/GetAll`, {
         withCredentials: true,
+        headers: { "Content-Type": "application/json" }
       })
       .then((r) => {
         setIsActive(r.data.data[0].ipG_IsActive);
@@ -32,8 +34,9 @@ const Dashboard = () => {
       });
 
     axios
-      .get("https://localhost:7103/api/Admin/Home/AdminIndex", {
+      .get("https://api.lakoode.ir/api/Admin/Home/AdminIndex", {
         withCredentials: true,
+        headers: { "Content-Type": "application/json" }
       })
       .then((r) => {
         if (r.data.isSuccessFull) {
@@ -80,8 +83,9 @@ const Dashboard = () => {
     axios({
       method: "post",
       withCredentials: true,
+
       headers: { "Content-Type": "multipart/form-data" },
-      url: "https://localhost:7103/api/Admin/Villa/SetIPG",
+      url: "https://api.lakoode.ir/api/Admin/Villa/SetIPG",
       data: formData,
     })
       .then(function (response) {
@@ -157,19 +161,26 @@ const Dashboard = () => {
           </div>
           <div>
             <div className="flex  flex-wrap gap-4 dark:bg-opacity-40 dark:bg-border bg-white p-5 rounded-3xl ">
-              {villas.map((villa,index) => (
-                !villa?.isDisabled &&
-                <div key={index} className="flex   rounded-3xl dark:bg-opacity- ">
-                  <div className="py-2 rounded-r-3xl  dark:bg-border bg-screenLight px-3">
-                    {villa?.name}{" "}
-                  </div>
-                  <div
-                    className={`px-4  text-white py-[10px] rounded-l-3xl text-sm self-center ${villa?.isDisabled && 'hidden'} ${villa?.isReserved ? 'bg-btn' : 'bg-gray-500'}`}
-                  >
-                    {villa?.isReserved ? "رزرو" : "خالی"}
-                  </div>
-                </div>
-              ))}
+              {villas.map(
+                (villa, index) =>
+                  !villa?.isDisabled && (
+                    <div
+                      key={index}
+                      className="flex   rounded-3xl dark:bg-opacity- "
+                    >
+                      <div className="py-2 rounded-r-3xl  dark:bg-border bg-screenLight px-3">
+                        {villa?.name}{" "}
+                      </div>
+                      <div
+                        className={`px-4  text-white py-[10px] rounded-l-3xl text-sm self-center ${
+                          villa?.isDisabled && "hidden"
+                        } ${villa?.isReserved ? "bg-btn" : "bg-gray-500"}`}
+                      >
+                        {villa?.isReserved ? "رزرو" : "خالی"}
+                      </div>
+                    </div>
+                  )
+              )}
             </div>
           </div>
         </div>
@@ -294,8 +305,8 @@ const Dashboard = () => {
                 </thead>
 
                 <tbody className="px-5 rounded-3xl ">
-                  {www?.map((user ,index) => (
-                    <Ritem  setState={setState} user={user} key={index} />
+                  {www?.map((user, index) => (
+                    <Ritem setState={setState} user={user} key={index} />
                   ))}
                 </tbody>
               </table>
@@ -317,39 +328,38 @@ const Dashboard = () => {
               <div className="flex flex-col lg:flex-row">
                 <p className="lg:self-center">رزرو های ثبت شده</p>
                 <div className="flex mx-2">
-                <p className="self-center ">در ماه</p>
-                <select
-                  onChange={(e) =>
-                    setSearch([e.target.value, search[1], search[2]])
-                  }
-                  name=""
-                  id=""
-                  className="dark:bg-border text-center rounded-2xl mx-2 w-20 py-1 bg-white  dark:bg-opacity-40"
-                >
-                  <option value="">---</option>
-                  {mounth.map((m,index) => (
-                    <option key={index} value={m[0]}>
-                      {m[1]}
-                    </option>
-                  ))}
-                </select>
-                <p className="self-center">سال</p>
-                <select
-                  name=""
-                  id=""
-                  onChange={(e) =>
-                    setSearch([search[0], e.target.value, search[2]])
-                  }
-                  className="dark:bg-border text-center rounded-2xl mx-2 w-20 py-1 bg-white  dark:bg-opacity-40"
-                >
-                  <option value="">---</option>
-                  {yyy.map((m,index) => (
-                    <option key={index} value={m[0]}>
-                      {m}
-                    </option>
-                  ))}
-                </select>
-
+                  <p className="self-center ">در ماه</p>
+                  <select
+                    onChange={(e) =>
+                      setSearch([e.target.value, search[1], search[2]])
+                    }
+                    name=""
+                    id=""
+                    className="dark:bg-border text-center rounded-2xl mx-2 w-20 py-1 bg-white  dark:bg-opacity-40"
+                  >
+                    <option value="">---</option>
+                    {mounth.map((m, index) => (
+                      <option key={index} value={m[0]}>
+                        {m[1]}
+                      </option>
+                    ))}
+                  </select>
+                  <p className="self-center">سال</p>
+                  <select
+                    name=""
+                    id=""
+                    onChange={(e) =>
+                      setSearch([search[0], e.target.value, search[2]])
+                    }
+                    className="dark:bg-border text-center rounded-2xl mx-2 w-20 py-1 bg-white  dark:bg-opacity-40"
+                  >
+                    <option value="">---</option>
+                    {yyy.map((m, index) => (
+                      <option key={index} value={m[0]}>
+                        {m}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
               <div>
@@ -431,7 +441,7 @@ const Dashboard = () => {
                 </thead>
 
                 <tbody className="px-5 rounded-3xl ">
-                  {ww?.map((user,index) => (
+                  {ww?.map((user, index) => (
                     <Ritem user={user} key={index} />
                   ))}
                 </tbody>

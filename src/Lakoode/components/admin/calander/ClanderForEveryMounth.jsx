@@ -54,9 +54,11 @@ const ClanderForEveryMounth = ({
   const [calData, setCalData] = useState([]);
   useEffect(() => {
     axios({
-      withCredentials:true,
+      withCredentials: true,
+      headers:{"Content-Type":"application/json"},
+
       method: "post",
-      url: `https://localhost:7103/api/Admin/Reservation/GetPricedDays?villaId=${villa}&month=${mounth[0]}&year=${year}`,
+      url: `https://api.lakoode.ir/api/Admin/Reservation/GetPricedDays?villaId=${villa}&month=${mounth[0]}&year=${year}`,
     }).then(function (response) {
       let oo = response.data.data[0].date.split("T")[0].toString();
       let nowweekk = new Date(oo).toLocaleDateString(
@@ -113,7 +115,7 @@ const ClanderForEveryMounth = ({
 
   const oneHand = (d) => {
     setRangeDaysForUpdate({
-      y:year,
+      y: year,
       day: "",
       m: "",
     });
@@ -121,7 +123,7 @@ const ClanderForEveryMounth = ({
   };
   const twoHand = (d) => {
     setRangeDaysForUpdate({
-      y:year,
+      y: year,
       day: "",
       m: "",
     });
@@ -143,7 +145,7 @@ const ClanderForEveryMounth = ({
   };
   const treeHand = (d) => {
     setRangeDaysForUpdate({
-      y:year,
+      y: year,
       day: "",
       m: "",
     });
@@ -153,7 +155,7 @@ const ClanderForEveryMounth = ({
   const handfour = (d) => {
     setRangeDays({ f: "", s: "", y: year, m: mounth[0] });
     setRangeDaysForUpdate({
-      y:year,
+      y: year,
       day: d,
       m: mounth[0],
     });
@@ -168,7 +170,7 @@ const ClanderForEveryMounth = ({
       <table className="bg-white dark:bg-border rounded-3xl lg:w-[60vw]  ">
         <thead className="w-[80px]">
           <th>
-          <div className="faNumber justify-end flex bg-white dark:bg-transparent py-5  rounded-t-3xl  sm:px-2">
+            <div className="faNumber justify-end flex bg-white dark:bg-transparent py-5  rounded-t-3xl  sm:px-2">
               {year}
             </div>
           </th>
@@ -179,7 +181,7 @@ const ClanderForEveryMounth = ({
           </th>
         </thead>
         <thead>
-          {week.map((w,index) => (
+          {week.map((w, index) => (
             <th
               key={index}
               className="w-[70px]  min-w-[50px] text-sm font-semibold  mt-1"
@@ -189,7 +191,7 @@ const ClanderForEveryMounth = ({
           ))}
         </thead>
         <tbody className="faNumber">
-          {tr.map((t,index) => (
+          {tr.map((t, index) => (
             <tr key={index}>
               {calData
                 ?.flat()
@@ -242,7 +244,9 @@ const ClanderForEveryMounth = ({
                             seletedDays.find(
                               (day) => day == d.shamsiDate.split("/")[2]
                             ) ||
-                            d.shamsiDate.split("/")[2] == rangeDaysForUpdate.day || d===rangeDays.f
+                            d.shamsiDate.split("/")[2] ==
+                              rangeDaysForUpdate.day ||
+                            d === rangeDays.f
                               ? "text-white"
                               : " text-blue-500"
                           } `}

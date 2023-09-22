@@ -182,8 +182,7 @@ const AddMovies = ({ history, from, user }) => {
         method: "put",
         withCredentials: true,
         headers: { "Content-Type": "multipart/form-data" },
-
-        url: `https://localhost:7103/api/Admin/Villa/Edit/${user?.id}`,
+        url: `https://api.lakoode.ir/api/Admin/Villa/Edit/${user?.id}`,
         data: formData2,
       })
         .then(function (response) {
@@ -195,23 +194,22 @@ const AddMovies = ({ history, from, user }) => {
         })
         .catch(function (response) {
           //handle error
+          console.log(response)
         });
     } else {
       axios({
         withCredentials: true,
         method: "post",
-        url: "https://localhost:7103/api/Admin/Villa/Create",
+        url: "https://api.lakoode.ir/api/Admin/Villa/Create",
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
-      })
-        .then(function (response) {
-          toast.success(`${Formik.values.name} به ویلا ها اضافه شد. `, {
-            autoClose: 1100,
-            position: "top-left",
-          });
-          setTimeout(() => history.push("villaslist"), 800);
-        })
-      ;
+      }).then(function (response) {
+        toast.success(`${Formik.values.name} به ویلا ها اضافه شد. `, {
+          autoClose: 1100,
+          position: "top-left",
+        });
+        setTimeout(() => history.push("villaslist"), 800);
+      });
     }
   };
   const kechQU = [
@@ -323,9 +321,7 @@ const AddMovies = ({ history, from, user }) => {
                 </div>
               </li>
 
-              <li
-                className={` mb-10 ml-2 sm:ml-6 flex flex-col w-full`}
-              >
+              <li className={` mb-10 ml-2 sm:ml-6 flex flex-col w-full`}>
                 <UplaodBox setImgs={setImgs} imgs={imgs} />
               </li>
             </ol>

@@ -13,8 +13,8 @@ const User = () => {
     axios
 
       .get(
-        `https://localhost:7103/api/Admin/User/GetUserDetail?mobile=${usermobile}`,
-        { withCredentials: true }
+        `https://api.lakoode.ir/api/Admin/User/GetUserDetail?mobile=${usermobile}`,
+        { withCredentials: true ,headers: { "Content-Type": "application/json" }}
       )
       .then((r) => setData(r.data.data));
   }, []);
@@ -89,19 +89,21 @@ const User = () => {
             </div>
           </fieldset>
           <fieldset
-              className={`${data?.email ==='UserAddedByAdmin' && 'hidden'} flex flex-col justify-center border-b dark:rounded-none rounded-xl
+            className={`${
+              data?.email === "UserAddedByAdmin" && "hidden"
+            } flex flex-col justify-center border-b dark:rounded-none rounded-xl
                     border-[#787f98] border-opacity-40 
                      duration-150 shadow-md  my-1 px-1  h-[73px] w-[300px] `}
+          >
+            <legend
+              className={` px-1 text-sm y9:text-[16px] text-btn  text-[17px]`}
             >
-              <legend
-                className={` px-1 text-sm y9:text-[16px] text-btn  text-[17px]`}
-              >
-                ایمیل{" "}
-              </legend>
-              <div className="flex justify-between mb-1 ">
-                <p className="self-center pl-3">{data?.email}</p>
-              </div>
-            </fieldset>
+              ایمیل{" "}
+            </legend>
+            <div className="flex justify-between mb-1 ">
+              <p className="self-center pl-3">{data?.email}</p>
+            </div>
+          </fieldset>
           <fieldset
             className={`flex flex-col justify-center border-b dark:rounded-none rounded-xl
                     border-[#787f98] border-opacity-40 
@@ -220,12 +222,12 @@ const User = () => {
                   </thead>
 
                   <tbody className="px-5 rounded-3xl">
-                  {data?.reservations?.length === 0 ? (
-                        <p className="text-center py-5 w-full ">
-                          رزروی برای کاربر یافت نشد :(
-                        </p>
-                      ) : (
-                        data["reservations"] &&
+                    {data?.reservations?.length === 0 ? (
+                      <p className="text-center py-5 w-full ">
+                        رزروی برای کاربر یافت نشد :(
+                      </p>
+                    ) : (
+                      data["reservations"] &&
                       [...data["reservations"]]
                         .filter((item) =>
                           (item?.orderNuumber)
@@ -239,10 +241,10 @@ const User = () => {
                             : new Date(date2.submitDate.split("T")[0]) -
                               new Date(date1.submitDate.split("T")[0])
                         )
-                        .map((user,index) => (
+                        .map((user, index) => (
                           <TraconeshItem user={user} key={index} />
                         ))
-                      )}
+                    )}
                   </tbody>
                 </table>
                 {!data && <LoadingAdminListItem />}

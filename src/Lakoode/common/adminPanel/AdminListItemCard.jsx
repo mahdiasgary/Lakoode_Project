@@ -27,7 +27,7 @@ const AdminListItemCard = ({ item, td }) => {
             <div className="self-center  text-center">
               {td === "image" ? (
                 <img
-                  src={"https://localhost:7175/images/" + item[td]}
+                  src={"https://api.lakoode.ir/images/" + item[td]}
                   alt={item[td]}
                   className="w-[40px] h-[40px] self-center rounded-[28%] "
                 />
@@ -61,7 +61,7 @@ const AdminListItemCard = ({ item, td }) => {
           <td>
             <div className="flex justify-center px-2 group-hover:dark:bg-[#24272e] group-hover:bg-[#6d7077] duration-300 h-[64px] my-1 ">
               <img
-                src={"https://localhost:7175/images/" + item.image}
+                src={"https://api.lakoode.ir/images/" + item.image}
                 alt={item.image}
                 className="w-[40px] h-[40px] self-center rounded-[28%] "
               />

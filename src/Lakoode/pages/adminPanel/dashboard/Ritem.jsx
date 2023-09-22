@@ -28,7 +28,7 @@ const Ritem = ({ user, setState }) => {
         axios({
           withCredentials: true,
           method: "post",
-          url: "https://localhost:7103/api/Admin/Reservation/DeleteResavationByAdmin",
+          url: "https://api.lakoode.ir/api/Admin/Reservation/DeleteResavationByAdmin",
           data: formData,
           headers: { "Content-Type": "multipart/form-data" },
         }).then(function (response) {
@@ -61,7 +61,7 @@ const Ritem = ({ user, setState }) => {
           method: "post",
           withCredentials: true,
           headers: { "Content-Type": "multipart/form-data" },
-          url: `https://localhost:7103/api/Admin/Reservation/ApproveReservation`,
+          url: `https://api.lakoode.ir/api/Admin/Reservation/ApproveReservation`,
           data: formData,
         })
           .then(function (response) {
@@ -149,7 +149,7 @@ const Ritem = ({ user, setState }) => {
         <div className="flex px-2 group-hover:dark:bg-[#24272e] group-hover:bg-gray-500 duration-300 self-center h-[64px] flex-col justify-center text-center my-1">
           {user.isApproved ? (
             <div className="text-[12px] py-2 text-center w-[72px] text-green-600 px-2 group-hover:text-white bg-green-500 bg-opacity-30 font-bold rounded-lg ">
-            تایید شده
+              تایید شده
             </div>
           ) : (
             <div

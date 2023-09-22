@@ -4,7 +4,7 @@ export const movieCoreApi = createApi({
   reducerPath: "movieCoreApi",
   credentials: "include",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:7103",
+    baseUrl: "http://api.lakoode.ir",
   }),
   endpoints: (builder) => ({
     getArtisitListInAdminPanel: builder.query({
@@ -29,7 +29,7 @@ export const movieCoreApi = createApi({
       query: () => "Admin/Movie/Index",
     }),
     getvillalist: builder.query({
-      query: () => "/api/Admin/Villa/GetAll"
+      query: () => "/api/Admin/Villa/GetAll",
     }),
 
     addMovieInAdminPanel: builder.mutation({
@@ -162,9 +162,6 @@ export const movieCoreApi = createApi({
       invalidatesTags: ["Post"],
     }),
 
-
-    
-    
     // sendEmailForForgotPassword: builder.mutation({
     //   query: (email) => ({
     //     url: `Account/ForgotPassword?email=${encodeURIComponent(email)}`,

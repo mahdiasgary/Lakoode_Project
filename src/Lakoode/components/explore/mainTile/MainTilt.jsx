@@ -5,11 +5,16 @@ import { useEffect, useState } from "react";
 const MainTilt = ({ selectetOpt, priceRoom, priceRange }) => {
   const [data, setData] = useState();
   useEffect(() => {
-    axios.get("https://localhost:7103/api/Home/GetAll").then((r) => {
-      setData(r.data);
-    });
+    axios
+      .get("https://api.lakoode.ir/api/Home/GetAll", {
+        withCredentials: true,
+        headers: { "Content-Type": "application/json" }
+      })
+      .then((r) => {
+        setData(r.data);
+      });
   }, []);
-console.log(selectetOpt)
+  console.log(selectetOpt);
   let ww = data?.data?.filter(
     (q) =>
       !q.isDisabled &&

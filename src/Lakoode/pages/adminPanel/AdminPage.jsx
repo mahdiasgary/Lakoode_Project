@@ -29,8 +29,9 @@ const AdminPage = ({ history }) => {
   const [admin, setAdmin] = useState();
   useEffect(() => {
     axios
-      .get("https://localhost:7103/api/Account/Login", {
+      .get("https://api.lakoode.ir/api/Account/Login", {
         withCredentials: true,
+        headers: { "Content-Type": "application/json" }
       })
       .then((r) => {
         setAdmin(r.data.data);
@@ -40,8 +41,9 @@ const AdminPage = ({ history }) => {
       });
 
     axios
-      .get("https://localhost:7103/api/Admin/Home/AdminIndex", {
+      .get("https://api.lakoode.ir/api/Admin/Home/AdminIndex", {
         withCredentials: true,
+        headers: { "Content-Type": "application/json" }
       })
       .then((r) => {
         if (r.data.isSuccessFull) {
@@ -51,9 +53,7 @@ const AdminPage = ({ history }) => {
           history.push("/");
         }
       })
-      .catch((r) => {
-        history.push("/");
-      });
+     
   }, []);
   return (
     state && (

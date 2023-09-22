@@ -66,7 +66,8 @@ const Vw = ({
     // })
     axios({
       method: "post",
-      url: "https://localhost:7103/api/Account/ActiveAccount",
+      headers: { "Content-Type": "application/json" },
+      url:"https://api.lakoode.ir/api/Account/ActiveAccount",
       data: {
         mobile: userEmail,
         otpCode:
@@ -75,29 +76,27 @@ const Vw = ({
           Formik.values.digit3.toString() +
           Formik.values.digit4.toString(),
       },
-    })
-      
-      .then((res) => {
-        setLoadingButton(false);
-console.log(res)
-        if (!res.data.isSuccessFull) {
-          setCorrectCode(-1);
-          toast.error(res.data.message, {
-            autoClose: 2100,
-            position: "top-left",
-          });
-        }
+    }).then((res) => {
+      setLoadingButton(false);
+      console.log(res);
+      if (!res.data.isSuccessFull) {
+        setCorrectCode(-1);
+        toast.error(res.data.message, {
+          autoClose: 2100,
+          position: "top-left",
+        });
+      }
 
-        if (res.data.isSuccessFull) {
-          setCorrectCode(1);
-          setSwichBetweenCreateAndVerify(true);
-          toast.success(res.data.message, {
-            autoClose: 2100,
-            position: "top-left",
-          });
-          setTimeout(() => setSwichBetweenCreateAndVerify(true), 800);
-        }
-      });
+      if (res.data.isSuccessFull) {
+        setCorrectCode(1);
+        setSwichBetweenCreateAndVerify(true);
+        toast.success(res.data.message, {
+          autoClose: 2100,
+          position: "top-left",
+        });
+        setTimeout(() => setSwichBetweenCreateAndVerify(true), 800);
+      }
+    });
   };
   const [counter, setCounter] = React.useState(120);
 
@@ -164,7 +163,7 @@ console.log(res)
                     setCounter(120);
 
                     axios
-                      .get("https://localhost:7103/api/Account/ActiveAccount", {
+                      .get("https://api.lakoode.ir/api/Account/ActiveAccount", {
                         params: { mobile: userEmail },
                       })
                       .then((res) => {

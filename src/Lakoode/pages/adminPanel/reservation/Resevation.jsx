@@ -12,10 +12,12 @@ const Resevation = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
     axios
-      .get("https://localhost:7103/api/Admin/Villa/GetAll", { withCredentials: true })
+      .get("https://api.lakoode.ir/api/Admin/Villa/GetAll", {
+        withCredentials: true,headers: { "Content-Type": "application/json" }
+      })
       .then((r) => {
         setData(r.data);
-      })
+      });
   }, []);
   let nowYear = new Date().toLocaleDateString("fa-IR-u-nu-latn", optionsY);
   const [year, setyear] = useState(nowYear);
@@ -25,8 +27,8 @@ const Resevation = () => {
   const [villaInf, setvillaInf] = useState();
   useEffect(() => {
     axios
-      .get(`https://localhost:7103/api/Admin/Villa/Get?Id=${id}`, {
-        withCredentials: true,
+      .get(`https://api.lakoode.ir/api/Admin/Villa/Get?Id=${id}`, {
+        withCredentials: true,headers: { "Content-Type": "application/json" }
       })
       .then((res) => {
         setvillaInf(res.data.data);
@@ -52,8 +54,9 @@ const Resevation = () => {
       rangeDays.m !== "" &&
       axios({
         method: "post",
+        headers: { "Content-Type": "application/json" },
         withCredentials: true,
-        url: `https://localhost:7103/api/Admin/Reservation/GetPricedDays?villaId=${id}&month=${rangeDays.m}&year=${year}`,
+        url: `https://api.lakoode.ir/api/Admin/Reservation/GetPricedDays?villaId=${id}&month=${rangeDays.m}&year=${year}`,
       }).then(function (response) {
         setDayPrice(response.data.data);
       });
@@ -116,30 +119,27 @@ const Resevation = () => {
     axios({
       withCredentials: true,
       method: "post",
-      url: "https://localhost:7103/api/Admin/Reservation/ReserveVillaViaAdmin",
+      url: "https://api.lakoode.ir/api/Admin/Reservation/ReserveVillaViaAdmin",
       data: fromData,
       headers: { "Content-Type": "multipart/form-data" },
-    })
-      .then(function (r) {
-        if (!r.data.isSuccessFull) {
-          toast.error(`${r.data.message}`, {
-            autoClose: 1100,
-            position: "top-left",
-          });
-        }
-        if (r.data.isSuccessFull) {
-          toast.success(`${r.data.message}`, {
-            autoClose: 1100,
-            position: "top-left",
-          });
-        }
-        // setTimeout(() => history.push("villaslist"), 800);
-      })
-     
+    }).then(function (r) {
+      if (!r.data.isSuccessFull) {
+        toast.error(`${r.data.message}`, {
+          autoClose: 1100,
+          position: "top-left",
+        });
+      }
+      if (r.data.isSuccessFull) {
+        toast.success(`${r.data.message}`, {
+          autoClose: 1100,
+          position: "top-left",
+        });
+      }
+      // setTimeout(() => history.push("villaslist"), 800);
+    });
   };
   return (
     <div>
-    
       <div className="flex mt-16 p-3 ">
         <p className="text-[18px] self-center font-bold">
           رزرواسیون برای ویلای :
@@ -152,8 +152,15 @@ const Resevation = () => {
           className="px-12 dark:bg-border mx-5 py-4 rounded-2xl text-[18px] font-bold"
         >
           <option value="">انتخاب کنید</option>
-          {data?.data?.map((item,index) => (
-            <option key={index} value={item.id} className={item.isDisabled && 'hidden' }> {item.name}</option>
+          {data?.data?.map((item, index) => (
+            <option
+              key={index}
+              value={item.id}
+              className={item.isDisabled && "hidden"}
+            >
+              {" "}
+              {item.name}
+            </option>
           ))}
         </select>
       </div>

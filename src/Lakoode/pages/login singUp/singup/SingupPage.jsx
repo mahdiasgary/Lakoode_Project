@@ -14,7 +14,7 @@ import { withRouter } from "react-router-dom";
 
 const SingupPage = ({ setOpenMenu, from, openMenu, history }) => {
   axios
-    .get("https://localhost:7103/api/Account/Login", { withCredentials: true })
+    .get("https://api.lakoode.ir/api/Account/Login", { withCredentials: true ,headers: { "Content-Type": "application/json" }})
     .then((r) => {
       if (r.data.isSuccessFull) {
         history.push("/user");
@@ -64,9 +64,9 @@ const SingupPage = ({ setOpenMenu, from, openMenu, history }) => {
     setUserEmail(Formik.values.mobile);
     axios({
       withCredentials: true,
-
+      headers: { "Content-Type": "application/json" },
       method: "post",
-      url: "https://localhost:7103/api/Account/Register",
+      url: "https://api.lakoode.ir/api/Account/Register",
       data: {
         name: Formik.values.firstName,
         lastName: Formik.values.lastName,
@@ -85,7 +85,6 @@ const SingupPage = ({ setOpenMenu, from, openMenu, history }) => {
           autoClose: 2100,
           position: "top-left",
         });
-    
       })
       .catch((r) => {
         setLoadingButton(false);

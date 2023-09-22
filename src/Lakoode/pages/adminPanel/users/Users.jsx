@@ -27,13 +27,13 @@ const Users = ({ history }) => {
 
   useEffect(() => {
     axios
-      .get("https://localhost:7103/api/Admin/User/GetUserList", {
-        withCredentials: true,
+      .get("https://api.lakoode.ir/api/Admin/User/GetUserList", {
+        withCredentials: true,headers: { "Content-Type": "application/json" }
       })
       .then((r) => setData(r.data.data));
     axios
-      .get("https://localhost:7103/api/Admin/User/GetDisabledUserList", {
-        withCredentials: true,
+      .get("https://api.lakoode.ir/api/Admin/User/GetDisabledUserList", {
+        withCredentials: true,headers: { "Content-Type": "application/json" }
       })
       .then((r) => setData2(r.data.data));
   }, []);
@@ -46,7 +46,7 @@ const Users = ({ history }) => {
       method: "post",
       withCredentials: true,
       headers: { "Content-Type": "multipart/form-data" },
-      url: `https://localhost:7103/api/Admin/User/SendMessage`,
+      url: `https://api.lakoode.ir/api/Admin/User/SendMessage`,
       data: formData,
     })
       .then(function (response) {
@@ -172,7 +172,7 @@ const Users = ({ history }) => {
                       : new Date(date2.createdDate.split("T")[0]) -
                         new Date(date1.createdDate.split("T")[0])
                   )
-                  .map((user,index) => (
+                  .map((user, index) => (
                     <UsersItem
                       user={user}
                       key={index}

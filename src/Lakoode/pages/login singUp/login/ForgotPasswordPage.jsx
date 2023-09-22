@@ -15,15 +15,15 @@ import Navbar from "../../../components/navbar/Navbar";
 import axios from "axios";
 import Vw from "./Vw";
 
-const ForgotPasswordPage = ({ history, openMenu, setOpenMenu,login }) => {
+const ForgotPasswordPage = ({ history, openMenu, setOpenMenu, login }) => {
   axios
-  .get("https://localhost:7103/api/Account/Login", { withCredentials: true })
-  .then((r) => {
-    // console.log(r.data)
-    if (!r.data.isSuccessFull && login ) {
-      history.push("/login");
-    }
-  });
+    .get("https://api.lakoode.ir/api/Account/Login", { withCredentials: true,headers: { "Content-Type": "application/json" } })
+    .then((r) => {
+      // console.log(r.data)
+      if (!r.data.isSuccessFull && login) {
+        history.push("/login");
+      }
+    });
   const initialValues = {
     mobile: "",
     password: "",
@@ -59,12 +59,14 @@ const ForgotPasswordPage = ({ history, openMenu, setOpenMenu,login }) => {
 
   const sendEmailForForgotPasswordHandler = () => {
     axios
-      .get("https://localhost:7103/api/Account/SendSmsForgotPassword", {
+      .get("https://api.lakoode.ir/api/Account/SendSmsForgotPassword", {
         params: { mobile: Formik.values.mobile },
+        headers: { "Content-Type": "application/json" },
+        withCredentials:true
       })
       .then((res) => {
         setloadingButton(false);
-        if (res.data.isSuccessFull ) {
+        if (res.data.isSuccessFull) {
           setSwichBetweenFormAndVerify(true);
           toast.success(res.data.message, {
             autoClose: 2100,
@@ -81,7 +83,7 @@ const ForgotPasswordPage = ({ history, openMenu, setOpenMenu,login }) => {
         }
       })
       .catch((res) => {
-        toast.error('خطا مجددا امتجان کنید  ', {
+        toast.error("خطا مجددا امتجان کنید  ", {
           autoClose: 2100,
           position: "top-left",
         });
@@ -112,7 +114,7 @@ const ForgotPasswordPage = ({ history, openMenu, setOpenMenu,login }) => {
           )
         ) : (
           <ForgetPasswordForm
-          login={login}
+            login={login}
             setloadingButton={setloadingButton}
             loadingButton={loadingButton}
             Formik={Formik}
@@ -125,18 +127,18 @@ const ForgotPasswordPage = ({ history, openMenu, setOpenMenu,login }) => {
 
         {/* log in image background */}
         {localStorage.getItem("DarkMode") === "dark" ? (
-        <img
-          className="opacity-70 transform -scale-x-100  h-screen hidden  md:flex   fixed left-0 top-0 z-[0] "
-          src={a}
-          alt=""
-        />
-      ) : (
-        <img
-          className="opacity- h-screen dark:hidden hidden  md:flex fixed left-0 top-0 z-[0] "
-          src={b}
-          alt="q"
-        />
-      )}
+          <img
+            className="opacity-70 transform -scale-x-100  h-screen hidden  md:flex   fixed left-0 top-0 z-[0] "
+            src={a}
+            alt=""
+          />
+        ) : (
+          <img
+            className="opacity- h-screen dark:hidden hidden  md:flex fixed left-0 top-0 z-[0] "
+            src={b}
+            alt="q"
+          />
+        )}
       </div>
     </div>
   );

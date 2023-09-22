@@ -223,7 +223,7 @@ const SingupForm = ({
                         ></path>
                       </svg>
                     </div>
-                    <p>صبور باشید ...</p>
+                    <p  className="px-2">صبور باشید ...</p>
                   </div>
                 </button>
               ) : (

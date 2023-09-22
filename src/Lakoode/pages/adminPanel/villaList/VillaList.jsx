@@ -11,9 +11,14 @@ const VillaList = ({ history }) => {
 
   const [data, setData] = useState();
   useEffect(() => {
-    axios.get('https://localhost:7103/api/Admin/Villa/GetAll',{withCredentials:true}).then((r) => {
-      setData(r.data);
-    })
+    axios
+      .get("https://api.lakoode.ir/api/Admin/Villa/GetAll", {
+        withCredentials: true,
+        headers: { "Content-Type": "application/json" }
+      })
+      .then((r) => {
+        setData(r.data);
+      });
   }, []);
   return (
     <div className="pb-20 w-full">

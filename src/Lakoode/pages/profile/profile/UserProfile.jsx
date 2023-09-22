@@ -11,8 +11,9 @@ const UserProfile = ({ history }) => {
   const [userInfo, setUserInf] = useState();
   useEffect(() => {
     axios
-      .get("https://localhost:7103/api/Account/Login", {
+      .get("https://api.lakoode.ir/api/Account/Login", {
         withCredentials: true,
+        headers: { "Content-Type": "application/json" }
       })
       .then((r) => {
         if (r.data.isSuccessFull) {
@@ -37,10 +38,10 @@ const UserProfile = ({ history }) => {
       if (r.isConfirmed) {
         axios({
           withCredentials: true,
+          headers: { "Content-Type": "application/json" },
           method: "post",
-          url: `https://localhost:7103/api/Account/SignOut`,
-        })
-          .then((r) => window.location.reload())
+          url: `https://api.lakoode.ir/api/Account/SignOut`,
+        }).then((r) => window.location.reload());
       }
       // console.log(r)
     });
@@ -131,7 +132,9 @@ const UserProfile = ({ history }) => {
               </div>
             </fieldset>
             <fieldset
-              className={`${userInfo?.email ==='UserAddedByAdmin' && 'hidden'} flex flex-col justify-center border-b dark:rounded-none rounded-xl
+              className={`${
+                userInfo?.email === "UserAddedByAdmin" && "hidden"
+              } flex flex-col justify-center border-b dark:rounded-none rounded-xl
                     border-[#787f98] border-opacity-40 
                      duration-150 shadow-md  my-1 px-1  h-[73px] w-[300px] `}
             >
@@ -164,16 +167,15 @@ const UserProfile = ({ history }) => {
           </div>
         </div>
         <div className="mt-2 md:self-center w-full px-5 y7:px-10 xl:px-16 ">
-          
-            <Link to={"/forgotpassword"}>
-              <div
-                className={`flex flex-col cursor-pointer hover:bg-blue-800 text-center justify-center bg-btn text-white  rounded-[30px]
+          <Link to={"/forgotpassword"}>
+            <div
+              className={`flex flex-col cursor-pointer hover:bg-blue-800 text-center justify-center bg-btn text-white  rounded-[30px]
                     border-[#787f98] border-opacity-40 
                      duration-150 shadow-md  my-1 px-1  h-[65px] w-[300px] `}
-              >
-                تغییر رمز عبور
-              </div>
-            </Link>
+            >
+              تغییر رمز عبور
+            </div>
+          </Link>
         </div>
 
         <div className="mt-8 md:self-center w-full px-3 y7:px-5 xl:px-16 ">
@@ -181,66 +183,62 @@ const UserProfile = ({ history }) => {
             <div className="">
               <p className="text-[20px] font-semibold my-4 mx-3 ">رزرو ها </p>
               <div className="flex justify-center w-full">
-             {
-              userInfo?.reservations.length === 0 ? (
-                <p className="text-center py-5 w-full ">
-                  رزروی برای شما یافت نشد :(
-                </p>
-              ) : 
-                <div className="dark:bg-[#1c1d21] bg-white  bg-opacity-40 overflow-x-auto min-w-[85vw] max-w-[85vw] md:min-w-[70vw] md:max-w-[70vw] rounded-2xl">
-                  <table className="rounded-xl   table-auto w-full border dark:border-0 ">
-                    <thead>
-                      <tr className="bg-[#1c1d21] h-[65px] dark:text-[#6d7077] text-gray-300 text-sm ">
-                        <th className=" py-2  ">
-                          <div className="flex justify-center cursor-pointer ">
-                            <div className="">کد رهگیری</div>
-                          </div>
-                        </th>
-                        <th className=" py-2  ">
-                          <div className="flex justify-center cursor-pointer ">
-                            <div className="">ویلا </div>
-                          </div>
-                        </th>
-                        <th className="">آیدی ویلا</th>
-                        <th className="w-[20%]">
-                          <div className="flex justify-center  text-sm">
-                            <div className="">تاریخ سفارش</div>
-                          </div>
-                        </th>
-                        <th className="">
-                          <div className="flex justify-center  text-sm">
-                            <div className="">تاریخ ورود</div>
-                          </div>
-                        </th>
-                        <th className="">
-                          <div className="flex justify-center text-sm">
-                            <div className="">تاریخ خروج</div>
-                          </div>
-                        </th>
-                        <th className="">
-                          <div className="flex justify-center text-sm">
-                            <div className=""> قیمت</div>
-                          </div>
-                        </th>
-                        <th className="w-[10%]">
-                          <div className="flex justify-center text-sm">
-                            <div className=""> وضعیت</div>
-                          </div>
-                        </th>{" "}
-                      </tr>
-                    </thead>
+                {userInfo?.reservations.length === 0 ? (
+                  <p className="text-center py-5 w-full ">
+                    رزروی برای شما یافت نشد :(
+                  </p>
+                ) : (
+                  <div className="dark:bg-[#1c1d21] bg-white  bg-opacity-40 overflow-x-auto min-w-[85vw] max-w-[85vw] md:min-w-[70vw] md:max-w-[70vw] rounded-2xl">
+                    <table className="rounded-xl   table-auto w-full border dark:border-0 ">
+                      <thead>
+                        <tr className="bg-[#1c1d21] h-[65px] dark:text-[#6d7077] text-gray-300 text-sm ">
+                          <th className=" py-2  ">
+                            <div className="flex justify-center cursor-pointer ">
+                              <div className="">کد رهگیری</div>
+                            </div>
+                          </th>
+                          <th className=" py-2  ">
+                            <div className="flex justify-center cursor-pointer ">
+                              <div className="">ویلا </div>
+                            </div>
+                          </th>
+                          <th className="">آیدی ویلا</th>
+                          <th className="w-[20%]">
+                            <div className="flex justify-center  text-sm">
+                              <div className="">تاریخ سفارش</div>
+                            </div>
+                          </th>
+                          <th className="">
+                            <div className="flex justify-center  text-sm">
+                              <div className="">تاریخ ورود</div>
+                            </div>
+                          </th>
+                          <th className="">
+                            <div className="flex justify-center text-sm">
+                              <div className="">تاریخ خروج</div>
+                            </div>
+                          </th>
+                          <th className="">
+                            <div className="flex justify-center text-sm">
+                              <div className=""> قیمت</div>
+                            </div>
+                          </th>
+                          <th className="w-[10%]">
+                            <div className="flex justify-center text-sm">
+                              <div className=""> وضعیت</div>
+                            </div>
+                          </th>{" "}
+                        </tr>
+                      </thead>
 
-                    <tbody className="px-5 rounded-3xl">
-                      {(
-                        userInfo?.reservations?.map((user) => (
+                      <tbody className="px-5 rounded-3xl">
+                        {userInfo?.reservations?.map((user) => (
                           <UserItemIndex user={user} key={user.mobile} />
-                        ))
-                      )}
-                    </tbody>
-                  </table>
-                </div>
-
-             }
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
               </div>
             </div>
           </div>
