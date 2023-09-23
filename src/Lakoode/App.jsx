@@ -34,7 +34,7 @@ const App = () => {
     nprogress.start();
     nprogress.done();
   }, [location.pathname]);
- 
+
   return (
     <BrowserRouter>
       <ToastContainer theme="dark" />

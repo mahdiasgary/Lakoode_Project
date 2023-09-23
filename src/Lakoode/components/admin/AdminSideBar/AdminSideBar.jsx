@@ -10,8 +10,9 @@ import { adminSidbarItem } from "../../../constans";
 import { useStateContext } from "../../../contextProvider/ContextProvider";
 import Swal from "sweetalert2";
 import axios from "axios";
-const AdminSideBar = ({ openMenu, setOpenMenu, admin }) => {
-  const { IsDarkMode, setMode } = useStateContext();
+const AdminSideBar = ({ openMenu, setOpenMenu }) => {
+  const { IsDarkMode,loginStatus } = useStateContext();
+  console.log(loginStatus[1])
   const logout = () => {
     Swal.fire({
       title: "مطمئن هستید؟",
@@ -57,7 +58,7 @@ const AdminSideBar = ({ openMenu, setOpenMenu, admin }) => {
         />
       </div>
       <div className="flex justify-between px-5 pt-5 lg:pt-0 pb-5">
-        <p className="self-center">{admin?.name + "  " + admin?.lastName}</p>
+        <p className="self-center">{loginStatus[1]?.name + "  " + loginStatus[1]?.lastName}</p>
         <button
           onClick={logout}
           className="text-red-500 gap-1 flex hover:bg-opacity-100 duration-200 hover:text-white  self-center bg-red-500  bg-opacity-20 text-[13px] rounded-2xl px-3 py-1 "

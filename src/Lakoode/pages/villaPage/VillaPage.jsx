@@ -26,6 +26,7 @@ import { optiona } from "../../constans/options";
 import Foter from "../Foter";
 import Navbar from "../../components/navbar/Navbar";
 import { toast } from "react-toastify";
+import { useStateContext } from "../../contextProvider/ContextProvider";
 
 let DefaultIcon = L.icon({
   iconUrl: icon,
@@ -37,7 +38,7 @@ const VillaPagee = () => {
     year: "numeric",
   };
   const [loadingButton, setLoadingButton] = useState(false);
-
+const{loginStatus}=useStateContext()
   let nowYear = new Date().toLocaleDateString("fa-IR-u-nu-latn", optionsY);
   const [year, setyear] = useState(nowYear);
   let id = useHistory()?.location.state.id;
@@ -148,18 +149,8 @@ const VillaPagee = () => {
     year: "numeric",
   };
   const position = [36.685357408400314, 51.41840014662684];
-  const [loginS, setloginS] = useState(false);
-  useEffect(() => {
-    axios
-      .get("https://api.lakoode.ir/api/Account/Login", {
-        withCredentials: true,headers: { "Content-Type": "application/json" }
-      })
-      .then((r) => {
-        if (r.data.isSuccessFull) {
-          setloginS(true);
-        }
-      });
-  }, []);
+  // const [loginStatus[0], setloginStatus[0]] = useState(false);
+
   const [ISdisss, setISDis] = useState([false, ""]);
   const [disss, setDis] = useState("");
   useEffect(() => {
@@ -1033,7 +1024,7 @@ const VillaPagee = () => {
                 </div>
                 <div
                   className={`${
-                    loginS && "hidden"
+                    loginStatus[0] && "hidden"
                   } text-white flex w-full justify-center h-[455px] lg:h-[500px] z-[3]  lg:w-[60vw]  top-0 lg:left-0 absolute`}
                 >
                   <div className="w-full flex justify-center lg:mx-0 mx-3 bg-gray-700 bg-opacity-60 backdrop-blur-sm rounded-3xl">

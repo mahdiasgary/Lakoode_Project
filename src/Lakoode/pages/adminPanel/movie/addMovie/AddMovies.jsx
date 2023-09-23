@@ -194,7 +194,7 @@ const AddMovies = ({ history, from, user }) => {
         })
         .catch(function (response) {
           //handle error
-          console.log(response)
+          // console.log(response)
         });
     } else {
       axios({

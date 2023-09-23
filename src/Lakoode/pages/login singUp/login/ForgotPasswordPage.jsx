@@ -14,16 +14,12 @@ import * as Yup from "yup";
 import Navbar from "../../../components/navbar/Navbar";
 import axios from "axios";
 import Vw from "./Vw";
+import { useStateContext } from "../../../contextProvider/ContextProvider";
+import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 
 const ForgotPasswordPage = ({ history, openMenu, setOpenMenu, login }) => {
-  axios
-    .get("https://api.lakoode.ir/api/Account/Login", { withCredentials: true,headers: { "Content-Type": "application/json" } })
-    .then((r) => {
-      // console.log(r.data)
-      if (!r.data.isSuccessFull && login) {
-        history.push("/login");
-      }
-    });
+  // const { loginStatus } = useStateContext();
+  // if (loginStatus[0]) history.push("/user");
   const initialValues = {
     mobile: "",
     password: "",
@@ -144,4 +140,4 @@ const ForgotPasswordPage = ({ history, openMenu, setOpenMenu, login }) => {
   );
 };
 
-export default ForgotPasswordPage;
+export default withRouter(ForgotPasswordPage);

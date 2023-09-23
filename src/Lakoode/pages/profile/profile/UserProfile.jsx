@@ -6,24 +6,12 @@ import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 import Navbar from "../../../components/navbar/Navbar";
 import Swal from "sweetalert2";
 import UserItemIndex from "../UserItemIndex";
+import { useStateContext } from "../../../contextProvider/ContextProvider";
 const UserProfile = ({ history }) => {
   let data = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  const [userInfo, setUserInf] = useState();
-  useEffect(() => {
-    axios
-      .get("https://api.lakoode.ir/api/Account/Login", {
-        withCredentials: true,
-        headers: { "Content-Type": "application/json" }
-      })
-      .then((r) => {
-        if (r.data.isSuccessFull) {
-          setUserInf(r.data.data);
-        }
-        if (!r.data.isSuccessFull) {
-          history.push("/login");
-        }
-      });
-  }, []);
+  const { loginStatus } = useStateContext();
+  if (!loginStatus[0]) history.push("/login");
+  const [userInfo, setUserInf] = useState(loginStatus[1]);
   const logout = () => {
     Swal.fire({
       title: "مطمئن هستید؟",
@@ -183,7 +171,7 @@ const UserProfile = ({ history }) => {
             <div className="">
               <p className="text-[20px] font-semibold my-4 mx-3 ">رزرو ها </p>
               <div className="flex justify-center w-full">
-                {userInfo?.reservations.length === 0 ? (
+                {userInfo?.reservations?.length === 0 ? (
                   <p className="text-center py-5 w-full ">
                     رزروی برای شما یافت نشد :(
                   </p>

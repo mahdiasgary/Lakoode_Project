@@ -20,43 +20,20 @@ const AdminPage = ({ history }) => {
   const [mode, setMode] = useState("dark");
   const [openMenu, setOpenMenu] = useState(false);
   const [isSearchItemsShow, setIsSearchItemsShow] = useState(false);
-  const { IsDarkMode } = useStateContext();
+  const { IsDarkMode,loginStatus,AdminStatus } = useStateContext();
   useEffect(() => {
     nprogress.start();
     nprogress.done();
   }, [history.location.pathname]);
-  const [state, set] = useState(false);
   const [admin, setAdmin] = useState();
   useEffect(() => {
-    axios
-      .get("https://api.lakoode.ir/api/Account/Login", {
-        withCredentials: true,
-        headers: { "Content-Type": "application/json" }
-      })
-      .then((r) => {
-        setAdmin(r.data.data);
-        if (!r.data.isSuccessFull) {
-          history.push("/");
-        }
-      });
+   if(!loginStatus[0] || !AdminStatus) history.push("/");
 
-    axios
-      .get("https://api.lakoode.ir/api/Admin/Home/AdminIndex", {
-        withCredentials: true,
-        headers: { "Content-Type": "application/json" }
-      })
-      .then((r) => {
-        if (r.data.isSuccessFull) {
-          set(true);
-        }
-        if (!r.data.isSuccessFull) {
-          history.push("/");
-        }
-      })
+
      
   }, []);
   return (
-    state && (
+    AdminStatus && (
       <div
         className={`dark:text-textDark text-textLight  
     ${IsDarkMode ? "gradient-06" : "lightTheme"} `}
@@ -74,7 +51,7 @@ const AdminPage = ({ history }) => {
               openMenu={openMenu}
               setOpenMenu={setOpenMenu}
               setMode={setMode}
-              admin={admin}
+              admin={loginStatus[1]}
             />
           </div>
 

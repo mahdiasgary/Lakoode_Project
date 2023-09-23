@@ -7,11 +7,8 @@ import { toast } from "react-toastify";
 import { withRouter } from "react-router-dom";
 
 const Adduser = ({ history }) => {
-  //   const { loginStatus } = useStateContext();
-  //   if (loginStatus) history.push("/user");
 
   const [loadingButton, setLoadingButton] = useState(false);
-  // const [userEmail, setUserEmail] = useState("");
 
   const initialValues = {
     firstName: "",
@@ -57,7 +54,7 @@ const Adduser = ({ history }) => {
       })
       .catch((res) => {
         setLoadingButton(false);
-        console.log(res)
+        // console.log(res)
         toast.error("خطایی رخ داد", {
           autoClose: 2100,
           position: "top-left",

@@ -3,27 +3,16 @@ import a from "../../../assets/88.png";
 import b from "./Most-Expensive-Movies-Ever-Made.png";
 import LoginForm from "../../../components/singup login/login/LoginForm";
 import { useFormik } from "formik";
-import {
-  useGetLoginStatusQuery,
-  useLoginUserMutation,
-} from "../../../redux/services/movieDatabase";
 import { toast } from "react-toastify";
 import { withRouter } from "react-router-dom";
 import * as Yup from "yup";
 import VerifyEmail from "../../../components/singup login/verify email/VerifyEmail";
 import { useStateContext } from "../../../contextProvider/ContextProvider";
 import Navbar from "../../../components/navbar/Navbar";
-import Cookies from "js-cookie";
 import axios from "axios";
 const LogInPage = ({ history, openMenu, setOpenMenu }) => {
-  axios
-    .get("https://api.lakoode.ir/api/Account/Login", { withCredentials: true,headers: { "Content-Type": "application/json" } })
-    .then((r) => {
-      // console.log(r.data)
-      if (r.data.isSuccessFull) {
-        history.push("/user");
-      }
-    });
+  const { loginStatus } = useStateContext();
+  if (loginStatus[0]) history.push("/user");
 
   const [userEmail, setUserEmail] = useState("");
   const [swichBetweenFormAndVerify, setSwichBetweenFormAndVerify] =

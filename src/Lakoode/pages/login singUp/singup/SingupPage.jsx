@@ -13,13 +13,9 @@ import { useStateContext } from "../../../contextProvider/ContextProvider";
 import { withRouter } from "react-router-dom";
 
 const SingupPage = ({ setOpenMenu, from, openMenu, history }) => {
-  axios
-    .get("https://api.lakoode.ir/api/Account/Login", { withCredentials: true ,headers: { "Content-Type": "application/json" }})
-    .then((r) => {
-      if (r.data.isSuccessFull) {
-        history.push("/user");
-      }
-    });
+  const { loginStatus } = useStateContext();
+  if (loginStatus[0]) history.push("/user");
+
   const [useRegisterUser] = useRegisterUserMutation();
   const [swichBetweenFormAndVerify, setSwichBetweenFormAndVerify] =
     useState(false);

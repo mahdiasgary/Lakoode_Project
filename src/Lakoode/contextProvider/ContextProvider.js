@@ -46,24 +46,41 @@ export const ContextProvider = ({ children }) => {
   const setMode = (prob) => {
     setIsDarkMode(prob);
   };
-  const [loginStatus, setloginStatus] = useState(false);
-  // const [userInfo,setUserInf]=useState()
+  const [loginStatus, setloginStatus] = useState([false,'']);
+  const [AdminStatus, setAdminStatus] = useState(false);
 
+const [state,setState]=useState(false)
+
+useEffect(()=>{
   axios
     .get("https://api.lakoode.ir/api/Account/Login", { withCredentials: true ,headers: { "Content-Type": "application/json" }})
     .then((r) => {
-      if (r.data.isSuccessfull) {
-        setloginStatus(true);
-        // setUserInf(r.data)
+      if (r.data.isSuccessFull) {
+        setloginStatus([true,r.data.data]);       
       }
-      if (!r.data.isSuccessfull) {
-        setloginStatus(false);
+      if (!r.data.isSuccessFull) {
+        setloginStatus([false,'']);
       }
     });
+
+
+    axios
+    .get("https://api.lakoode.ir/api/Admin/Home/AdminIndex", { withCredentials: true ,headers: { "Content-Type": "application/json" }})
+    .then((r) => {
+      if (r.data.isSuccessFull) {
+        setAdminStatus(true);       
+      }
+      if (!r.data.isSuccessFull) {
+        setAdminStatus(false);
+      }
+    });
+
+},[state])
   return (
     <StateContext.Provider
       value={{
         loginStatus,
+        AdminStatus,
         windowSize,
         selectedSideBarItem,
         setSelectedSideBarItem,

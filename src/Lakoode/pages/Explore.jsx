@@ -12,7 +12,7 @@ import { FaUser } from "react-icons/fa";
 import { IoMdMoon } from "react-icons/io";
 import { styles } from "../styles/styles";
 const Explore = ({ openMenu, setOpenMenu }) => {
-  const {rtl, IsDarkMode, setMode, loginStatus } = useStateContext();
+  const {rtl, IsDarkMode, setMode } = useStateContext();
 
   // const { rtl } = useStateContext();
   const [priceRange, setPriceRange] = useState([999000, 10000000]);

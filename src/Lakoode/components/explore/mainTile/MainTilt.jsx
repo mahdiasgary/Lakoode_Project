@@ -14,7 +14,6 @@ const MainTilt = ({ selectetOpt, priceRoom, priceRange }) => {
         setData(r.data);
       });
   }, []);
-  console.log(selectetOpt);
   let ww = data?.data?.filter(
     (q) =>
       !q.isDisabled &&
@@ -41,8 +40,7 @@ const MainTilt = ({ selectetOpt, priceRoom, priceRange }) => {
 
   return (
     <div className="dark:text-white mb-72 text-[16px] relative mt-36 -top-24  md:top-0 ">
-      <div className="flex justify-center"></div>
-      <div className="flex justify-center ">
+     <div className="flex justify-center ">
         <div className="flex  bg-opacity-50 w-[100vw] md:w-[90vw] flex-col justify-between rounded-3xl">
           <div className="flex justify-center ">
             {ww?.length === 0 ? (

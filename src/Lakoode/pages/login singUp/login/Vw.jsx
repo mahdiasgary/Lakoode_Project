@@ -78,7 +78,7 @@ const Vw = ({
       },
     }).then((res) => {
       setLoadingButton(false);
-      console.log(res);
+      // console.log(res);
       if (!res.data.isSuccessFull) {
         setCorrectCode(-1);
         toast.error(res.data.message, {
