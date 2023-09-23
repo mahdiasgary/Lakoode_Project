@@ -79,6 +79,7 @@ useEffect(()=>{
   return (
     <StateContext.Provider
       value={{
+        setState,
         loginStatus,
         AdminStatus,
         windowSize,

@@ -79,7 +79,7 @@ const ForgotPasswordPage = ({ history, openMenu, setOpenMenu, login }) => {
         }
       })
       .catch((res) => {
-        toast.error("خطا مجددا امتجان کنید  ", {
+        toast.error("خطا مجددا امتحان کنید  ", {
           autoClose: 2100,
           position: "top-left",
         });

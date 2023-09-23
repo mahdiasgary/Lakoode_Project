@@ -13,7 +13,7 @@ import { useStateContext } from "../../../contextProvider/ContextProvider";
 import { withRouter } from "react-router-dom";
 
 const SingupPage = ({ setOpenMenu, from, openMenu, history }) => {
-  const { loginStatus } = useStateContext();
+  const { loginStatus,setState } = useStateContext();
   if (loginStatus[0]) history.push("/user");
 
   const [useRegisterUser] = useRegisterUserMutation();

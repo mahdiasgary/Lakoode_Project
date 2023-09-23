@@ -5,6 +5,7 @@ import { withRouter } from "react-router-dom";
 import { useActiveAccountMutation } from "../../../redux/services/movieDatabase";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useStateContext } from "../../../contextProvider/ContextProvider";
 
 const VerifyEmail = ({
   setSwichBetweenFormAndVerify,
@@ -14,7 +15,7 @@ const VerifyEmail = ({
   from,
   setSwichBetweenCreateAndVerify,
 }) => {
-  const [activeAccountMutation] = useActiveAccountMutation();
+const {setState} =useStateContext()
   const [loadingButton, setLoadingButton] = useState(false);
   const itemsRef = useRef([]);
 
@@ -76,7 +77,6 @@ const VerifyEmail = ({
         }
         if (res.data.isSuccessFull) {
           setCorrectCode(1);
-
           toast.success(res.data.message, {
             autoClose: 2100,
             position: "top-left",
@@ -86,9 +86,11 @@ const VerifyEmail = ({
           }
           if (from === "login") {
             setTimeout(() => history.push("/"), 800);
+            setState(8)
           }
           if (from === "singUp") {
             setTimeout(() => history.push("/"), 800);
+            setState(9)
           }
         }
       })

@@ -39,7 +39,7 @@ const UserProfile = ({ history }) => {
       <Navbar from={"login"} />
 
       <div className="flex flex-col w-full mb-20  ">
-        <div className="mt-4 flex justify-between md:self-center w-full px-5 y7:px-10 xl:px-16 ">
+        <div className="mt-4 flex justify-between md:self-center w-full px-8 y7:px-10 xl:px-16 ">
           <div className="flex">
             <h1 className="text-2xl self-center font-bold mx-5 mt-8 mb-8">
               کاربر
@@ -52,7 +52,7 @@ const UserProfile = ({ history }) => {
               )}
               {userInfo?.isAdmin && (
                 <p className="text-blue-500 rounded-xl bg-blue-500 bg-opacity-20 px-5 py-2 mx-2 ">
-                  ادمین{" "}
+                  ادمین
                 </p>
               )}
             </div>
@@ -70,36 +70,25 @@ const UserProfile = ({ history }) => {
         <div className="md:flex w-full px-5 y7:px-10 xl:px-16">
           <div className="flex flex-wrap gap-3">
             <fieldset
-              className={`flex border-[#787f98] border-opacity-40 flex-col justify-center border-b dark:rounded-none rounded-xl duration-150 shadow-md  my-1 px-1  h-[73px] w-[300px] `}
+              className={`flex border-[#787f98] border-opacity-40 flex-col justify-center border-b dark:rounded-none rounded-xl duration-150 shadow-md  my-1 px-1  h-[73px]  w-full  md:w-[300px] `}
             >
               <legend
                 className={`border-[#787f98] border-opacity-40 px-1 text-sm y9:text-[16px] text-btn  text-[17px]`}
               >
-                نام{" "}
+                نام و نام خانوادگی
               </legend>
               <div className="flex justify-between mb-1 ">
-                <p className="self-center pl-3">{userInfo?.name}</p>
+                <p className="self-center pl-3">{userInfo?.name+" " +userInfo?.lastName}</p>
               </div>
-            </fieldset>{" "}
+            </fieldset>
+          
             <fieldset
-              className={`flex flex-col justify-center border-b dark:rounded-none rounded-xl border-[#787f98] border-opacity-40 duration-150 shadow-md  my-1 px-1  h-[73px] w-[300px] `}
+              className={`flex flex-col justify-center border-b dark:rounded-none rounded-xl border-[#787f98] border-opacity-40 duration-150 shadow-md  my-1 px-1  h-[73px]  w-full  md:w-[300px] `}
             >
               <legend
                 className={` px-1 text-sm y9:text-[16px] text-btn  text-[17px]`}
               >
-                نام خانوادگی{" "}
-              </legend>
-              <div className="flex justify-between mb-1 ">
-                <p className="self-center pl-3">{userInfo?.lastName}</p>
-              </div>
-            </fieldset>{" "}
-            <fieldset
-              className={`flex flex-col justify-center border-b dark:rounded-none rounded-xl border-[#787f98] border-opacity-40 duration-150 shadow-md  my-1 px-1  h-[73px] w-[300px] `}
-            >
-              <legend
-                className={` px-1 text-sm y9:text-[16px] text-btn  text-[17px]`}
-              >
-                موبایل{" "}
+                موبایل
               </legend>
               <div className="flex justify-between mb-1 ">
                 <p className="self-center pl-3">{userInfo?.mobile}</p>
@@ -108,12 +97,12 @@ const UserProfile = ({ history }) => {
             <fieldset
               className={`flex flex-col justify-center border-b dark:rounded-none rounded-xl
                     border-[#787f98] border-opacity-40 
-                     duration-150 shadow-md  my-1 px-1  h-[73px] w-[300px] `}
+                     duration-150 shadow-md  my-1 px-1  h-[73px]  w-full  md:w-[300px] `}
             >
               <legend
                 className={` px-1 text-sm y9:text-[16px] text-btn  text-[17px]`}
               >
-                کد ملی{" "}
+                کد ملی
               </legend>
               <div className="flex justify-between mb-1 ">
                 <p className="self-center pl-3">{userInfo?.nationalCode}</p>
@@ -124,12 +113,12 @@ const UserProfile = ({ history }) => {
                 userInfo?.email === "UserAddedByAdmin" && "hidden"
               } flex flex-col justify-center border-b dark:rounded-none rounded-xl
                     border-[#787f98] border-opacity-40 
-                     duration-150 shadow-md  my-1 px-1  h-[73px] w-[300px] `}
+                     duration-150 shadow-md  my-1 px-1  h-[73px]  w-full  md:w-[300px] `}
             >
               <legend
                 className={` px-1 text-sm y9:text-[16px] text-btn  text-[17px]`}
               >
-                ایمیل{" "}
+                ایمیل
               </legend>
               <div className="flex justify-between mb-1 ">
                 <p className="self-center pl-3">{userInfo?.email}</p>
@@ -138,33 +127,49 @@ const UserProfile = ({ history }) => {
             <fieldset
               className={`flex flex-col  justify-center border-b dark:rounded-none rounded-xl
                     border-[#787f98] border-opacity-40 
-                     duration-150 shadow-md  my-1 px-1  h-[73px] w-[300px] `}
+                     duration-150 shadow-md  my-1 px-1  h-[73px]  w-full  md:w-[300px] `}
             >
               <legend
                 className={` px-1 text-sm y9:text-[16px] text-btn  text-[17px]`}
               >
-                تاریخ ثبت نام{" "}
+                تاریخ ثبت نام
               </legend>
               <div className="flex justify-between mb-1 ">
                 <p className="self-center pl-3">
-                  {" "}
+                  
                   {new Date(userInfo?.createdDate).toLocaleDateString("fa")}
                 </p>
               </div>
-            </fieldset>{" "}
-          </div>
-        </div>
-        <div className="mt-2 md:self-center w-full px-5 y7:px-10 xl:px-16 ">
-          <Link to={"/forgotpassword"}>
+            </fieldset>
+            <fieldset
+              className={`flex flex-col  justify-center rounded-xl
+                    
+                       my-1 px-1  h-[73px]  w-full  md:w-[300px] `}
+            >
+            <Link to={"/forgotpassword"}>
             <div
               className={`flex flex-col cursor-pointer hover:bg-blue-800 text-center justify-center bg-btn text-white  rounded-[30px]
                     border-[#787f98] border-opacity-40 
-                     duration-150 shadow-md  my-1 px-1  h-[65px] w-[300px] `}
+                     duration-150 shadow-md  my-1 px-1  h-[73px]  w-full  md:w-[300px] `}
             >
               تغییر رمز عبور
             </div>
           </Link>
+            
+            </fieldset>
+          </div>
         </div>
+        {/* <div className="mt-2 md:self-center w-full px-5 y7:px-10 xl:px-16 ">
+          <Link to={"/forgotpassword"}>
+            <div
+              className={`flex flex-col cursor-pointer hover:bg-blue-800 text-center justify-center bg-btn text-white  rounded-[30px]
+                    border-[#787f98] border-opacity-40 
+                     duration-150 shadow-md  my-1 px-1  h-[65px]  w-full  md:w-[300px] `}
+            >
+              تغییر رمز عبور
+            </div>
+          </Link>
+        </div> */}
 
         <div className="mt-8 md:self-center w-full px-3 y7:px-5 xl:px-16 ">
           <div className="dark:bg-border bg-white dark:bg-opacity-40  rounded-3xl p-4  ">
@@ -215,7 +220,7 @@ const UserProfile = ({ history }) => {
                             <div className="flex justify-center text-sm">
                               <div className=""> وضعیت</div>
                             </div>
-                          </th>{" "}
+                          </th>
                         </tr>
                       </thead>
 

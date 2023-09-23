@@ -11,7 +11,7 @@ import { useStateContext } from "../../../contextProvider/ContextProvider";
 import Navbar from "../../../components/navbar/Navbar";
 import axios from "axios";
 const LogInPage = ({ history, openMenu, setOpenMenu }) => {
-  const { loginStatus } = useStateContext();
+  const { loginStatus,setState } = useStateContext();
   if (loginStatus[0]) history.push("/user");
 
   const [userEmail, setUserEmail] = useState("");
@@ -59,6 +59,7 @@ const LogInPage = ({ history, openMenu, setOpenMenu }) => {
         }
         if (res.data.isSuccessFull && res.data.status === "SuccessLogin") {
           history.push("/");
+          setState(7)
           toast.success(res.data.message, {
             autoClose: 2100,
             position: "top-left",

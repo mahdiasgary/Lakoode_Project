@@ -11,6 +11,7 @@ import UserProfile from "./pages/profile/profile/UserProfile";
 import nprogress from "nprogress";
 import VillaPagee from "./pages/villaPage/VillaPage";
 import Roles from "./Roles";
+import ScrollToTop from "./ScrollToTop";
 
 const Routs = ({ history }) => {
   const { setIsDarkMode, IsDarkMode } = useStateContext();
@@ -28,6 +29,8 @@ const Routs = ({ history }) => {
         className={`dark:text-textDark text-textLight   
         ${IsDarkMode ? "gradient-06" : "lightTheme"} `}
       >
+        {" "}
+        <ScrollToTop />
         <Route path={"/admin"} exact component={() => <AdminPage />} />
         <Route path={"/admin/:id"} exact component={() => <AdminPage />} />
         {/* <div className="bg-[#f9f9f9] dark:bg-[#282a37]"> */}
@@ -68,7 +71,6 @@ const Routs = ({ history }) => {
             />
           )}
         />
-
         <Route
           path={"/singup"}
           exact
@@ -82,7 +84,6 @@ const Routs = ({ history }) => {
           )}
         />
         <Route path={"/villapage/:id"} exact component={() => <VillaPagee />} />
-
         <div className="">
           <div
             onClick={() => setIsSearchItemsShow(false)}
