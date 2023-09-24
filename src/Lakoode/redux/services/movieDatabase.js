@@ -4,7 +4,7 @@ export const movieCoreApi = createApi({
   reducerPath: "movieCoreApi",
   credentials: "include",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://api.lakoode.ir",
+    baseUrl: "https://api.lakoode.ir",
   }),
   endpoints: (builder) => ({
     getArtisitListInAdminPanel: builder.query({

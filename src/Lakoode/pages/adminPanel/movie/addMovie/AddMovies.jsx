@@ -179,7 +179,7 @@ const AddMovies = ({ history, from, user }) => {
         formData2.append("Images", imgs[i]);
       }
       axios({
-        method: "put",
+        method: "Post",
         withCredentials: true,
         headers: { "Content-Type": "multipart/form-data" },
         url: `https://api.lakoode.ir/api/Admin/Villa/Edit/${user?.id}`,

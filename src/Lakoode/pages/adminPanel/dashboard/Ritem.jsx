@@ -26,7 +26,7 @@ const Ritem = ({ user, setState }) => {
         const formData = new FormData();
         formData.append("reservationId", user.id);
         axios({
-          withCredentials: true,
+          withCredentials: true, 
           method: "post",
           url: "https://api.lakoode.ir/api/Admin/Reservation/DeleteResavationByAdmin",
           data: formData,

@@ -66,6 +66,8 @@ const Vw = ({
     // })
     axios({
       method: "post",
+      withCredentials: true,
+      credentials: 'include', 
       headers: { "Content-Type": "application/json" },
       url:"https://api.lakoode.ir/api/Account/ActiveAccount",
       data: {
@@ -161,7 +163,6 @@ const Vw = ({
                   disabled={counter !== 0}
                   onClick={() => {
                     setCounter(120);
-
                     axios
                       .get("https://api.lakoode.ir/api/Account/ActiveAccount", {
                         params: { mobile: userEmail },

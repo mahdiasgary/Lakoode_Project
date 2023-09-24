@@ -38,7 +38,8 @@ const LogInPage = ({ history, openMenu, setOpenMenu }) => {
     setLoadingButton(true);
     axios({
       method: "post",
-      withCredentials: true,
+      withCredentials: true, 
+      credentials: 'include', 
       headers: { "Content-Type": "application/json" },
       url: "https://api.lakoode.ir/api/Account/Login",
       data: {

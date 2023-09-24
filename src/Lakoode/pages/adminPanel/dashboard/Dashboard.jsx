@@ -18,14 +18,14 @@ const Dashboard = () => {
   useEffect(() => {
     axios
       .get(`https://api.lakoode.ir/api/Admin/Reservation/GetAllReservedDays`, {
-        withCredentials: true,
+        withCredentials: true,credentials: 'include', 
         headers: { "Content-Type": "application/json" }
       })
       .then((r) => setData(r.data.data));
 
     axios
       .get(`https://api.lakoode.ir/api/Admin/Villa/GetAll`, {
-        withCredentials: true,
+        withCredentials: true, 
         headers: { "Content-Type": "application/json" }
       })
       .then((r) => {
@@ -35,7 +35,7 @@ const Dashboard = () => {
 
     axios
       .get("https://api.lakoode.ir/api/Admin/Home/AdminIndex", {
-        withCredentials: true,
+        withCredentials: true, 
         headers: { "Content-Type": "application/json" }
       })
       .then((r) => {
@@ -82,7 +82,7 @@ const Dashboard = () => {
     formData.append("IsActive", arg);
     axios({
       method: "post",
-      withCredentials: true,
+      withCredentials: true, 
 
       headers: { "Content-Type": "multipart/form-data" },
       url: "https://api.lakoode.ir/api/Admin/Villa/SetIPG",

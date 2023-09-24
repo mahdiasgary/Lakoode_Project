@@ -7,7 +7,7 @@ const MainTilt = ({ selectetOpt, priceRoom, priceRange }) => {
   useEffect(() => {
     axios
       .get("https://api.lakoode.ir/api/Home/GetAll", {
-        withCredentials: true,
+        withCredentials: true, 
         headers: { "Content-Type": "application/json" }
       })
       .then((r) => {
