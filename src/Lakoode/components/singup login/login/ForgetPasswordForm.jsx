@@ -22,13 +22,14 @@ const ForgetPasswordForm = ({
           <div className="flex justify-center">
             <div>
               <input
+              dir='ltr'
                 {...Formik.getFieldProps("mobile")}
                 type="text"
                 disabled={loadingButton && true}
-                placeholder="شماره موبایل خود را وارد کنید"
+                placeholder="شماره موبایل خود را به انگلیسی وارد کنید"
                 className={` ${
                   loadingButton && "cursor-not-allowed"
-                } flex  px-5 flex-col outline-none focus:ring-2 duration-150 focus:ring-btn justify-center text-textLight dark:text-textDark bg-white dark:bg-[#323645] shadow-md  my-1 rounded-2xl mt-8  h-[58px]  w-[90vw] md:w-[440px]  `}
+                } flex  font-sans font-semibold text-[18px] placeholder:text-[16px] placeholder:font-normal placeholder:text-end px-5 flex-col outline-none focus:ring-2 duration-150 focus:ring-btn justify-center text-textLight dark:text-textDark bg-white dark:bg-[#323645] shadow-md  my-1 rounded-2xl mt-8  h-[58px]  w-[90vw] md:w-[440px]  `}
               />
               {Formik.errors.mobile && Formik.touched.mobile && (
                 <div className="text-red-600 text-sm font-bold mx-4 ">

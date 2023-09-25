@@ -36,7 +36,7 @@ const SingupForm = ({
                   placeholder="نام خود را وارد کنید"
                   className={` ${
                     loadingButton && "cursor-not-allowed"
-                  } flex  px-5 flex-col outline-none focus:ring-2 duration-150 focus:ring-btn justify-center text-textLight dark:text-textDark bg-white dark:bg-[#323645] shadow-md  my-1 rounded-2xl mt-5  h-[58px] w-[90vw] md:w-[212px]  `}
+                  } flex  placeholder:font-sans  placeholder:text-[15px] placeholder:font-semibold  px-5 flex-col outline-none focus:ring-2 duration-150 focus:ring-btn justify-center text-textLight dark:text-textDark bg-white dark:bg-[#323645] shadow-md  my-1 rounded-2xl mt-5  h-[58px] w-[90vw] md:w-[212px]  `}
                 />
                 {Formik.errors.firstName && Formik.touched.firstName && (
                   <div className="text-red-600 text-sm font-bold mx-4 ">
@@ -52,7 +52,7 @@ const SingupForm = ({
                   placeholder="نام خانوادگی خود را وارد کنید"
                   className={` ${
                     loadingButton && "cursor-not-allowed"
-                  } flex  px-5 flex-col outline-none focus:ring-2 duration-150 focus:ring-btn justify-center text-textLight dark:text-textDark bg-white dark:bg-[#323645] shadow-md  my-1 rounded-2xl mt-5  h-[58px] w-[90vw] md:w-[220px]  `}
+                  } flex  placeholder:font-sans  placeholder:text-[15px] placeholder:font-semibold  px-5 flex-col outline-none focus:ring-2 duration-150 focus:ring-btn justify-center text-textLight dark:text-textDark bg-white dark:bg-[#323645] shadow-md  my-1 rounded-2xl mt-5  h-[58px] w-[90vw] md:w-[220px]  `}
                 />
                 {Formik.errors.lastName && Formik.touched.lastName && (
                   <div className="text-red-600 text-sm font-bold mx-4 ">
@@ -66,12 +66,12 @@ const SingupForm = ({
               <div>
                 <input
                   {...Formik.getFieldProps("nationalCode")}
-                  type="nationalCode"
+                  type="tel"
                   disabled={loadingButton && true}
                   placeholder="کد ملی خود را وارد کنید"
                   className={` ${
                     loadingButton && "cursor-not-allowed"
-                  } flex  px-5 flex-col outline-none focus:ring-2 duration-150 focus:ring-btn justify-center text-textLight dark:text-textDark bg-white dark:bg-[#323645] shadow-md  my-1 rounded-2xl mt-5  h-[58px]  w-[90vw] md:w-[440px]  `}
+                  } flex  placeholder:font-sans  placeholder:text-[15px] placeholder:font-semibold  px-5 flex-col outline-none focus:ring-2 duration-150 focus:ring-btn justify-center text-textLight dark:text-textDark bg-white dark:bg-[#323645] shadow-md  my-1 rounded-2xl mt-5  h-[58px]  w-[90vw] md:w-[440px]  `}
                 />
                 {Formik.errors.nationalCode && Formik.touched.nationalCode && (
                   <div className="text-red-600 text-sm font-bold mx-4 ">
@@ -84,12 +84,13 @@ const SingupForm = ({
               <div>
                 <input
                   {...Formik.getFieldProps("mobile")}
-                  type="phone"
+                  type="tel"
+                  dir="ltr"
                   disabled={loadingButton && true}
-                  placeholder="شماره موبایل خود را وارد کنید"
+                  placeholder="شماره موبایل خود را به انگلیسی وارد کنید"
                   className={` ${
                     loadingButton && "cursor-not-allowed"
-                  } flex  px-5 flex-col outline-none focus:ring-2 duration-150 focus:ring-btn justify-center text-textLight dark:text-textDark bg-white dark:bg-[#323645] shadow-md  my-1 rounded-2xl mt-5  h-[58px]  w-[90vw] md:w-[440px]  `}
+                  } flex  font-sans font-semibold text-[18px] placeholder:text-[15px] placeholder:font placeholder:text-end  px-5 flex-col outline-none focus:ring-2 duration-150 focus:ring-btn justify-center text-textLight dark:text-textDark bg-white dark:bg-[#323645] shadow-md  my-1 rounded-2xl mt-5  h-[58px]  w-[90vw] md:w-[440px]  `}
                 />
                 {Formik.errors.mobile && Formik.touched.mobile && (
                   <div className="text-red-600 text-sm font-bold mx-4 ">
@@ -107,7 +108,7 @@ const SingupForm = ({
                   placeholder="ایمیل خود را وارد کنید ( اختیای است)"
                   className={` ${
                     loadingButton && "cursor-not-allowed"
-                  } flex  px-5 flex-col outline-none focus:ring-2 duration-150 focus:ring-btn justify-center text-textLight dark:text-textDark bg-white dark:bg-[#323645] shadow-md  my-1 rounded-2xl mt-5  h-[58px]  w-[90vw] md:w-[440px]  `}
+                  } flex placeholder:font-sans  placeholder:text-[15px] placeholder:font-semibold  px-5 flex-col outline-none focus:ring-2 duration-150 focus:ring-btn justify-center text-textLight dark:text-textDark bg-white dark:bg-[#323645] shadow-md  my-1 rounded-2xl mt-5  h-[58px]  w-[90vw] md:w-[440px]  `}
                 />
                 {Formik.errors.email && Formik.touched.email && (
                   <div className="text-red-600 text-sm font-bold mx-4 ">
@@ -132,7 +133,7 @@ const SingupForm = ({
                     disabled={loadingButton && true}
                     className={` ${
                       loadingButton && "cursor-not-allowed"
-                    } flex  px-5 flex-col outline-none  duration-150  justify-center text-textLight dark:text-textDark bg-white dark:bg-[#323645] shadow-r-md  rounded-2xl h-[58px]  w-[90vw] md:w-[440px]  `}
+                    } flex font-sans  placeholder:text-[15px] placeholder:font-semibold px-5 flex-col outline-none  duration-150  justify-center text-textLight dark:text-textDark bg-white dark:bg-[#323645] shadow-r-md  rounded-2xl h-[58px]  w-[90vw] md:w-[440px]  `}
                   />
                   <div className=" flex  px-5  h-[58px] ">
                     {showPassword === "password" ? (
@@ -169,7 +170,7 @@ const SingupForm = ({
                     disabled={loadingButton && true}
                     className={` ${
                       loadingButton && "cursor-not-allowed"
-                    } flex  px-5 flex-col outline-none justify-center text-textLight dark:text-textDark bg-white dark:bg-[#323645] shadow-r-md rounded-2xl h-[58px] w-[440px] `}
+                    } flex  px-5 font-sans  placeholder:text-[15px] placeholder:font-semibold flex-col outline-none justify-center text-textLight dark:text-textDark bg-white dark:bg-[#323645] shadow-r-md rounded-2xl h-[58px] w-[440px] `}
                   />
                   <div className=" flex  px-5  h-[58px] ">
                     {showPassword === "confirm" ? (

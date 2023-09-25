@@ -19,11 +19,12 @@ const LoginForm = ({ Formik, loginUserHandler, loadingButton }) => {
               <input
                 {...Formik.getFieldProps("mobile")}
                 type="tel"
+                dir="ltr"
                 disabled={loadingButton && true}
-                placeholder="شماره موبایل خود را وارد کنید"
-                className={`flex  px-5 flex-col outline-none
+                placeholder="شماره موبایل خود را به انگلیسی وارد کنید"
+                className={`flex  px-5 flex-col font-sans text-[18px] placeholder:text-[16px] placeholder:font-normal placeholder:text-end font-semibold outline-none
          focus:ring-2 duration-150 focus:ring-btn justify-center
-          text-textLight dark:text-textDark bg-white
+          text-textLight dark:text-textDark bg-white 
            dark:bg-[#323645] shadow-md  my-1 rounded-2xl 
            mt-5  h-[58px] w-[90vw] md:w-[440px] ${
              loadingButton && "cursor-not-allowed"
@@ -51,7 +52,7 @@ const LoginForm = ({ Formik, loginUserHandler, loadingButton }) => {
                       placeholder="رمز عبور"
                       className={` ${
                         loadingButton && "cursor-not-allowed"
-                      } flex  w-full px-5 flex-col outline-none bg-transparent rounded-2xl justify-center text-textLight dark:text-textDark     h-[58px]`}
+                      } flex  w-full px-5 flex-col font-sans outline-none bg-transparent rounded-2xl justify-center text-textLight dark:text-textDark     h-[58px]`}
                     />
                   </div>
                 </div>

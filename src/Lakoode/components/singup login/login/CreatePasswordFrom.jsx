@@ -60,7 +60,7 @@ const CreatePasswordFrom = ({ Formik, email, history }) => {
               placeholder="رمز عبور جدید"
               className={`${
                 loadingButton && "cursor-not-allowed"
-              } flex  px-5 flex-col outline-none focus:ring-2 duration-150 focus:ring-btn justify-center text-textLight dark:text-textDark bg-white dark:bg-[#323645] shadow-md  my-1 rounded-2xl mt-5  h-[58px] w-[90vw] md:w-[440px] `}
+              } flex font-sans px-5 flex-col outline-none focus:ring-2 duration-150 focus:ring-btn justify-center text-textLight dark:text-textDark bg-white dark:bg-[#323645] shadow-md  my-1 rounded-2xl mt-5  h-[58px] w-[90vw] md:w-[440px] `}
             />
             <div className=" flex  relative h-[58px] inset-y-[20px] -inset-x-[35px]">
               {showPassword === "password" ? (
@@ -91,7 +91,7 @@ const CreatePasswordFrom = ({ Formik, email, history }) => {
               placeholder="تکرار رمز عبور"
               className={`${
                 loadingButton && "cursor-not-allowed"
-              } flex  px-5 flex-col outline-none focus:ring-2 duration-150 focus:ring-btn justify-center text-textLight dark:text-textDark bg-white dark:bg-[#323645] shadow-md  my-1 rounded-2xl mt-5  h-[58px] w-[90vw] md:w-[440px] `}
+              } flex  font-sans px-5 flex-col outline-none focus:ring-2 duration-150 focus:ring-btn justify-center text-textLight dark:text-textDark bg-white dark:bg-[#323645] shadow-md  my-1 rounded-2xl mt-5  h-[58px] w-[90vw] md:w-[440px] `}
             />
             <div className=" flex  relative h-[58px] inset-y-[20px] -inset-x-[35px]">
               {showPassword === "confirm" ? (
