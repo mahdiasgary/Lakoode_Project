@@ -55,10 +55,10 @@ const ForgotPasswordPage = ({ history, openMenu, setOpenMenu, login }) => {
 
   const sendEmailForForgotPasswordHandler = () => {
     axios
-      .get("https://api.lakoode.ir/api/Account/SendSmsForgotPassword", {
+      .get("https://localhost:7103/api/Account/SendSmsForgotPassword", {
         params: { mobile: Formik.values.mobile },
         headers: { "Content-Type": "application/json" },
-        withCredentials:true
+        withCredentials: true,
       })
       .then((res) => {
         setloadingButton(false);

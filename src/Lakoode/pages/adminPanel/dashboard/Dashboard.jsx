@@ -5,28 +5,45 @@ import { BsArrowDown } from "react-icons/bs";
 import Ritem from "./Ritem";
 import LoadingAdminListItem from "../../../common/LoadingAdminListItem";
 import { toast } from "react-toastify";
+import Pagenation from "../../../commom/Pagenation";
 
 const Dashboard = () => {
   const [dashData, setDash] = useState([]);
   const [data, setData] = useState();
-
-  const [IsActive, setIsActive] = useState(true);
+  const [IsActive, setIsActive] = useState(false);
   const [sort, setsort] = useState(["createdDate", true, true]);
   const [search, setSearch] = useState(["", "", ""]);
   const [state, setState] = useState("");
   const [villas, setvillas] = useState([]);
+  const [correctPage, setCorrectPage] = useState(1);
   useEffect(() => {
     axios
-      .get(`https://api.lakoode.ir/api/Admin/Reservation/GetAllReservedDays`, {
-        withCredentials: true,credentials: 'include', 
-        headers: { "Content-Type": "application/json" }
-      })
-      .then((r) => setData(r.data.data));
+      .get(
+        `https://localhost:7103/api/Admin/Reservation/GetAllReservedDays?startDate=${
+          search[1] !== "" ? search[1] : ""
+        }${search[1] !== "" ? "/" : ""}${
+          search[1] === "" ? "" : search[0] !== "" ? search[0] : 1
+        }${search[1] !== "" ? "/" : ""}${
+          search[1] !== "" ? 1 : ""
+        }&endDate=${search[1] !== "" ? search[1] : ""}${
+          search[1] !== "" ? "/" : ""
+        }${search[1] === "" ? "" : search[0] !== "" ? search[0] : 12}${
+          search[1] !== "" ? "/" : ""
+        }${search[1] !== "" ? 29 : ""}&searchKey=${
+          search[2]
+        }&page=${correctPage}`,
+        {
+          withCredentials: true,
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+        }
+      )
+      .then((r) => setData(r.data));
 
     axios
-      .get(`https://api.lakoode.ir/api/Admin/Villa/GetAll`, {
-        withCredentials: true, 
-        headers: { "Content-Type": "application/json" }
+      .get(`https://localhost:7103/api/Admin/Villa/GetAll`, {
+        withCredentials: true,
+        headers: { "Content-Type": "application/json" },
       })
       .then((r) => {
         setIsActive(r.data.data[0].ipG_IsActive);
@@ -34,34 +51,32 @@ const Dashboard = () => {
       });
 
     axios
-      .get("https://api.lakoode.ir/api/Admin/Home/AdminIndex", {
-        withCredentials: true, 
-        headers: { "Content-Type": "application/json" }
+      .get("https://localhost:7103/api/Admin/Home/AdminIndex", {
+        withCredentials: true,
+        headers: { "Content-Type": "application/json" },
       })
       .then((r) => {
         if (r.data.isSuccessFull) {
           setDash(r.data.data);
         }
       });
-  }, [state]);
+  }, [state, correctPage, search]);
 
-  let ww =
-    data &&
-    data.filter(
-      (item) =>
-        new Date(item.startDate.split("T")[0])
-          .toLocaleDateString("fa-IR-u-nu-latn")
-          .split("/")[1]
-          .includes(search[0]?.toString()) &&
-        new Date(item.startDate.split("T")[0])
-          .toLocaleDateString("fa-IR-u-nu-latn")
-          .split("/")[0]
-          .toString()
-          .includes(search[1]?.toString()) &&
-        (item?.orderNuumber).toString().includes(search[2]?.toString()) &&
-        item.isApproved
-    );
-  let www = data && data.filter((item) => !item.isApproved);
+  let ww = data?.data?.filter(
+    (item) =>
+      // new Date(item.startDate.split("T")[0])
+      //   .toLocaleDateString("fa-IR-u-nu-latn")
+      //   .split("/")[1]
+      //   .includes(search[0]?.toString()) &&
+      // new Date(item.startDate.split("T")[0])
+      //   .toLocaleDateString("fa-IR-u-nu-latn")
+      //   .split("/")[0]
+      //   .toString()
+      //   .includes(search[1]?.toString()) &&
+      // (item?.orderNuumber).toString().includes(search[2]?.toString()) &&
+      item.isApproved
+  );
+  let www = data && data.data?.filter((item) => !item.isApproved);
   const mounth = [
     [1, "فروردین"],
     [2, "اردیبهشت"],
@@ -82,10 +97,10 @@ const Dashboard = () => {
     formData.append("IsActive", arg);
     axios({
       method: "post",
-      withCredentials: true, 
+      withCredentials: true,
 
       headers: { "Content-Type": "multipart/form-data" },
-      url: "https://api.lakoode.ir/api/Admin/Villa/SetIPG",
+      url: "https://localhost:7103/api/Admin/Villa/SetIPG",
       data: formData,
     })
       .then(function (response) {
@@ -192,51 +207,6 @@ const Dashboard = () => {
               <div className="text-[17px] my-2 lg:self-center font-bold ">
                 رزرو های در انتظار تایید{" "}
               </div>
-              {/* <div className="flex">
-                <p className="self-center">رزرو های ثبت شده در ماه</p>
-                <select
-                  onChange={(e) =>
-                    setSearch([e.target.value, search[1], search[2]])
-                  }
-                  name=""
-                  id=""
-                  className="dark:bg-border text-center rounded-2xl mx-2 w-20 py-1 bg-white  dark:bg-opacity-40"
-                >
-                  <option value="">---</option>
-                  {mounth.map((m) => (
-                    <option key={m[0]} value={m[0]}>
-                      {m[1]}
-                    </option>
-                  ))}
-                </select>
-                <p className="self-center">سال</p>
-                <select
-                  name=""
-                  id=""
-                  onChange={(e) =>
-                    setSearch([search[0], e.target.value, search[2]])
-                  }
-                  className="dark:bg-border text-center rounded-2xl mx-2 w-20 py-1 bg-white  dark:bg-opacity-40"
-                >
-                  <option value="">---</option>
-                  {yyy.map((m) => (
-                    <option key={m[0]} value={m[0]}>
-                      {m}
-                    </option>
-                  ))}
-                </select>
-              </div> */}
-              {/* <div>
-                <input
-                  // value={search}
-                  onChange={(e) =>
-                    setSearch([search[0], search[1], e.target.value])
-                  }
-                  type="text"
-                  placeholder="جستجوی کد رهگیری..."
-                  className="h-[45px] w-[220px] rounded-2xl px-2 dark:bg-transparent border-2 dark:border-border outline-btn "
-                />
-              </div> */}
             </div>
           </div>
 
@@ -446,9 +416,16 @@ const Dashboard = () => {
                   ))}
                 </tbody>
               </table>
+
               {ww?.length === 0 && (
                 <p className="text-center py-5 ">موردی یافت نشد :(</p>
               )}
+              <Pagenation
+                item={"رزرو ها "}
+                correctPage={correctPage}
+                totalCount={data?.data?.filter(r=>r.isApproved).length}
+                setCorrectPage={setCorrectPage}
+              />
               {!ww && <LoadingAdminListItem />}
             </div>
           </div>

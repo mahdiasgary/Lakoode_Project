@@ -67,9 +67,9 @@ const Vw = ({
     axios({
       method: "post",
       withCredentials: true,
-      credentials: 'include', 
+      credentials: "include",
       headers: { "Content-Type": "application/json" },
-      url:"https://api.lakoode.ir/api/Account/ActiveAccount",
+      url: "https://localhost:7103/api/Account/ActiveAccount",
       data: {
         mobile: userEmail,
         otpCode:
@@ -164,7 +164,7 @@ const Vw = ({
                   onClick={() => {
                     setCounter(120);
                     axios
-                      .get("https://api.lakoode.ir/api/Account/ActiveAccount", {
+                      .get("https://localhost:7103/api/Account/ActiveAccount", {
                         params: { mobile: userEmail },
                       })
                       .then((res) => {

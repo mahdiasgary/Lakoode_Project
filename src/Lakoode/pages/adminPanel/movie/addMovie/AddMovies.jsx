@@ -182,7 +182,7 @@ const AddMovies = ({ history, from, user }) => {
         method: "Post",
         withCredentials: true,
         headers: { "Content-Type": "multipart/form-data" },
-        url: `https://api.lakoode.ir/api/Admin/Villa/Edit/${user?.id}`,
+        url: `https://localhost:7103/api/Admin/Villa/Edit/${user?.id}`,
         data: formData2,
       })
         .then(function (response) {
@@ -200,7 +200,7 @@ const AddMovies = ({ history, from, user }) => {
       axios({
         withCredentials: true,
         method: "post",
-        url: "https://api.lakoode.ir/api/Admin/Villa/Create",
+        url: "https://localhost:7103/api/Admin/Villa/Create",
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       }).then(function (response) {

@@ -12,8 +12,9 @@ const Resevation = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
     axios
-      .get("https://api.lakoode.ir/api/Admin/Villa/GetAll", {
-        withCredentials: true,headers: { "Content-Type": "application/json" }
+      .get("https://localhost:7103/api/Admin/Villa/GetAll", {
+        withCredentials: true,
+        headers: { "Content-Type": "application/json" },
       })
       .then((r) => {
         setData(r.data);
@@ -27,8 +28,9 @@ const Resevation = () => {
   const [villaInf, setvillaInf] = useState();
   useEffect(() => {
     axios
-      .get(`https://api.lakoode.ir/api/Admin/Villa/Get?Id=${id}`, {
-        withCredentials: true,headers: { "Content-Type": "application/json" }
+      .get(`https://localhost:7103/api/Admin/Villa/Get?Id=${id}`, {
+        withCredentials: true,
+        headers: { "Content-Type": "application/json" },
       })
       .then((res) => {
         setvillaInf(res.data.data);
@@ -56,7 +58,7 @@ const Resevation = () => {
         method: "post",
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
-        url: `https://api.lakoode.ir/api/Admin/Reservation/GetPricedDays?villaId=${id}&month=${rangeDays.m}&year=${year}`,
+        url: `https://localhost:7103/api/Admin/Reservation/GetPricedDays?villaId=${id}&month=${rangeDays.m}&year=${year}`,
       }).then(function (response) {
         setDayPrice(response.data.data);
       });
@@ -119,7 +121,7 @@ const Resevation = () => {
     axios({
       withCredentials: true,
       method: "post",
-      url: "https://api.lakoode.ir/api/Admin/Reservation/ReserveVillaViaAdmin",
+      url: "https://localhost:7103/api/Admin/Reservation/ReserveVillaViaAdmin",
       data: fromData,
       headers: { "Content-Type": "multipart/form-data" },
     }).then(function (r) {

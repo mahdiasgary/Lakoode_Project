@@ -17,8 +17,9 @@ const PriceMake = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
     axios
-      .get("https://api.lakoode.ir/api/Admin/Villa/GetAll/", {
-        withCredentials: true,headers: { "Content-Type": "application/json" }
+      .get("https://localhost:7103/api/Admin/Villa/GetAll/", {
+        withCredentials: true,
+        headers: { "Content-Type": "application/json" },
       })
       .then((r) => {
         setData(r.data);
@@ -57,7 +58,7 @@ const PriceMake = () => {
       withCredentials: true,
       headers: { "Content-Type": "application/json" },
       method: "post",
-      url: `https://api.lakoode.ir/api/Admin/Reservation/AddPriceToDays`,
+      url: `https://localhost:7103/api/Admin/Reservation/AddPriceToDays`,
       data: {
         villaId: villa,
         days: seletedDays,
@@ -85,7 +86,7 @@ const PriceMake = () => {
       withCredentials: true,
       headers: { "Content-Type": "application/json" },
       method: "post",
-      url: `https://api.lakoode.ir/api/Admin/Reservation/UpdatePricedDays`,
+      url: `https://localhost:7103/api/Admin/Reservation/UpdatePricedDays`,
       data: {
         villaId: villa,
         day: rangeDaysForUpdate.day,

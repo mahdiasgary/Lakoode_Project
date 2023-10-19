@@ -28,7 +28,7 @@ const UserProfile = ({ history }) => {
           withCredentials: true,
           headers: { "Content-Type": "application/json" },
           method: "post",
-          url: `https://api.lakoode.ir/api/Account/SignOut`,
+          url: `https://localhost:7103/api/Account/SignOut`,
         }).then((r) => window.location.reload());
       }
       // console.log(r)
@@ -78,10 +78,12 @@ const UserProfile = ({ history }) => {
                 نام و نام خانوادگی
               </legend>
               <div className="flex justify-between mb-1 ">
-                <p className="self-center pl-3">{userInfo?.name+" " +userInfo?.lastName}</p>
+                <p className="self-center pl-3">
+                  {userInfo?.name + " " + userInfo?.lastName}
+                </p>
               </div>
             </fieldset>
-          
+
             <fieldset
               className={`flex flex-col justify-center border-b dark:rounded-none rounded-xl border-[#787f98] border-opacity-40 duration-150 shadow-md  my-1 px-1  h-[73px]  w-full  md:w-[300px] `}
             >
@@ -136,7 +138,6 @@ const UserProfile = ({ history }) => {
               </legend>
               <div className="flex justify-between mb-1 ">
                 <p className="self-center pl-3">
-                  
                   {new Date(userInfo?.createdDate).toLocaleDateString("fa")}
                 </p>
               </div>
@@ -146,16 +147,15 @@ const UserProfile = ({ history }) => {
                     
                        my-1 px-1  h-[73px]  w-full  md:w-[300px] `}
             >
-            <Link to={"/forgotpassword"}>
-            <div
-              className={`flex flex-col cursor-pointer hover:bg-blue-800 text-center justify-center bg-btn text-white  rounded-[30px]
+              <Link to={"/forgotpassword"}>
+                <div
+                  className={`flex flex-col cursor-pointer hover:bg-blue-800 text-center justify-center bg-btn text-white  rounded-[30px]
                     border-[#787f98] border-opacity-40 
                      duration-150 shadow-md  my-1 px-1  h-[73px]  w-full  md:w-[300px] `}
-            >
-              تغییر رمز عبور
-            </div>
-          </Link>
-            
+                >
+                  تغییر رمز عبور
+                </div>
+              </Link>
             </fieldset>
           </div>
         </div>

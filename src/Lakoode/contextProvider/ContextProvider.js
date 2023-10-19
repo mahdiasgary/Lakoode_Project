@@ -8,7 +8,7 @@ const StateContext = createContext();
 
 export const ContextProvider = ({ children }) => {
   const [screenSize, setScreenSize] = useState(undefined);
-  const [IsDarkMode, setIsDarkMode] = useState(true);
+  const [IsDarkMode, setIsDarkMode] = useState(false);
   const [activeMenu, setActiveMenu] = useState(true);
   const [rtl, setRtl] = useState(false);
   const [userProfile, setUserProfile] = useState(false);
@@ -24,12 +24,12 @@ export const ContextProvider = ({ children }) => {
   useEffect(() => {
     const screenMode = localStorage.getItem("DarkMode");
     setIsDarkMode();
-    if (screenMode === "light") {
-      document.documentElement.classList.remove("dark");
-      setIsDarkMode(false);
-    } else {
+    if (screenMode === "dark") {
       document.documentElement.classList.add("dark");
       setIsDarkMode(true);
+    } else {
+      document.documentElement.classList.remove("dark");
+      setIsDarkMode(false);
     }
   }, []);
 
@@ -46,36 +46,40 @@ export const ContextProvider = ({ children }) => {
   const setMode = (prob) => {
     setIsDarkMode(prob);
   };
-  const [loginStatus, setloginStatus] = useState([false,'']);
-  const [AdminStatus, setAdminStatus] = useState(false);
+  const [loginStatus, setloginStatus] = useState([false, ""]);
+  const [AdminStatus, setAdminStatus] = useState(0);
 
-const [state,setState]=useState(false)
+  const [state, setState] = useState(false);
 
-useEffect(()=>{
-  axios
-    .get("https://api.lakoode.ir/api/Account/Login", { withCredentials: true ,headers: { "Content-Type": "application/json" }})
-    .then((r) => {
-      if (r.data.isSuccessFull) {
-        setloginStatus([true,r.data.data]);       
-      }
-      if (!r.data.isSuccessFull) {
-        setloginStatus([false,'']);
-      }
-    });
-
+  useEffect(() => {
+    axios
+      .get("https://localhost:7103/api/Account/Login", {
+        withCredentials: true,
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((r) => {
+        if (r.data.isSuccessFull) {
+          setloginStatus([true, r.data.data]);
+        }
+        if (!r.data.isSuccessFull) {
+          setloginStatus([false, ""]);
+        }
+      });
 
     axios
-    .get("https://api.lakoode.ir/api/Admin/Home/AdminIndex", { withCredentials: true ,headers: { "Content-Type": "application/json" }})
-    .then((r) => {
-      if (r.data.isSuccessFull) {
-        setAdminStatus(true);       
-      }
-      if (!r.data.isSuccessFull) {
-        setAdminStatus(false);
-      }
-    });
-
-},[state])
+      .get("https://localhost:7103/api/Admin/Home/AdminIndex", {
+        withCredentials: true,
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((r) => {
+        if (r.data.isSuccessFull) {
+          setAdminStatus(1);
+        }
+        if (!r.data.isSuccessFull) {
+          setAdminStatus(-1);
+        }
+      });
+  }, [state]);
   return (
     <StateContext.Provider
       value={{

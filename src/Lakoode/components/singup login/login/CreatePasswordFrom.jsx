@@ -18,7 +18,7 @@ const CreatePasswordFrom = ({ Formik, email, history }) => {
     axios({
       method: "post",
       headers: { "Content-Type": "application/json" },
-      url: "https://api.lakoode.ir/api/Account/SubmitPassword",
+      url: "https://localhost:7103/api/Account/SubmitPassword",
       data: {
         mobile: email,
         password: Formik.values.newPassword,

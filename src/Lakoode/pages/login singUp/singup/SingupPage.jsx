@@ -13,7 +13,7 @@ import { useStateContext } from "../../../contextProvider/ContextProvider";
 import { withRouter } from "react-router-dom";
 
 const SingupPage = ({ setOpenMenu, from, openMenu, history }) => {
-  const { loginStatus,setState } = useStateContext();
+  const { loginStatus, setState } = useStateContext();
   if (loginStatus[0]) history.push("/user");
 
   const [useRegisterUser] = useRegisterUserMutation();
@@ -59,10 +59,11 @@ const SingupPage = ({ setOpenMenu, from, openMenu, history }) => {
     setLoadingButton(true);
     setUserEmail(Formik.values.mobile);
     axios({
-      withCredentials: true,credentials: 'include', 
+      withCredentials: true,
+      credentials: "include",
       headers: { "Content-Type": "application/json" },
       method: "post",
-      url: "https://api.lakoode.ir/api/Account/Register",
+      url: "https://localhost:7103/api/Account/Register",
       data: {
         name: Formik.values.firstName,
         lastName: Formik.values.lastName,

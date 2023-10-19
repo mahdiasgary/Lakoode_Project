@@ -3,6 +3,7 @@ import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import UsersItem from "./UsersItem";
 import { BsArrowDown } from "react-icons/bs";
+import { FiArrowLeft } from "react-icons/fi";
 
 import {
   useGetUsersListInAdminPanelQuery,
@@ -12,31 +13,62 @@ import { withRouter } from "react-router-dom";
 import LoadingAdminListItem from "../../../common/LoadingAdminListItem";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Pagenation from "../../../commom/Pagenation";
 // import ToolTip from "../../../common/ToolTip";
 const Users = ({ history }) => {
   // const { data, isFetching, isLoading, error } =
   // useGetUsersListInAdminPanelQuery();
   const [data, setData] = useState();
   const [data2, setData2] = useState([]);
-
+  console.log(data);
   const [removeUser] = useRemoveUserMutation();
   const [sort, setsort] = useState(["createdDate", true, true]);
   const [search, setSearch] = useState("");
   const [takj, settakh] = useState("");
   const [mobileTaKH, setmobileTaKH] = useState("");
 
+  const [correctPage, setCorrectPage] = useState(1);
+ 
+
   useEffect(() => {
     axios
-      .get("https://api.lakoode.ir/api/Admin/User/GetUserList", {
-        withCredentials: true,headers: { "Content-Type": "application/json" }
-      })
-      .then((r) => setData(r.data.data));
-    axios
-      .get("https://api.lakoode.ir/api/Admin/User/GetDisabledUserList", {
-        withCredentials: true,headers: { "Content-Type": "application/json" }
+      .get("https://localhost:7103/api/Admin/User/GetDisabledUserList", {
+        withCredentials: true,
+        headers: { "Content-Type": "application/json" },
       })
       .then((r) => setData2(r.data.data));
-  }, []);
+  
+      axios
+        .get(
+          `https://localhost:7103/api/Admin/User/GetUserList?searchKey=${search}&page=${correctPage}`,
+          {
+            withCredentials: true,
+            headers: { "Content-Type": "application/json" },
+          }
+        )
+        .then((r) => setData(r.data));
+    
+  }, [correctPage]);
+  useEffect(() => {
+    axios
+      .get("https://localhost:7103/api/Admin/User/GetDisabledUserList", {
+        withCredentials: true,
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((r) => setData2(r.data.data));
+  
+      axios
+        .get(
+          `https://localhost:7103/api/Admin/User/GetUserList?searchKey=${search}&page=${correctPage}`,
+          {
+            withCredentials: true,
+            headers: { "Content-Type": "application/json" },
+          }
+        )
+        .then((r) => setData(r.data));
+    
+  }, [search]);
+
   const disscountHand = () => {
     const formData = new FormData();
     formData.append("Mobile", mobileTaKH);
@@ -46,7 +78,7 @@ const Users = ({ history }) => {
       method: "post",
       withCredentials: true,
       headers: { "Content-Type": "multipart/form-data" },
-      url: `https://api.lakoode.ir/api/Admin/User/SendMessage`,
+      url: `https://localhost:7103/api/Admin/User/SendMessage`,
       data: formData,
     })
       .then(function (response) {
@@ -66,6 +98,8 @@ const Users = ({ history }) => {
         });
       });
   };
+
+  // Math.ceil(data?.totalCount / 10)
   return (
     <div className=" w-full min-h-screen">
       <div className="flex justify-center lg:justify-start  lg:px-16  mt-20 mb-2">
@@ -159,12 +193,12 @@ const Users = ({ history }) => {
             </thead>
 
             <tbody className="px-5 rounded-3xl">
-              {data &&
+              {data?.data &&
                 data2 &&
-                [...data.concat(data2)]
-                  .filter((item) =>
-                    (item?.nationalCode).toString().includes(search.toString())
-                  )
+                [...data?.data.concat(data2)]
+                  // .filter((item) =>
+                  //   (item?.nationalCode).toString().includes(search.toString())
+                  // )
                   .sort((date1, date2) =>
                     !sort[1]
                       ? new Date(date1.createdDate.split("T")[0]) -
@@ -182,6 +216,8 @@ const Users = ({ history }) => {
                   ))}
             </tbody>
           </table>
+         
+          <Pagenation item={'کاربران'}  correctPage={correctPage} totalCount={data?.totalCount} setCorrectPage={setCorrectPage}/>
           {!data && <LoadingAdminListItem />}
         </div>
       </div>

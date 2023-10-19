@@ -6,9 +6,9 @@ const MainTilt = ({ selectetOpt, priceRoom, priceRange }) => {
   const [data, setData] = useState();
   useEffect(() => {
     axios
-      .get("https://api.lakoode.ir/api/Home/GetAll", {
-        withCredentials: true, 
-        headers: { "Content-Type": "application/json" }
+      .get("https://localhost:7103/api/Home/GetAll", {
+        withCredentials: true,
+        headers: { "Content-Type": "application/json" },
       })
       .then((r) => {
         setData(r.data);
@@ -40,7 +40,7 @@ const MainTilt = ({ selectetOpt, priceRoom, priceRange }) => {
 
   return (
     <div className="dark:text-white mb-72 text-[16px] relative mt-36 -top-24  md:top-0 ">
-     <div className="flex justify-center ">
+      <div className="flex justify-center ">
         <div className="flex  bg-opacity-50 w-[100vw] md:w-[90vw] flex-col justify-between rounded-3xl">
           <div className="flex justify-center ">
             {ww?.length === 0 ? (

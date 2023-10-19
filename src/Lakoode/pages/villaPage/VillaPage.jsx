@@ -38,7 +38,7 @@ const VillaPagee = () => {
     year: "numeric",
   };
   const [loadingButton, setLoadingButton] = useState(false);
-const{loginStatus}=useStateContext()
+  const { loginStatus } = useStateContext();
   let nowYear = new Date().toLocaleDateString("fa-IR-u-nu-latn", optionsY);
   const [year, setyear] = useState(nowYear);
   let id = useHistory()?.location.state.id;
@@ -46,9 +46,9 @@ const{loginStatus}=useStateContext()
   const [villaInf, setvillaInf] = useState();
   useEffect(() => {
     axios
-      .get(`https://api.lakoode.ir/api/Home/GetVilla?Id=${id}`, {
+      .get(`https://localhost:7103/api/Home/GetVilla?Id=${id}`, {
         withCredentials: true,
-        headers: { "Content-Type": "application/json" }
+        headers: { "Content-Type": "application/json" },
       })
       .then((res) => {
         setvillaInf(res.data.data);
@@ -80,7 +80,7 @@ const{loginStatus}=useStateContext()
         withCredentials: true,
         headers: { "Content-Type": "application/json" },
         method: "post",
-        url: `https://api.lakoode.ir/api/Home/GetCalender?villaId=${id}&month=${
+        url: `https://localhost:7103/api/Home/GetCalender?villaId=${id}&month=${
           rangeDays.f.shamsiDate?.split("/")[1]
         }&year=${rangeDays.f.shamsiDate?.split("/")[0]}`,
       }).then(function (response) {
@@ -94,7 +94,7 @@ const{loginStatus}=useStateContext()
           withCredentials: true,
           headers: { "Content-Type": "application/json" },
           method: "post",
-          url: `https://api.lakoode.ir/api/Home/GetCalender?villaId=${id}&month=${
+          url: `https://localhost:7103/api/Home/GetCalender?villaId=${id}&month=${
             rangeDays.s.shamsiDate?.split("/")[1]
           }&year=${rangeDays.s.shamsiDate?.split("/")[0]}`,
         }).then(function (response) {
@@ -178,7 +178,7 @@ const{loginStatus}=useStateContext()
       method: "post",
       withCredentials: true,
       headers: { "Content-Type": "multipart/form-data" },
-      url: "https://api.lakoode.ir/api/Home/CheckDisscount",
+      url: "https://localhost:7103/api/Home/CheckDisscount",
       data: formData,
     })
       .then(function (response) {
@@ -232,7 +232,7 @@ const{loginStatus}=useStateContext()
       method: "post",
       withCredentials: true,
       headers: { "Content-Type": "multipart/form-data" },
-      url: "https://api.lakoode.ir/api/Home/SubmitReservation",
+      url: "https://localhost:7103/api/Home/SubmitReservation",
       data: formData,
     })
       .then(function (response) {
@@ -734,14 +734,14 @@ const{loginStatus}=useStateContext()
                           onClick={() =>
                             setImg([
                               true,
-                              `https://api.lakoode.ir/api/Home/GetImageInIndex?imageName=${item?.imageName}`,
+                              `https://localhost:7103/api/Home/GetImageInIndex?imageName=${item?.imageName}`,
                               img[2],
                             ])
                           }
                           className=" h-[270px] cursor-pointer flex justify-center md:h-[350px] x:h-[50vh] max-w-[700px] x:max-w-[58vw] flex dark:bg-transparent  bg-black bg-opacity-70 text-textDark rounded-3xl "
                         >
                           <img
-                            src={`https://api.lakoode.ir/api/Home/GetImageInIndex?imageName=${item?.imageName}`}
+                            src={`https://localhost:7103/api/Home/GetImageInIndex?imageName=${item?.imageName}`}
                             alt=""
                             className="rounded-3xl"
                           />
@@ -755,11 +755,11 @@ const{loginStatus}=useStateContext()
                     onClick={() =>
                       setImg([
                         true,
-                        `https://api.lakoode.ir/api/Home/GetImageInIndex?imageName=${villaInf?.images[1]?.imageName}`,
+                        `https://localhost:7103/api/Home/GetImageInIndex?imageName=${villaInf?.images[1]?.imageName}`,
                         img[2],
                       ])
                     }
-                    src={`https://api.lakoode.ir/api/Home/GetImageInIndex?imageName=${villaInf?.images[1]?.imageName}`}
+                    src={`https://localhost:7103/api/Home/GetImageInIndex?imageName=${villaInf?.images[1]?.imageName}`}
                     alt=""
                     className="rounded-3xl w-[47vw] cursor-pointer h-[150px] sm:h-[160px] md:h-[170px] lg:h-[182px] sm:w-[48vw] md:w-[35vw] lg:w-[21vw] xl:w-[24vw]"
                   />
@@ -768,11 +768,11 @@ const{loginStatus}=useStateContext()
                     onClick={() =>
                       setImg([
                         true,
-                        `https://api.lakoode.ir/api/Home/GetImageInIndex?imageName=${villaInf?.images[2]?.imageName}`,
+                        `https://localhost:7103/api/Home/GetImageInIndex?imageName=${villaInf?.images[2]?.imageName}`,
                         img[2],
                       ])
                     }
-                    src={`https://api.lakoode.ir/api/Home/GetImageInIndex?imageName=${villaInf?.images[2]?.imageName}`}
+                    src={`https://localhost:7103/api/Home/GetImageInIndex?imageName=${villaInf?.images[2]?.imageName}`}
                     alt=""
                     className="rounded-3xl w-[42vw] cursor-pointer h-[150px] lg:h-[182px] sm:h-[160px] md:h-[170px]  md:w-[35vw] lg:w-[21vw] xl:w-[24vw]"
                   />

@@ -27,13 +27,13 @@ const AdminPage = ({ history }) => {
   }, [history.location.pathname]);
   const [admin, setAdmin] = useState();
   useEffect(() => {
-   if(!loginStatus[0] || !AdminStatus) history.push("/");
+   if( AdminStatus===-1) history.push("/");
 
 
      
   }, []);
   return (
-    AdminStatus && (
+    AdminStatus===1 ? (
       <div
         className={`dark:text-textDark text-textLight  
     ${IsDarkMode ? "gradient-06" : "lightTheme"} `}
@@ -111,7 +111,7 @@ const AdminPage = ({ history }) => {
           </div>
         </div>
       </div>
-    )
+    ) : 'صبر کنید'
   );
 };
 

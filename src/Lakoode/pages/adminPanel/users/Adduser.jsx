@@ -7,7 +7,6 @@ import { toast } from "react-toastify";
 import { withRouter } from "react-router-dom";
 
 const Adduser = ({ history }) => {
-
   const [loadingButton, setLoadingButton] = useState(false);
 
   const initialValues = {
@@ -36,7 +35,7 @@ const Adduser = ({ history }) => {
       method: "post",
       withCredentials: true,
       headers: { "Content-Type": "application/json" },
-      url: "https://api.lakoode.ir/api/Admin/User/CreateUser",
+      url: "https://localhost:7103/api/Admin/User/CreateUser",
       data: {
         name: Formik.values.firstName,
         lastName: Formik.values.lastName,
@@ -171,7 +170,7 @@ const Adduser = ({ history }) => {
                         ></path>
                       </svg>
                     </div>
-                    <p  className="px-2">صبور باشید ...</p>
+                    <p className="px-2">صبور باشید ...</p>
                   </div>
                 </button>
               ) : (

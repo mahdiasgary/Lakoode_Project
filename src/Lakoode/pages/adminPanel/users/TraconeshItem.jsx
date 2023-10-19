@@ -24,7 +24,7 @@ const TraconechItem = ({ user }) => {
         axios({
           withCredentials: true,
           method: "post",
-          url: "https://api.lakoode.ir/api/Admin/Reservation/DeleteResavationByAdmin",
+          url: "https://localhost:7103/api/Admin/Reservation/DeleteResavationByAdmin",
           data: formData,
           headers: { "Content-Type": "multipart/form-data" },
         }).then((res) => {

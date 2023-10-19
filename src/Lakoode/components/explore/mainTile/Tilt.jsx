@@ -33,7 +33,7 @@ const Tiltt = ({ villa, defaultOptions }) => {
               <div className="relative">
                 <img
                   className="rounded-t-3xl w-full h-[220px]"
-                  src={`https://api.lakoode.ir/api/Home/GetImageInIndex?imageName=${villa?.images[0].imageName}`}
+                  src={`https://localhost:7103/api/Home/GetImageInIndex?imageName=${villa?.images[0].imageName}`}
                   alt="لاکوده"
                 />
                 <div

@@ -26,9 +26,9 @@ const Ritem = ({ user, setState }) => {
         const formData = new FormData();
         formData.append("reservationId", user.id);
         axios({
-          withCredentials: true, 
+          withCredentials: true,
           method: "post",
-          url: "https://api.lakoode.ir/api/Admin/Reservation/DeleteResavationByAdmin",
+          url: "https://localhost:7103/api/Admin/Reservation/DeleteResavationByAdmin",
           data: formData,
           headers: { "Content-Type": "multipart/form-data" },
         }).then(function (response) {
@@ -61,7 +61,7 @@ const Ritem = ({ user, setState }) => {
           method: "post",
           withCredentials: true,
           headers: { "Content-Type": "multipart/form-data" },
-          url: `https://api.lakoode.ir/api/Admin/Reservation/ApproveReservation`,
+          url: `https://localhost:7103/api/Admin/Reservation/ApproveReservation`,
           data: formData,
         })
           .then(function (response) {

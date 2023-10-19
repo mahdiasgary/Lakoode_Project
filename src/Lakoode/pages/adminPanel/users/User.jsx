@@ -13,8 +13,11 @@ const User = () => {
     axios
 
       .get(
-        `https://api.lakoode.ir/api/Admin/User/GetUserDetail?mobile=${usermobile}`,
-        { withCredentials: true ,headers: { "Content-Type": "application/json" }}
+        `https://localhost:7103/api/Admin/User/GetUserDetail?mobile=${usermobile}`,
+        {
+          withCredentials: true,
+          headers: { "Content-Type": "application/json" },
+        }
       )
       .then((r) => setData(r.data.data));
   }, []);

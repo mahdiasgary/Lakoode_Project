@@ -63,7 +63,7 @@ const CalandreD = ({
       withCredentials: true,
       headers: { "Content-Type": "application/json" },
       method: "post",
-      url: `https://api.lakoode.ir/api/Home/GetCalender?villaId=${villa}&month=${mounth[0]}&year=${year}`,
+      url: `https://localhost:7103/api/Home/GetCalender?villaId=${villa}&month=${mounth[0]}&year=${year}`,
     }).then(function (response) {
       let oo = response.data.data[0].date.split("T")[0].toString();
       let nowweekk = new Date(oo).toLocaleDateString(

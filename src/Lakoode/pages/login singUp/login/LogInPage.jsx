@@ -11,7 +11,7 @@ import { useStateContext } from "../../../contextProvider/ContextProvider";
 import Navbar from "../../../components/navbar/Navbar";
 import axios from "axios";
 const LogInPage = ({ history, openMenu, setOpenMenu }) => {
-  const { loginStatus,setState } = useStateContext();
+  const { loginStatus, setState } = useStateContext();
   if (loginStatus[0]) history.push("/user");
 
   const [userEmail, setUserEmail] = useState("");
@@ -38,10 +38,10 @@ const LogInPage = ({ history, openMenu, setOpenMenu }) => {
     setLoadingButton(true);
     axios({
       method: "post",
-      withCredentials: true, 
-      credentials: 'include', 
+      withCredentials: true,
+      credentials: "include",
       headers: { "Content-Type": "application/json" },
-      url: "https://api.lakoode.ir/api/Account/Login",
+      url: "https://localhost:7103/api/Account/Login",
       data: {
         mobile: Formik.values.mobile,
         password: Formik.values.password,
@@ -60,7 +60,7 @@ const LogInPage = ({ history, openMenu, setOpenMenu }) => {
         }
         if (res.data.isSuccessFull && res.data.status === "SuccessLogin") {
           history.push("/");
-          setState(7)
+          setState(7);
           toast.success(res.data.message, {
             autoClose: 2100,
             position: "top-left",
@@ -72,8 +72,12 @@ const LogInPage = ({ history, openMenu, setOpenMenu }) => {
         ) {
           axios
             .get(
-              `https://api.lakoode.ir/api/Account/ActiveAccount?Mobile=${Formik.values.mobile}`
-            ,{withCredentials:true,headers: { "Content-Type": "application/json" }})
+              `https://localhost:7103/api/Account/ActiveAccount?Mobile=${Formik.values.mobile}`,
+              {
+                withCredentials: true,
+                headers: { "Content-Type": "application/json" },
+              }
+            )
             .then((res) => {
               setUserEmail(res.data.data);
               setSwichBetweenFormAndVerify(true);

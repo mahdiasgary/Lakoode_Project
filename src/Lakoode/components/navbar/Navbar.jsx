@@ -48,14 +48,14 @@ const Navbar = ({ from }) => {
           </div>
           <div className={` ${from === "login" && "hidden"}`}>
             {loginStatus[0] ? (
-              <Link to={`/${AdminStatus ? "admin" : "user"}`}>
+              <Link to={`/${AdminStatus===1 ? "admin" : "user"}`}>
                 <button
                   className={`px-2 lg:px-5 text-textDark py-2 self-center btn rounded-xl hover:bg-blue-800 hover:rounded-md duration-200 font-bold text-sm flex  `}
                 >
                   <span>
                     <FaUser className="" />
                   </span>
-                  <p className={``}>{AdminStatus ? "پنل ادمین" : "پروفایل"}</p>
+                  <p className={``}>{AdminStatus===1 ? "پنل ادمین" : "پروفایل"}</p>
                 </button>
               </Link>
             ) : (
@@ -85,14 +85,14 @@ const Navbar = ({ from }) => {
           </div>
           <div className={` `}>
             {loginStatus[0] ? (
-              <Link to={`/${AdminStatus ? "admin" : "user"}`}>
+              <Link to={`/${AdminStatus===1 ? "admin" : "user"}`}>
                 <button
                   className={`px-2 lg:px-10 text-textDark py-2 self-center btn rounded-xl hover:bg-blue-800 hover:rounded-md duration-200 font-bold text-sm flex  `}
                 >
                   <span className="self-center pl-1">
                     <FaUser className="" />
                   </span>
-                  <p className={``}>{AdminStatus ? "پنل ادمین" : "پروفایل"}</p>
+                  <p className={``}>{AdminStatus===1 ? "پنل ادمین" : "پروفایل"}</p>
                 </button>
               </Link>
             ) : (

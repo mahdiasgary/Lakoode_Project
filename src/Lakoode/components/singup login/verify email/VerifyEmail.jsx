@@ -15,7 +15,7 @@ const VerifyEmail = ({
   from,
   setSwichBetweenCreateAndVerify,
 }) => {
-const {setState} =useStateContext()
+  const { setState } = useStateContext();
   const [loadingButton, setLoadingButton] = useState(false);
   const itemsRef = useRef([]);
 
@@ -54,10 +54,10 @@ const {setState} =useStateContext()
     setLoadingButton(true);
     axios({
       withCredentials: true,
-      credentials: 'include', 
+      credentials: "include",
       headers: { "Content-Type": "application/json" },
       method: "post",
-      url: "https://api.lakoode.ir/api/Account/ActiveAccount",
+      url: "https://localhost:7103/api/Account/ActiveAccount",
       data: {
         mobile: userEmail,
         otpCode:
@@ -87,11 +87,11 @@ const {setState} =useStateContext()
           }
           if (from === "login") {
             setTimeout(() => history.push("/"), 800);
-            setState(8)
+            setState(8);
           }
           if (from === "singUp") {
             setTimeout(() => history.push("/"), 800);
-            setState(9)
+            setState(9);
           }
         }
       })
@@ -169,10 +169,10 @@ const {setState} =useStateContext()
                     axios
 
                       .get(
-                        `https://api.lakoode.ir/api/Account/ActiveAccount?mobile=${userEmail}`,
+                        `https://localhost:7103/api/Account/ActiveAccount?mobile=${userEmail}`,
                         {
                           withCredentials: true,
-                          headers: { "Content-Type": "application/json" }
+                          headers: { "Content-Type": "application/json" },
                         }
                       )
                       .then((res) => {

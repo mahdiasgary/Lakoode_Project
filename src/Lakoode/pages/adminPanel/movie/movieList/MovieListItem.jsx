@@ -15,7 +15,7 @@ const MovieListItem = ({ movie }) => {
       <td>
         <div className="flex justify-center px-2 group-hover:dark:bg-[#24272e] group-hover:bg-[#6d7077] duration-300 h-[64px] mt-1 ">
           <img
-            src={"https://api.lakoode.ir/images/" + movie?.image}
+            src={"https://localhost:7103/images/" + movie?.image}
             alt="ff"
             className="w-[40px] h-[40px] self-center rounded-[28%] "
           />

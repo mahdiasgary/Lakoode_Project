@@ -22,5 +22,5 @@ const AddFileItem = ({ quality,imgs,setImgs }) => {
     </div>
   );
 };
-
+ 
 export default AddFileItem;
